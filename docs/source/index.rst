@@ -21,7 +21,9 @@ Progress will be visible in the :literal:`develop` and other branches of this re
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Contents:
+   :caption: SDMX-ML:
 
-
+   sdmxml/v10
+   sdmxml/v20
+   sdmxml/v21
 
