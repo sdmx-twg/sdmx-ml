@@ -20,7 +20,7 @@ import os
 
 onRTD = os.environ.get('READTHEDOCS')
 rtdVersion = os.environ.get('READTHEDOCS_VERSION', 'latest')
-if rtdVersion not in ['stable', 'latest']:
+if rtdVersion not in ['stable', 'latest', 'develop']:
     rtdVersion = 'stable'
 
 
@@ -188,6 +188,6 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'sdmx': ('http://sdmx.readthedocs.io/en/%s/' % rtdVersion, None),
+    'sdmx': ('https://sdmx.readthedocs.io/en/%s/' % rtdVersion, None),
     'https://docs.python.org/': None
 }
