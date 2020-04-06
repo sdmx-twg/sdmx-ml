@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message ../../schemas/SDMXMessage.xsd">
+   <message:Header>
+      <message:ID>QUERY_GR_ALL_RESP</message:ID>
+      <message:Test>false</message:Test>
+      <message:Prepared>2010-11-23T08:00:33+01:00</message:Prepared>
+      <message:Sender id="ESTAT"/>
+   </message:Header>
+   <message:Structures>
+    <structure:Codelists>
+      <structure:Codelist id="CL_AREA" agencyID="ESTAT" version="1.0" isPartial="true">
+        <common:Name xml:lang="en">Area Codelist</common:Name>
+        <structure:Code id="GR">
+          <common:Name xml:lang="en">Greece</common:Name>
+        </structure:Code>
+        <structure:Code id="GR-A">
+          <common:Name xml:lang="en">Anatoliki Makedonia kai Thraki</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-52">
+          <common:Name xml:lang="en">Drama</common:Name>
+          <structure:Parent>
+            <Ref id="GR-A"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-55">
+          <common:Name xml:lang="en">Kavala</common:Name>
+          <structure:Parent>
+            <Ref id="GR-A"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-71">
+          <common:Name xml:lang="en">Evros</common:Name>
+          <structure:Parent>
+            <Ref id="GR-A"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-72">
+          <common:Name xml:lang="en">Xanthi</common:Name>
+          <structure:Parent>
+            <Ref id="GR-A"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-73">
+          <common:Name xml:lang="en">Rodopi</common:Name>
+          <structure:Parent>
+            <Ref id="GR-A"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-I">
+          <common:Name xml:lang="en">Attiki</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-A1">
+          <common:Name xml:lang="en">Attiki</common:Name>
+          <structure:Parent>
+            <Ref id="GR-I"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-G">
+          <common:Name xml:lang="en">Dytiki Ellada</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-01">
+          <common:Name xml:lang="en">Aitolia kai Akarnania</common:Name>
+          <structure:Parent>
+            <Ref id="GR-G"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-13">
+          <common:Name xml:lang="en">Achaïa</common:Name>
+          <structure:Parent>
+            <Ref id="GR-G"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-14">
+          <common:Name xml:lang="en">Ileia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-G"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-C">
+          <common:Name xml:lang="en">Dytiki Makedonia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-51">
+          <common:Name xml:lang="en">Grevena</common:Name>
+          <structure:Parent>
+            <Ref id="GR-C"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-56">
+          <common:Name xml:lang="en">Kastoria</common:Name>
+          <structure:Parent>
+            <Ref id="GR-C"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-58">
+          <common:Name xml:lang="en">Kozani</common:Name>
+          <structure:Parent>
+            <Ref id="GR-C"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-63">
+          <common:Name xml:lang="en">Florina</common:Name>
+          <structure:Parent>
+            <Ref id="GR-C"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-F">
+          <common:Name xml:lang="en">Ionia Nisia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-21">
+          <common:Name xml:lang="en">Zakynthos</common:Name>
+          <structure:Parent>
+            <Ref id="GR-F"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-22">
+          <common:Name xml:lang="en">Kerkyra</common:Name>
+          <structure:Parent>
+            <Ref id="GR-F"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-23">
+          <common:Name xml:lang="en">Kefallonia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-F"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-24">
+          <common:Name xml:lang="en">Lefkada</common:Name>
+          <structure:Parent>
+            <Ref id="GR-F"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-D">
+          <common:Name xml:lang="en">Ipeiros</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-31">
+          <common:Name xml:lang="en">Arta</common:Name>
+          <structure:Parent>
+            <Ref id="GR-D"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-32">
+          <common:Name xml:lang="en">Thesprotia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-D"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-33">
+          <common:Name xml:lang="en">Ioannina</common:Name>
+          <structure:Parent>
+            <Ref id="GR-D"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-34">
+          <common:Name xml:lang="en">Preveza</common:Name>
+          <structure:Parent>
+            <Ref id="GR-D"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-B">
+          <common:Name xml:lang="en">Kentriki Makedonia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-53">
+          <common:Name xml:lang="en">Imathia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-B"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-54">
+          <common:Name xml:lang="en">Thessaloniki</common:Name>
+          <structure:Parent>
+            <Ref id="GR-B"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-57">
+          <common:Name xml:lang="en">Kilkis</common:Name>
+          <structure:Parent>
+            <Ref id="GR-B"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-59">
+          <common:Name xml:lang="en">Pella</common:Name>
+          <structure:Parent>
+            <Ref id="GR-B"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-61">
+          <common:Name xml:lang="en">Pieria</common:Name>
+          <structure:Parent>
+            <Ref id="GR-B"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-62">
+          <common:Name xml:lang="en">Serres</common:Name>
+          <structure:Parent>
+            <Ref id="GR-B"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-64">
+          <common:Name xml:lang="en">Chalkidiki</common:Name>
+          <structure:Parent>
+            <Ref id="GR-B"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-M">
+          <common:Name xml:lang="en">Kriti</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-91">
+          <common:Name xml:lang="en">Irakleio</common:Name>
+          <structure:Parent>
+            <Ref id="GR-M"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-92">
+          <common:Name xml:lang="en">Lasithi</common:Name>
+          <structure:Parent>
+            <Ref id="GR-M"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-93">
+          <common:Name xml:lang="en">Rethymno</common:Name>
+          <structure:Parent>
+            <Ref id="GR-M"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-94">
+          <common:Name xml:lang="en">Chania</common:Name>
+          <structure:Parent>
+            <Ref id="GR-M"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-L">
+          <common:Name xml:lang="en">Notio Aigaio</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-81">
+          <common:Name xml:lang="en">Dodekanisos</common:Name>
+          <structure:Parent>
+            <Ref id="GR-L"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-82">
+          <common:Name xml:lang="en">Kyklades</common:Name>
+          <structure:Parent>
+            <Ref id="GR-L"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-J">
+          <common:Name xml:lang="en">Peloponnisos</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-11">
+          <common:Name xml:lang="en">Argolida</common:Name>
+          <structure:Parent>
+            <Ref id="GR-J"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-12">
+          <common:Name xml:lang="en">Arkadia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-J"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-15">
+          <common:Name xml:lang="en">Korinthia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-J"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-16">
+          <common:Name xml:lang="en">Lakonia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-J"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-17">
+          <common:Name xml:lang="en">Messinia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-J"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-H">
+          <common:Name xml:lang="en">Sterea Ellada</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-03">
+          <common:Name xml:lang="en">Voiotia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-H"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-04">
+          <common:Name xml:lang="en">Evvoia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-H"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-05">
+          <common:Name xml:lang="en">Evrytania</common:Name>
+          <structure:Parent>
+            <Ref id="GR-H"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-06">
+          <common:Name xml:lang="en">Fthiotida</common:Name>
+          <structure:Parent>
+            <Ref id="GR-H"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-07">
+          <common:Name xml:lang="en">Fokida</common:Name>
+          <structure:Parent>
+            <Ref id="GR-H"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-E">
+          <common:Name xml:lang="en">Thessalia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-41">
+          <common:Name xml:lang="en">Karditsa</common:Name>
+          <structure:Parent>
+            <Ref id="GR-E"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-42">
+          <common:Name xml:lang="en">Larisa</common:Name>
+          <structure:Parent>
+            <Ref id="GR-E"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-43">
+          <common:Name xml:lang="en">Magnisia</common:Name>
+          <structure:Parent>
+            <Ref id="GR-E"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-44">
+          <common:Name xml:lang="en">Trikala</common:Name>
+          <structure:Parent>
+            <Ref id="GR-E"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-K">
+          <common:Name xml:lang="en">Voreio Aigaio</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-83">
+          <common:Name xml:lang="en">Lesvos</common:Name>
+          <structure:Parent>
+            <Ref id="GR-K"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-84">
+          <common:Name xml:lang="en">Samos</common:Name>
+          <structure:Parent>
+            <Ref id="GR-K"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-85">
+          <common:Name xml:lang="en">Chios</common:Name>
+          <structure:Parent>
+            <Ref id="GR-K"/>
+          </structure:Parent>
+        </structure:Code>
+      </structure:Codelist>
+    </structure:Codelists>
+   </message:Structures>
+</message:Structure>

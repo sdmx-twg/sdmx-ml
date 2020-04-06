@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Copyright SDMX 2010  -  www.sdmx.org -->
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message ../../schemas/SDMXMessage.xsd">
+  <message:Header>
+    <message:ID>DEMO_STUB</message:ID>
+    <message:Test>false</message:Test>
+    <message:Prepared>2010-11-13T08:00:33+08:00</message:Prepared>
+    <message:Sender id="ESTAT"/>
+  </message:Header>
+  <message:Structures>
+    <structure:DataStructures>
+      <structure:DataStructure agencyID="ESTAT" id="DEMOGRAPHY" version="1.0">
+				<common:Name xml:lang="en">DEMOGRAPHY Data Structure</common:Name>
+      </structure:DataStructure>
+    </structure:DataStructures>
+  </message:Structures>
+</message:Structure>

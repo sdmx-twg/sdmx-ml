@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message ../../schemas/SDMXMessage.xsd">
+   <message:Header>
+      <message:ID>QUERY_GR_REG_RESP</message:ID>
+      <message:Test>false</message:Test>
+      <message:Prepared>2010-11-23T08:00:33+01:00</message:Prepared>
+      <message:Sender id="ESTAT"/>
+   </message:Header>
+   <message:Structures>
+    <structure:Codelists>
+      <structure:Codelist id="CL_AREA" agencyID="ESTAT" version="1.0" isPartial="true">
+        <common:Name xml:lang="en">Area Codelist</common:Name>
+        <structure:Code id="GR-A">
+          <common:Name xml:lang="en">Anatoliki Makedonia kai Thraki</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-I">
+          <common:Name xml:lang="en">Attiki</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-G">
+          <common:Name xml:lang="en">Dytiki Ellada</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-C">
+          <common:Name xml:lang="en">Dytiki Makedonia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-F">
+          <common:Name xml:lang="en">Ionia Nisia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-D">
+          <common:Name xml:lang="en">Ipeiros</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-B">
+          <common:Name xml:lang="en">Kentriki Makedonia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-M">
+          <common:Name xml:lang="en">Kriti</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-L">
+          <common:Name xml:lang="en">Notio Aigaio</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-J">
+          <common:Name xml:lang="en">Peloponnisos</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-H">
+          <common:Name xml:lang="en">Sterea Ellada</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-E">
+          <common:Name xml:lang="en">Thessalia</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+        <structure:Code id="GR-K">
+          <common:Name xml:lang="en">Voreio Aigaio</common:Name>
+          <structure:Parent>
+            <Ref id="GR"/>
+          </structure:Parent>
+        </structure:Code>
+      </structure:Codelist>
+    </structure:Codelists>
+   </message:Structures>
+</message:Structure>

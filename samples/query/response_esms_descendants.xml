@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Copyright SDMX 2010  -  www.sdmx.org -->
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message ../../schemas/SDMXMessage.xsd">
+  <message:Header>
+    <message:ID>QRY_ESMS_DEEP_RESP</message:ID>
+    <message:Test>false</message:Test>
+    <message:Prepared>2010-11-13T08:00:33+08:00</message:Prepared>
+    <message:Sender id="SDMX"/>
+  </message:Header>
+  <message:Structures>
+    <structure:Dataflows>
+      <structure:Dataflow agencyID="ESTAT" id="DEMO_TOT" version="1.0">
+        <common:Name xml:lang="en">Demography totals</common:Name>
+      </structure:Dataflow>
+    </structure:Dataflows>
+    <structure:CategorySchemes>
+      <structure:CategoryScheme agencyID="ESTAT" id="DATAFLOWS_SCHEME" version="1.0">
+        <common:Name xml:lang="en">ESTAT Dataflows Category Scheme</common:Name>
+      </structure:CategoryScheme>
+    </structure:CategorySchemes>
+    <structure:Categorisations>
+      <structure:Categorisation agencyID="ESTAT" id="DEMO_TOT" version="1.0">
+        <common:Name xml:lang="en">Demography totals categorisations</common:Name>
+      </structure:Categorisation>
+    </structure:Categorisations>
+    <structure:Codelists>
+      <structure:Codelist agencyID="ESTAT" id="CL_COUNTRY" version="1.0" isPartial="true">
+        <common:Name xml:lang="en">Country Codelist</common:Name>
+      </structure:Codelist>
+    </structure:Codelists>
+    <structure:Concepts>
+      <structure:ConceptScheme agencyID="ESTAT" id="ESMS_CONCEPTS" version="1.0">
+        <common:Name xml:lang="en">Eurostat SDMX Metadata Structure concepts</common:Name>
+      </structure:ConceptScheme>
+    </structure:Concepts>
+    <structure:DataStructures>
+      <structure:DataStructure agencyID="ESTAT" id="DEMOGRAPHY" version="1.0" isExternalReference="true" structureURL="demography.xml">
+        <common:Name xml:lang="en">DEMOGRAPHY Data Structure</common:Name>
+      </structure:DataStructure>
+    </structure:DataStructures>
+  </message:Structures>
+</message:Structure>

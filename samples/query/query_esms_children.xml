@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message:MetadataStructureQuery xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:query="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/query" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message ../../schemas/SDMXMessage.xsd">
+   <message:Header>
+      <message:ID>QUERY_ESMS_SHALLOW</message:ID>
+      <message:Test>false</message:Test>
+      <message:Prepared>2010-11-23T08:00:33+01:00</message:Prepared>
+      <message:Sender id="GTS001"/>
+      <message:Receiver id="ESTAT"/>
+   </message:Header>
+	<message:Query>
+		<query:ReturnDetails detail="Full">
+			<query:References detail="Stub">
+				<query:Children/>
+			</query:References>		
+		</query:ReturnDetails>
+		<query:MetadataStructureWhere>
+			<query:ID>ESMS</query:ID>
+			<query:Version>1.0</query:Version>
+			<query:AgencyID>ESTAT</query:AgencyID>
+		</query:MetadataStructureWhere>
+	</message:Query>
+</message:MetadataStructureQuery>
