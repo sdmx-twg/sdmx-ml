@@ -16,14 +16,5 @@ Please bare with us whilst this is being executed.
 
 Progress will be visible in the :literal:`develop` and other branches of this repository.
 
-
-
-.. toctree::
-   :maxdepth: 2
-   :hidden:
-   :caption: SDMX-ML:
-
-   sdmxml/v10
-   sdmxml/v20
-   sdmxml/v21
+.. include:: _sidebar.rst.inc
 
