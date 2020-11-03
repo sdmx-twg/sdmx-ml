@@ -1,0 +1,15 @@
+# readthedocs.yml
+# https://read-the-docs.readthedocs.io/en/latest/yaml-config.html#python-extra-requirements
+
+version: 2
+
+# use the latest image because that will include plantuml.  maybe.
+build:
+  image: latest
+
+
+python:
+  version: 3.7
+  install:
+    - requirements: requirements.txt
+  system_packages: true
