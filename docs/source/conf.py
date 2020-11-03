@@ -199,7 +199,7 @@ if onRTD:
   plantuml = 'java -Djava.awt.headless=true -jar /usr/share/plantuml/plantuml.jar -v -config %s/plantuml.conf' % currentFolder
 else:
   print ('**Building done locally... ')
-  plantuml = 'java -Djava.awt.headless=true -jar C:/Users/Leroy/Documents/dev/sdmx/plantuml.jar -config %s/plantuml.conf' % currentFolder
+  plantuml = 'java -Djava.awt.headless=true -jar "C:/SynologyDrive/3. Dev/sdmx/plantuml.jar" -config %s/plantuml.conf' % currentFolder
 
 plantuml_output_format = 'png'
 plantuml_syntax_error_image = True
