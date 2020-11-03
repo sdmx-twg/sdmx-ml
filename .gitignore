@@ -1,6 +1,7 @@
 # readthedocs/sphinx build folder #
 ###################################
 docs/build/
+_sidebar.rst.inc
 
 # OS generated files #
 ######################
@@ -11,3 +12,5 @@ docs/build/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+docs/source/__pycache__/
