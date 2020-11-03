@@ -1,0 +1,12 @@
+/* https://stackoverflow.com/questions/23211695/modifying-content-width-of-the-sphinx-theme-read-the-docs */
+.wy-nav-content {
+  max-width: 1200px !important;
+}
+/* Fix the cell wrapping in the #@{ tables of the the readthedocs theme */
+table.docutils td {
+  white-space: normal;
+}
+/* fix paragraphs in grid tables getting a bigger fonts than regular cels */
+table.docutils td p {
+  font-size: inherit !important;
+}
