@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wsdl:definitions targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/webservices" 
+    xmlns:impl="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/webservices" 
+    xmlns:error="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/webservices/errors"
+    xmlns:sdmx="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://schemas.xmlsoap.org/wsdl/ http://schemas.xmlsoap.org/wsdl/2003-02-11.xsd">
+    
+    <wsdl:types>
+        <xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/webservices">
+            
+            <xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" schemaLocation="../schemas/SDMXMessage.xsd"/>
+            <xs:import namespace="http://www.w3.org/2001/XMLSchema" schemaLocation="schemas/XMLSchema.xsd" />
+            
+            <xs:element name="GetGenericData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:GenericDataQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetGenericDataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:GenericData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="GetGenericTimeSeriesData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:GenericTimeSeriesDataQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetGenericTimeSeriesDataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:GenericTimeSeriesData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="GetStructureSpecificData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructureSpecificDataQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStructureSpecificDataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructureSpecificData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="GetStructureSpecificTimeSeriesData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructureSpecificTimeSeriesDataQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStructureSpecificTimeSeriesDataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructureSpecificTimeSeriesData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetGenericMetadata">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:GenericMetadataQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetGenericMetadataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:GenericMetadata" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetStructureSpecificMetadata">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructureSpecificMetadataQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStructureSpecificMetadataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructureSpecificMetadata" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetStructures">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructuresQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStructuresResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="GetDataflow">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:DataflowQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetDataflowResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetMetadataflow">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:MetadataflowQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetMetadataflowResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetDataStructure">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:DataStructureQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetDataStructureResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetMetadataStructure">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:MetadataStructureQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetMetadataStructureResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetCategoryScheme">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:CategorySchemeQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategorySchemeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetConceptScheme">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:ConceptSchemeQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetConceptSchemeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetCodelist">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:CodelistQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCodelistResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetHierarchicalCodelist">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:HierarchicalCodelistQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetHierarchicalCodelistResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetOrganisationScheme">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:OrganisationSchemeQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetOrganisationSchemeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetReportingTaxonomy">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:ReportingTaxonomyQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetReportingTaxonomyResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetStructureSet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:StructureSetQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStructureSetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetProcess">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:ProcessQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetProcessResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetCategorisation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:CategorisationQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategorisationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetProvisionAgreement">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:ProvisionAgreementQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetProvisionAgreementResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetConstraint">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:ConstraintQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetConstraintResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:Structure" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="GetDataSchema">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:DataSchemaQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetDataSchemaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="xs:schema" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="GetMetadataSchema">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="sdmx:MetadataSchemaQuery" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetMetadataSchemaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="xs:schema" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+
+        </xs:schema>
+    </wsdl:types>
+    
+            
+  
+    <!-- Message definitions -->
+    <wsdl:message name="GetGenericDataRequest">
+        <wsdl:part element="impl:GetGenericData" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetGenericDataResponse">
+        <wsdl:part element="impl:GetGenericDataResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetGenericTimeSeriesDataRequest">
+        <wsdl:part element="impl:GetGenericTimeSeriesData" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetGenericTimeSeriesDataResponse">
+        <wsdl:part element="impl:GetGenericTimeSeriesDataResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetStructureSpecificDataRequest">
+        <wsdl:part element="impl:GetStructureSpecificData" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetStructureSpecificDataResponse">
+        <wsdl:part element="impl:GetStructureSpecificDataResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetStructureSpecificTimeSeriesDataRequest">
+        <wsdl:part element="impl:GetStructureSpecificTimeSeriesData" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetStructureSpecificTimeSeriesDataResponse">
+        <wsdl:part element="impl:GetStructureSpecificTimeSeriesDataResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetGenericMetadataRequest">
+        <wsdl:part element="impl:GetGenericMetadata" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetGenericMetadataResponse">
+        <wsdl:part element="impl:GetGenericMetadataResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetStructureSpecificMetadataRequest">
+        <wsdl:part element="impl:GetStructureSpecificMetadata" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetStructureSpecificMetadataResponse">
+        <wsdl:part element="impl:GetStructureSpecificMetadataResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetStructuresRequest">
+        <wsdl:part element="impl:GetStructures" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetStructuresResponse">
+        <wsdl:part element="impl:GetStructuresResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetDataflowRequest">
+        <wsdl:part element="impl:GetDataflow" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetDataflowResponse">
+        <wsdl:part element="impl:GetDataflowResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetMetadataflowRequest">
+        <wsdl:part element="impl:GetMetadataflow" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetMetadataflowResponse">
+        <wsdl:part element="impl:GetMetadataflowResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetDataStructureRequest">
+        <wsdl:part element="impl:GetDataStructure" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetDataStructureResponse">
+        <wsdl:part element="impl:GetDataStructureResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetMetadataStructureRequest">
+        <wsdl:part element="impl:GetMetadataStructure" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetMetadataStructureResponse">
+        <wsdl:part element="impl:GetMetadataStructureResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetCategorySchemeRequest">
+        <wsdl:part element="impl:GetCategoryScheme" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategorySchemeResponse">
+        <wsdl:part element="impl:GetCategorySchemeResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetConceptSchemeRequest">
+        <wsdl:part element="impl:GetConceptScheme" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetConceptSchemeResponse">
+        <wsdl:part element="impl:GetConceptSchemeResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetCodelistRequest">
+        <wsdl:part element="impl:GetCodelist" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetCodelistResponse">
+        <wsdl:part element="impl:GetCodelistResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetHierarchicalCodelistRequest">
+        <wsdl:part element="impl:GetHierarchicalCodelist" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetHierarchicalCodelistResponse">
+        <wsdl:part element="impl:GetHierarchicalCodelistResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetOrganisationSchemeRequest">
+        <wsdl:part element="impl:GetOrganisationScheme" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetOrganisationSchemeResponse">
+        <wsdl:part element="impl:GetOrganisationSchemeResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetReportingTaxonomyRequest">
+        <wsdl:part element="impl:GetReportingTaxonomy" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetReportingTaxonomyResponse">
+        <wsdl:part element="impl:GetReportingTaxonomyResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetStructureSetRequest">
+        <wsdl:part element="impl:GetStructureSet" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetStructureSetResponse">
+        <wsdl:part element="impl:GetStructureSetResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetProcessRequest">
+        <wsdl:part element="impl:GetProcess" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetProcessResponse">
+        <wsdl:part element="impl:GetProcessResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetCategorisationRequest">
+        <wsdl:part element="impl:GetCategorisation" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategorisationResponse">
+        <wsdl:part element="impl:GetCategorisationResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetProvisionAgreementRequest">
+        <wsdl:part element="impl:GetProvisionAgreement" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetProvisionAgreementResponse">
+        <wsdl:part element="impl:GetProvisionAgreementResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetConstraintRequest">
+        <wsdl:part element="impl:GetConstraint" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetConstraintResponse">
+        <wsdl:part element="impl:GetConstraintResponse" name="parameters"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetDataSchemaRequest">
+        <wsdl:part element="impl:GetDataSchema" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetDataSchemaResponse">
+        <wsdl:part element="impl:GetDataSchemaResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetDataSchemaFault">
+        <wsdl:part element="impl:GetDataSchemaResponse" name="parameters"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetMetadataSchemaRequest">
+        <wsdl:part element="impl:GetMetadataSchema" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="GetMetadataSchemaResponse">
+        <wsdl:part element="impl:GetMetadataSchemaResponse" name="parameters"/>
+    </wsdl:message>
+    
+    
+    <!-- Port Type -->
+    <wsdl:portType name="SdmxService">
+        <wsdl:operation name="GetGenericData">
+            <wsdl:input message="impl:GetGenericDataRequest" name="GetGenericDataRequest"/>
+            <wsdl:output message="impl:GetGenericDataResponse" name="GetGenericDataResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetGenericTimeSeriesData">
+            <wsdl:input message="impl:GetGenericTimeSeriesDataRequest" name="GetGenericTimeSeriesDataRequest"/>
+            <wsdl:output message="impl:GetGenericTimeSeriesDataResponse" name="GetGenericTimeSeriesDataResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetStructureSpecificData">
+            <wsdl:input message="impl:GetStructureSpecificDataRequest" name="GetStructureSpecificDataRequest"/>
+            <wsdl:output message="impl:GetStructureSpecificDataResponse" name="GetStructureSpecificDataResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetStructureSpecificTimeSeriesData">
+            <wsdl:input message="impl:GetStructureSpecificTimeSeriesDataRequest" name="GetStructureSpecificTimeSeriesDataRequest"/>
+            <wsdl:output message="impl:GetStructureSpecificTimeSeriesDataResponse" name="GetStructureSpecificTimeSeriesDataResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetGenericMetadata">
+            <wsdl:input message="impl:GetGenericMetadataRequest" name="GetGenericMetadataRequest"/>
+            <wsdl:output message="impl:GetGenericMetadataResponse" name="GetGenericMetadataResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetStructureSpecificMetadata">
+            <wsdl:input message="impl:GetStructureSpecificMetadataRequest" name="GetStructureSpecificMetadataRequest"/>
+            <wsdl:output message="impl:GetStructureSpecificMetadataResponse" name="GetStructureSpecificMetadataResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetStructures">
+            <wsdl:input message="impl:GetStructuresRequest" name="GetStructuresRequest"/>
+            <wsdl:output message="impl:GetStructuresResponse" name="GetStructuresResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetDataflow">
+            <wsdl:input message="impl:GetDataflowRequest" name="GetDataflowRequest"/>
+            <wsdl:output message="impl:GetDataflowResponse" name="GetDataflowResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetMetadataflow">
+            <wsdl:input message="impl:GetMetadataflowRequest" name="GetMetadataflowRequest"/>
+            <wsdl:output message="impl:GetMetadataflowResponse" name="GetMetadataflowResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetReportingTaxonomy">
+            <wsdl:input message="impl:GetReportingTaxonomyRequest" name="GetReportingTaxonomyRequest"/>
+            <wsdl:output message="impl:GetReportingTaxonomyResponse" name="GetReportingTaxonomyResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetDataStructure">
+            <wsdl:input message="impl:GetDataStructureRequest" name="GetDataStructureRequest"/>
+            <wsdl:output message="impl:GetDataStructureResponse" name="GetDataStructureResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetMetadataStructure">
+            <wsdl:input message="impl:GetMetadataStructureRequest" name="GetMetadataStructureRequest"/>
+            <wsdl:output message="impl:GetMetadataStructureResponse" name="GetMetadataStructureResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetCategoryScheme">
+            <wsdl:input message="impl:GetCategorySchemeRequest" name="GetCategorySchemeRequest"/>
+            <wsdl:output message="impl:GetCategorySchemeResponse" name="GetCategorySchemeResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetConceptScheme">
+            <wsdl:input message="impl:GetConceptSchemeRequest" name="GetConceptSchemeRequest"/>
+            <wsdl:output message="impl:GetConceptSchemeResponse" name="GetConceptSchemeResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetCodelist">
+            <wsdl:input message="impl:GetCodelistRequest" name="GetCodelistRequest"/>
+            <wsdl:output message="impl:GetCodelistResponse" name="GetCodelistResponse"/>
+        </wsdl:operation>        
+        <wsdl:operation name="GetHierarchicalCodelist">
+            <wsdl:input message="impl:GetHierarchicalCodelistRequest" name="GetHierarchicalCodelistRequest"/>
+            <wsdl:output message="impl:GetHierarchicalCodelistResponse" name="GetHierarchicalCodelistResponse"/>
+        </wsdl:operation> 
+        <wsdl:operation name="GetOrganisationScheme">
+            <wsdl:input message="impl:GetOrganisationSchemeRequest" name="GetOrganisationSchemeRequest"/>
+            <wsdl:output message="impl:GetOrganisationSchemeResponse" name="GetOrganisationSchemeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetStructureSet">
+            <wsdl:input message="impl:GetStructureSetRequest" name="GetStructureSetRequest"/>
+            <wsdl:output message="impl:GetStructureSetResponse" name="GetStructureSetResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetProcess">
+            <wsdl:input message="impl:GetProcessRequest" name="GetProcessRequest"/>
+            <wsdl:output message="impl:GetProcessResponse" name="GetProcessResponse"/>
+        </wsdl:operation>
+		<wsdl:operation name="GetCategorisation">
+			<wsdl:input message="impl:GetCategorisationRequest" name="GetCategorisationRequest"/>
+			<wsdl:output message="impl:GetCategorisationResponse" name="GetCategorisationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetProvisionAgreement">
+			<wsdl:input message="impl:GetProvisionAgreementRequest" name="GetProvisionAgreementRequest"/>
+			<wsdl:output message="impl:GetProvisionAgreementResponse" name="GetProvisionAgreementResponse"/>
+		</wsdl:operation>
+        <wsdl:operation name="GetConstraint">
+            <wsdl:input message="impl:GetConstraintRequest" name="GetConstraintRequest"/>
+            <wsdl:output message="impl:GetConstraintResponse" name="GetConstraintResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetDataSchema">
+            <wsdl:input message="impl:GetDataSchemaRequest" name="GetDataSchemaRequest"/>
+            <wsdl:output message="impl:GetDataSchemaResponse" name="GetDataSchemaResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetMetadataSchema">
+            <wsdl:input message="impl:GetMetadataSchemaRequest" name="GetMetadataSchemaRequest"/>
+            <wsdl:output message="impl:GetMetadataSchemaResponse" name="GetMetadataSchemaResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    
+    <!-- Binding -->
+    <wsdl:binding name="SdmxServiceSoapBinding" type="impl:SdmxService">
+        <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <wsdl:operation name="GetGenericData">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetGenericDataRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetGenericDataResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetGenericTimeSeriesData">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetGenericTimeSeriesDataRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetGenericTimeSeriesDataResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetStructureSpecificData">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetStructureSpecificDataRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetStructureSpecificDataResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetStructureSpecificTimeSeriesData">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetStructureSpecificTimeSeriesDataRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetStructureSpecificTimeSeriesDataResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetGenericMetadata">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetGenericMetadataRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetGenericMetadataResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetStructureSpecificMetadata">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetStructureSpecificMetadataRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetStructureSpecificMetadataResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetStructures">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetStructuresRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetStructuresResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetDataflow">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetDataflowRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetDataflowResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetMetadataflow">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetMetadataflowRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetMetadataflowResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetReportingTaxonomy">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetReportingTaxonomyRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetReportingTaxonomyResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetDataStructure">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetDataStructureRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetDataStructureResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetMetadataStructure">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetMetadataStructureRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetMetadataStructureResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetCategoryScheme">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetCategorySchemeRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCategorySchemeResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetConceptScheme">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetConceptSchemeRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetConceptSchemeResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetCodelist">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetCodelistRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCodelistResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+       
+        <wsdl:operation name="GetHierarchicalCodelist">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetHierarchicalCodelistRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetHierarchicalCodelistResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetOrganisationScheme">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetOrganisationSchemeRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetOrganisationSchemeResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetStructureSet">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetStructureSetRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetStructureSetResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetProcess">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetProcessRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetProcessResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetCategorisation">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetCategorisationRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCategorisationResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetProvisionAgreement">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetProvisionAgreementRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetProvisionAgreementResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="GetConstraint">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetConstraintRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetConstraintResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetDataSchema">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetDataSchemaRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetDataSchemaResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="GetMetadataSchema">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="GetMetadataSchemaRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetMetadataSchemaResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <!-- Service definition -->
+    <wsdl:service name="SdmxServiceService">
+        <wsdl:port binding="impl:SdmxServiceSoapBinding" name="SdmxService">
+            <wsdlsoap:address location="http://localhost:8080/axis/services/SdmxService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
