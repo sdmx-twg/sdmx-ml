@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/query" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/query" xmlns:query="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/query" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
+	<xs:include schemaLocation="SDMXQueryBase.xsd"/>
+	
+	<xs:annotation>
+		<xs:appinfo>SDMX Transformation Query Module</xs:appinfo>
+		<xs:documentation>The transformation query module provides the construct of a query for a transformation and related artefacts.</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="DefinitionSchemeWhereType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>DefinitionSchemeWhereType is an abstract base type that extends and item scheme query to add the ability to query based on the VTL version.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ItemSchemeWhereType">
+				<xs:sequence>
+					<xs:element name="VtlVersion" type="common:VersionQueryType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Allows querying based on the VTL version number.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TransformationSchemeQueryType">
+		<xs:annotation>
+			<xs:documentation>TransformationSchemeQueryType defines the structure of a transformation scheme query. The parameters for the query are contained in the TransformationSchemeWhere element. The References element is used to indicate how objects that are referenced from the matched transformation scheme should be returned.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="StructuralMetadataQueryType">
+				<xs:sequence>
+					<xs:element name="ReturnDetails" type="MaintainableReturnDetailsType"/>
+					<xs:element ref="TransformationSchemeWhere"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:element name="TransformationSchemeWhere" type="TransformationSchemeWhereType" substitutionGroup="StructuralMetadataWhere">
+		<xs:annotation>
+			<xs:documentation>TransformationSchemeWhere contains the parameters for a transformation scheme query. All parameters must be matched for an object to satisfy the query. In addition to querying based on the basic maintainable properties, it is also possible to query based on the details of the transformations defined within the scheme.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="TransformationSchemeWhereBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>TransformationSchemeWhereBaseType is an abstract base type which forms the basis for the TransformationSchemeWhereType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="DefinitionSchemeWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="URN" type="xs:anyURI" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Version" type="common:VersionQueryType" minOccurs="0"/>
+					<xs:element name="VersionTo" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionFrom" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionActive" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AgencyID" type="QueryNestedIDType" minOccurs="0"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="TransformationWhere"/>
+					</xs:sequence>
+					<xs:element name="VtlVersion" type="common:VersionQueryType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="common:MaintainableTypeCodelistType" use="optional" fixed="TransformationScheme"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TransformationSchemeWhereType">
+		<xs:annotation>
+			<xs:documentation>TransformationSchemeWhereType defines the parameters of a transformation scheme query. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="TransformationSchemeWhereBaseType">
+				<xs:sequence>
+					<xs:element name="VtlMappingScheme" type="common:VtlMappingSchemeReferenceType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>VtlMappingScheme is used to query for a transformation scheme based on the VTL mapping scheme that is used in the transformations.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NamePersonalisationScheme" type="common:NamePersonalisationSchemeReferenceType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>NamePersonalisationScheme is used to query for a transformation scheme based on the name personalisation scheme that is used in the transformations.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomTypeScheme" type="common:CustomTypeSchemeReferenceType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>CustomTypeScheme is used to query for a transformation scheme based on the custom type scheme that is used in the transformations.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RulesetScheme" type="common:RulesetSchemeReferenceType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>RulesetScheme is used to query for a transformation scheme based on the ruleset scheme that is used in the transformations.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="UserDefinedOperatorScheme" type="common:UserDefinedOperatorSchemeReferenceType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>UserDefinedOperatorScheme is used to query for a transformation scheme based on the user defined operator scheme that is used in the transformations.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="TransformationWhere" type="TransformationWhereType" substitutionGroup="ItemWhere">
+		<xs:annotation>
+			<xs:documentation>TransformationWhere is used to query for transformations matching the parameters supplied. This is an implicit set of "and" parameters, meaning all of the conditions must be met in order to return a match.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="TransformationWhereBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>TransformationWhereBaseType is an abstract base type that forms the basis for the TransformationWhereType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TransformationWhereType">
+		<xs:annotation>
+			<xs:documentation>TransformationWhereType defines a set of parameters for matching a transformation. All supplied parameters must be matched in order for an object to satisfy the query. In addition to the base parameters for an item, a transformation can be queried based on identifiable artefacts that are used in the expression.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="TransformationWhereBaseType">
+				<xs:sequence>
+					<xs:element name="IdentifiableArtefact" type="common:ObjectReferenceType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>IdentifiableArtefact allows a transformation to be queried based on the identifiable artefact it uses in its expression.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VtlMappingSchemeQueryType">
+		<xs:annotation>
+			<xs:documentation>VtlMappingSchemeQueryType defines the structure of a VTL mapping scheme query. The parameters for the query are contained in the VtlMappingSchemeWhere element. The References element is used to indicate how objects that are referenced from the matched VTL mapping scheme should be returned.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="StructuralMetadataQueryType">
+				<xs:sequence>
+					<xs:element name="ReturnDetails" type="MaintainableReturnDetailsType"/>
+					<xs:element ref="VtlMappingSchemeWhere"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:element name="VtlMappingSchemeWhere" type="VtlMappingSchemeWhereType" substitutionGroup="StructuralMetadataWhere">
+		<xs:annotation>
+			<xs:documentation>VtlMappingSchemeWhere contains the parameters for a VTL mapping scheme query. All parameters must be matched for an object to satisfy the query. In addition to querying based on the basic maintainable properties, it is also possible to query based on the details of the VTL mappings defined within the scheme.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="VtlMappingSchemeWhereType">
+		<xs:annotation>
+			<xs:documentation>VtlMappingSchemeWhereType defines the parameters of a VTL mapping scheme query. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemSchemeWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="URN" type="xs:anyURI" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Version" type="common:VersionQueryType" minOccurs="0"/>
+					<xs:element name="VersionTo" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionFrom" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionActive" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AgencyID" type="QueryNestedIDType" minOccurs="0"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="VtlMappingWhere"/>
+					</xs:sequence>
+				</xs:sequence>
+				<xs:attribute name="type" type="common:MaintainableTypeCodelistType" use="optional" fixed="VtlMappingScheme"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="VtlMappingWhere" type="VtlMappingWhereType" substitutionGroup="ItemWhere">
+		<xs:annotation>
+			<xs:documentation>VtlMappingWhere is used to query for VTL mappings matching the parameters supplied. This is an implicit set of "and" parameters, meaning all of the conditions must be met in order to return a match.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="VtlMappingWhereType">
+		<xs:annotation>
+			<xs:documentation>VtlMappingWhereType defines a set of parameters for matching a VTL mapping. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="NamePersonalisationSchemeQueryType">
+		<xs:annotation>
+			<xs:documentation>NamePersonalisationSchemeQueryType defines the structure of a name personalisation scheme query. The parameters for the query are contained in the NamePersonalisationSchemeWhere element. The References element is used to indicate how objects that are referenced from the matched name personalisation scheme should be returned.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="StructuralMetadataQueryType">
+				<xs:sequence>
+					<xs:element name="ReturnDetails" type="MaintainableReturnDetailsType"/>
+					<xs:element ref="NamePersonalisationSchemeWhere"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:element name="NamePersonalisationSchemeWhere" type="NamePersonalisationSchemeWhereType" substitutionGroup="StructuralMetadataWhere">
+		<xs:annotation>
+			<xs:documentation>NamePersonalisationSchemeWhere contains the parameters for a name personalisation scheme query. All parameters must be matched for an object to satisfy the query. In addition to querying based on the basic maintainable properties, it is also possible to query based on the details of the name personalisations defined within the scheme.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="NamePersonalisationSchemeWhereType">
+		<xs:annotation>
+			<xs:documentation>NamePersonalisationSchemeWhereType defines the parameters of a name personalisation scheme query. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="DefinitionSchemeWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="URN" type="xs:anyURI" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Version" type="common:VersionQueryType" minOccurs="0"/>
+					<xs:element name="VersionTo" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionFrom" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionActive" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AgencyID" type="QueryNestedIDType" minOccurs="0"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="NamePersonalisationWhere"/>
+					</xs:sequence>
+					<xs:element name="VtlVersion" type="common:VersionQueryType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="common:MaintainableTypeCodelistType" use="optional" fixed="NamePersonalisationScheme"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="NamePersonalisationWhere" type="NamePersonalisationWhereType" substitutionGroup="ItemWhere">
+		<xs:annotation>
+			<xs:documentation>NamePersonalisationWhere is used to query for name personalisations matching the parameters supplied. This is an implicit set of "and" parameters, meaning all of the conditions must be met in order to return a match.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="NamePersonalisationWhereType">
+		<xs:annotation>
+			<xs:documentation>NamePersonalisationWhereType defines a set of parameters for matching a name personalisation. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RulesetSchemeQueryType">
+		<xs:annotation>
+			<xs:documentation>RulesetSchemeQueryType defines the structure of a ruleset scheme query. The parameters for the query are contained in the RuleSetSchemeWhere element. The References element is used to indicate how objects that are referenced from the matched ruleset scheme should be returned.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="StructuralMetadataQueryType">
+				<xs:sequence>
+					<xs:element name="ReturnDetails" type="MaintainableReturnDetailsType"/>
+					<xs:element ref="RulesetSchemeWhere"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:element name="RulesetSchemeWhere" type="RulesetSchemeWhereType" substitutionGroup="StructuralMetadataWhere">
+		<xs:annotation>
+			<xs:documentation>RulesetSchemeWhere contains the parameters for a ruleset scheme query. All parameters must be matched for an object to satisfy the query. In addition to querying based on the basic maintainable properties, it is also possible to query based on the details of the rulesets defined within the scheme.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="RulesetSchemeWhereType">
+		<xs:annotation>
+			<xs:documentation>RulesetSchemeWhereType defines the parameters of a ruleset scheme query. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="DefinitionSchemeWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="URN" type="xs:anyURI" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Version" type="common:VersionQueryType" minOccurs="0"/>
+					<xs:element name="VersionTo" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionFrom" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionActive" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AgencyID" type="QueryNestedIDType" minOccurs="0"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="RulesetWhere"/>
+					</xs:sequence>
+					<xs:element name="VtlVersion" type="common:VersionQueryType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="common:MaintainableTypeCodelistType" use="optional" fixed="RulesetScheme"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="RulesetWhere" type="RulesetWhereType" substitutionGroup="ItemWhere">
+		<xs:annotation>
+			<xs:documentation>RulesetWhere is used to query for rulesets matching the parameters supplied. This is an implicit set of "and" parameters, meaning all of the conditions must be met in order to return a match.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="RulesetWhereType">
+		<xs:annotation>
+			<xs:documentation>RulesetWhereType defines a set of parameters for matching a ruleset. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="UserDefinedOperatorSchemeQueryType">
+		<xs:annotation>
+			<xs:documentation>UserDefinedOperatorSchemeQueryType defines the structure of a user defined operator scheme query. The parameters for the query are contained in the UserDefinedOperatorSchemeWhere element. The References element is used to indicate how objects that are referenced from the matched user defined operator scheme should be returned.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="StructuralMetadataQueryType">
+				<xs:sequence>
+					<xs:element name="ReturnDetails" type="MaintainableReturnDetailsType"/>
+					<xs:element ref="UserDefinedOperatorSchemeWhere"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:element name="UserDefinedOperatorSchemeWhere" type="UserDefinedOperatorSchemeWhereType" substitutionGroup="StructuralMetadataWhere">
+		<xs:annotation>
+			<xs:documentation>UserDefinedOperatorSchemeWhere contains the parameters for a user defined operator scheme query. All parameters must be matched for an object to satisfy the query. In addition to querying based on the basic maintainable properties, it is also possible to query based on the details of the user defined operators defined within the scheme.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="UserDefinedOperatorSchemeWhereType">
+		<xs:annotation>
+			<xs:documentation>UserDefinedOperatorSchemeWhereType defines the parameters of a user defined operator scheme query. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="DefinitionSchemeWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="URN" type="xs:anyURI" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Version" type="common:VersionQueryType" minOccurs="0"/>
+					<xs:element name="VersionTo" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionFrom" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionActive" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AgencyID" type="QueryNestedIDType" minOccurs="0"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="UserDefinedOperatorWhere"/>
+					</xs:sequence>
+					<xs:element name="VtlVersion" type="common:VersionQueryType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="common:MaintainableTypeCodelistType" use="optional" fixed="UserDefinedOperatorScheme"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="UserDefinedOperatorWhere" type="UserDefinedOperatorWhereType" substitutionGroup="ItemWhere">
+		<xs:annotation>
+			<xs:documentation>UserDefinedOperatorWhere is used to query for user defined operators matching the parameters supplied. This is an implicit set of "and" parameters, meaning all of the conditions must be met in order to return a match.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="UserDefinedOperatorWhereType">
+		<xs:annotation>
+			<xs:documentation>UserDefinedOperatorWhereType defines a set of parameters for matching a user defined operator. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="CustomTypeSchemeQueryType">
+		<xs:annotation>
+			<xs:documentation>CustomTypeSchemeQueryType defines the structure of a custom type scheme query. The parameters for the query are contained in the CustomTypeSchemeWhere element. The References element is used to indicate how objects that are referenced from the matched custom type scheme should be returned.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="StructuralMetadataQueryType">
+				<xs:sequence>
+					<xs:element name="ReturnDetails" type="MaintainableReturnDetailsType"/>
+					<xs:element ref="CustomTypeSchemeWhere"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:element name="CustomTypeSchemeWhere" type="CustomTypeSchemeWhereType" substitutionGroup="StructuralMetadataWhere">
+		<xs:annotation>
+			<xs:documentation>CustomTypeSchemeWhere contains the parameters for a custom type scheme query. All parameters must be matched for an object to satisfy the query. In addition to querying based on the basic maintainable properties, it is also possible to query based on the details of the custom types defined within the scheme.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="CustomTypeSchemeWhereType">
+		<xs:annotation>
+			<xs:documentation>CustomTypeSchemeWhereType defines the parameters of a custom type scheme query. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="DefinitionSchemeWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="URN" type="xs:anyURI" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Version" type="common:VersionQueryType" minOccurs="0"/>
+					<xs:element name="VersionTo" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionFrom" type="common:TimeRangeValueType" minOccurs="0"/>
+					<xs:element name="VersionActive" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="AgencyID" type="QueryNestedIDType" minOccurs="0"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="CustomTypeWhere"/>
+					</xs:sequence>
+					<xs:element name="VtlVersion" type="common:VersionQueryType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="common:MaintainableTypeCodelistType" use="optional" fixed="CustomTypeScheme"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="CustomTypeWhere" type="CustomTypeWhereType" substitutionGroup="ItemWhere">
+		<xs:annotation>
+			<xs:documentation>CustomTypeWhere is used to query for custom types matching the parameters supplied. This is an implicit set of "and" parameters, meaning all of the conditions must be met in order to return a match.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="CustomTypeWhereType">
+		<xs:annotation>
+			<xs:documentation>CustomTypeWhereType defines a set of parameters for matching a custom type. All supplied parameters must be matched in order for an object to satisfy the query.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemWhereType">
+				<xs:sequence>
+					<xs:element name="Annotation" type="AnnotationWhereType" minOccurs="0"/>
+					<xs:element name="ID" type="QueryIDType" minOccurs="0"/>
+					<xs:element name="Name" type="QueryTextType" minOccurs="0"/>
+					<xs:element name="Description" type="QueryTextType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
