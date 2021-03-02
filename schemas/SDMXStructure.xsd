@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure">
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure">
 	<xs:include schemaLocation="SDMXStructureBase.xsd"/>
 	<xs:include schemaLocation="SDMXStructureCategorisation.xsd"/>
 	<xs:include schemaLocation="SDMXStructureCategory.xsd"/>
@@ -16,7 +16,7 @@
 	<xs:include schemaLocation="SDMXStructureProvisionAgreement.xsd"/>
 	<xs:include schemaLocation="SDMXStructureProcess.xsd"/>
 	<xs:include schemaLocation="SDMXStructureReportingTaxonomy.xsd"/>
-	<xs:include schemaLocation="SDMXStructureStructureSet.xsd"/>
+	<xs:include schemaLocation="SDMXStructureStructureMappings.xsd"/>
 	<xs:include schemaLocation="SDMXStructureTransformation.xsd"/>
 
 	<xs:annotation>
@@ -118,13 +118,42 @@
 					<xs:field xpath="@agencyID"/>
 					<xs:field xpath="@version"/>
 				</xs:unique>
+				<xs:unique name="UniqueGeographicCodelist">
+					<xs:selector xpath="structure:GeographicCodelist"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+				<xs:unique name="UniqueGeoGridCodelist">
+					<xs:selector xpath="structure:GeoGridCodelist"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+				<xs:unique name="UniqueValueList">
+					<xs:selector xpath="structure:ValueList"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
 			</xs:element>
-			<xs:element name="HierarchicalCodelists" type="HierarchicalCodelistsType" minOccurs="0">
+			<xs:element name="Hierarchies" type="HierarchiesType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>HierarchicalCodelists contains a collection of hierarchical code list descriptions. The hierarchical code lists may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+					<xs:documentation>Hierarchies contains a collection of hierarchical code list descriptions. The hierarchical code lists may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
-				<xs:unique name="UniqueHierarchicalCodelist">
-					<xs:selector xpath="structure:HierarchicalCodelist"/>
+				<xs:unique name="UniqueHierarchy">
+					<xs:selector xpath="structure:Hierarchy"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="HierarchyAssociations" type="HierarchyAssociationsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>HierarchyAssociations contains a collection of hierarchy associations. The associations may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="UniqueHierarchyAssociation">
+					<xs:selector xpath="structure:HierarchyAssociation"/>
 					<xs:field xpath="@id"/>
 					<xs:field xpath="@agencyID"/>
 					<xs:field xpath="@version"/>
@@ -163,12 +192,42 @@
 					<xs:field xpath="@version"/>
 				</xs:unique>
 			</xs:element>
-			<xs:element name="StructureSets" type="StructureSetsType" minOccurs="0">
+			<xs:element name="StructureMappings" type="StructureMappingsType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>StructureSets contains a collection of structure set descriptions. The structure sets may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+					<xs:documentation>StructureMappings contains a collection of structure mapping descriptions. The structure mappings may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
-				<xs:unique name="UniqueStructureSet">
-					<xs:selector xpath="structure:StructureSet"/>
+				<xs:unique name="UniqueStructureMap">
+					<xs:selector xpath="structure:StructureMap"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+				<xs:unique name="UniqueRepresentationMap">
+					<xs:selector xpath="structure:RepresentationMap"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+				<xs:unique name="UniqueConceptSchemeMap">
+					<xs:selector xpath="structure:ConceptSchemeMap"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+				<xs:unique name="UniqueCategorySchemeMap">
+					<xs:selector xpath="structure:CategorySchemeMap"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+				<xs:unique name="UniqueOrganisationSchemeMap">
+					<xs:selector xpath="structure:OrganisationSchemeMap"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+				<xs:unique name="UniqueReportingTaxonomyMap">
+					<xs:selector xpath="structure:ReportingTaxonomyMap"/>
 					<xs:field xpath="@id"/>
 					<xs:field xpath="@agencyID"/>
 					<xs:field xpath="@version"/>
@@ -395,38 +454,74 @@
 
 	<xs:complexType name="CodelistsType">
 		<xs:annotation>
-			<xs:documentation>CodelistsType describes the structure of the code lists container. It contains one or more code list, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+			<xs:documentation>CodelistsType describes the structure of the code lists container. It contains one or more codelist (including geographic), which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Codelist" type="CodelistType" maxOccurs="unbounded">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="Codelist" type="CodelistType">
 				<xs:annotation>
-					<xs:documentation>Codelist provides the details of a code list, which is defined as a list from which some statistical concepts (coded concepts) take their values.</xs:documentation>
+					<xs:documentation>Codelist provides the details of a codelist, which is defined as a list from which some statistical concepts (coded concepts) take their values.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="Codelist_UniqueCode">
 					<xs:selector xpath="structure:Code"/>
 					<xs:field xpath="@id"/>
 				</xs:unique>
 			</xs:element>
-		</xs:sequence>
+			<xs:element name="GeographicCodelist" type="GeographicCodelistType">
+				<xs:annotation>
+					<xs:documentation>GeographiCodelist provides the details of a georaphic code list, which comprises a set of GeoFeatureSetCodes, by adding a value in the Code that follows a pattern to represent a geo feature set.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="Codelist_UniqueGeoFeatureSetCode">
+					<xs:selector xpath="structure:GeoFeatureSetCode"/>
+					<xs:field xpath="@id"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="GeoGridCodelist" type="GeoGridCodelistType">
+				<xs:annotation>
+					<xs:documentation>GeoGridCodelist provides the details of a georaphic grid code list, which comprises a set of GridCodes, which are related to the gridDefinition specified in the GeoGridCodelist.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="Codelist_UniqueGeoGridCode">
+					<xs:selector xpath="structure:GeoGridCode"/>
+					<xs:field xpath="@id"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="ValueList" type="ValueListType">
+				<xs:annotation>
+					<xs:documentation>ValueList provides the details of a value list, which is a closed set of values that can occur for a dimension, measure, or attribute. This may be a simple list of values, or a list of values with names and descriptions (similar to a codelist).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
 	</xs:complexType>
 
-	<xs:complexType name="HierarchicalCodelistsType">
+	<xs:complexType name="HierarchiesType">
 		<xs:annotation>
-			<xs:documentation>HierarchicalCodelistsType describes the structure of the hierarchical code lists container. It contains one or more hierarchical code list, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+			<xs:documentation>HierarchiesType describes the structure of the hierarchies container. It contains one or more hierarchy, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="HierarchicalCodelist" type="HierarchicalCodelistType" maxOccurs="unbounded">
+			<xs:element name="Hierarchy" type="HierarchyType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>HierarchicalCodelist provides the details of a hierarchical code list, which is defined as an organised collection of codes that may participate in many parent/child relationships with other codes in the list, as defined by one or more hierarchy of the list.</xs:documentation>
+					<xs:documentation>Hierarchy provides the details of a hierarchy, which is defined as an organised collection of codes that may participate in many parent/child relationships with other codes in the list.</xs:documentation>
 				</xs:annotation>
-				<xs:unique name="HierarchicalCodelist_UniqueHierarchy">
-					<xs:selector xpath="structure:Hierarchy"/>
+				<xs:unique name="Hierarchiy_UniqueLevel">
+					<xs:selector xpath=".//structure:Level"/>
 					<xs:field xpath="@id"/>
-				</xs:unique>	
-				<xs:unique name="HierarchicalCodelist_UniqueCodelistAlias">
-					<xs:selector xpath="structure:IncludedCodelistReference"/>
-					<xs:field xpath="@alias"/>
 				</xs:unique>
+				<xs:unique name="Hierarchiy_UniqueHierarchicalCode">
+					<xs:selector xpath=".//structure:HierarchicalCode"/>
+					<xs:field xpath="@id"/>
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="HierarchyAssociationsType">
+		<xs:annotation>
+			<xs:documentation>HiearchyAssociationsType describes the structure of the hierarchy assoications container. It contains one or more hiearchy associations, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HierarchyAssociation" type="HierarchyAssociationType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>HierarchyAssociation provides the details of a hiearchy assoication, which associates a hiearchy with an identifiable object in the context of another object.</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -474,37 +569,50 @@
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:complexType name="StructureSetsType">
+	<xs:complexType name="StructureMappingsType">
 		<xs:annotation>
-			<xs:documentation>StructureSetsType describes the structure of the structure sets container. It contains one or more structure set, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+			<xs:documentation>StructureMappingsType describes the structure of the structure mappings container. It contains one or more structure map, item scheme map, or representation map, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="StructureSet" type="StructureSetType" maxOccurs="unbounded">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="StructureMap" type="StructureMapType">
 				<xs:annotation>
-					<xs:documentation>StructureSet provides the details or a structure set, which allows components in one structure, structure usage, or item scheme to be mapped to components in another structural component of the same type.</xs:documentation>
+					<xs:documentation>StructureMap provides the details or a structure map, which allows allows mapping between data dtructures or dataflows.</xs:documentation>
 				</xs:annotation>
-				<xs:unique name="StructureSetUniqueCategorySchemeMap">
-					<xs:selector xpath="structure:CategorySchemeMap"/>
+				<xs:unique name="StructureMap_UniqueEpochMap">
+					<xs:selector xpath="structure:EpochMap"/>
 					<xs:field xpath="@id"/>
 				</xs:unique>
-				<xs:unique name="StructureSetUniqueCodelistMap">
-					<xs:selector xpath="structure:CodelistMap"/>
-					<xs:field xpath="@id"/>
-				</xs:unique>
-				<xs:unique name="StructureSetUniqueConceptsMap">
-					<xs:selector xpath="structure:ConceptsMap"/>
-					<xs:field xpath="@id"/>
-				</xs:unique>
-				<xs:unique name="StructureSetUniqueOrganisationSchemeMap">
-					<xs:selector xpath="structure:OrganisationSchemeMap"/>
-					<xs:field xpath="@id"/>
-				</xs:unique>
-				<xs:unique name="StructureSetUniqueStructureMap">
-					<xs:selector xpath="structure:StructureMap"/>
+				<xs:unique name="StructureMap_UniqueDatePatternMap">
+					<xs:selector xpath="structure:DatePatternMap"/>
 					<xs:field xpath="@id"/>
 				</xs:unique>
 			</xs:element>
-		</xs:sequence>
+			<xs:element name="RepresentationMap" type="RepresentationMapType">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConceptSchemeMap" type="ConceptSchemeMapType">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CategorySchemeMap" type="CategorySchemeMapType">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganisationSchemeMap" type="OrganisationSchemeMapType">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReportingTaxonomyMap" type="ReportingTaxonomyMapType">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
 	</xs:complexType>
 
 	<xs:complexType name="ReportingTaxonomiesType">
@@ -549,16 +657,24 @@
 		<xs:annotation>
 			<xs:documentation>ConstraintsType describes the structure of the constraints container. It contains one or more constraint, which can be explicitly detailed or referenced from an external structure document or registry service. This container may contain both attachment and content constraints.</xs:documentation>
 		</xs:annotation>
-		<xs:choice maxOccurs="unbounded">	
-			<xs:element name="AttachmentConstraint" type="AttachmentConstraintType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="DataConstraint" type="MetadataConstraintType">
 				<xs:annotation>
-					<xs:documentation>AttachmentConstraint describes sub sets of the content of a data or metadata set in terms of the content regions or in terms of the set of key combinations to which attributes or reference metadata (as defined by structure definitions) may be attached.</xs:documentation>
+					<xs:documentation>DataConstraint specifies a sub set of the definition of the allowable or available content of a data set in terms of the content or in terms of the set of key combinations.</xs:documentation>
 				</xs:annotation>
-			</xs:element>	
-			<xs:element name="ContentConstraint" type="ContentConstraintType">
+				<xs:unique name="DataConstraint_CubeRegionInclusion">
+					<xs:selector xpath="structure:CubeRegion"/>
+					<xs:field xpath="@include"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="MetadataConstraint" type="MetadataConstraintType">
 				<xs:annotation>
-					<xs:documentation>ContentConstraint specifies a sub set of the definition of the allowable or available content of a data or metadata set in terms of the content or in terms of the set of key combinations.</xs:documentation>
+					<xs:documentation>MetadataConstraint specifies a sub set of the definition of the allowable content of a metadata set.</xs:documentation>
 				</xs:annotation>
+				<xs:unique name="MetadataConstraint_MetadataTargetRegionInclusion">
+					<xs:selector xpath="structure:MetadataTragetRegion"/>
+					<xs:field xpath="@include"/>
+				</xs:unique>
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>

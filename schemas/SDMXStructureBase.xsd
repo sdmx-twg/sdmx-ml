@@ -1,133 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common">
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
 	
 	<xs:annotation>
 		<xs:appinfo>SDMX Base Structure Module</xs:appinfo>
 		<xs:documentation>The base structure module contains the descriptions of base structural metadata constructs, such as item schemes, structures, and structure usages, as well as constructs reused by multiple types of structural components.</xs:documentation>
 	</xs:annotation>
-	
-	<xs:complexType name="IdentifiableType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>IdentifiableType is an abstract base type for all identifiable objects.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="common:AnnotableType">
-				<xs:attribute name="id" type="common:IDType" use="optional">
-					<xs:annotation>
-						<xs:documentation>The id is the identifier for the object.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="urn" type="xs:anyURI" use="optional">
-					<xs:annotation>
-						<xs:documentation>The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="uri" type="xs:anyURI" use="optional">
-					<xs:annotation>
-						<xs:documentation>The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="NameableType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>NameableType is an abstract base type for  all nameable objects.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="IdentifiableType">
-				<xs:sequence>
-					<xs:element ref="common:Name" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="VersionableType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>VersionableType is an abstract base type for all versionable objects.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="NameableType">
-				<xs:attribute name="version" type="common:VersionType" use="optional" default="1.0">
-					<xs:annotation>
-						<xs:documentation>This version attribute holds a version number in the format of #[.#]+ (see common:VersionType definition for details). If not supplied, the version number is defaulted to 1.0.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="validFrom" type="xs:dateTime" use="optional">
-					<xs:annotation>
-						<xs:documentation>The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="validTo" type="xs:dateTime" use="optional">
-					<xs:annotation>
-						<xs:documentation>The validTo attribute provides the inclusive end date for providing supplemental validity information about the version.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-
-	<xs:complexType name="MaintainableBaseType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>MaintainableBaseType is an abstract type that only serves the purpose of forming the base for the actual MaintainableType. The purpose of this type is to restrict the VersionableType to require the id attribute.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="VersionableType">
-				<xs:sequence>
-					<xs:element ref="common:Annotations" minOccurs="0"/>
-					<xs:element ref="common:Name" maxOccurs="unbounded"/>
-					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
-				</xs:sequence>
-				<xs:attribute name="id" type="common:IDType" use="required"/>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-
-	<xs:complexType name="MaintainableType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>MaintainableType is an abstract base type for all maintainable objects.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="MaintainableBaseType">
-				<xs:attribute name="agencyID" type="common:NestedNCNameIDType" use="required">
-					<xs:annotation>
-						<xs:documentation>The agencyID must be provided, and identifies the maintenance agency of the object.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="isFinal" type="xs:boolean" use="optional" default="false">
-					<xs:annotation>
-						<xs:documentation>The isFinal attribute indicates whether the object is unchangeable without versioning. If the value is true, the object must be versioned upon change. If the final attribute is not supplied, then the object is assumed not to be final. Note that all production objects must be final.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="isExternalReference" type="xs:boolean" use="optional" default="false">
-					<xs:annotation>
-						<xs:documentation>The isExternalReference attribute, if true, indicates that the actual object is not defined the corresponding element, rather its full details are defined elsewhere - indicated by either the registryURL, the repositoryURL, or the structureURL. The purpose of this is so that each structure message does not have to redefine object that are already defined elsewhere. If the isExternalReference attribute is not set, then it is assumed to be false, and the object should contain the full definition of its contents. If more than one of the registryURL, the repositoryURL, and the structureURL are supplied, then the application processing the object can choose the method it finds best suited to retrieve the details of the object.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attributeGroup ref="common:ExternalReferenceAttributeGroup"/>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
 
 	<xs:complexType name="ItemSchemeType" abstract="true">
 		<xs:annotation>
 			<xs:documentation>ItemSchemeType is an abstract base type for all item scheme objects. It contains a collection of items. Concrete instances of this type should restrict the actual types of items allowed within the scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="MaintainableType">
+			<xs:extension base="common:MaintainableType">
 				<xs:sequence>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="Item"/>
@@ -153,9 +39,10 @@
 			<xs:documentation>ItemBaseType is an abstract base type that forms the basis for the ItemType. It requires that at least an id be supplied for an item.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:restriction base="NameableType">
+			<xs:restriction base="common:NameableType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -188,6 +75,7 @@
 			<xs:restriction base="ItemType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -200,7 +88,7 @@
 			<xs:documentation>StructureType is an abstract base type for all structure objects. Concrete instances of this should restrict to a concrete grouping.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="MaintainableType">
+			<xs:extension base="common:MaintainableType">
 				<xs:sequence>
 					<xs:sequence minOccurs="0">
 						<xs:element ref="Grouping"/>
@@ -238,7 +126,7 @@
 			<xs:documentation>ComponentListType is an abstract base type for all component lists. It contains a collection of components. Concrete types should restrict this to specific concrete components.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="IdentifiableType">
+			<xs:extension base="common:IdentifiableType">
 				<xs:sequence>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="Component"/>
@@ -259,9 +147,10 @@
 			<xs:documentation>ComponentBaseType is an abstract type that only serves the purpose of forming the base for the actual ComponentType. It only restricts the format of the id attribute to the NCNameIDType.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:restriction base="IdentifiableType">
+			<xs:restriction base="common:IdentifiableType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 				<xs:attribute name="id" type="common:NCNameIDType" use="optional">
 					<xs:annotation>
@@ -299,7 +188,7 @@
 			<xs:documentation>StructureUsageType is an abstract base type for all structure usages. It contains a reference to a structure. Concrete instances of this type should restrict the type of structure referenced.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="MaintainableType">
+			<xs:extension base="common:MaintainableType">
 				<xs:sequence>
 					<xs:element name="Structure" type="common:StructureReferenceBaseType" minOccurs="0">
 						<xs:annotation>
@@ -311,24 +200,6 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:simpleType name="UsageStatusType">
-		<xs:annotation>
-			<xs:documentation>UsageStatusType provides a list of enumerated types for indicating whether reporting a given attribute is mandatory or conditional.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Mandatory">
-				<xs:annotation>
-					<xs:documentation>Reporting the associated attribute is mandatory - a value must be supplied.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="Conditional">
-				<xs:annotation>
-					<xs:documentation>Reporting the associated attribute is not mandatory - a value may  be supplied, but is not required.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-	
 	<xs:complexType name="RepresentationType" abstract="true">
 		<xs:annotation>
 			<xs:documentation>RepresentationType is an abstract type that defines a representation. Because the type of item schemes that are allowed as the an enumeration vary based on the object in which this is defined, this type is abstract to force that the enumeration reference be restricted to the proper type of item scheme reference.</xs:documentation>
@@ -340,7 +211,7 @@
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>
-				<xs:element name="Enumeration" type="common:ItemSchemeReferenceBaseType">
+				<xs:element name="Enumeration" type="common:EnumerationReferenceType">
 					<xs:annotation>
 						<xs:documentation>Enumeration references an item scheme that enumerates the allowable values for this representation.</xs:documentation>
 					</xs:annotation>
@@ -352,6 +223,16 @@
 				</xs:element>
 			</xs:sequence>
 		</xs:choice>
+		<xs:attribute name="minOccurs" type="xs:nonNegativeInteger" use="optional" default="1">
+			<xs:annotation>
+				<xs:documentation>The minOccurs attribute indicates the minimum number of value that must be reported for the component.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="maxOccurs" type="common:OccurenceType" use="optional">
+			<xs:annotation>
+				<xs:documentation>The maxOccurs attribute indicates the maximum number of values that can be reported for the component.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	
 	<xs:complexType name="TextFormatType">
