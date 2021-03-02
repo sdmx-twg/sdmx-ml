@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/registry" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/registry" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure">
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/registry" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/registry" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure">
 	<xs:include schemaLocation="SDMXRegistryBase.xsd"/>
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" schemaLocation="SDMXStructure.xsd"/>
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" schemaLocation="SDMXStructure.xsd"/>
 
 	<xs:annotation>
 		<xs:appinfo>SDMX Registration Registry Module</xs:appinfo>
@@ -120,17 +120,12 @@
 						<xs:documentation>DataKeySet is used to provide a set of included or excluded keys which serves to refine the data being sought.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="MetadataKeySet" type="structure:MetadataKeySetType">
-					<xs:annotation>
-						<xs:documentation>MetadataKeySet is used to provide a set of included or excluded keys which serves to refine the data being sought.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="CubeRegion" type="common:CubeRegionType">
+				<xs:element name="CubeRegion" type="structure:CubeRegionType">
 					<xs:annotation>
 						<xs:documentation>CubeRegion is used to provide sets of include or excluded values for dimensions when querying for data.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="MetadataTargetRegion" type="common:MetadataTargetRegionType">
+				<xs:element name="MetadataTargetRegion" type="structure:MetadataTargetRegionType">
 					<xs:annotation>
 						<xs:documentation>MetadataTargetRegion is used to provide sets of included or excluded values for identifier components when querying for metadata.</xs:documentation>
 					</xs:annotation>
@@ -189,9 +184,9 @@
 					<xs:documentation>Registration provides the details of a matching registration. In addition to the data source and provision agreement information, the id of the registration must also be provided.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ContentConstraint" type="common:ContentConstraintReferenceType" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Constraint" type="common:ConstraintReferenceType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>ContentConstraint provides a reference to a content constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields.</xs:documentation>
+					<xs:documentation>Constraint provides a reference to a data or metadata constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

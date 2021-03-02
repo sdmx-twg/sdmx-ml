@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common">
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
 	<xs:include schemaLocation="SDMXStructureBase.xsd"/>
 	
 	<xs:annotation>
@@ -14,7 +14,7 @@
 			<xs:documentation>ProcessType describes the structure of a process, which is a scheme which defines or documents the operations performed on data in order to validate data or to derive new information according to a given set of rules. Processes occur in order, and will continue in order unless a transition dictates another step should occur.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="MaintainableType">
+			<xs:extension base="common:MaintainableType">
 				<xs:sequence>
 					<xs:element name="ProcessStep" type="ProcessStepType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
@@ -35,9 +35,10 @@
 			<xs:documentation>ProcessStepBaseType is an abstract base type used as the basis for the ProcessStepType.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:restriction base="NameableType">
+			<xs:restriction base="common:NameableType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -92,7 +93,7 @@
 			<xs:documentation>TransitionType describes the details of a transition, which is an expression in a textual or formalised way of the transformation of data between two specific operations performed on the data.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="IdentifiableType">
+			<xs:extension base="common:IdentifiableType">
 				<xs:sequence>
 					<xs:element name="TargetStep" type="common:LocalProcessStepReferenceType">
 						<xs:annotation>

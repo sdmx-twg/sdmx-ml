@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/registry" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/registry" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure">
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/registry" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/registry" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure">
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
 
 	<xs:annotation>
 		<xs:appinfo>SDMX Base Registry Module</xs:appinfo>
@@ -136,7 +136,7 @@
 		<xs:annotation>
 			<xs:documentation>VersionQueryType is a simple type that allows for a version number to be substituted with a wild card character ("%") or a late bound character ("*").</xs:documentation>
 		</xs:annotation>
-		<xs:union memberTypes="common:VersionQueryType common:WildCardValueType"/>
+		<xs:union memberTypes="common:WildcardVersionType common:WildCardValueType"/>
 	</xs:simpleType>
 	
 	<xs:complexType name="IdentifiableQueryType">
@@ -179,7 +179,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
 	<xs:complexType name="StatusMessageType">
 		<xs:annotation>
 			<xs:documentation>StatusMessageType carries the text of error messages and/or warnings in response to queries or requests.</xs:documentation>
