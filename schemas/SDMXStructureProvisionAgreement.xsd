@@ -43,7 +43,7 @@
 							<xs:documentation>Metadataflow provides a reference to a pre-existing metadataflow in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="MetadataProvider" type="common:DataProviderReferenceType">
+					<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType">
 						<xs:annotation>
 							<xs:documentation>MetadataProvider provides a reference to a pre-existing metadata provider in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
 						</xs:annotation>

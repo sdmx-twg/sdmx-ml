@@ -181,18 +181,23 @@
 				<p>Data structure definition schemas will derive a type based on this that is specific to the data structure definition. The dimension values which make up the key  will be represented with local (non-namespace qualified) XML attributes. The metadata attribute values associated with the key dimensions will be expressed as XML local (non-namespace qualified) attributes if they are simple values (e.g. enumerated, dates, numbers) and are not repeatable. Metadata attributes that are repeatable, or do not have simple values (e.g. text) will be expressed using the Comp element. This dimensions and simple attributes are specified in the content model with the declaration of anyAttributes in the "local" namespace. The derived series type will refine this structure so that the attributes are explicit. The XML attributes will be given a name based on the attribute's identifier. These XML attributes will be unqualified (meaning they do not have a namespace associated with them). The dimension XML attributes will be required while the attribute XML attributes will be optional. To allow for generic processing, it is required that the only unqualified XML attributes in the derived group type be for the series dimensions and attributes declared in the data structure definition. If additional attributes are required, these should be qualified with a namespace so that a generic application can easily distinguish them as not being meant to represent a data structure definition dimension or attribute.</p>
 			</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Comp" type="CompType" form="unqualified" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Comp contains the details of the metadata attributes that have complex representation and cannot be expressed as XML attributes.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-		<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
-			<xs:annotation>
-				<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived observation type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
+		<xs:complexContent>
+			<xs:extension base="common:AnnotableType">
+				<xs:sequence>
+					<xs:element name="Comp" type="CompType" form="unqualified" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Comp contains the details of the metadata attributes that have complex representation and cannot be expressed as XML attributes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
+					<xs:annotation>
+						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived observation type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute namespace="##local"/>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 
 	<xs:simpleType name="DataScopeType">

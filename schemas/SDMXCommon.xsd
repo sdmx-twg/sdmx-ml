@@ -1352,6 +1352,11 @@
 					<xs:documentation>A time datatype corresponding to W3C XML Schema's xs:duration datatype.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
+			<xs:enumeration value="GeospatialInformation">
+				<xs:annotation>
+					<xs:documentation>A string used to describe geographical features like points (e.g., locations of places, landmarks, buildings, etc.), lines (e.g., rivers, roads, streets, etc.), or areas (e.g., geographical regions, countries, islands, land lots, etc.). A mix of different features is possible too, e.g., combining polygons and geographical points to describe a country and the location of its capital.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
 			<xs:enumeration value="XHTML">
 				<xs:annotation>
 					<xs:documentation>This value indicates that the content of the component can contain XHTML markup.</xs:documentation>
@@ -1419,6 +1424,7 @@
 			<xs:enumeration value="Day"/>
 			<xs:enumeration value="Time"/>
 			<xs:enumeration value="Duration"/>
+			<xs:enumeration value="GeospatialInformation"/>
 			<xs:enumeration value="XHTML"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -1467,6 +1473,7 @@
 			<xs:enumeration value="Day"/>
 			<xs:enumeration value="Time"/>
 			<xs:enumeration value="Duration"/>
+			<xs:enumeration value="GeospatialInformation"/>
 		</xs:restriction>
 	</xs:simpleType>
 

@@ -45,7 +45,7 @@
 				</xs:sequence>
 				<xs:attribute name="role" type="ConstraintRoleType" use="required">
 					<xs:annotation>
-						<xs:documentation>The type attribute indicates whether this constraint states what data is actually present for the constraint attachment, or if it defines what content is allowed.</xs:documentation>
+						<xs:documentation>The role attribute indicates whether this constraint states what data is actually present for the constraint attachment, or if it defines what content is allowed.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>

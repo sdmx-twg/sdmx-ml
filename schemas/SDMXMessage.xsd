@@ -281,7 +281,12 @@
 			</xs:element>
 			<xs:element name="DataProvider" type="common:DataProviderReferenceType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>DataProvider identifies the provider of the data for a data/reference metadata message.</xs:documentation>
+					<xs:documentation>DataProvider identifies the provider of the data for a data message.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>MetadataProvider identifies the provider of the metadata for a metadata message.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="DataSetAction" type="common:ActionType" minOccurs="0">
@@ -321,7 +326,7 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	
+
 	<xs:complexType name="StructureHeaderType">
 		<xs:annotation>
 			<xs:documentation>StructureHeaderType defines the structure for structural metadata messages.</xs:documentation>
@@ -340,61 +345,7 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
-	
-	<xs:complexType name="GenericDataHeaderType">
-		<xs:annotation>
-			<xs:documentation>GenericDataHeaderType defines the header structure for a generic data message.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="BaseHeaderType">
-				<xs:sequence>
-					<xs:element name="ID" type="common:IDType"/>
-					<xs:element name="Test" type="xs:boolean" default="false"/>
-					<xs:element name="Prepared" type="HeaderTimeType"/>
-					<xs:element name="Sender" type="SenderType"/>
-					<xs:element name="Receiver" type="PartyType" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element ref="common:Name" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="Structure" type="common:GenericDataStructureType" maxOccurs="unbounded"/>
-					<xs:element name="DataProvider" type="common:DataProviderReferenceType" minOccurs="0"/>
-					<xs:element name="DataSetAction" type="common:ActionType" minOccurs="0"/>
-					<xs:element name="DataSetID" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>	
-					<xs:element name="Extracted" type="xs:dateTime" minOccurs="0"/>
-					<xs:element name="ReportingBegin" type="common:ObservationalTimePeriodType" minOccurs="0"/>
-					<xs:element name="ReportingEnd" type="common:ObservationalTimePeriodType" minOccurs="0"/>
-					<xs:element name="EmbargoDate" type="xs:dateTime" minOccurs="0"/>
-					<xs:element name="Source" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>					
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="GenericTimeSeriesDataHeaderType">
-		<xs:annotation>
-			<xs:documentation>GenericTimeSeriesDataHeaderType defines the header structure for a time series only generic data message.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="GenericDataHeaderType">
-				<xs:sequence>
-					<xs:element name="ID" type="common:IDType"/>
-					<xs:element name="Test" type="xs:boolean" default="false"/>
-					<xs:element name="Prepared" type="HeaderTimeType"/>
-					<xs:element name="Sender" type="SenderType"/>
-					<xs:element name="Receiver" type="PartyType" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element ref="common:Name" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="Structure" type="common:GenericTimeSeriesDataStructureType"/>
-					<xs:element name="DataProvider" type="common:DataProviderReferenceType" minOccurs="0"/>
-					<xs:element name="DataSetAction" type="common:ActionType" minOccurs="0"/>
-					<xs:element name="DataSetID" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>	
-					<xs:element name="Extracted" type="xs:dateTime" minOccurs="0"/>
-					<xs:element name="ReportingBegin" type="common:ObservationalTimePeriodType" minOccurs="0"/>
-					<xs:element name="ReportingEnd" type="common:ObservationalTimePeriodType" minOccurs="0"/>
-					<xs:element name="EmbargoDate" type="xs:dateTime" minOccurs="0"/>
-					<xs:element name="Source" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
+
    <xs:complexType name="StructureSpecificDataHeaderType">
       <xs:annotation>
          <xs:documentation>StructureSpecificDataHeaderType defines the header structure for a structure specific data message.</xs:documentation>
@@ -422,33 +373,6 @@
       </xs:complexContent>
    </xs:complexType>
 
-   <xs:complexType name="StructureSpecificTimeSeriesDataHeaderType">
-      <xs:annotation>
-         <xs:documentation>StructureSpecificTimeSeriesDataHeaderType defines the header structure for a time series only structure specific data message.</xs:documentation>
-      </xs:annotation>
-      <xs:complexContent>
-         <xs:restriction base="StructureSpecificDataHeaderType">
-            <xs:sequence>
-               <xs:element name="ID" type="common:IDType"/>
-               <xs:element name="Test" type="xs:boolean" default="false"/>
-               <xs:element name="Prepared" type="HeaderTimeType"/>
-               <xs:element name="Sender" type="SenderType"/>
-               <xs:element name="Receiver" type="PartyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="common:Name" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="Structure" type="common:StructureSpecificDataTimeSeriesStructureType" maxOccurs="unbounded"/>
-               <xs:element name="DataProvider" type="common:DataProviderReferenceType" minOccurs="0"/>
-               <xs:element name="DataSetAction" type="common:ActionType" minOccurs="0"/>
-               <xs:element name="DataSetID" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="Extracted" type="xs:dateTime" minOccurs="0"/>
-               <xs:element name="ReportingBegin" type="common:ObservationalTimePeriodType" minOccurs="0"/>
-               <xs:element name="ReportingEnd" type="common:ObservationalTimePeriodType" minOccurs="0"/>
-               <xs:element name="EmbargoDate" type="xs:dateTime" minOccurs="0"/>
-               <xs:element name="Source" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-         </xs:restriction>
-      </xs:complexContent>
-   </xs:complexType>
-
 	<xs:complexType name="GenericMetadataHeaderType">
 		<xs:annotation>
 			<xs:documentation>GenericMetadataHeaderType defines the header format for generic reference metadata.</xs:documentation>
@@ -463,39 +387,15 @@
 					<xs:element name="Receiver" type="PartyType" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Structure" type="common:GenericMetadataStructureType" maxOccurs="unbounded"/>
-					<xs:element name="DataProvider" type="common:DataProviderReferenceType" minOccurs="0"/>
+					<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType" minOccurs="0"/>
 					<xs:element name="DataSetAction" type="common:ActionType" minOccurs="0"/>
 					<xs:element name="DataSetID" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>	
 					<xs:element name="Extracted" type="xs:dateTime" minOccurs="0"/>
-					<xs:element name="Source" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>					
+					<xs:element name="Source" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
-
-   <xs:complexType name="StructureSpecificMetadataHeaderType">
-      <xs:annotation>
-         <xs:documentation>StructureSpecificMetadataHeaderType defines the header format for metadata structure definition specific reference metadata messages.</xs:documentation>
-      </xs:annotation>
-      <xs:complexContent>
-         <xs:restriction base="BaseHeaderType">
-            <xs:sequence>
-               <xs:element name="ID" type="common:IDType"/>
-               <xs:element name="Test" type="xs:boolean" default="false"/>
-               <xs:element name="Prepared" type="HeaderTimeType"/>
-               <xs:element name="Sender" type="SenderType"/>
-               <xs:element name="Receiver" type="PartyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="common:Name" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="Structure" type="common:StructureSpecificMetadataStructureType" maxOccurs="unbounded"/>
-               <xs:element name="DataProvider" type="common:DataProviderReferenceType" minOccurs="0"/>
-               <xs:element name="DataSetAction" type="common:ActionType" minOccurs="0"/>
-               <xs:element name="DataSetID" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="Extracted" type="xs:dateTime" minOccurs="0"/>
-               <xs:element name="Source" type="common:TextType" minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-         </xs:restriction>
-      </xs:complexContent>
-   </xs:complexType>
 
 	<xs:complexType name="BasicHeaderType">
 		<xs:annotation>

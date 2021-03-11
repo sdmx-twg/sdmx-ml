@@ -1959,6 +1959,86 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:complexType name="MetadataProviderSchemeReferenceType">
+		<xs:annotation>
+			<xs:documentation>MetadataProviderSchemeReferenceType is a type for referencing a metadata provider scheme object. It consists of a URN and/or a complete set of reference fields.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="OrganisationSchemeReferenceBaseType">
+				<xs:choice>
+					<xs:sequence>
+						<xs:element name="Ref" type="MetadataProviderSchemeRefType" form="unqualified"/>
+						<xs:element name="URN" type="xs:anyURI" form="unqualified" minOccurs="0"/>
+					</xs:sequence>
+					<xs:element name="URN" type="xs:anyURI" form="unqualified"/>
+				</xs:choice>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataProviderSchemeRefType">
+		<xs:annotation>
+			<xs:documentation>MetadataProviderSchemeRefType contains a set of reference fields for a metadata provider scheme.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="OrganisationSchemeRefBaseType">
+				<xs:attribute name="class" type="OrganisationSchemeTypeCodelistType" use="optional" fixed="MetadataProviderScheme"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataProviderReferenceType">
+		<xs:annotation>
+			<xs:documentation>MetadataProviderReferenceType is a type for referencing a metadata provider. It consists of a URN and/or a complete set of reference fields.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="OrganisationReferenceBaseType">
+				<xs:choice>
+					<xs:sequence>
+						<xs:element name="Ref" type="MetadataProviderRefType" form="unqualified"/>
+						<xs:element name="URN" type="xs:anyURI" form="unqualified" minOccurs="0"/>
+					</xs:sequence>
+					<xs:element name="URN" type="xs:anyURI" form="unqualified"/>
+				</xs:choice>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataProviderRefType">
+		<xs:annotation>
+			<xs:documentation>MetadataProviderRefType contains a set of reference fields for referencing a metadata provider within a metadata provider scheme.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="OrganisationRefBaseType">
+				<xs:attribute name="class" type="OrganisationTypeCodelistType" use="optional" fixed="MetadataProvider"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="LocalMetadataProviderReferenceType">
+		<xs:annotation>
+			<xs:documentation>LocalMetadataProviderReferenceType provides a simple reference to a metadata provider, where the reference to the metadata provider scheme which defines it is provided in another context.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="LocalOrganisationReferenceBaseType">
+				<xs:sequence>
+					<xs:element name="Ref" type="LocalMetadataProviderRefType" form="unqualified"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="LocalMetadataProviderRefType">
+		<xs:annotation>
+			<xs:documentation>LocalMetadataProviderRefType references a metadata provider locally where the reference to the metadata provider scheme which defines it is provided elsewhere.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="LocalOrganisationRefBaseType">
+				<xs:attribute name="class" type="OrganisationTypeCodelistType" use="optional" fixed="MetadataProvider"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ReportingTaxonomyReferenceType">
 		<xs:annotation>
 			<xs:documentation>ReportingTaxonomyReferenceType is a type for referencing a reporting taxonomy object. It consists of a URN and/or a complete set of reference fields.</xs:documentation>
@@ -4111,6 +4191,8 @@
 			<xs:enumeration value="Metadataflow"/>
 			<xs:enumeration value="MetadataAttribute"/>
 			<xs:enumeration value="MetadataConstraint"/>
+			<xs:enumeration value="MetadataProvider"/>
+			<xs:enumeration value="MetadataProviderScheme"/>
 			<xs:enumeration value="MetadataProvisionAgreement"/>
 			<xs:enumeration value="MetadataSet"/>
 			<xs:enumeration value="MetadataStructure"/>
@@ -4173,6 +4255,7 @@
 			<xs:enumeration value="ItemSchemeMap"/>
 			<xs:enumeration value="Metadataflow"/>
 			<xs:enumeration value="MetadataConstraint"/>
+			<xs:enumeration value="MetadataProviderScheme"/>
 			<xs:enumeration value="MetadataProvisionAgreement"/>
 			<xs:enumeration value="MetadataStructure"/>
 			<xs:enumeration value="NamePersonalisationScheme"/>
@@ -4215,6 +4298,7 @@
 			<xs:enumeration value="HierarchyAssociation"/>
 			<xs:enumeration value="Metadataflow"/>
 			<xs:enumeration value="MetadataConstraint"/>
+			<xs:enumeration value="MetadataProviderScheme"/>
 			<xs:enumeration value="MetadataProvisionAgreement"/>
 			<xs:enumeration value="MetadataStructure"/>
 			<xs:enumeration value="NamePersonalisationScheme"/>
@@ -4266,6 +4350,7 @@
 			<xs:enumeration value="CustomTypeScheme"/>
 			<xs:enumeration value="DataConsumerScheme"/>
 			<xs:enumeration value="DataProviderScheme"/>
+			<xs:enumeration value="MetadataProviderScheme"/>
 			<xs:enumeration value="NamePersonalisationScheme"/>
 			<xs:enumeration value="OrganisationUnitScheme"/>
 			<xs:enumeration value="ReportingTaxonomy"/>
@@ -4288,6 +4373,7 @@
 			<xs:enumeration value="DataConsumerScheme"/>
 			<xs:enumeration value="DataProviderScheme"/>
 			<xs:enumeration value="Hierarchy"/>
+			<xs:enumeration value="MetadataProviderScheme"/>
 			<xs:enumeration value="OrganisationUnitScheme"/>
 			<xs:enumeration value="ReportingTaxonomy"/>
 			<xs:enumeration value="ValueList"/>
@@ -4326,6 +4412,7 @@
 			<xs:enumeration value="AgencyScheme"/>
 			<xs:enumeration value="DataConsumerScheme"/>
 			<xs:enumeration value="DataProviderScheme"/>
+			<xs:enumeration value="MetadataProviderScheme"/>
 			<xs:enumeration value="OrganisationUnitScheme"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -4338,6 +4425,7 @@
 			<xs:enumeration value="Agency"/>
 			<xs:enumeration value="DataConsumer"/>
 			<xs:enumeration value="DataProvider"/>
+			<xs:enumeration value="MetadataProvider"/>
 			<xs:enumeration value="OrganisationUnit"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -4386,6 +4474,7 @@
 			<xs:enumeration value="CustomType"/>
 			<xs:enumeration value="DataConsumer"/>
 			<xs:enumeration value="DataProvider"/>
+			<xs:enumeration value="MetadataProvider"/>
 			<xs:enumeration value="NamePersonalisation"/>
 			<xs:enumeration value="OrganisationUnit"/>
 			<xs:enumeration value="ReportingCategory"/>
@@ -4732,6 +4821,17 @@
 		</xs:annotation>
 	</xs:element>
 
+	<xs:element name="MetadataProvider" type="EmptyType">
+		<xs:annotation>
+			<xs:documentation>MetadataProvider is an empty element that denotes a metadata provider object.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="MetadataProviderScheme" type="EmptyType">
+		<xs:annotation>
+			<xs:documentation>MetadataProviderScheme is an empty element that denotes a metadata provider scheme object.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 
 	<xs:element name="MetadataProvisionAgreement" type="EmptyType">
 		<xs:annotation>
@@ -4980,6 +5080,8 @@
 			<xs:element ref="Metadataflow" minOccurs="0"/>
 			<xs:element ref="MetadataAttribute" minOccurs="0"/>
 			<xs:element ref="MetadataConstraint" minOccurs="0"/>
+			<xs:element ref="MetadataProvider" minOccurs="0"/>
+			<xs:element ref="MetadataProviderScheme" minOccurs="0"/>
 			<xs:element ref="MetadataProvisionAgreement" minOccurs="0"/>
 			<xs:element ref="MetadataSet" minOccurs="0"/>
 			<xs:element ref="MetadataStructure" minOccurs="0"/>
@@ -5037,6 +5139,7 @@
 					<xs:element ref="HierarchyAssociation" minOccurs="0"/>
 					<xs:element ref="Metadataflow" minOccurs="0"/>
 					<xs:element ref="MetadataConstraint" minOccurs="0"/>
+					<xs:element ref="MetadataProviderScheme" minOccurs="0"/>
 					<xs:element ref="MetadataProvisionAgreement" minOccurs="0"/>
 					<xs:element ref="MetadataStructure" minOccurs="0"/>
 					<xs:element ref="NamePersonalisationScheme" minOccurs="0"/>
