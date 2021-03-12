@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright SDMX 2020 - www.sdmx.org -->
+<mes:Structure xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/message" xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/message ../../schemas/SDMXMessage.xsd">
+	<mes:Header>
+		<mes:ID>VTL_SAMPLE2</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2020-06-05T12:00:00.000Z</mes:Prepared>
+		<mes:Sender id="SDMX"/>
+		<mes:Receiver id="SDMX"/>
+	</mes:Header>
+	<mes:Structures>
+		<str:Dataflows>
+			<str:Dataflow agencyID="SDMX" id="DF21" version="1.0">
+				<com:Name xml:lang="en">Dataflow #2.1</com:Name>
+				<str:Structure>
+					<Ref agencyID="SDMX" id="DS21" version="1.0"/>
+				</str:Structure>
+			</str:Dataflow>
+			<str:Dataflow agencyID="SDMX" id="DF2R1" version="1.0">
+				<com:Name xml:lang="en">Dataflow for Result #2.1</com:Name>
+				<str:Structure>
+					<Ref agencyID="SDMX" id="DS2R1" version="1.0"/>
+				</str:Structure>
+			</str:Dataflow>
+		</str:Dataflows>
+		<str:Codelists>
+			<str:Codelist agencyID="SDMX" id="CL_AREA" version="1.0" isPartial="true">
+				<!-- All EU countries would be added to cater for the 'EU' code, but were removed for keeping the samples smaller; hence the isPartial flag -->
+				<com:Name xml:lang="en">Area codelist</com:Name>
+				<str:Code id="EU">
+					<com:Name xml:lang="en">European Union</com:Name>
+				</str:Code>
+				<str:Code id="BENELUX">
+					<com:Name xml:lang="en">The Benelux Union</com:Name>
+				</str:Code>
+				<str:Code id="BE">
+					<com:Name xml:lang="en">Belgium</com:Name>
+				</str:Code>
+				<str:Code id="LU">
+					<com:Name xml:lang="en">Luxembourg</com:Name>
+				</str:Code>
+				<str:Code id="NE">
+					<com:Name xml:lang="en">The Netherlands</com:Name>
+				</str:Code>
+				<str:Code id="AT">
+					<com:Name xml:lang="en">Austria</com:Name>
+				</str:Code>
+				<str:Code id="BG">
+					<com:Name xml:lang="en">Bulgaria</com:Name>
+				</str:Code>
+				<str:Code id="SE">
+					<com:Name xml:lang="en">Sweden</com:Name>
+				</str:Code>
+				<str:Code id="SI">
+					<com:Name xml:lang="en">Slovenia</com:Name>
+				</str:Code>
+				<str:Code id="SK">
+					<com:Name xml:lang="en">Slovakia</com:Name>
+				</str:Code>
+			</str:Codelist>
+		</str:Codelists>
+		<str:Concepts>
+			<str:ConceptScheme agencyID="SDMX" id="CS21" version="1.0">
+				<com:Name xml:lang="en">Concepts for Measures #2.1</com:Name>
+				<str:Concept id="IMPORT">
+					<com:Name xml:lang="en">Import</com:Name>
+					<str:CoreRepresentation>
+						<str:TextFormat textType="Numeric"/>
+					</str:CoreRepresentation>
+				</str:Concept>
+				<str:Concept id="EXPORT">
+					<com:Name xml:lang="en">Export</com:Name>
+					<str:CoreRepresentation>
+						<str:TextFormat textType="Numeric"/>
+					</str:CoreRepresentation>
+				</str:Concept>
+			</str:ConceptScheme>
+			<str:ConceptScheme agencyID="SDMX" id="CS2R1" version="1.0">
+				<com:Name xml:lang="en">Concepts for Measures in Results #2.1</com:Name>
+				<str:Concept id="PERC_EU_IMPORT">
+					<com:Name xml:lang="en">Import for EU in percentage</com:Name>
+					<str:CoreRepresentation>
+						<str:TextFormat textType="Numeric" minValue="0" maxValue="100"/>
+					</str:CoreRepresentation>
+				</str:Concept>
+				<str:Concept id="PERC_EU_EXPORT">
+					<com:Name xml:lang="en">Export for EU in percentage</com:Name>
+					<str:CoreRepresentation>
+						<str:TextFormat textType="Numeric" minValue="0" maxValue="100"/>
+					</str:CoreRepresentation>
+				</str:Concept>
+			</str:ConceptScheme>
+			<str:ConceptScheme agencyID="SDMX" id="CONCEPTS2" version="1.0">
+				<com:Name xml:lang="en">Concepts for DSDs #2.1</com:Name>
+				<str:Concept id="GEO_AREA">
+					<com:Name xml:lang="en">Geographical Area</com:Name>
+				</str:Concept>
+				<str:Concept id="TIME_PERIOD">
+					<com:Name xml:lang="en">Time Period</com:Name>
+				</str:Concept>
+				<str:Concept id="MEASURE_DIMENSION">
+					<com:Name xml:lang="en">Measure Dimension</com:Name>
+				</str:Concept>
+				<str:Concept id="OBS_VALUE">
+					<com:Name xml:lang="en">Observation Value</com:Name>
+				</str:Concept>
+			</str:ConceptScheme>
+		</str:Concepts>
+		<str:DataStructures>
+			<str:DataStructure agencyID="SDMX" id="DS21" version="1.0">
+				<com:Name xml:lang="en">Data Structure #2.1</com:Name>
+				<str:DataStructureComponents>
+					<str:DimensionList>
+						<str:Dimension id="GEO_AREA">
+							<str:ConceptIdentity>
+								<Ref maintainableParentID="CONCEPTS2" agencyID="SDMX" id="GEO_AREA" maintainableParentVersion="1.0"/>
+							</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:Enumeration>
+									<Ref agencyID="SDMX" id="CL_AREA" version="1.0"/>
+								</str:Enumeration>
+							</str:LocalRepresentation>
+						</str:Dimension>
+						<str:TimeDimension id="TIME_PERIOD">
+							<str:ConceptIdentity>
+								<Ref maintainableParentID="CONCEPTS2" agencyID="SDMX" id="TIME_PERIOD" maintainableParentVersion="1.0"/>
+							</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:TextFormat textType="ObservationalTimePeriod"/>
+							</str:LocalRepresentation>
+						</str:TimeDimension>
+					</str:DimensionList>
+					<str:MeasureList>
+						<str:Measure id="OBS_VALUE">
+							<str:ConceptIdentity>
+								<Ref maintainableParentID="CONCEPTS2" agencyID="SDMX" id="OBS_VALUE" maintainableParentVersion="1.0"/>
+							</str:ConceptIdentity>
+						</str:Measure>
+					</str:MeasureList>
+				</str:DataStructureComponents>
+			</str:DataStructure>
+			<str:DataStructure agencyID="SDMX" id="DS2R1" version="1.0">
+				<com:Name xml:lang="en">Data Structure for Results #2.1</com:Name>
+				<str:DataStructureComponents>
+					<str:DimensionList>
+						<str:Dimension id="GEO_AREA">
+							<str:ConceptIdentity>
+								<Ref maintainableParentID="CONCEPTS2" agencyID="SDMX" id="GEO_AREA" maintainableParentVersion="1.0"/>
+							</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:Enumeration>
+									<Ref agencyID="SDMX" id="CL_AREA" version="1.0"/>
+								</str:Enumeration>
+							</str:LocalRepresentation>
+						</str:Dimension>
+						<str:TimeDimension id="TIME_PERIOD">
+							<str:ConceptIdentity>
+								<Ref maintainableParentID="CONCEPTS2" agencyID="SDMX" id="TIME_PERIOD" maintainableParentVersion="1.0"/>
+							</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:TextFormat textType="ObservationalTimePeriod"/>
+							</str:LocalRepresentation>
+						</str:TimeDimension>
+						<str:Dimension id="MEASURE_DIMENSION">
+							<str:ConceptIdentity>
+								<Ref maintainableParentID="CONCEPTS2" agencyID="SDMX" id="MEASURE_DIMENSION" maintainableParentVersion="1.0"/>
+							</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:Enumeration>
+									<Ref agencyID="SDMX" id="CS2R1" version="1.0"/>
+								</str:Enumeration>
+							</str:LocalRepresentation>
+						</str:Dimension>
+					</str:DimensionList>
+					<str:MeasureList>
+						<str:Measure id="OBS_VALUE">
+							<str:ConceptIdentity>
+								<Ref maintainableParentID="CONCEPTS2" agencyID="SDMX" id="OBS_VALUE" maintainableParentVersion="1.0"/>
+							</str:ConceptIdentity>
+						</str:Measure>
+					</str:MeasureList>
+				</str:DataStructureComponents>
+			</str:DataStructure>
+		</str:DataStructures>
+		<str:CustomTypes>
+			<str:CustomTypeScheme vtlVersion="2.0" agencyID="SDMX" id="CTS1" version="1.0">
+				<com:Name xml:lang="en">Custom Type Scheme #1</com:Name>
+				<str:CustomType id="NUMERIC_WITH_ZEROS">
+					<com:Name xml:lang="en">Custom Type sample for numbers</com:Name>
+					<str:VtlScalarType>number</str:VtlScalarType>
+					<str:DataType>NUMERIC</str:DataType>
+					<str:NullValue>0</str:NullValue>
+				</str:CustomType>
+			</str:CustomTypeScheme>
+		</str:CustomTypes>
+		<str:VtlMappings>
+			<str:VtlMappingScheme agencyID="SDMX" id="VTLMS1" version="1.0">
+				<com:Name xml:lang="en">VTL Mapping Scheme #1</com:Name>
+				<str:VtlMapping alias="DF1R1" id="VTLM1">
+					<com:Name xml:lang="en">VTL Mapping #1</com:Name>
+					<str:Dataflow>
+						<Ref agencyID="SDMX" id="DF1R1" version="1.0"/>
+					</str:Dataflow>
+					<str:FromVtlMapping method="M2A"/>
+				</str:VtlMapping>
+				<str:VtlMapping alias="DF11" id="VTLM2">
+					<com:Name xml:lang="en">VTL Mapping #2</com:Name>
+					<str:Dataflow>
+						<Ref agencyID="SDMX" id="DF11" version="1.0"/>
+					</str:Dataflow>
+					<str:ToVtlMapping method="Basic"/>
+				</str:VtlMapping>
+				<str:VtlMapping alias="INDICATOR" id="VTLM3">
+					<com:Name xml:lang="en">Variable INDICATOR mapping</com:Name>
+					<str:Concept>
+						<Ref maintainableParentID="CONCEPTS" agencyID="SDMX" id="MEASURE_DIMENSION" maintainableParentVersion="1.0"/>
+					</str:Concept>
+				</str:VtlMapping>
+				<str:VtlMapping alias="VALUE" id="VTLM4">
+					<com:Name xml:lang="en">Variable VALUE mapping</com:Name>
+					<str:Concept>
+						<Ref maintainableParentID="CONCEPTS" agencyID="SDMX" id="OBS_VALUE" maintainableParentVersion="1.0"/>
+					</str:Concept>
+				</str:VtlMapping>
+				<str:VtlMapping alias="TIME" id="VTLM5">
+					<com:Name xml:lang="en">Variable TIME mapping</com:Name>
+					<str:Concept>
+						<Ref maintainableParentID="CONCEPTS" agencyID="SDMX" id="TIME_PERIOD" maintainableParentVersion="1.0"/>
+					</str:Concept>
+				</str:VtlMapping>
+				<str:VtlMapping alias="GEO" id="VTLM6">
+					<com:Name xml:lang="en">Variable GEO mapping</com:Name>
+					<str:Concept>
+						<Ref maintainableParentID="CONCEPTS" agencyID="SDMX" id="COUNTRY" maintainableParentVersion="1.0"/>
+					</str:Concept>
+				</str:VtlMapping>
+			</str:VtlMappingScheme>
+			<str:VtlMappingScheme agencyID="SDMX" id="VTLMS2" version="1.0">
+				<com:Name xml:lang="en">VTL Mapping Scheme #2</com:Name>
+				<str:VtlMapping alias="DF21" id="VTLM1">
+					<com:Name xml:lang="en">VTL Mapping #1</com:Name>
+					<str:Dataflow>
+						<Ref agencyID="SDMX" id="DF21" version="1.0"/>
+					</str:Dataflow>
+					<str:ToVtlMapping method="Pivot"/>
+				</str:VtlMapping>
+				<str:VtlMapping alias="DF2R1" id="VTLM2">
+					<com:Name xml:lang="en">VTL Mapping #2</com:Name>
+					<str:Dataflow>
+						<Ref agencyID="SDMX" id="DF2R1" version="1.0"/>
+					</str:Dataflow>
+					<str:FromVtlMapping method="Unpivot"/>
+				</str:VtlMapping>
+			</str:VtlMappingScheme>
+		</str:VtlMappings>
+		<str:Rulesets>
+			<str:RulesetScheme vtlVersion="2.0" agencyID="SDMX" id="RS1" version="1.0">
+				<com:Name xml:lang="en">Ruleset Scheme #1</com:Name>
+				<str:Ruleset id="DPR1" rulesetType="datapoint" rulesetScope="valuedomain">
+					<com:Name xml:lang="en">DataPoint Ruleset #1</com:Name>
+					<str:RulesetDefinition>
+            define datapoint ruleset DPR1 ( variable INDICATOR as A, VALUE as B ) is  
+              rule1: when A = "CREDIT" or A = "DEBIT" then B &gt;= 0 errorcode "Negative value" errorlevel 10;
+              rule2: when A = "CREDIT" or A = "DEBIT" then B &lt; 999999999999 errorcode "Value too large" errorlevel 8
+            end datapoint ruleset
+          </str:RulesetDefinition>
+				</str:Ruleset>
+				<str:Ruleset id="HR1" rulesetScope="valuedomain" rulesetType="hierarchical">
+					<com:Name xml:lang="en">Hierarchical Ruleset #1</com:Name>
+					<str:RulesetDefinition>
+            define hierarchical ruleset HR1 (variable condition TIME as T rule GEO )
+              EU = AT [ T &gt;= 1995-01-01 ]
+                + BE [ T &gt;= 1958-01-01 ]
+                + BG [ T &gt;= 2007-01-01 ] 	
+                + SE [ T &gt;= 1995-01-01 ] 
+                + SI [ T &gt;= 2004-01-01 ]
+                + SK [ T &gt;= 2004-01-01 ]; /* All EU countries would be added under the 'EU' code, but were not for keeping the samples smaller. */
+              BENELUX = BE [ T &gt;= 1948-01-01 ]
+                + NE [ T &gt;= 1948-01-01 ]
+                + LU [ T &gt;= 1948-01-01 ]
+            end hierarchical ruleset
+          </str:RulesetDefinition>
+				</str:Ruleset>
+				<str:VtlMappingScheme>
+					<Ref agencyID="SDMX" id="VTLMS1" version="1.0"/>
+				</str:VtlMappingScheme>
+			</str:RulesetScheme>
+		</str:Rulesets>
+		<str:Transformations>
+			<str:TransformationScheme agencyID="SDMX" id="TS2" version="1.0" vtlVersion="2.0">
+				<com:Name xml:lang="en">Transformation Scheme #2 – SDMX/VTL release sample</com:Name>
+				<str:Transformation id="TS_A" isPersistent="false">
+					<com:Name xml:lang="en">Transformation A</com:Name>
+					<com:Description xml:lang="en">Aggregates the dataflow DF21 according to the hierarchical ruleset HR1.
+            DF21 is mapped from SDMX to VTL through the pivot mapping method, therefore the mapped VTL dataset has the components IMPORT and EXPORT instead of MEASURE_DIMENSION and OBS_VALUE. 
+            Following the application of the hierarchy operator, the observation relevant to EU and BENELUX are produced.
+            The resulting VTL dataset TEMP1 is not persistent and it is assumed that it does not need a mapping towards SDMX.
+          </com:Description>
+					<str:Expression> hierarchy(DF21, HR1 computed)</str:Expression>
+					<str:Result>TEMP1</str:Result>
+				</str:Transformation>
+				<str:Transformation id="TS_B" isPersistent="false">
+					<com:Name xml:lang="en">Transformation B</com:Name>
+					<com:Description xml:lang="en">Extracts from TEMP1 the observations having GEO_AREA="EU" and drops the GEO_AREA identifier. 
+            The result TEMP2 is not persistent and it is assumed that it does not need a mapping towards SDMX.
+          </com:Description>
+					<str:Expression>TEMP1 [sub GEO_AREA = "EU"]</str:Expression>
+					<str:Result>TEMP2</str:Result>
+				</str:Transformation>
+				<str:Transformation id="TS_C" isPersistent="true">
+					<com:Name xml:lang="en">Transformation C</com:Name>
+					<com:Description xml:lang="en">Applies the "percentage" user defined operator to TEMP1 and TEMP2 to calculate the percentage of each EU country in respect to the EU and renames IMPORT to PERC_EU_IMPORT and EXPORT to PERC_EU_EXPORT. 
+            According to the VTL behaviour, the result has the same identifiers as TEMP1 (GEO_AREA and TIME_PERIOD). 
+            The result DF2R1 is persistent and is mapped from VTL to SDMX through the unpivot method, therefore the SDMX structure has MEASURE_DIMENSION and OBS_VALUE in place of PERC_EU_IMPORT and PERC_EU_EXPORT, which become the possible values of the MEASURE DIMENSION (i.e., concepts of relevant concept scheme).
+          </com:Description>
+					<str:Expression>percentage ( TEMP1,  TEMP2 ) [rename IMPORT to PERC_EU_IMPORT, EXPORT to PERC_EU_EXPORT]</str:Expression>
+					<str:Result>DF2R1</str:Result>
+				</str:Transformation>
+				<str:VtlMappingScheme>
+					<Ref agencyID="SDMX" id="VTLMS2" version="1.0"/>
+				</str:VtlMappingScheme>
+				<str:CustomTypeScheme>
+					<Ref agencyID="SDMX" id="CTS1" version="1.0"/>
+				</str:CustomTypeScheme>
+				<str:RulesetScheme>
+					<Ref agencyID="SDMX" id="RS1" version="1.0"/>
+				</str:RulesetScheme>
+				<str:UserDefinedOperatorScheme>
+					<Ref agencyID="SDMX" id="UDOS1" version="1.0"/>
+				</str:UserDefinedOperatorScheme>
+			</str:TransformationScheme>
+		</str:Transformations>
+		<str:UserDefinedOperators>
+			<str:UserDefinedOperatorScheme vtlVersion="2.0" agencyID="SDMX" id="UDOS1" version="1.0">
+				<com:Name xml:lang="en">User Defined Operators #1</com:Name>
+				<str:UserDefinedOperator id="percentage">
+					<com:Name xml:lang="en">Percentage</com:Name>
+					<str:OperatorDefinition>
+            define operator percentage (  DS_A  dataset { measure&lt;number&gt; _+ } ,
+              DS_B dataset { measure&lt;number&gt; _+ }  )
+              returns dataset { measure&lt;number&gt; _+ } is
+              DS_A  /  DS_B  *  100  
+            end operator
+          </str:OperatorDefinition>
+				</str:UserDefinedOperator>
+				<str:UserDefinedOperator id="diffperc">
+					<com:Name xml:lang="en">Difference Percentage</com:Name>
+					<str:OperatorDefinition>
+            define operator diffperc ( DS_A dataset { measure&lt;number&gt; _+ } ,
+              DS_B dataset { measure&lt;number&gt; _+ } )
+              returns dataset { measure&lt;number&gt; _+ } is 
+              (DS_A  - DS_B) /  DS_B  *  100  
+            end operator 
+          </str:OperatorDefinition>
+				</str:UserDefinedOperator>
+			</str:UserDefinedOperatorScheme>
+		</str:UserDefinedOperators>
+	</mes:Structures>
+</mes:Structure>

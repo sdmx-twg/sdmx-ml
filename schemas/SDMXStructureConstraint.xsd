@@ -118,9 +118,9 @@
 		<xs:complexContent>
 			<xs:extension base="MeatadataConstraintBaseType">
 				<xs:sequence>
-					<xs:element name="MetadataTragetRegion" type="MetadataTargetRegionType" minOccurs="0" maxOccurs="2">
+					<xs:element name="MetadataTargetRegion" type="MetadataTargetRegionType" minOccurs="0" maxOccurs="2">
 						<xs:annotation>
-							<xs:documentation>MetadataTragetRegion describes the values allowed for metadata attributes.</xs:documentation>
+							<xs:documentation>MetadataTargetRegion describes the values allowed for metadata attributes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>

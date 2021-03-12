@@ -679,7 +679,7 @@
 			<xs:documentation>ConstraintsType describes the structure of the constraints container. It contains one or more constraint, which can be explicitly detailed or referenced from an external structure document or registry service. This container may contain both attachment and content constraints.</xs:documentation>
 		</xs:annotation>
 		<xs:choice maxOccurs="unbounded">
-			<xs:element name="DataConstraint" type="MetadataConstraintType">
+			<xs:element name="DataConstraint" type="DataConstraintType">
 				<xs:annotation>
 					<xs:documentation>DataConstraint specifies a sub set of the definition of the allowable or available content of a data set in terms of the content or in terms of the set of key combinations.</xs:documentation>
 				</xs:annotation>

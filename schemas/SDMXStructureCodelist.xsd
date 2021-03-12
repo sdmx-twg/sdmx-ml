@@ -213,7 +213,6 @@
 		</xs:annotation>
 	</xs:element>
 	
-	<!-- TODO consider moving definition to element; it can be long -->
 	<xs:complexType name="GeoFeatureSetCodeType">
 		<xs:annotation>
 			<xs:documentation>GeoFeatureSetCodeType defines the structure of a geogrphic code.</xs:documentation>
@@ -257,7 +256,7 @@
 		<xs:complexContent>
 			<xs:extension base="GeoGridCodelistBaseType">
 				<xs:sequence>
-					<xs:element name="GridDefintion" type="xs:string">
+					<xs:element name="GridDefinition" type="xs:string">
 						<xs:annotation>
 							<xs:documentation>Contains a regular expression string corresponding to the grid definition for the GeoGrid Codelist.</xs:documentation>
 						</xs:annotation>
