@@ -5,12 +5,9 @@ SDMX-ML format specification overview
 
 This repository is used for maintaining the SDMX-ML messages specifications.
 
-This includes:
+It contains XML schemas which are designed for general use as part of the standard, as well as several sample schemas and XML instances which are intended to be illustrative of how SDMX is used.
 
-- Normative documentation, samples and tools for the SDMX-ML data message format.
-- Normative documentation and samples for the SDMX-ML structure message format.
-- Normative documentation and samples for the SDMX-ML metadata message format.
-- [Wiki](https://github.com/sdmx-twg/sdmx-ml/wiki) for additional information (work in progress).
+All schema and samples files should be stored in a single local directory before use.
 
 The current release version is SDMX-ML 2.1.
 
