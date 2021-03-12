@@ -1,7 +1,18 @@
 |underConstructionBadge| |readTheDocBadge|
 
-SDMX-ML format specification
-============================
+SDMX-ML format specification overview
+=====================================
+
+This repository is used for maintaining the SDMX-ML messages specifications.
+
+This includes:
+
+- Normative documentation, samples and tools for the SDMX-ML data message format.
+- Normative documentation and samples for the SDMX-ML structure message format.
+- Normative documentation and samples for the SDMX-ML metadata message format.
+- [Wiki](https://github.com/sdmx-twg/sdmx-ml/wiki) for additional information (work in progress).
+
+The current release version is SDMX-ML 2.1.
 
 We are in the process of cleaning up, unifying and simplifying the repositories associated to the SDMX standard's formats, documentation, technical references and examples. This is done in the context of the forthcomming version 3.0.0 of the SDMX standard ...
 
