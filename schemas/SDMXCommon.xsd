@@ -817,7 +817,7 @@
 		</xs:annotation>
 		<xs:sequence>
 			<xs:choice>
-				<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType">
+				<xs:element name="ProvisionAgreement" type="ProvisionAgreementReferenceType">
 					<xs:annotation>
 						<xs:documentation>ProvisionAgreement references a provision agreement which the data or metadata is reported against.</xs:documentation>
 					</xs:annotation>
@@ -861,7 +861,7 @@
 		</xs:attribute>
 		<xs:attributeGroup ref="ExternalReferenceAttributeGroup"/>
 	</xs:complexType>
-	
+
 	<xs:complexType name="DataStructureType" abstract="true">
 		<xs:annotation>
 			<xs:documentation>DataStructureType is an abstract base type the forms the basis for the structural information for a data set.</xs:documentation>
@@ -870,7 +870,7 @@
 			<xs:restriction base="PayloadStructureType">
 				<xs:sequence>
 					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType">
+						<xs:element name="ProvisionAgreement" type="ProvisionAgreementReferenceType">
 							<xs:annotation>
 								<xs:documentation>ProvisionAgreement references a provision agreement which the data is reported against.</xs:documentation>
 							</xs:annotation>
@@ -890,123 +890,7 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
-	
-	<xs:complexType name="DataStructureRequestType">
-		<xs:annotation>
-			<xs:documentation>DataStructureRequestType is a variation of a the DataStructureType for querying purposes. Only the observation dimension and the explicit measures flag are allowed.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="DataStructureType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
-						<xs:element name="Structure" type="DataStructureReferenceType"/>
-					</xs:choice>					
-				</xs:sequence>
-				<xs:attribute name="schemaURL" type="xs:anyURI" use="prohibited"/>
-				<xs:attribute name="namespace" type="xs:anyURI" use="prohibited"/>
-				<xs:attribute name="dimensionAtObservation" type="ObservationDimensionType" use="required"/>
-				<xs:attribute name="explicitMeasures" type="xs:boolean" use="optional" default="false"/>				
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="GenericDataStructureRequestType">
-		<xs:annotation>
-			<xs:documentation>GenericDataStructureRequestType is a variation of a the DataStructureRequestType for querying purposes. The explicit measure flag in not allowed.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="DataStructureRequestType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
-						<xs:element name="Structure" type="DataStructureReferenceType"/>
-					</xs:choice>					
-				</xs:sequence>
-				<xs:attribute name="dimensionAtObservation" type="ObservationDimensionType" use="required"/>
-				<xs:attribute name="explicitMeasures" type="xs:boolean" use="prohibited"/>				
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="TimeSeriesDataStructureRequestType">
-		<xs:annotation>
-			<xs:documentation>TimeSeriesDataStructureRequestType is a variation of a the DataStructureRequestType for querying purposes. The observation dimension is fixed to TIME_PERIOD</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="DataStructureRequestType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
-						<xs:element name="Structure" type="DataStructureReferenceType"/>
-					</xs:choice>					
-				</xs:sequence>
-				<xs:attribute name="dimensionAtObservation" type="ObservationDimensionType" use="required" fixed="TIME_PERIOD"/>
-				<xs:attribute name="explicitMeasures" type="xs:boolean" use="optional" default="false"/>				
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="TimeSeriesGenericDataStructureRequestType">
-		<xs:annotation>
-			<xs:documentation>TimeSeriesGenericDataStructureRequestType is a variation of a the GenericDataStructureRequestType for querying purposes. The observation dimension is fixed to TIME_PERIOD.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="GenericDataStructureRequestType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
-						<xs:element name="Structure" type="DataStructureReferenceType"/>
-					</xs:choice>					
-				</xs:sequence>
-				<xs:attribute name="dimensionAtObservation" type="ObservationDimensionType" use="required" fixed="TIME_PERIOD"/>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="GenericDataStructureType">
-		<xs:annotation>
-			<xs:documentation>GenericDataStructureType defines the structural information for a generic data set. A reference to the structure, either explicitly or through a dataflow or provision agreement is required as well as the dimension which occurs at the observation level.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="DataStructureType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
-						<xs:element name="Structure" type="DataStructureReferenceType"/>
-					</xs:choice>
-				</xs:sequence>
-				<xs:attribute name="schemaURL" type="xs:anyURI" use="prohibited"/>
-				<xs:attribute name="namespace" type="xs:anyURI" use="prohibited"/>
-				<xs:attribute name="dimensionAtObservation" type="ObservationDimensionType" use="required"/>
-				<xs:attribute name="explicitMeasures" type="xs:boolean" use="prohibited"/>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="GenericTimeSeriesDataStructureType">
-		<xs:annotation>
-			<xs:documentation>GenericTimeSeriesDataStructureType defines the structural information for a generic time series based data set. The dimension at the observation level is fixed to be TIME_PERIOD.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="GenericDataStructureType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
-						<xs:element name="Structure" type="DataStructureReferenceType"/>
-					</xs:choice>
-				</xs:sequence>
-				<xs:attribute name="dimensionAtObservation" type="ObservationDimensionType" use="required" fixed="TIME_PERIOD"/>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
+
 	<xs:complexType name="StructureSpecificDataStructureType">
 		<xs:annotation>
 			<xs:documentation>StructureSpecificDataStructureType defines the structural information for a structured data set. In addition to referencing the data structure or dataflow which defines the structure of the data, the namespace for the data structure specific schema as well as which dimension is used at the observation level must be provided. It is also necessary to state whether the format uses explicit measures, although this is technically only applicable is the dimension at the observation level is the measure dimension or the flat data format is used.</xs:documentation>
@@ -1015,7 +899,7 @@
 			<xs:restriction base="DataStructureType">
 				<xs:sequence>
 					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
+						<xs:element name="ProvisionAgreement" type="ProvisionAgreementReferenceType"/>
 						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
 						<xs:element name="Structure" type="DataStructureReferenceType"/>
 					</xs:choice>
@@ -1026,27 +910,7 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
-	
-	<xs:complexType name="StructureSpecificDataTimeSeriesStructureType">
-		<xs:annotation>
-			<xs:documentation>StructureSpecificDataTimeSeriesStructureType defines the structural information for a structure definition specific time series data set. The dimension at the observation level is fixed to be TIME_PERIOD.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="StructureSpecificDataStructureType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="DataflowReferenceType"/>
-						<xs:element name="Structure" type="DataStructureReferenceType"/>
-					</xs:choice>
-				</xs:sequence>
-				<xs:attribute name="namespace" type="xs:anyURI" use="required"/>
-				<xs:attribute name="dimensionAtObservation" type="ObservationDimensionType" use="required" fixed="TIME_PERIOD"/>
-				<xs:attribute name="explicitMeasures" type="xs:boolean" use="prohibited"/>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
+
 	<xs:complexType name="MetadataStructureType" abstract="true">
 		<xs:annotation>
 			<xs:documentation>MetadataStructureType is an abstract base type the forms the basis of the structural information for any metadata message. A reference to the metadata structure definition or a metadataflow must be provided. This can be used to determine the structure of the message.</xs:documentation>
@@ -1055,7 +919,7 @@
 			<xs:restriction base="PayloadStructureType">
 				<xs:sequence>
 					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType">
+						<xs:element name="ProvisionAgreement" type="ProvisionAgreementReferenceType">
 							<xs:annotation>
 								<xs:documentation>ProvisionAgreement references a provision agreement which the metadata is reported against.</xs:documentation>
 							</xs:annotation>
@@ -1077,24 +941,6 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
-	
-	<xs:complexType name="StructureSpecificMetadataStructureType">
-		<xs:annotation>
-			<xs:documentation>StructureSpecificMetadataStructureType defines the structural information for a structured metadata message.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="MetadataStructureType">
-				<xs:sequence>
-					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
-						<xs:element name="StructureUsage" type="MetadataflowReferenceType"/>
-						<xs:element name="Structure" type="MetadataStructureReferenceType"/>
-					</xs:choice>
-				</xs:sequence>
-				<xs:attribute name="namespace" type="xs:anyURI" use="required"/>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
 
 	<xs:complexType name="GenericMetadataStructureType">
 		<xs:annotation>
@@ -1104,7 +950,7 @@
 			<xs:restriction base="MetadataStructureType">
 				<xs:sequence>
 					<xs:choice>
-						<xs:element name="ProvisionAgrement" type="ProvisionAgreementReferenceType"/>
+						<xs:element name="ProvisionAgreement" type="ProvisionAgreementReferenceType"/>
 						<xs:element name="StructureUsage" type="MetadataflowReferenceType"/>
 						<xs:element name="Structure" type="MetadataStructureReferenceType"/>
 					</xs:choice>

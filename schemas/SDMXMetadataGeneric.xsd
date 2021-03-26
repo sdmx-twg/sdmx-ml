@@ -26,18 +26,13 @@
 								<xs:documentation>Metadataflow provides a reference to the metadataflow the metadata set is being reported against.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="MetadataStructure" type="common:MetadataStructureReferenceType">
-							<xs:annotation>
-								<xs:documentation>MetadataStructure provides a reference to the metadata structure defintion that defines the structure the metadata set.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
 					</xs:choice>
 					<xs:element name="Target" type="common:WildcardObjectReferenceType" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>Target references the target structures for which metadata is being reported. These must conform with the constraints defined by the metadata provision agreement and/or the metadataflow.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element ref="Att" maxOccurs="unbounded">
+					<xs:element ref="Attribute" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>Att elements hold the reported metadata attribute values being reported in the metadata set. These conform to the metadata structure defintion</xs:documentation>
 						</xs:annotation>
@@ -48,7 +43,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:element name="Att" type="AttributeType">
+	<xs:element name="Attribute" type="AttributeType">
 		<xs:annotation>
 			<xs:documentation>Att elements hold the reported values for a given metadata attribute. These values conform to the definition of the meatadata attribute in the metadata structure defintion.</xs:documentation>
 		</xs:annotation>
@@ -82,7 +77,7 @@
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
-					<xs:element ref="Att" minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="Attribute" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>Att contains the reported metadata attribute values for the child metadata attributes.</xs:documentation>
 						</xs:annotation>
