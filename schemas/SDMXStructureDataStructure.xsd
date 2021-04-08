@@ -58,7 +58,7 @@
 					<xs:element ref="DimensionList"/>
 					<xs:element ref="Group" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="AttributeList" minOccurs="0"/>
-					<xs:element ref="MeasureList"/>
+					<xs:element ref="MeasureList" minOccurs="0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -499,6 +499,13 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MeasureBaseType">
+				<xs:sequence>
+					<xs:element name="ConceptRole" type="common:ConceptReferenceType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>ConceptRole references concepts which define roles which this measure serves. If the concept from which the attribute takes its identity also defines a role the concept serves, then the isConceptRole indicator can be set to true on the concept identity rather than repeating the reference here.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
 				<xs:attribute name="usageStatus" type="UsageStatusType" use="optional" default="Conditional">
 					<xs:annotation>
 						<xs:documentation>Indicates whether the measure is mandatory or conditional.</xs:documentation>

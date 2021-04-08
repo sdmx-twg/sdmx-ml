@@ -140,7 +140,7 @@
 
 	<xs:complexType name="VtlMappingType">
 		<xs:annotation>
-			<xs:documentation>VtlMappingType defines the structure of a single mapping between the reference to a SDMX artefact made from VTL transformations, rulesets, user defined operators and the corresponding SDMX structure identifier. These are used to assign an alternative names to SDMX Dataflows, Codelists, Concept Schemes, or Concepts. Although are distinct sub-classes in the Information Model, this structure serves to express them all. The references SDMX artefact serves to distinguish which type of sub-class (VtlDatflowMapping, VtlCodelistMapping, or VtlConceptSchemeMapping) is being described. When this is used to assign an alias for a SDMX Dataflow, this can also be used to indicate the methods used to convert the data structure from SDMX to VTL and vice-versa. Finally, this can be used to override the deault Basic mapping methods used for Dataflows by utilizing the GenericDataflow element in place of a reference to a specific Dataflow.</xs:documentation>
+			<xs:documentation>VtlMappingType defines the structure of a single mapping between the reference to a SDMX artefact made from VTL transformations, rulesets, user defined operators and the corresponding SDMX structure identifier. These are used to assign an alternative names to SDMX Dataflows, Codelists, Concept Schemes, or Concepts. Although are distinct sub-classes in the Information Model, this structure serves to express them all. The references SDMX artefact serves to distinguish which type of sub-class (VtlDatflowMapping or VtlCodelistMapping, or VtlConceptMapping) is being described. When this is used to assign an alias for a SDMX Dataflow, this can also be used to indicate the methods used to convert the data structure from SDMX to VTL and vice-versa. Finally, this can be used to override the deault Basic mapping methods used for Dataflows by utilizing the GenericDataflow element in place of a reference to a specific Dataflow.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="UnnestedItemType">
@@ -173,11 +173,6 @@
 						<xs:element name="Codelist" type="common:CodelistReferenceType">
 							<xs:annotation>
 								<xs:documentation>A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="ConceptScheme" type="common:ConceptSchemeReferenceType">
-							<xs:annotation>
-								<xs:documentation>A reference to the SDMX Concept Scheme that the mapping is defined for. This is used to create a VtlConceptSchemeMapping.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Concept" type="common:ConceptReferenceType">

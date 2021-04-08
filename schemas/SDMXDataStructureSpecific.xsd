@@ -47,6 +47,11 @@
 						</xs:element>
 					</xs:choice>
 				</xs:sequence>
+				<xs:attribute name="structureRef" type="xs:IDREF" use="required">
+					<xs:annotation>
+						<xs:documentation>The structureRef contains a reference to a structural specification in the header of a data or reference metadata message. The structural specification details which structure the data or reference metadata conforms to, as well as providing additional information such as how the data is structure (e.g. which dimension occurs at the observation level for a data set).</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 				<xs:attributeGroup ref="SetAttributeGroup"/>
 				<xs:anyAttribute namespace="##local"/>
 			</xs:extension>

@@ -162,11 +162,37 @@
 							<xs:documentation>ComponentMap defines the relationship between the components of the source and target structures, including information on how the value from the source component relates to values in the target component.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="FixedValueMap" type="FixedValueMapType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>FixedValueMap defines a fixed value for a source or target component in the mapping.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
+	<xs:complexType name="FixedValueMapType">
+		<xs:annotation>
+			<xs:documentation>FixedValueMapType defines the structure for providing a fixed value for a source or target component.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:AnnotableType">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="Source" type="common:LocalComponentListComponentReferenceType"/>
+						<xs:element name="Target" type="common:LocalComponentListComponentReferenceType"/>
+					</xs:choice>
+					<xs:element name="Value" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The fixed value for the component.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ComponentMapType">
 		<xs:annotation>
 			<xs:documentation>ComponentMapType defines the structure for relating a component in a source structure to a component in a target structure.</xs:documentation>
@@ -227,7 +253,16 @@
 	<xs:complexType name="DatePatternMapType">
 		<xs:complexContent>
 			<xs:extension base="DateMapType">
-				<xs:attribute name="soucrePattern" type="xs:string" use="required"/>
+				<xs:attribute name="sourcePattern" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>Describes the source date using conventions for describing years, months, days, etc.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="locale" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>The locale on which the input will be parsed according to the pattern.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -282,12 +317,26 @@
 	</xs:complexType>
 
 	<xs:simpleType name="EpochPeriodType">
+		<xs:annotation>
+			<xs:documentation>EpochPeriodType defines an enumeration of epoch period types.</xs:documentation>
+		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="nanosecond"/>
 			<xs:enumeration value="millisecond"/>
 			<xs:enumeration value="microsecond"/>
 			<xs:enumeration value="second"/>
 			<xs:enumeration value="day"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ResolvePeriodType">
+		<xs:annotation>
+			<xs:documentation>ResolvePeriodType defines an enumeration of how date periods should be resolved.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="startOfPeriod"/>
+			<xs:enumeration value="endOfPeriod"/>
+			<xs:enumeration value="midPeriod"/>
 		</xs:restriction>
 	</xs:simpleType>
 

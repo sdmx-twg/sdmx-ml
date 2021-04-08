@@ -82,7 +82,7 @@
 			</xs:element>
 			<xs:element name="QueryableDataSource" type="QueryableDataSourceType">
 				<xs:annotation>
-					<xs:documentation>QueryableDatasource describes a data source that must be able to accept an SDMX-ML Query Message, and respond appropriately.</xs:documentation>
+					<xs:documentation>QueryableDatasource describes a data source that can be queried using the SDMX REST interfaces.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
