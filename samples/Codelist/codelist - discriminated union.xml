@@ -9,7 +9,7 @@
 	</mes:Header>
 	<mes:Structures>
 		<str:OrganisationSchemes>
-			<str:AgencyScheme urn="urn:sdmx:org.sdmx.infomodel.base.AgencyScheme=SDMX:AGENCIES(1.0)" isExternalReference="false" agencyID="SDMX" id="AGENCIES" version="1.0">
+			<str:AgencyScheme urn="urn:sdmx:org.sdmx.infomodel.base.AgencyScheme=SDMX:AGENCIES(1.0)" isExternalReference="false" agencyID="SDMX" id="AGENCIES">
 				<com:Name xml:lang="en">SDMX Agency Scheme</com:Name>
 				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX" id="SDMX">
 					<com:Name xml:lang="en">SDMX</com:Name>
