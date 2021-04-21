@@ -43,7 +43,7 @@
 							<xs:documentation>Target provides a reference to the item scheme which items are mapped to.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ItemMap" type="ValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ItemMap" type="SingleValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -62,7 +62,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Source" type="common:OrganisationSchemeReferenceType"/>
 					<xs:element name="Target" type="common:OrganisationSchemeReferenceType"/>
-					<xs:element name="ItemMap" type="ValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ItemMap" type="SingleValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -81,7 +81,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Source" type="common:CategorySchemeReferenceType"/>
 					<xs:element name="Target" type="common:CategorySchemeReferenceType"/>
-					<xs:element name="ItemMap" type="ValueMappingType" minOccurs="0" maxOccurs="unbounded"/>					
+					<xs:element name="ItemMap" type="SingleValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -100,7 +100,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Source" type="common:ConceptSchemeReferenceType"/>
 					<xs:element name="Target" type="common:ConceptSchemeReferenceType"/>
-					<xs:element name="ItemMap" type="ValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ItemMap" type="SingleValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -119,7 +119,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Source" type="common:ReportingTaxonomyReferenceType"/>
 					<xs:element name="Target" type="common:ReportingTaxonomyReferenceType"/>
-					<xs:element name="ItemMap" type="ValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ItemMap" type="SingleValueMappingType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -285,7 +285,34 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:complexType name="SingleValueMappingType">
+		<xs:annotation>
+			<xs:documentation>SingleValueMappingType defines a mapping with a single source and optional target.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:AnnotableType">
+				<xs:sequence>
+					<xs:element name="SourceValue" type="MappedValueType">
+						<xs:annotation>
+							<xs:documentation>There should be a source value for each source represention (e.g. codelist, data type). Source values can be pattern matched by using regular expression or substrings using start/end indexes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TargetValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The target value(s) is always an absolute string. However, if source value is a regular expression, the target value can output the capture group from the source.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="validFrom" type="xs:date" use="optional"/>
+				<xs:attribute name="validTo" type="xs:date" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ValueMappingType">
+		<xs:annotation>
+			<xs:documentation>ValueMappingType defines a mapping of multiple sources to multiple targets.</xs:documentation>
+		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="common:AnnotableType">
 				<xs:sequence>

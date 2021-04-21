@@ -216,7 +216,7 @@
 						<xs:documentation>Enumeration references an item scheme that enumerates the allowable values for this representation.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="EnumerationFormat" type="CodededTextFormatType" minOccurs="0">
+				<xs:element name="EnumerationFormat" type="CodedTextFormatType" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>EnumerationFormat describes the facets of the item scheme enumeration. This is for the most part, informational.</xs:documentation>
 					</xs:annotation>
@@ -239,6 +239,13 @@
 		<xs:annotation>
 			<xs:documentation>TextFormatType defines the information for describing a full range of text formats and may place restrictions on the values of the other attributes, referred to as "facets".</xs:documentation>
 		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Sentinel" type="SentinelType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Sentinel defines a reserved value for the text format along with its meaning.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
 		<xs:attribute name="textType" type="common:DataType" default="String">
 			<xs:annotation>
 				<xs:documentation>The textType attribute provides a description of the datatype. If it is not specified, any valid characters may be included in the text field (it corresponds to the xs:string datatype of W3C XML Schema) within the constraints of the facets.</xs:documentation>
@@ -314,6 +321,25 @@
 				<xs:documentation>The isMultiLingual attribute indicates for a text format of type "string", whether the value should allow for multiple values in different languages.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="sentinelValues" type="xs:boolean" use="optional">
+			<xs:annotation>
+				<xs:documentation>The sentinelValues attribute indicates that sentinel values are defined for the text format. A sentinel value is reserved value in an otherwise open value domain that holds a specific meaning. For example, a value of -1 can be defined to indicate a non-applicable value.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="SentinelType">
+		<xs:annotation>
+			<xs:documentation>SentinelType defines the structure of a sentinel value. A sentinel value is reserved value in an otherwise open value domain with a specific meaning.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="common:Name" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="value" type="xs:anySimpleType" use="required">
+			<xs:annotation>
+				<xs:documentation>The sentinel value being described.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 
 	<xs:complexType name="BasicComponentTextFormatType">
@@ -322,6 +348,9 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="TextFormatType">
+				<xs:sequence>
+					<xs:element name="Sentinel" type="SentinelType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
 				<xs:attribute name="textType" type="common:BasicComponentDataType" use="optional" default="String"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -333,15 +362,18 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="BasicComponentTextFormatType">
+				<xs:sequence>
+					<xs:element name="Sentinel" type="SentinelType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
 				<xs:attribute name="textType" type="common:SimpleDataType" use="optional" default="String"/>
 				<xs:attribute name="isMultiLingual" type="xs:boolean" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="CodededTextFormatType">
+	<xs:complexType name="CodedTextFormatType">
 		<xs:annotation>
-			<xs:documentation>CodededTextFormatType is a restricted version of the SimpleComponentTextFormatType that only allows factets and text types applicable to codes. Although the time facets permit any value, an actual code identifier does not support the necessary characters for time. Therefore these facets should not contain time in their values.</xs:documentation>
+			<xs:documentation>CodedTextFormatType is a restricted version of the SimpleComponentTextFormatType that only allows factets and text types applicable to codes. Although the time facets permit any value, an actual code identifier does not support the necessary characters for time. Therefore these facets should not contain time in their values.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="SimpleComponentTextFormatType">
@@ -359,6 +391,7 @@
 				<xs:attribute name="maxValue" type="xs:integer" use="optional"/>
 				<xs:attribute name="decimals" type="xs:positiveInteger" use="prohibited"/>
 				<xs:attribute name="pattern" type="xs:string" use="optional"/>
+				<xs:attribute name="sentinelValues" type="xs:boolean" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -424,6 +457,7 @@
 				<xs:attribute name="maxValue" type="xs:decimal" use="prohibited"/>
 				<xs:attribute name="decimals" type="xs:positiveInteger" use="prohibited"/>
 				<xs:attribute name="pattern" type="xs:string" use="prohibited"/>
+				<xs:attribute name="sentinelValues" type="xs:boolean" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -434,6 +468,9 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="SimpleComponentTextFormatType">
+				<xs:sequence>
+					<xs:element name="Sentinel" type="SentinelType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
 				<xs:attribute name="textType" type="common:TimeDataType" default="ObservationalTimePeriod"/>
 				<xs:attribute name="startTime" type="common:StandardTimePeriodType" use="optional"/>
 				<xs:attribute name="endTime" type="common:StandardTimePeriodType" use="optional"/>
@@ -448,6 +485,7 @@
 				<xs:attribute name="maxValue" type="xs:decimal" use="prohibited"/>
 				<xs:attribute name="decimals" type="xs:positiveInteger" use="prohibited"/>
 				<xs:attribute name="pattern" type="xs:string" use="prohibited"/>
+				<xs:attribute name="sentinelValues" type="xs:boolean" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>

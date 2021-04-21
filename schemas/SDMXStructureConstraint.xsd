@@ -2,6 +2,7 @@
 <!-- Copyright SDMX 2021 - http://www.sdmx.org -->
 <xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common">
 	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	<xs:include schemaLocation="SDMXStructureBase.xsd"/>
 
 	<xs:annotation>
@@ -92,9 +93,9 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="MeatadataConstraintBaseType" abstract="true">
+	<xs:complexType name="MetadataConstraintBaseType" abstract="true">
 		<xs:annotation>
-			<xs:documentation>MeatadataConstraintBaseType is an abstract base refinement of ConstraintType. The constraint attachment is restricted to constrainable artefacts related to metadata, and the only possible role is "Allowed".</xs:documentation>
+			<xs:documentation>MetadataConstraintBaseType is an abstract base refinement of ConstraintType. The constraint attachment is restricted to constrainable artefacts related to metadata, and the only possible role is "Allowed".</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="ConstraintType">
@@ -103,7 +104,7 @@
 					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="ConstraintAttachment" type="DataConstraintAttachmentType" minOccurs="0"/>
+					<xs:element name="ConstraintAttachment" type="MetadataConstraintAttachmentType" minOccurs="0"/>
 					<xs:element name="ReleaseCalendar" type="ReleaseCalendarType" minOccurs="0"/>
 				</xs:sequence>
 				<xs:attribute name="role" type="ConstraintRoleType" use="required" fixed="Allowed"/>
@@ -116,7 +117,7 @@
 			<xs:documentation>MetadataConstraintType defines the structure of a metadata constraint. A metadata constraint can specify allowed attribute values for metadata described by the constrained artefact.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="MeatadataConstraintBaseType">
+			<xs:extension base="MetadataConstraintBaseType">
 				<xs:sequence>
 					<xs:element name="MetadataTargetRegion" type="MetadataTargetRegionType" minOccurs="0" maxOccurs="2">
 						<xs:annotation>
@@ -374,9 +375,9 @@
 					<xs:documentation>KeyValue contains a reference to a component which disambiguates the data (i.e. a dimension) and provides a collection of values for the component. The collection of values can be flagged as being inclusive or exclusive to the region being defined. Any key component that is not included is assumed to be wild carded, which is to say that the cube includes all possible values for the un-referenced key components. Further, this assumption applies to the values of the components as well. The values for any given component can only be sub-setted in the region by explicit inclusion or exclusion. For example, a dimension X which has the possible values of 1, 2, 3 is assumed to have all of these values if a key value is not defined. If a key value is defined with an inclusion attribute of true and the values of 1 and 2, the only the values of 1 and 2 for dimension X are included in the definition of the region. If the key value is defined with an inclusion attribute of false and the value of 1, then the values of 2 and 3 for dimension X are included in the definition of the region. Note that any given key component must only be referenced once in the region.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Attribute" type="MemberSelectionType" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Component" type="MemberSelectionType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Attributes contains a reference to an attribute component (data or metadata) and provides a collection of values for the referenced attribute. This serves to state that for the key which defines the region, the attributes that are specified here have or do not have (depending to the include attribute of the value set) the values provided. It is possible to provide and attribute reference without specifying values, for the purpose of stating the attribute is absent (include = false) or present with an unbounded set of values. As opposed to key components, which are assumed to be wild carded if absent, no assumptions are made about the absence of an attribute. Only attributes which are explicitly stated to be present or absent from the region will be know. All unstated attributes for the set cannot be assumed to absent or present.</xs:documentation>
+					<xs:documentation>Component contains a reference to a component (data attribute, metadata attribute, or measure) and provides a collection of values for the referenced component. This serves to state that for the key which defines the region, the components that are specified here have or do not have (depending on the include attribute of the value set) the values provided. It is possible to provide a component reference without specifying values, for the purpose of stating the component is absent (include = false) or present with an unbounded set of values. As opposed to key components, which are assumed to be wild carded if absent, no assumptions are made about the absence of a component. Only components which are explicitly stated to be present or absent from the region will be know. All unstated components for the set cannot be assumed to absent or present.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -429,7 +430,7 @@
 			<xs:restriction base="RegionType">
 				<xs:sequence>
 					<xs:element name="KeyValue" type="DinstinctKeyValueType"  maxOccurs="unbounded"/>
-					<xs:element name="Attribute" type="MemberSelectionType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Component" type="MemberSelectionType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 				<xs:attribute name="include" type="xs:boolean" use="optional" fixed="true">
 					<xs:annotation>
@@ -464,7 +465,7 @@
 			<xs:restriction base="DistinctKeyType">
 				<xs:sequence>
 					<xs:element name="KeyValue" type="DataKeyValueType" maxOccurs="unbounded"/>
-					<xs:element name="Attribute" type="AttributeValueSetType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Component" type="ComponentValueSetType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -492,7 +493,7 @@
 			<xs:restriction base="RegionType">
 				<xs:sequence>
 					<xs:element name="KeyValue" type="CubeRegionKeyType" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="Attribute" type="AttributeValueSetType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Component" type="ComponentValueSetType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -505,7 +506,7 @@
 		<xs:complexContent>
 			<xs:restriction base="RegionType">
 				<xs:sequence>
-					<xs:element name="Attribute" type="MetadataAttributeValueSetType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Component" type="MetadataAttributeValueSetType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -526,9 +527,9 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="AttributeValueSetType">
+	<xs:complexType name="ComponentValueSetType">
 		<xs:annotation>
-			<xs:documentation>AttributeValueSetType defines the structure for providing values for a data attribute. If no values are provided, the attribute is implied to include/excluded from the region in which it is defined, with no regard to the value of the data attribute. Note that for metadata attributes which occur within other metadata attributes, a nested identifier can be provided. For example, a value of CONTACT.ADDRESS.STREET refers to the metadata attribute with the identifier STREET which exists in the ADDRESS metadata attribute in the CONTACT metadata attribute, which is defined at the root of the report structure.</xs:documentation>
+			<xs:documentation>ComponentValueSetType defines the structure for providing values for a data attributes, measures, or metadata attributes. If no values are provided, the component is implied to include/excluded from the region in which it is defined, with no regard to the value of the component. Note that for metadata attributes which occur within other metadata attributes, a nested identifier can be provided. For example, a value of CONTACT.ADDRESS.STREET refers to the metadata attribute with the identifier STREET which exists in the ADDRESS metadata attribute in the CONTACT metadata attribute, which is defined at the root of the report structure.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="MemberSelectionType">
@@ -566,6 +567,11 @@
 						<xs:documentation>The cascadeValues attribute, if true, indicates that if the value is taken from a code all child codes in a simple hierarchy are understood be included in the region.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
+				<xs:attribute ref="xml:lang" use="optional">
+					<xs:annotation>
+						<xs:documentation>The xml:lang attribute specifies a language code for the value. This is used when the component value support multi-lingual values.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -577,6 +583,7 @@
 		<xs:simpleContent>
 			<xs:restriction base="SimpleComponentValueType">
 				<xs:attribute name="cascadeValues" type="common:CascadeSelectionType" use="prohibited"/>
+				<xs:attribute ref="xml:lang" use="prohibited"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>

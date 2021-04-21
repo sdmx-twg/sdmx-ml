@@ -103,7 +103,7 @@
 								<xs:documentation>Enumeration references a codelist which enumerates the possible values that can be used as the representation of this concept.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="EnumerationFormat" type="CodededTextFormatType" minOccurs="0"/>
+						<xs:element name="EnumerationFormat" type="CodedTextFormatType" minOccurs="0"/>
 					</xs:sequence>
 				</xs:choice>
 			</xs:restriction>

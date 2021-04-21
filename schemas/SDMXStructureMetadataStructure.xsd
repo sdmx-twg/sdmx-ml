@@ -156,7 +156,7 @@
 					<xs:element name="TextFormat" type="BasicComponentTextFormatType"/>
 					<xs:sequence>
 						<xs:element name="Enumeration" type="common:CodelistReferenceType"/>
-						<xs:element name="EnumerationFormat" type="CodededTextFormatType" minOccurs="0"/>
+						<xs:element name="EnumerationFormat" type="CodedTextFormatType" minOccurs="0"/>
 					</xs:sequence>
 				</xs:choice>
 				<xs:attribute name="minOccurs" type="xs:nonNegativeInteger" default="1"/>

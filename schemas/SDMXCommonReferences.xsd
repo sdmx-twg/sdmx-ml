@@ -2966,27 +2966,27 @@
 		</xs:complexContent>
 	</xs:complexType>
 	
-	<xs:complexType name="LocalMetadataStructureComponentReferenceType">
+	<xs:complexType name="LocalMetadataAttributeReferenceType">
 		<xs:annotation>
-			<xs:documentation>LocalMetadataStructureComponentReferenceType is a type for referencing any type of metadata structure component locally, where the reference for the metadata structure definition which defines the components is available in another context.</xs:documentation>
+			<xs:documentation>LocalMetadataAttributeReferenceType is a type for referencing a metadata structure attribute locally, where the reference for the metadata structure definition which defines the components is available in another context.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="LocalComponentListComponentReferenceBaseType">
 				<xs:sequence>
-					<xs:element name="Ref" type="LocalMetadataStructureComponentRefType" form="unqualified"/>
+					<xs:element name="Ref" type="LocalMetadataAttributeRefType" form="unqualified"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 	
-	<xs:complexType name="LocalMetadataStructureComponentRefType">
+	<xs:complexType name="LocalMetadataAttributeRefType">
 		<xs:annotation>
-			<xs:documentation>LocalMetadataStructureComponentRefType contains the reference fields for referencing any metadata structure component locally. This reference must specify the class of the component being referenced.</xs:documentation>
+			<xs:documentation>LocalMetadataAttributeRefType contains the reference fields for referencing a metadata attribute component locally.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="LocalComponentListComponentRefBaseType">
-				<xs:attribute name="containerID" type="IDType" use="required"/>
-				<xs:attribute name="class" type="MetadataStructureComponentTypeCodelistType" use="required"/>
+				<xs:attribute name="containerID" type="IDType" use="prohibited"/>
+				<xs:attribute name="class" type="MetadataStructureComponentTypeCodelistType" use="required" fixed="MetadataAttribute"/>
 				<xs:attribute name="package" type="StructurePackageTypeCodelistType" use="optional" fixed="metadatastructure"/>
 			</xs:restriction>
 		</xs:complexContent>
