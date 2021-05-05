@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common">
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
 	<xs:include schemaLocation="SDMXStructureBase.xsd"/>
 
 	<xs:annotation>
@@ -11,24 +11,51 @@
 
 	<xs:complexType name="ProvisionAgreementType">
 		<xs:annotation>
-			<xs:documentation>ProvisionAgreementType describes the structure of a provision agreement. A provision agreement defines an agreement for a data provider to report data or reference metadata against a flow. Attributes which describe how the registry must behave when data or metadata is registered against this provision agreement are supplied.</xs:documentation>
+			<xs:documentation>ProvisionAgreementType describes the structure of a provision agreement. A provision agreement defines an agreement for a data provider to report data against a dataflow. Attributes which describe how the registry must behave when data or metadata is registered against this provision agreement are supplied.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="MaintainableType">
+			<xs:extension base="common:MaintainableType">
 				<xs:sequence>
-					<xs:element name="StructureUsage" type="common:StructureUsageReferenceType">
+					<xs:element name="Dataflow" type="common:DataflowReferenceType">
 						<xs:annotation>
-							<xs:documentation>DataflowReference provides a reference to a pre-existing structure usage (i.e. a dataflow or metadataflow) in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
+							<xs:documentation>Dataflow provides a reference to a pre-existing dataflow in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="DataProvider" type="common:DataProviderReferenceType">
 						<xs:annotation>
-							<xs:documentation>DataProvider provides a reference to a pre-existing data (or metadata) provider in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
+							<xs:documentation>DataProvider provides a reference to a pre-existing data provider in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
+	<xs:complexType name="MetadataProvisionAgreementType">
+		<xs:annotation>
+			<xs:documentation>ProvisionAgreementType describes the structure of a provision agreement. A provision agreement defines an agreement for a data provider to report data or reference metadata against a flow. Attributes which describe how the registry must behave when data or metadata is registered against this provision agreement are supplied.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element name="Metadataflow" type="common:MetadataflowReferenceType">
+						<xs:annotation>
+							<xs:documentation>Metadataflow provides a reference to a pre-existing metadataflow in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType">
+						<xs:annotation>
+							<xs:documentation>MetadataProvider provides a reference to a pre-existing metadata provider in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Target" type="common:WildcardObjectReferenceType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>References identifiable structures to which the refernece metadata described by the metadata structure used by the metadaflow should be restricted to. These references may include wildcards for parts of the reference.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 </xs:schema>

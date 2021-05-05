@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common">
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
 	<xs:include schemaLocation="SDMXStructureBase.xsd"/>
 	
 	<xs:annotation>
@@ -17,9 +17,11 @@
 			<xs:restriction base="ItemSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="version" type="common:VersionType" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>	
@@ -32,7 +34,7 @@
 			<xs:extension base="OrganisationSchemeBaseType">
 				<xs:sequence  minOccurs="0" maxOccurs="unbounded">
 					<xs:element ref="Organisation"/>
-				</xs:sequence>				
+				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -51,6 +53,7 @@
 			<xs:restriction base="ItemType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:choice minOccurs="0">
@@ -84,12 +87,13 @@
 	
 	<xs:complexType name="AgencySchemeType">
 		<xs:annotation>
-			<xs:documentation>AgencySchemeType defines a specific type of organisation scheme which contains only maintenance agencies. The agency scheme maintained by a particular maintenance agency is always provided a fixed identifier and version, and is never final. Therefore, agencies can be added or removed without have to version the scheme. Agencies schemes have no hierarchy, meaning that no agency may define a relationship with another agency in the scheme. In fact, the actual parent agency for an agency in a scheme is the agency which defines the scheme.</xs:documentation>
+			<xs:documentation>AgencySchemeType defines a specific type of organisation scheme which contains only maintenance agencies. The agency scheme maintained by a particular maintenance agency is always provided a fixed identifier and is never versioned. Therefore, agencies can be added or removed without have to version the scheme. Agencies schemes have no hierarchy, meaning that no agency may define a relationship with another agency in the scheme. In fact, the actual parent agency for an agency in a scheme is the agency which defines the scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="OrganisationSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -97,20 +101,19 @@
 					</xs:sequence>
 				</xs:sequence>
 				<xs:attribute name="id" type="common:IDType" use="required" fixed="AGENCIES"/>
-				<xs:attribute name="version" type="common:VersionType" use="optional" fixed="1.0"/>
-				<xs:attribute name="isFinal" type="xs:boolean" use="optional" fixed="false"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 	
 	<xs:complexType name="DataConsumerSchemeType">
 		<xs:annotation>
-			<xs:documentation>DataConsumerSchemeType defines a type of organisation scheme which contains only data consumers. The data consumer scheme maintained by a particular maintenance agency is always provided a fixed identifier and version, and is never final. Therefore, consumers can be added or removed without have to version the scheme. This scheme has no hierarchy, meaning that no organisation may define a relationship with another organisation in the scheme.</xs:documentation>
+			<xs:documentation>DataConsumerSchemeType defines a type of organisation scheme which contains only data consumers. The data consumer scheme maintained by a particular maintenance agency is always provided a fixed identifier and is never versioned. Therefore, consumers can be added or removed without have to version the scheme. This scheme has no hierarchy, meaning that no organisation may define a relationship with another organisation in the scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="OrganisationSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -118,20 +121,19 @@
 					</xs:sequence>
 				</xs:sequence>
 				<xs:attribute name="id" type="common:IDType" use="required" fixed="DATA_CONSUMERS"/>
-				<xs:attribute name="version" type="common:VersionType" use="optional" fixed="1.0"/>
-				<xs:attribute name="isFinal" type="xs:boolean" use="optional" fixed="false"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 	
 	<xs:complexType name="DataProviderSchemeType">
 		<xs:annotation>
-			<xs:documentation>DataProviderSchemeType defines a type of organisation scheme which contains only data providers. The data provider scheme maintained by a particular maintenance agency is always provided a fixed identifier and version, and is never final. Therefore, providers can be added or removed without have to version the scheme. This scheme has no hierarchy, meaning that no organisation may define a relationship with another organisation in the scheme</xs:documentation>
+			<xs:documentation>DataProviderSchemeType defines a type of organisation scheme which contains only data providers. The data provider scheme maintained by a particular maintenance agency is always provided a fixed identifier and is never versioned. Therefore, providers can be added or removed without have to version the scheme. This scheme has no hierarchy, meaning that no organisation may define a relationship with another organisation in the scheme</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="OrganisationSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -139,8 +141,26 @@
 					</xs:sequence>
 				</xs:sequence>
 				<xs:attribute name="id" type="common:IDType" use="required" fixed="DATA_PROVIDERS"/>
-				<xs:attribute name="version" type="common:VersionType" use="optional" fixed="1.0"/>
-				<xs:attribute name="isFinal" type="xs:boolean" use="optional" fixed="false"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataProviderSchemeType">
+		<xs:annotation>
+			<xs:documentation>MetadataProviderSchemeType defines a type of organisation scheme which contains only metadata providers. The metadata provider scheme maintained by a particular maintenance agency is always provided a fixed identifier and is never versioned. Therefore, providers can be added or removed without have to version the scheme. This scheme has no hierarchy, meaning that no organisation may define a relationship with another organisation in the scheme</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="OrganisationSchemeType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="MetadataProvider"/>
+					</xs:sequence>
+				</xs:sequence>
+				<xs:attribute name="id" type="common:IDType" use="required" fixed="METADATA_PROVIDERS"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -153,6 +173,7 @@
 			<xs:restriction base="OrganisationSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -177,7 +198,13 @@
 
 	<xs:element name="DataProvider" type="DataProviderType" substitutionGroup="Organisation">
 		<xs:annotation>
-			<xs:documentation>DataProvider describes an organisation that produces data or reference metadata.</xs:documentation>
+			<xs:documentation>DataProvider describes an organisation that produces data.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="MetadataProvider" type="MetadataProviderType" substitutionGroup="Organisation">
+		<xs:annotation>
+			<xs:documentation>MetadataProvider describes an organisation that produces metadata .</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 
@@ -195,6 +222,7 @@
 			<xs:restriction base="OrganisationType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
@@ -216,6 +244,7 @@
 			<xs:restriction base="OrganisationType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
@@ -232,6 +261,7 @@
 			<xs:restriction base="OrganisationType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
@@ -239,7 +269,24 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
+	<xs:complexType name="MetadataProviderType">
+		<xs:annotation>
+			<xs:documentation>MetadataProviderType defines the structure of a metadata provider description. The contacts defined for the organisation are specific to the metadata provider role the organisation is serving.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="OrganisationType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="OrganisationUnitType">
 		<xs:annotation>
 			<xs:documentation>OrganisationUnitType defines the structure of an organisation unit description. In addition to general identification and contact information, an organisation unit can specify a relationship with another organisation unit from the same scheme which is its parent organisation.</xs:documentation>
@@ -248,6 +295,7 @@
 			<xs:restriction base="OrganisationType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:choice minOccurs="0">
