@@ -57,7 +57,7 @@
 					<xs:field xpath="@agencyID"/>
 					<xs:field xpath="@version"/>
 				</xs:unique>
-				<xs:unique name="UniqueMetaataProviderScheme">
+				<xs:unique name="UniqueMetadataProviderScheme">
 					<xs:selector xpath="structure:MetadataProviderScheme"/>
 					<xs:field xpath="@id"/>
 					<xs:field xpath="@agencyID"/>
@@ -489,7 +489,7 @@
 			</xs:element>
 			<xs:element name="GeographicCodelist" type="GeographicCodelistType">
 				<xs:annotation>
-					<xs:documentation>GeographiCodelist provides the details of a georaphic code list, which comprises a set of GeoFeatureSetCodes, by adding a value in the Code that follows a pattern to represent a geo feature set.</xs:documentation>
+					<xs:documentation>GeographiCodelist provides the details of a geographic code list, which comprises a set of GeoFeatureSetCodes, by adding a value in the Code that follows a pattern to represent a geo feature set.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="Codelist_UniqueGeoFeatureSetCode">
 					<xs:selector xpath="structure:GeoFeatureSetCode"/>
@@ -498,7 +498,7 @@
 			</xs:element>
 			<xs:element name="GeoGridCodelist" type="GeoGridCodelistType">
 				<xs:annotation>
-					<xs:documentation>GeoGridCodelist provides the details of a georaphic grid code list, which comprises a set of GridCodes, which are related to the gridDefinition specified in the GeoGridCodelist.</xs:documentation>
+					<xs:documentation>GeoGridCodelist provides the details of a geographic grid code list, which comprises a set of GridCodes, which are related to the gridDefinition specified in the GeoGridCodelist.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="Codelist_UniqueGeoGridCode">
 					<xs:selector xpath="structure:GeoGridCode"/>

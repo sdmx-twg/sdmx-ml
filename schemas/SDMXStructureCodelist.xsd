@@ -105,7 +105,7 @@
 		</xs:sequence>
 		<xs:attribute name="prefix" type="xs:string" use="optional">
 			<xs:annotation>
-				<xs:documentation>Defines a prefix that will be prepend to included codes when they conflict with other codes included via extension.</xs:documentation>
+				<xs:documentation>A reference to a codelist may contain a prefix. If a prefix is provided, this prefix will be applied to all the codes in the codelist before they are imported into the extended codelist.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -115,7 +115,7 @@
 			<xs:documentation>CodeSelectionType defines the structure for code selection to be used as inclusive or exclusive extensions.</xs:documentation>
 		</xs:annotation>
 		<xs:choice maxOccurs="unbounded">
-			<xs:element name="WildcardedMemberValue" type="xs:string">
+			<xs:element name="WildcardedMemberValue" type="WildcardedMemberValueType">
 				<xs:annotation>
 					<xs:documentation>A wildcard expression that is evaluated to determine codes selected for inclusion/exclusion.</xs:documentation>
 				</xs:annotation>
@@ -130,7 +130,7 @@
 
 	<xs:complexType name="MemberValueType">
 		<xs:simpleContent>
-			<xs:extension base="xs:string">
+			<xs:extension base="common:IDType">
 				<xs:attribute name="cascadeValues" type="common:CascadeSelectionType" use="optional"/>
 			</xs:extension>
 		</xs:simpleContent>
@@ -330,5 +330,14 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+
+	<xs:simpleType name="WildcardedMemberValueType">
+		<xs:annotation>
+			<xs:documentation>WildcardedMemberValueType allows for an optional wildcard character ('%') at the end of an identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9_@$-]+%?"/>
+		</xs:restriction>
+	</xs:simpleType>
 
 </xs:schema>

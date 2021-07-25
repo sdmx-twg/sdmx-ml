@@ -669,7 +669,7 @@
 	
 	<xs:simpleType name="OccurenceType">
 		<xs:annotation>
-			<xs:documentation>OccurenceType is used to express the maximum occurrence of an object. It combines an integer, greater than 1, and the literal text, "unbounded", for objects which have no upper limit on its occurrence.</xs:documentation>
+			<xs:documentation>OccurenceType is used to express the maximum occurrence of an object. It combines an integer, equal or greater than 1, and the literal text, "unbounded", for objects which have no upper limit on its occurrence.</xs:documentation>
 		</xs:annotation>
 		<xs:union memberTypes="MaxOccursNumberType UnboundedCodeType"/>
 	</xs:simpleType>
@@ -769,30 +769,7 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-	
-	<xs:simpleType name="DimensionTypeType">
-		<xs:annotation>
-			<xs:documentation>DimensionTypeType enumerates the sub-classes of a dimension.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="Dimension">
-				<xs:annotation>
-					<xs:documentation>An ordinary dimension.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="MeasureDimension">
-				<xs:annotation>
-					<xs:documentation>A measure dimension.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="TimeDimension">
-				<xs:annotation>
-					<xs:documentation>The time dimension.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-	
+
 	<xs:complexType name="XHTMLType" mixed="true">
 		<xs:annotation>
 			<xs:documentation>XHTMLType allows for mixed content of text and XHTML tags. When using this type, one will have to provide a reference to the XHTML schema, since the processing of the tags within this type is strict, meaning that they are validated against the XHTML schema provided.</xs:documentation>

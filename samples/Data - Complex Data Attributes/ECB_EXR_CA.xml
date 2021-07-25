@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message:StructureSpecificData xmlns:ss="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/data/structurespecific" xmlns:footer="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/message/footer" xmlns:ns1="urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0):ObsLevelDim:TIME_PERIOD" xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/message" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xml="http://www.w3.org/XML/1998/namespace" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/message ../../schemas/SDMXMessage.xsd urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0):ObsLevelDim:TIME_PERIOD ECB_EXR_CA_Dataflow.xsd">
+	<message:Header>
+		<message:ID>IREF411123</message:ID>
+		<message:Test>false</message:Test>
+		<message:Prepared>2021-03-08T22:05:13Z</message:Prepared>
+		<message:Sender id="Unknown"/>
+		<message:Receiver id="ANONYMOUS"/>
+		<message:Structure structureID="ECB_EXR_COMPLEX_ATTRIBUTES_1_0" namespace="urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0):ObsLevelDim:TIME_PERIOD" dimensionAtObservation="TIME_PERIOD">
+			<common:StructureUsage>
+				<Ref agencyID="ECB" id="EXR" version="1.0"/>
+			</common:StructureUsage>
+		</message:Structure>
+		<message:DataSetAction>Information</message:DataSetAction>
+		<message:Extracted>2021-03-08T22:05:13</message:Extracted>
+		<message:ReportingBegin>1999-01-01T00:00:00</message:ReportingBegin>
+		<message:ReportingEnd>2019-01-01T23:59:59</message:ReportingEnd>
+	</message:Header>
+	<message:DataSet ss:dataScope="DataStructure" xsi:type="ns1:DataSetType" ss:structureRef="ECB_EXR_COMPLEX_ATTRIBUTES_1_0">
+		<Series FREQ="A" CURRENCY="CAD" CURRENCY_DENOM="EUR" EXR_TYPE="SP00" EXR_SUFFIX="A" TIME_FORMAT="P1Y" COLLECTION="A" DECIMALS="4" TITLE_COMPL="ECB reference exchange rate, Canadian dollar/Euro, 2:15 pm (C.E.T.)" UNIT="CAD" UNIT_MULT="0">
+			<Comp id="TITLE" xsi:type="ns1:TITLE_ATTRIBUTE">
+				<Value>
+					<common:Text xml:lang="en">Some English Text</common:Text>
+					<common:Text xml:lang="fr">Quelques textes en anglais</common:Text>
+				</Value>
+				<Value>
+					<common:Text>Additional English Text where lang defaults to en</common:Text>
+					<common:Text xml:lang="fr">Texte anglais supplémentaire</common:Text>
+				</Value>
+			</Comp>
+			<Comp id="SOURCE_AGENCY" xsi:type="ns1:SOURCE_AGENCY_ATTRIBUTE">
+				<Value>4F0</Value>
+				<Value>4D0</Value>
+				<Value>CZ2</Value>
+			</Comp>
+			<Comp id="SOURCE_PUB" xsi:type="ns1:SOURCE_PUB_ATTRIBUTE">
+				<Value>First publication source</Value>
+				<Value>Second publication source</Value>
+			</Comp>
+			
+			<Obs TIME_PERIOD="2017" OBS_VALUE="1.46472274509804">
+				<Comp id="OBS_STATUS" xsi:type="ns1:OBS_STATUS_ATTRIBUTE">
+					<Value>A</Value>
+					<Value>F</Value>
+				</Comp>
+			</Obs>
+			
+			<Obs TIME_PERIOD="2018" OBS_VALUE="1.529364705882353">
+				<Comp id="OBS_STATUS" xsi:type="ns1:OBS_STATUS_ATTRIBUTE">
+					<Value>J</Value>
+					<Value>U</Value>
+					<Value>N</Value>
+				</Comp>			
+			</Obs>
+			
+			<Obs TIME_PERIOD="2019" OBS_VALUE="1.485477254901961">
+				<Comp id="OBS_STATUS" xsi:type="ns1:OBS_STATUS_ATTRIBUTE">
+					<Value>A</Value>
+				</Comp>		
+			</Obs>
+		</Series>
+	</message:DataSet>
+</message:StructureSpecificData>

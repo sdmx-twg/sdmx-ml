@@ -47,10 +47,10 @@
 
 	<xs:element name="DataStructureComponents" type="DataStructureComponentsType" substitutionGroup="Grouping">
 		<xs:annotation>
-			<xs:documentation>DataStructureComponents defines the grouping of the sets of metadata concepts that have a defined structural role in the data structure definition. Note that for any component or group defined in a data structure definition, its id must be unique. This applies to the identifiers explicitly defined by the components as well as those inherited from the concept identity of a component. For example, if two dimensions take their identity from concepts with same identity (regardless of whether the concepts exist in different schemes) one of the dimensions must be provided a different explicit identifier. Although there are XML schema constraints to help enforce this, these only apply to explicitly assigned identifiers. Identifiers inherited from a concept from which a component takes its identity cannot be validated against this constraint. Therefore, systems processing data structure definitions will have to perform this check outside of the XML validation. There are also three reserved identifiers in a data structure definition; OBS_VALUE, TIME_PERIOD, and REPORTING_PERIOD_START_DAY. These identifiers may not be used outside of their respective defintions (PrimaryMeasure, TimeDimension, and ReportingYearStartDay). This applies to both the explicit identifiers that can be assigned to the components or groups as well as an identifier inherited by a component from its concept identity. For example, if an ordinary dimension (i.e. not the time dimension) takes its concept identity from a concept with the identifier TIME_PERIOD, that dimension must provide a different explicit identifier.</xs:documentation>
+			<xs:documentation>DataStructureComponents defines the grouping of the sets of metadata concepts that have a defined structural role in the data structure definition. Note that for any component or group defined in a data structure definition, its id must be unique. This applies to the identifiers explicitly defined by the components as well as those inherited from the concept identity of a component. For example, if two dimensions take their identity from concepts with same identity (regardless of whether the concepts exist in different schemes) one of the dimensions must be provided a different explicit identifier. Although there are XML schema constraints to help enforce this, these only apply to explicitly assigned identifiers. Identifiers inherited from a concept from which a component takes its identity cannot be validated against this constraint. Therefore, systems processing data structure definitions will have to perform this check outside of the XML validation. There are also two reserved identifiers in a data structure definition; TIME_PERIOD, and REPORTING_YEAR_START_DAY. These identifiers may not be used outside of their respective defintions (TimeDimension and ReportingYearStartDay). This applies to both the explicit identifiers that can be assigned to the components or groups as well as an identifier inherited by a component from its concept identity. For example, if an ordinary dimension (i.e. not the time dimension) takes its concept identity from a concept with the identifier TIME_PERIOD, that dimension must provide a different explicit identifier.</xs:documentation>
 		</xs:annotation>
 		<xs:unique name="DataStructureUniqueComponent">
-			<xs:selector xpath="structure:Group | structure:DimensionList/structure:Dimension | structure:DimensionList/structure:TimeDimension | structure:DimensionList/structure:MeasureDimension | structure:AttributeList/structure:Attribute | structure:AttributeList/structure:ReportingYearStartDay| structure:MeasureList/structure:PrimaryMeasure"/>
+			<xs:selector xpath="structure:Group | structure:DimensionList/structure:Dimension | structure:DimensionList/structure:TimeDimension | structure:AttributeList/structure:Attribute | structure:AttributeList/structure:ReportingYearStartDay | structure:MeasureList/structure:Measure"/>
 			<xs:field xpath="@id"/>
 		</xs:unique>
 	</xs:element>
@@ -67,7 +67,7 @@
 
 	<xs:complexType name="DataStructureComponentsType">
 		<xs:annotation>
-			<xs:documentation>DataStructureComponentsType describes the structure of the grouping to the sets of metadata concepts that have a defined structural role in the data structure definition. At a minimum at least one dimension and a primary measure must be defined.</xs:documentation>
+			<xs:documentation>DataStructureComponentsType describes the structure of the grouping to the sets of metadata concepts that have a defined structural role in the data structure definition. At a minimum at least one dimension must be defined.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="DataStructureComponentsBaseType">
@@ -166,6 +166,11 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
+				<xs:attribute name="isMandatory" type="xs:boolean" use="optional" default="false">
+					<xs:annotation>
+						<xs:documentation>The isMandatory attribute indicates whether an attribute value must be available for any corresponding existing observation.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -177,7 +182,7 @@
 		<xs:choice>
 			<xs:element name="None" type="common:EmptyType">
 				<xs:annotation>
-					<xs:documentation>This means that value of the attribute will not vary with any of the other key family components. This will always be treated as a data set level attribute.</xs:documentation>
+					<xs:documentation>This means that value of the attribute will not vary with any of the dimensions. The attribute will always be treated as a data structure level attribute. The level at which the unique attribute value will be presented in data messages depends on the data format.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>
@@ -253,7 +258,7 @@
 
 	<xs:complexType name="ReportingYearStartDayTextFormatType">
 		<xs:annotation>
-			<xs:documentation>ReportingYearStartDayTextFormatType is a restricted version of the NonFacetedTextFormatType that fixes the value of the text type to be DayMonth. This type exists solely for the purpose of fixing the representation of the reporting year start day attribute.</xs:documentation>
+			<xs:documentation>ReportingYearStartDayTextFormatType is a restricted version of the NonFacetedTextFormatType that fixes the value of the text type to be MonthDay. This type exists solely for the purpose of fixing the representation of the reporting year start day attribute.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="NonFacetedTextFormatType">
@@ -311,10 +316,6 @@
 		<xs:annotation>
 			<xs:documentation>DimensionList describes the key descriptor for the data structure definition. It is an ordered set of metadata concepts that, combined, classify a statistical series, such as a time series, and whose values, when combined (the key) in an instance such as a data set, uniquely identify a specific series.</xs:documentation>
 		</xs:annotation>
-		<xs:unique name="SingleMeasureDimension">
-			<xs:selector xpath="structure:MeasureDimension"/>
-			<xs:field xpath="@type"/>
-		</xs:unique>
 	</xs:element>
 
 	<xs:complexType name="DimensionListBaseType" abstract="true">
@@ -384,11 +385,6 @@
 						<xs:documentation>The position attribute specifies the position of the dimension in the data structure definition. It is optional an the position of the dimension in the key descriptor (DimensionList element) always takes precedence over the value supplied here. This is strictly for informational purposes only.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="type" type="common:DimensionTypeType" use="optional">
-					<xs:annotation>
-						<xs:documentation>The type attribute identifies whether then dimension is a measure dimension, the time dimension, or a regular dimension. Although these are all apparent by the element names, this attribute allows for each dimension to be processed independent of its element as well as maintaining the restriction of only one measure and time dimension while still allowing dimension to occur in any order.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -412,7 +408,6 @@
 					<xs:element name="LocalRepresentation" type="SimpleDataStructureRepresentationType" minOccurs="0"/>
 					<xs:element name="ConceptRole" type="common:ConceptReferenceType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
-				<xs:attribute name="type" type="common:DimensionTypeType" use="optional" fixed="Dimension"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -436,7 +431,6 @@
 					<xs:element name="LocalRepresentation" type="TimeDimensionRepresentationType"/>
 				</xs:sequence>
 				<xs:attribute name="id" type="common:NCNameIDType" use="optional" fixed="TIME_PERIOD"/>
-				<xs:attribute name="type" type="common:DimensionTypeType" use="optional" fixed="TimeDimension"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -569,6 +563,11 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
+				<xs:attribute name="isMandatory" type="xs:boolean" use="optional" default="false">
+					<xs:annotation>
+						<xs:documentation>The isMandatory attribute indicates whether a measure value must be available for any corresponding existing observation.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -629,7 +628,7 @@
 
 	<xs:complexType name="SimpleDataStructureRepresentationType">
 		<xs:annotation>
-			<xs:documentation>SimpleDataStructureRepresentationType defines the representation for any non-measure and non-time dimension data structure definition component.</xs:documentation>
+			<xs:documentation>SimpleDataStructureRepresentationType defines the representation for any non-time dimension data structure definition component.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="DataStructureRepresentationType">
@@ -657,43 +656,5 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
-
-	<xs:simpleType name="UsageStatusType">
-		<xs:annotation>
-			<xs:documentation>UsageStatusType provides a list of enumerated types for indicating whether reporting a given attribute is mandatory or conditional.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Mandatory">
-				<xs:annotation>
-					<xs:documentation>Reporting the associated attribute is mandatory - a value must be supplied.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="Conditional">
-				<xs:annotation>
-					<xs:documentation>Reporting the associated attribute is not mandatory - a value may  be supplied, but is not required.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-
-	<xs:simpleType name="MeatadataUsageStatusType">
-		<xs:annotation>
-			<xs:documentation>MeatadataUsageStatusType provides an additional enumeration indicating that an attribute is reported as reference metadata.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Metadata">
-				<xs:annotation>
-					<xs:documentation>The associated attribute is reported as reference metadata.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-
-	<xs:simpleType name="AttributeUsageStatusType">
-		<xs:annotation>
-			<xs:documentation>AttributeUsageStatusType joins the base UsageStatusType with MeatadataUsageStatusType to allow for the usage status of a attribute to be reported as mandatory, conditional, or metadata.</xs:documentation>
-		</xs:annotation>
-		<xs:union memberTypes="UsageStatusType MeatadataUsageStatusType"/>
-	</xs:simpleType>
 
 </xs:schema>

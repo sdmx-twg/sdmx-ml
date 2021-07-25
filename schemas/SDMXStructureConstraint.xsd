@@ -197,6 +197,11 @@
 					<xs:documentation>DataProvider is reference to a data provider to which the constraint is attached. If this is used, then only the release calendar is relevant. The referenced is provided as a URN and/or a full set of reference fields.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType">
+				<xs:annotation>
+					<xs:documentation>MetadataProvider is reference to a metadata provider to which the constraint is attached. If this is used, then only the release calendar is relevant. The referenced is provided as a URN and/or a full set of reference fields.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="DataSet" type="common:SetReferenceType" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>DataSet is reference to a data set to which the constraint is attached. The referenced is provided as a URN and/or a full set of reference fields.</xs:documentation>
@@ -325,7 +330,7 @@
 		<xs:complexContent>
 			<xs:restriction base="ConstraintAttachmentType">
 				<xs:choice>
-					<xs:element name="DataProvider" type="common:DataProviderReferenceType"/>
+					<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType"/>
 					<xs:element name="MetadataSet" type="common:SetReferenceType" maxOccurs="unbounded"/>
 					<xs:element name="SimpleDataSource" type="xs:anyURI" maxOccurs="unbounded"/>
 					<xs:choice>

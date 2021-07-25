@@ -232,7 +232,7 @@
 					<xs:choice>
 						<xs:sequence>
 								<xs:element name="FrequencyDimension" type="common:LocalComponentListComponentReferenceType"/>
-								<xs:element name="MappedFequencies" type="common:LocalFrequencyFormatMappingReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element name="MappedFrequencies" type="common:LocalFrequencyFormatMappingReferenceType" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
 						<xs:element name="TargetFrequencyID" type="xs:string"/>
 					</xs:choice>

@@ -21,7 +21,7 @@
 
 	<xs:simpleType name="WildcardNestedIDType">
 		<xs:annotation>
-			<xs:documentation>WildcardNestedIDTypeType combines the NestedIDType and WildcardType to allow a reference to either a specific nested identifier, or to wildcard the identifier in the reference by specifying the '*' value.</xs:documentation>
+			<xs:documentation>WildcardNestedIDType combines the NestedIDType and WildcardType to allow a reference to either a specific nested identifier, or to wildcard the identifier in the reference by specifying the '*' value.</xs:documentation>
 		</xs:annotation>
 		<xs:union memberTypes="NestedIDType WildcardType"/>
 	</xs:simpleType>
@@ -69,6 +69,13 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="WildcardNestedNCNameIDType">
+		<xs:annotation>
+			<xs:documentation>WildcardNestedNCNameIDType combines the NestedNCNameIDType and WildcardType to allow a reference to either a specific nested NCNAME identifier, or to wildcard the identifier in the reference by specifying the '*' value.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="NestedNCNameIDType WildcardType"/>
+	</xs:simpleType>
+
 	<xs:simpleType name="SingleNCNameIDType">
 		<xs:annotation>
 			<xs:documentation>SingleNCNameIDType restricts the NestedNCNameIDType to allow only one level. Note that this is the same pattern as the NCNameIDType, but can be used when the base type to be restricted is a nested NCNameIDType (where as the NCNameIDType could only restrict the IDType).</xs:documentation>
@@ -103,16 +110,18 @@
 
 	<xs:simpleType name="SemanticVersionReferenceType">
 		<xs:annotation>
-			<xs:documentation>SemanticVersionReferenceType is a simple type for referencing semantic version numbers. It allows for the wildcarding of the major, minor, or patch version parts using "+".</xs:documentation>
+			<xs:documentation>SemanticVersionReferenceType is a simple type for referencing semantic version numbers. It allows for the wildcarding of only one the major, minor, or patch version parts using "+".</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:pattern value="((0|[1-9]\d*)\+?)(\.((0|[1-9]\d*)\+?)){2}"/>
+			<xs:pattern value="((0|[1-9]\d*)\+?)(\.((0|[1-9]\d*))){2}"/>
+			<xs:pattern value="((0|[1-9]\d*))(\.((0|[1-9]\d*)\+?))(\.((0|[1-9]\d*)))"/>
+			<xs:pattern value="((0|[1-9]\d*)\+?)(\.((0|[1-9]\d*)))(\.((0|[1-9]\d*)\+?))"/>
 		</xs:restriction>
 	</xs:simpleType>
 
 	<xs:simpleType name="LegacyVersionNumberType">
 		<xs:annotation>
-			<xs:documentation>LegacyVersionNumberType describes the version number format previously supported in SDMX. The format is restricted to allow for simple incrementing and sorting of version number. The version consists of an unlimited set of numeric components, separated by the '.' character. When processing version, each numeric component (the number preceding and following any '.' character) should be parsed as an integer. Thus, a version of 1.3 and 1.03 would be equivalent, as both the '3' component and the '03' component would parse to an integer value of 3.</xs:documentation>
+			<xs:documentation>LegacyVersionNumberType describes the version number format previously supported in SDMX. The format is restricted to allow for simple incrementing and sorting of version number. The version consists of a set of maximum 2 numeric components, separated by the '.' character. When processing version, each numeric component (the number preceding and following any '.' character) should be parsed as an integer. Thus, a version of 1.3 and 1.03 would be equivalent, as both the '3' component and the '03' component would parse to an integer value of 3.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:pattern value="(0|[1-9]\d*)(\.(0|[1-9]\d*))?"/>
@@ -185,7 +194,7 @@
 		<xs:annotation>
 			<xs:documentation>WildcardRefBaseType is an abstract base type the defines the basis for any set of complete reference fields, while allowing for the wildcarding of components. This should be refined by derived types so that only the necessary fields are available and required as necessary. This can be used for both full and local references (when some of the values are implied from another context). A local reference is indicated with the local attribute. The values in this type correspond directly to the components of the URN structure, and thus can be used to compose a URN when the local attribute value is false. As this is the case, any reference components which are not part of the URN structure should not be present in the derived types.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="agencyID" type="WildcardNestedIDType" use="optional">
+		<xs:attribute name="agencyID" type="WildcardNestedNCNameIDType" use="optional">
 			<xs:annotation>
 				<xs:documentation>The agencyID attribute identifies the maintenance agency for the object being referenced (agency-id in the URN structure). This is optional to allow for local references (where the other reference fields are inferred from another context), but all complete references will require this.</xs:documentation>
 			</xs:annotation>
@@ -341,7 +350,7 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="WildcardRefBaseType">
-				<xs:attribute name="agencyID" type="WildcardNestedIDType" use="required"/>
+				<xs:attribute name="agencyID" type="WildcardNestedNCNameIDType" use="required"/>
 				<xs:attribute name="local" type="xs:boolean" use="optional" fixed="false"/>
 				<xs:attribute name="class" type="ObjectTypeCodelistType" use="required"/>
 				<xs:attribute name="package" type="PackageTypeCodelistType" use="required"/>
@@ -2607,37 +2616,6 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="MeasureDimensionReferenceType">
-		<xs:annotation>
-			<xs:documentation>MeasureDimensionReferenceType is a type for referencing a measure dimension object. It consists of a URN and/or a complete set of reference fields.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="ComponentReferenceType">
-				<xs:choice>
-					<xs:sequence>
-						<xs:element name="Ref" type="MeasureDimensionRefType" form="unqualified"/>
-						<xs:element name="URN" type="xs:anyURI" form="unqualified" minOccurs="0"/>
-					</xs:sequence>
-					<xs:element name="URN" type="xs:anyURI" form="unqualified"/>
-				</xs:choice>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-
-	<xs:complexType name="MeasureDimensionRefType">
-		<xs:annotation>
-			<xs:documentation>MeasureDimensionRefType contains a reference to the measure dimension within a data structure definition. Note that since there is only one key descriptor, the container reference fields are prohibited.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="ComponentRefBaseType">
-				<xs:attribute name="containerID" type="IDType" use="prohibited"/>
-				<xs:attribute name="id" type="IDType" use="required"/>
-				<xs:attribute name="class" type="DimensionTypeCodelistType" use="optional" fixed="MeasureDimension"/>
-				<xs:attribute name="package" type="StructurePackageTypeCodelistType" use="optional" fixed="datastructure"/>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-
 	<xs:complexType name="TimeDimensionReferenceType">
 		<xs:annotation>
 			<xs:documentation>TimeDimensionReferenceType is a type for referencing a time dimension object. It consists of a URN and/or a complete set of reference fields.</xs:documentation>
@@ -4187,7 +4165,6 @@
 			<xs:enumeration value="ItemSchemeMap"/>
 			<xs:enumeration value="Level"/>
 			<xs:enumeration value="MeasureDescriptor"/>
-			<xs:enumeration value="MeasureDimension"/>
 			<xs:enumeration value="Metadataflow"/>
 			<xs:enumeration value="MetadataAttribute"/>
 			<xs:enumeration value="MetadataConstraint"/>
@@ -4505,7 +4482,6 @@
 		<xs:restriction base="ObjectTypeCodelistType">
 			<xs:enumeration value="Attribute"/>
 			<xs:enumeration value="Dimension"/>
-			<xs:enumeration value="MeasureDimension"/>
 			<xs:enumeration value="MetadataAttribute"/>
 			<xs:enumeration value="Measure"/>
 			<xs:enumeration value="ReportingYearStartDay"/>
@@ -4520,7 +4496,6 @@
 		<xs:restriction base="ComponentTypeCodelistType">
 			<xs:enumeration value="Attribute"/>
 			<xs:enumeration value="Dimension"/>
-			<xs:enumeration value="MeasureDimension"/>
 			<xs:enumeration value="Measure"/>
 			<xs:enumeration value="ReportingYearStartDay"/>
 			<xs:enumeration value="TimeDimension"/>
@@ -4552,7 +4527,6 @@
 		</xs:annotation>
 		<xs:restriction base="ComponentTypeCodelistType">
 			<xs:enumeration value="Dimension"/>
-			<xs:enumeration value="MeasureDimension"/>
 			<xs:enumeration value="TimeDimension"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -4617,24 +4591,12 @@
 		</xs:annotation>
 	</xs:element>
 
-	<xs:element name="CodeMap" type="EmptyType">
-		<xs:annotation>
-			<xs:documentation>CodeMap is an empty element that denotes a code map object.</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-
 	<xs:element name="Codelist" type="EmptyType">
 		<xs:annotation>
 			<xs:documentation>Codelist is an empty element that denotes a code list object.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	
-	<xs:element name="CodelistMap" type="EmptyType">
-		<xs:annotation>
-			<xs:documentation>CodelistMap is an empty element that denotes a code list map object.</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	
+
 	<xs:element name="ComponentMap" type="EmptyType">
 		<xs:annotation>
 			<xs:documentation>ComponentMap is an empty element that denotes a component map object.</xs:documentation>
@@ -4767,18 +4729,6 @@
 		</xs:annotation>
 	</xs:element>
 
-	<xs:element name="HybridCodelistMap" type="EmptyType">
-		<xs:annotation>
-			<xs:documentation>HybridCodelistMap is an empty element that denotes a hybrid codelist map object.</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-
-	<xs:element name="HybridCodeMap" type="EmptyType">
-		<xs:annotation>
-			<xs:documentation>HybridCodeMap is an empty element that denotes a hybrid code map object.</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	
 	<xs:element name="IdentifiableObjectTarget" type="EmptyType">
 		<xs:annotation>
 			<xs:documentation>IdentifiableObjectTarget is an empty element that denotes an identifiable object target object.</xs:documentation>
@@ -4794,12 +4744,6 @@
 	<xs:element name="MeasureDescriptor" type="EmptyType">
 		<xs:annotation>
 			<xs:documentation>MeasureDescriptor is an empty element that denotes a measure descriptor object.</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-
-	<xs:element name="MeasureDimension" type="EmptyType">
-		<xs:annotation>
-			<xs:documentation>MeasureDimension is an empty element that denotes a measure dimension object.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 
@@ -5046,9 +4990,7 @@
 			<xs:element ref="CategorySchemeMap" minOccurs="0"/>
 			<xs:element ref="CategoryScheme" minOccurs="0"/>
 			<xs:element ref="Code" minOccurs="0"/>
-			<xs:element ref="CodeMap" minOccurs="0"/>
 			<xs:element ref="Codelist" minOccurs="0"/>
-			<xs:element ref="CodelistMap" minOccurs="0"/>
 			<xs:element ref="ComponentMap" minOccurs="0"/>
 			<xs:element ref="Concept" minOccurs="0"/>
 			<xs:element ref="ConceptMap" minOccurs="0"/>
@@ -5071,12 +5013,9 @@
 			<xs:element ref="HierarchicalCode" minOccurs="0"/>
 			<xs:element ref="Hierarchy" minOccurs="0"/>
 			<xs:element ref="HierarchyAssociation" minOccurs="0"/>
-			<xs:element ref="HybridCodelistMap" minOccurs="0"/>
-			<xs:element ref="HybridCodeMap" minOccurs="0"/>
 			<xs:element ref="IdentifiableObjectTarget" minOccurs="0"/>
 			<xs:element ref="Level" minOccurs="0"/>
 			<xs:element ref="MeasureDescriptor" minOccurs="0"/>
-			<xs:element ref="MeasureDimension" minOccurs="0"/>
 			<xs:element ref="Metadataflow" minOccurs="0"/>
 			<xs:element ref="MetadataAttribute" minOccurs="0"/>
 			<xs:element ref="MetadataConstraint" minOccurs="0"/>

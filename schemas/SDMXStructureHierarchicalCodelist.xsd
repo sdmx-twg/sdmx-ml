@@ -77,7 +77,7 @@
 
 	<xs:complexType name="HierarchicalCodeType">
 		<xs:annotation>
-			<xs:documentation>HierarchicalCodeType describes the structure of a hierarchical code. A hierarchical code provides for a reference to a code that is referenced within the hierarchical code list via either a complete reference to a code through either a URN or full set of reference fields, or a local reference which utilizes the included codelist reference alias and the identification of a code from the list. Codes are arranged in a hierarchy by this reference. Note that it is possible to reference a single code such that it has multiple parents within the hierarchy. Further, the hierarchy may or may not be a leveled one.</xs:documentation>
+			<xs:documentation>HierarchicalCodeType describes the structure of a hierarchical code. A hierarchical code provides for a reference to a code that is referenced within the hierarchical code list via either a complete reference to a code through either a URN or full set of reference fields. Codes are arranged in a hierarchy by this reference. Note that it is possible to reference a single code such that it has multiple parents within the hierarchy. Further, the hierarchy may or may not be a leveled one.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="HierarchicalCodeBaseType">
