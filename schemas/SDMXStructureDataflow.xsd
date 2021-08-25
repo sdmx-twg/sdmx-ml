@@ -11,7 +11,7 @@
 
 	<xs:complexType name="DataflowType">
 		<xs:annotation>
-			<xs:documentation>DataflowType describes the structure of a data flow. A data flow is defined as the structure of data that will provided for different reference periods. If this type is not referenced externally, then a reference to a key family definition must be provided.</xs:documentation>
+			<xs:documentation>DataflowType describes the structure of a data flow. A data flow is defined as the structure of data that will provided for different reference periods. If this type is not referenced externally, then a reference to a data structure must be provided.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="StructureUsageType">
@@ -26,8 +26,9 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DataflowUrnType" use="optional"/>
 			</xs:restriction>
-		</xs:complexContent>		
+		</xs:complexContent>
 	</xs:complexType>
 	
 </xs:schema>

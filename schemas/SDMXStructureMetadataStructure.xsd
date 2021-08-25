@@ -24,6 +24,7 @@
 						<xs:element ref="MetadataStructureComponents"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:MetadataStructureUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -110,6 +111,7 @@
 					<xs:element name="ConceptIdentity" type="common:ConceptReferenceType"/>
 					<xs:element name="LocalRepresentation" type="MetadataAttributeRepresentationType" minOccurs="0"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:MetadataAttributeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>

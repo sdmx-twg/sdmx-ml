@@ -24,6 +24,7 @@
 						<xs:element ref="DataStructureComponents"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DataStructureUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -97,6 +98,7 @@
 					<xs:element ref="common:Annotations" minOccurs="0"/>
 					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:AttributeDescriptorUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="optional" fixed="AttributeDescriptor">
 					<xs:annotation>
 						<xs:documentation>The id attribute is provided in this case for completeness. However, its value is fixed to AttributeDescriptor.</xs:documentation>
@@ -139,6 +141,7 @@
 					<xs:element name="ConceptIdentity" type="common:ConceptReferenceType"/>
 					<xs:element name="LocalRepresentation" type="AttributeRepresentationType" minOccurs="0"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DataAttributeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -166,9 +169,9 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:attribute name="isMandatory" type="xs:boolean" use="optional" default="false">
+				<xs:attribute name="usage" type="UsageType" use="optional" default="optional">
 					<xs:annotation>
-						<xs:documentation>The isMandatory attribute indicates whether an attribute value must be available for any corresponding existing observation.</xs:documentation>
+						<xs:documentation>The usage attribute indicates whether an attribute value must be available for any corresponding existing observation.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -186,13 +189,13 @@
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>
-				<xs:element name="Dimension" type="common:OptionalLocalDimensionReferenceType" maxOccurs="unbounded">
+				<xs:element name="Dimension" type="OptionalLocalDimensionReferenceType" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>This is used to reference dimensions in the data structure definition on which the value of this attribute depends. An attribute using this relationship can be either a group, series (or section), or observation level attribute. The attachment level of the attribute will be determined by the data format and which dimensions are referenced.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:element name="Group" type="common:LocalGroupKeyDescriptorReferenceType">
+			<xs:element name="Group" type="common:IDType">
 				<xs:annotation>
 					<xs:documentation>This is used as a convenience to referencing all of the dimension defined by the referenced group. The attribute will also be attached to this group.</xs:documentation>
 				</xs:annotation>
@@ -204,13 +207,21 @@
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
+
+	<xs:complexType name="OptionalLocalDimensionReferenceType">
+		<xs:simpleContent>
+			<xs:extension base="common:NCNameIDType">
+				<xs:attribute name="optional" type="xs:boolean" default="false"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	
 	<xs:complexType name="MeasureRelationshipType">
 		<xs:annotation>
 			<xs:documentation>MeasureRelationshipType allows for the description of an attributes relationship to one or more measures</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Measure" type="common:LocalMeasureReferenceType" maxOccurs="unbounded">
+			<xs:element name="Measure" type="common:NCNameIDType" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>This is a reference to a measure defined in this data structure definition.</xs:documentation>
 				</xs:annotation>
@@ -297,7 +308,7 @@
 		<xs:complexContent>
 			<xs:extension base="MetadataAttributeUsageBaseType">
 				<xs:sequence>
-					<xs:element name="MetadataAttributeReference" type="common:LocalMetadataAttributeReferenceType">
+					<xs:element name="MetadataAttributeReference" type="common:NCNameIDType">
 						<xs:annotation>
 							<xs:documentation>MetadataAttributeReference is a local reference to a metadata attribute defined in the metadata structure referenced by this data structure.</xs:documentation>
 						</xs:annotation>
@@ -328,6 +339,7 @@
 					<xs:element ref="common:Annotations" minOccurs="0"/>
 					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DimensionDescriptorUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="optional" fixed="DimensionDescriptor">
 					<xs:annotation>
 						<xs:documentation>The id attribute is provided in this case for completeness. However, its value is fixed to DimensionDescriptor.</xs:documentation>
@@ -408,6 +420,7 @@
 					<xs:element name="LocalRepresentation" type="SimpleDataStructureRepresentationType" minOccurs="0"/>
 					<xs:element name="ConceptRole" type="common:ConceptReferenceType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DimensionUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -430,6 +443,7 @@
 					<xs:element name="ConceptIdentity" type="common:ConceptReferenceType"/>
 					<xs:element name="LocalRepresentation" type="TimeDimensionRepresentationType"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:TimeDimensionUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:NCNameIDType" use="optional" fixed="TIME_PERIOD"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -450,6 +464,7 @@
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:GroupDimensionDescriptorUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="required"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -494,7 +509,7 @@
 		<xs:complexContent>
 			<xs:extension base="GroupDimensionBaseType">
 				<xs:sequence>
-					 <xs:element name="DimensionReference" type="common:LocalDimensionReferenceType">
+					 <xs:element name="DimensionReference" type="common:NCNameIDType">
 					 	<xs:annotation>
 					 		<xs:documentation>DimensionReference provides a reference to a dimension defined in the key descriptor of the data structure definition in which this group key descriptor is defined.</xs:documentation>
 					 	</xs:annotation>
@@ -506,7 +521,7 @@
 
 	<xs:element name="MeasureList" type="MeasureListType" substitutionGroup="ComponentList">
 		<xs:annotation>
-			<xs:documentation>MeasureList describes the measure descriptor for a key family.</xs:documentation>
+			<xs:documentation>MeasureList describes the measure descriptor for a data structure.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 
@@ -523,6 +538,7 @@
 						<xs:element ref="Measure"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:MeasureDescriptorUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="optional" fixed="MeasureDescriptor"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -546,6 +562,7 @@
 					<xs:element name="ConceptIdentity" type="common:ConceptReferenceType"/>
 					<xs:element name="LocalRepresentation" type="MeasureRepresentationType" minOccurs="0"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:MeasureUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -563,9 +580,9 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:attribute name="isMandatory" type="xs:boolean" use="optional" default="false">
+				<xs:attribute name="usage" type="UsageType" use="optional" default="optional">
 					<xs:annotation>
-						<xs:documentation>The isMandatory attribute indicates whether a measure value must be available for any corresponding existing observation.</xs:documentation>
+						<xs:documentation>The usage attribute indicates whether a measure value must be available for any corresponding existing observation.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -581,7 +598,7 @@
 				<xs:choice>
 					<xs:element name="TextFormat" type="SimpleComponentTextFormatType"/>
 					<xs:sequence>
-						<xs:element name="Enumeration" type="common:EnumerationReferenceType"/>
+						<xs:element name="Enumeration" type="common:AnyCodelistReferenceType"/>
 						<xs:element name="EnumerationFormat" type="CodedTextFormatType" minOccurs="0"/>
 					</xs:sequence>
 				</xs:choice>
@@ -599,7 +616,7 @@
 				<xs:choice>
 					<xs:element name="TextFormat" type="BasicComponentTextFormatType"/>
 					<xs:sequence>
-						<xs:element name="Enumeration" type="common:EnumerationReferenceType"/>
+						<xs:element name="Enumeration" type="common:AnyCodelistReferenceType"/>
 						<xs:element name="EnumerationFormat" type="CodedTextFormatType" minOccurs="0"/>
 					</xs:sequence>
 				</xs:choice>
@@ -617,7 +634,7 @@
 				<xs:choice>
 					<xs:element name="TextFormat" type="BasicComponentTextFormatType"/>
 					<xs:sequence>
-						<xs:element name="Enumeration" type="common:EnumerationReferenceType"/>
+						<xs:element name="Enumeration" type="common:AnyCodelistReferenceType"/>
 						<xs:element name="EnumerationFormat" type="CodedTextFormatType" minOccurs="0"/>
 					</xs:sequence>
 				</xs:choice>
@@ -656,5 +673,15 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
+
+	<xs:simpleType name="UsageType">
+		<xs:annotation>
+			<xs:documentation>An enumeration of optional | mandatory to indicate the usage of an attribute or measure.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="mandatory"/>
+			<xs:enumeration value="optional"/>
+		</xs:restriction>
+	</xs:simpleType>
 
 </xs:schema>

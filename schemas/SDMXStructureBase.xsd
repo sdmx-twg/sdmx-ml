@@ -21,7 +21,7 @@
 				</xs:sequence>
 				<xs:attribute name="isPartial" type="xs:boolean" use="optional" default="false">
 					<xs:annotation>
-						<xs:documentation>The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a key family in the context of a constraint.</xs:documentation>
+						<xs:documentation>The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -58,7 +58,7 @@
 		<xs:complexContent>
 			<xs:extension base="ItemBaseType">
 				<xs:choice minOccurs="0">
-					<xs:element name="Parent" type="common:LocalItemReferenceType"/>
+					<xs:element name="Parent" type="common:NestedIDType"/>
 					<xs:sequence maxOccurs="unbounded">
 						<xs:element ref="Item"/>
 					</xs:sequence>
@@ -190,7 +190,7 @@
 		<xs:complexContent>
 			<xs:extension base="common:MaintainableType">
 				<xs:sequence>
-					<xs:element name="Structure" type="common:StructureReferenceBaseType" minOccurs="0">
+					<xs:element name="Structure" type="common:StructureReferenceType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Structure references the structure (data structure or metadata structure definition) which the structure usage is based upon. Implementations will have to refine the type to use a concrete structure reference (i.e. either a data structure or metadata structure definition reference).</xs:documentation>
 						</xs:annotation>
@@ -211,7 +211,7 @@
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>
-				<xs:element name="Enumeration" type="common:EnumerationReferenceType">
+				<xs:element name="Enumeration" type="common:AnyCodelistReferenceType">
 					<xs:annotation>
 						<xs:documentation>Enumeration references an item scheme that enumerates the allowable values for this representation.</xs:documentation>
 					</xs:annotation>
@@ -242,7 +242,7 @@
 		<xs:sequence>
 			<xs:element name="SentinelValue" type="SentinelValueType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>SentinelValue defines a reserved value for the text format along with its meaning.</xs:documentation>
+					<xs:documentation>SentinelValue defines a value that has a special meaning within the text format representation of a component.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -325,10 +325,11 @@
 
 	<xs:complexType name="SentinelValueType">
 		<xs:annotation>
-			<xs:documentation>SentinelValueType defines the structure of a sentinel value. A sentinel value is reserved value in an otherwise open value domain with a specific meaning. For example, a value of -1 can be defined to indicate a non-applicable value. The name elements provide the meaning to the provided value attribute.</xs:documentation>
+			<xs:documentation>SentinelValueType defines the structure of a sentinel value. A sentinel is a value that has a special meaning within the text format representation of a component. The value is associated with a multi-lingual name and description.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element ref="common:Name" maxOccurs="unbounded"/>
+			<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="value" type="xs:anySimpleType" use="required">
 			<xs:annotation>

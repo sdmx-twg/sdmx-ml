@@ -27,7 +27,7 @@
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
-					<xs:element name="Target" type="common:WildcardObjectReferenceType" maxOccurs="unbounded">
+					<xs:element name="Target" type="common:WildcardUrnType" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>Target references the target structures for which metadata is being reported. These must conform with the constraints defined by the metadata provision agreement and/or the metadataflow.</xs:documentation>
 						</xs:annotation>

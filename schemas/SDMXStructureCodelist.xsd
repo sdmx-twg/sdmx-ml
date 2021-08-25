@@ -24,6 +24,7 @@
 						<xs:element ref="Code"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:CodelistUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:NCNameIDType" use="required">
 					<xs:annotation>
 						<xs:documentation>The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).</xs:documentation>
@@ -73,13 +74,14 @@
 						</xs:annotation>
 					</xs:element>
 					<xs:choice minOccurs="0">
-						<xs:element name="Parent" type="common:LocalCodeReferenceType">
+						<xs:element name="Parent" type="common:SingleNCNameIDType">
 							<xs:annotation>
 								<xs:documentation>Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:CodeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -299,12 +301,29 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:complexType name="ValueListBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>ValueListBaseType defines the base refinement of the ValueListType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:ValueListUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ValueListType">
 		<xs:annotation>
 			<xs:documentation>ValueListType defines the structure of value list. These represent a closed set of values the can occur for a dimension, measure, or attribute. These may be values, or values with names and descriptions (similar to a codelist).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="common:MaintainableType">
+			<xs:extension base="ValueListBaseType">
 				<xs:sequence>
 					<xs:element name="ValueItem" type="ValueItemType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>

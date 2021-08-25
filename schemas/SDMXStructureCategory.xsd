@@ -24,6 +24,7 @@
 						<xs:element ref="Category"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:CategorySchemeUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:NCNameIDType" use="required">
 					<xs:annotation>
 						<xs:documentation>The id attribute holds the identification of the category scheme. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the category scheme may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).</xs:documentation>
@@ -60,6 +61,7 @@
 						</xs:sequence>
 					</xs:choice>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:CategoryUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>	

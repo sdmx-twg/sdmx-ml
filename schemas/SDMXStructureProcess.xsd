@@ -9,12 +9,29 @@
 		<xs:documentation>The process structure module defines the structure of process and process step constructs.</xs:documentation>
 	</xs:annotation>
 
+	<xs:complexType name="ProcessBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>ProcessBaseType defines the base refinement of the ProcessType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:ProcessUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ProcessType">
 		<xs:annotation>
 			<xs:documentation>ProcessType describes the structure of a process, which is a scheme which defines or documents the operations performed on data in order to validate data or to derive new information according to a given set of rules. Processes occur in order, and will continue in order unless a transition dictates another step should occur.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="common:MaintainableType">
+			<xs:extension base="ProcessBaseType">
 				<xs:sequence>
 					<xs:element name="ProcessStep" type="ProcessStepType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
@@ -42,6 +59,7 @@
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:ProcessStepUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="required"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -88,14 +106,29 @@
 		</xs:complexContent>
 	</xs:complexType>	
 
+	<xs:complexType name="TransitionBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>TransitionBaseType defines the base refinement of the TransitionType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:IdentifiableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:TransitionUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="TransitionType">
 		<xs:annotation>
 			<xs:documentation>TransitionType describes the details of a transition, which is an expression in a textual or formalised way of the transformation of data between two specific operations performed on the data.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="common:IdentifiableType">
+			<xs:extension base="TransitionBaseType">
 				<xs:sequence>
-					<xs:element name="TargetStep" type="common:LocalProcessStepReferenceType">
+					<xs:element name="TargetStep" type="common:IDType">
 						<xs:annotation>
 							<xs:documentation>TargetStep references a process step within the process that should be transitioned to, should the conditions described be met.</xs:documentation>
 						</xs:annotation>
@@ -159,7 +192,7 @@
 		<xs:complexContent>
 			<xs:extension base="common:AnnotableType">
 				<xs:sequence>
-					<xs:element name="ObjectReference" type="common:ObjectReferenceType">
+					<xs:element name="ObjectReference" type="common:UrnReferenceType">
 						<xs:annotation>
 							<xs:documentation>ObjectReference is an abstract substitution head that references the object that is an input or output. It is substituted with a concrete reference to an explicit object type.</xs:documentation>
 						</xs:annotation>
