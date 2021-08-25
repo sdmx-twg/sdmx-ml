@@ -11,9 +11,7 @@
             <str:Dataflow urn="urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0)" isExternalReference="false" agencyID="ECB" id="EXR" version="1.0">
                 <com:Name xml:lang="en">ECB Exchange Rates</com:Name>
                 <com:Description xml:lang="en">ECB Exchange Rates - example of a 'non-country-specific' data source</com:Description>
-                <str:Structure>
-                    <Ref package="datastructure" agencyID="ECB" id="ECB_EXR1" version="1.0" class="DataStructure" />
-                </str:Structure>
+                <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ECB:EXR(1.0)</str:Structure>
             </str:Dataflow>
         </str:Dataflows>
     </mes:Structures>
