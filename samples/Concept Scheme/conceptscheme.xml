@@ -7,7 +7,7 @@
         <mes:Sender id="Unknown" />
         <mes:Receiver id="not_supplied" /></mes:Header>
     <mes:Structures>
-        <str:Concepts>
+        <str:ConceptSchemes>
             <str:ConceptScheme urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.ConceptScheme=ECB:ECB_CONCEPTS(1.0)" isExternalReference="false" agencyID="ECB" id="ECB_CONCEPTS" version="1.0">
                 <com:Name xml:lang="en">ECB concepts</com:Name>
                 <str:Concept urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).COUNT_AREA" id="COUNT_AREA">
@@ -1037,6 +1037,6 @@
                     <com:Name xml:lang="en">Time period or range</com:Name>
                 </str:Concept>
             </str:ConceptScheme>
-        </str:Concepts>
+        </str:ConceptSchemes>
     </mes:Structures>
 </mes:Structure>
