@@ -289,7 +289,7 @@
 		</xs:attribute>
 		<xs:attribute name="type" type="xs:string" use="optional">
 			<xs:annotation>
-				<xs:documentation>The type of link (e.g. PDF, text, HTML, reference metadata report).</xs:documentation>
+				<xs:documentation>The type of link (e.g. PDF, text, HTML, reference metadata).</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>

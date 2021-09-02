@@ -248,7 +248,7 @@
 		<xs:complexContent>
 			<xs:extension base="FrequencyFormatMappingBaseType">
 				<xs:sequence>
-					<xs:element name="FrequencyId" type="xs:string"/>
+					<xs:element name="FrequencyId" type="common:IDType"/>
 					<xs:element name="DatePattern" type="xs:string"/>
 				</xs:sequence>
 			</xs:extension>
@@ -268,7 +268,7 @@
 								<xs:element name="FrequencyDimension" type="common:IDType"/>
 								<xs:element name="MappedFrequencies" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
-						<xs:element name="TargetFrequencyID" type="xs:string"/>
+						<xs:element name="TargetFrequencyID" type="common:IDType"/>
 					</xs:choice>
 				</xs:sequence>
 				<xs:attribute name="resolvePeriod" type="ResolvePeriodType" use="optional">
@@ -298,7 +298,7 @@
 								<xs:element name="FrequencyDimension" type="common:IDType"/>
 								<xs:element name="MappedFrequencies" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
-						<xs:element name="TargetFrequencyID" type="xs:string"/>
+						<xs:element name="TargetFrequencyID" type="common:IDType"/>
 					</xs:choice>
 				</xs:sequence>
 				<xs:attribute name="urn" type="common:EpochMapUrnType" use="optional"/>
@@ -333,7 +333,7 @@
 								<xs:element name="FrequencyDimension" type="common:IDType"/>
 								<xs:element name="MappedFrequencies" type="common:IDType" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
-						<xs:element name="TargetFrequencyID" type="xs:string"/>
+						<xs:element name="TargetFrequencyID" type="common:IDType"/>
 					</xs:choice>
 				</xs:sequence>
 				<xs:attribute name="urn" type="common:DatePatternMapUrnType" use="optional"/>
