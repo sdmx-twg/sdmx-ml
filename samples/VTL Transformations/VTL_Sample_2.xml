@@ -137,18 +137,18 @@
 								<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(1.0)</str:Enumeration>
 							</str:LocalRepresentation>
 						</str:Dimension>
-						<str:TimeDimension id="TIME_PERIOD">
-							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS2(1.0).TIME_PERIOD</str:ConceptIdentity>
-							<str:LocalRepresentation>
-								<str:TextFormat textType="ObservationalTimePeriod"/>
-							</str:LocalRepresentation>
-						</str:TimeDimension>
 						<str:Dimension id="MEASURE_DIMENSION">
 							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS2(1.0).MEASURE_DIMENSION</str:ConceptIdentity>
 							<str:LocalRepresentation>
 								<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CS2R1(1.0)</str:Enumeration>
 							</str:LocalRepresentation>
 						</str:Dimension>
+						<str:TimeDimension id="TIME_PERIOD">
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS2(1.0).TIME_PERIOD</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:TextFormat textType="ObservationalTimePeriod"/>
+							</str:LocalRepresentation>
+						</str:TimeDimension>						
 					</str:DimensionList>
 					<str:MeasureList>
 						<str:Measure id="OBS_VALUE">

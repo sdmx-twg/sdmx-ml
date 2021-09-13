@@ -152,18 +152,18 @@
                 <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(1.0)</str:Enumeration>
               </str:LocalRepresentation>
             </str:Dimension>
-           <str:TimeDimension id="TIME_PERIOD">
-              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
-              <str:LocalRepresentation>
-                <str:TextFormat textType="ObservationalTimePeriod"/>
-              </str:LocalRepresentation>
-            </str:TimeDimension>
             <str:Dimension id="RULEID">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS(1.0).RULEID</str:ConceptIdentity>
               <str:LocalRepresentation>
                 <str:TextFormat textType="String"/>
               </str:LocalRepresentation>
             </str:Dimension>
+           <str:TimeDimension id="TIME_PERIOD">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="ObservationalTimePeriod"/>
+              </str:LocalRepresentation>
+            </str:TimeDimension>            
           </str:DimensionList>
           <str:AttributeList>
             <str:Attribute id="ERRORCODE">
