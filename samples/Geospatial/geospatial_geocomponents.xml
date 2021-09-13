@@ -33,7 +33,7 @@
 								<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_INDICATOR(1.0)</str:Enumeration>
 							</str:LocalRepresentation>
 						</str:Dimension>
-						<str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=EXAMPLE:DSD_GEO_EXAMPLE(1.0).TIME_PERIOD" id="TIME_PERIOD" position="2">
+						<str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=EXAMPLE:DSD_GEO_EXAMPLE(1.0).TIME_PERIOD" id="TIME_PERIOD" >
 							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
 							<str:LocalRepresentation>
 								<str:TextFormat textType="ObservationalTimePeriod"/>
