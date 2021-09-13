@@ -43,7 +43,7 @@
                                 <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=ECB:CL_EXR_SUFFIX(1.0)</str:Enumeration>
                             </str:LocalRepresentation>
                         </str:Dimension>
-                        <str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=ECB:ECB_EXR_COMPLEX_ATTRIBUTES(1.0).TIME_PERIOD" id="TIME_PERIOD" position="6">
+                        <str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=ECB:ECB_EXR_COMPLEX_ATTRIBUTES(1.0).TIME_PERIOD" id="TIME_PERIOD">
                             <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
                             <str:LocalRepresentation>
                                 <str:TextFormat textType="ObservationalTimePeriod" /></str:LocalRepresentation>
