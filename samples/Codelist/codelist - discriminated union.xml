@@ -11,7 +11,7 @@
 		<str:AgencySchemes>
 			<str:AgencyScheme urn="urn:sdmx:org.sdmx.infomodel.base.AgencyScheme=SDMX:AGENCIES(1.0)" isExternalReference="false" agencyID="SDMX" id="AGENCIES">
 				<com:Name xml:lang="en">SDMX Agency Scheme</com:Name>
-				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0.0).SDMX" id="SDMX">
+				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0).SDMX" id="SDMX">
 					<com:Name xml:lang="en">SDMX</com:Name>
 					<com:Description xml:lang="en">SDMX is an initiative to foster standards for the exchange of statistical information. It is sponsored by the Bank for International Settlements (BIS), the European Central Bank (ECB), the Statistical Office of the European Union (Eurostat), the International Monetary Fund (IMF), the Organization for Economic Co-Operation and Development (OECD), the United Nations (UN) and the World Bank.</com:Description>
 					<str:Contact>
@@ -22,7 +22,7 @@
 						<str:Email>secretariat@sdmx.org</str:Email>
 					</str:Contact>
 				</str:Agency>
-				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0.0).EXAMPLE" id="EXAMPLE">
+				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0).EXAMPLE" id="EXAMPLE">
 					<com:Name xml:lang="en">Example Agency</com:Name>
 				</str:Agency>
 			</str:AgencyScheme>
@@ -84,7 +84,7 @@
 								<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_ACTIVITY(1.0)</str:Enumeration>
 							</str:LocalRepresentation>
 						</str:Dimension>
-						<str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=EXAMPLE:LABOUR(1.0).TIME_PERIOD" id="TIME_PERIOD" position="3">
+						<str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=EXAMPLE:LABOUR(1.0).TIME_PERIOD" id="TIME_PERIOD">
 							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).TIME_PERIOD</str:ConceptIdentity>
 							<str:LocalRepresentation>
 								<str:TextFormat textType="ObservationalTimePeriod"/>
