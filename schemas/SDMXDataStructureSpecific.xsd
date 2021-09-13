@@ -86,11 +86,6 @@
 						<xs:documentation>The type attribute reference the identifier of the group as defined in the data structure definition. This is optional, but derived group types will provide a fixed value for this so that it always available in the post validation information set. This allows the group to be processed in a generic manner.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
-					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explicit attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived group types may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>
 			</xs:extension>
 		</xs:complexContent>
@@ -122,11 +117,6 @@
 				<xs:attribute name="TIME_PERIOD" type="common:ObservationalTimePeriodType" use="optional">
 					<xs:annotation>
 						<xs:documentation>The TIME_PERIOD attribute is an explict attribute for the time dimension. This is declared in the base schema since it has a fixed identifier and representation. The derived series type will either require or prohibit this attribute, depending on whether time is the observation dimension. If the time dimension specifies a more specific representation of time the derived type will restrict the type definition to the appropriate type.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
-					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived series type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>
@@ -184,11 +174,6 @@
 						<xs:documentation>The TIME_PERIOD attribute is an explicit attribute for the time dimension. This is declared in the base schema since it has a fixed identifier and representation. The derived series type will either require or prohibit this attribute, depending on whether time is the observation dimension. If the time dimension specifies a more specific representation of time the derived type will restrict the type definition to the appropriate type.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
-					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived observation type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>
 			</xs:extension>
 		</xs:complexContent>
@@ -211,9 +196,9 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
+				<xs:attribute name="TIME_PERIOD" type="common:ObservationalTimePeriodType" use="optional">
 					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived observation type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
+						<xs:documentation>The TIME_PERIOD attribute is an explict attribute for the time dimension. This is declared in the base schema since it has a fixed identifier and representation. The derived series type will either require or prohibit this attribute, depending on whether time is the observation dimension. If the time dimension specifies a more specific representation of time the derived type will restrict the type definition to the appropriate type.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>

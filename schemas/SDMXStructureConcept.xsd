@@ -100,7 +100,7 @@
 				<xs:choice>
 					<xs:element name="TextFormat" type="BasicComponentTextFormatType"/>
 					<xs:sequence>
-						<xs:element name="Enumeration" type="common:CodelistReferenceType">
+						<xs:element name="Enumeration" type="common:AnyCodelistReferenceType">
 							<xs:annotation>
 								<xs:documentation>Enumeration references a codelist which enumerates the possible values that can be used as the representation of this concept.</xs:documentation>
 							</xs:annotation>

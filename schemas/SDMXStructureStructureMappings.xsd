@@ -178,7 +178,7 @@
 							<xs:documentation></xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ComponentMap" type="ComponentMapType" maxOccurs="unbounded">
+					<xs:element name="ComponentMap" type="ComponentMapType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>ComponentMap defines the relationship between the components of the source and target structures, including information on how the value from the source component relates to values in the target component.</xs:documentation>
 						</xs:annotation>
@@ -380,11 +380,11 @@
 			<xs:extension base="RepresentationMapBaseType">
 				<xs:sequence>
 					<xs:choice maxOccurs="unbounded">
-						<xs:element name="SourceCodelist" type="common:CodelistReferenceType"/>
+						<xs:element name="SourceCodelist" type="common:AnyCodelistReferenceType"/>
 						<xs:element name="SourceDataType" type="common:DataType"/>
 					</xs:choice>
 					<xs:choice maxOccurs="unbounded">
-						<xs:element name="TargetCodelist" type="common:CodelistReferenceType"/>
+						<xs:element name="TargetCodelist" type="common:AnyCodelistReferenceType"/>
 						<xs:element name="TargetDataType" type="common:DataType"/>
 					</xs:choice>
 					<xs:element name="RepresentationMapping" type="ValueMappingType" minOccurs="0" maxOccurs="unbounded"/>

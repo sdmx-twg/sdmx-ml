@@ -86,7 +86,7 @@
 					</xs:element>
 					<xs:element name="CubeRegion" type="CubeRegionType" minOccurs="0" maxOccurs="2">
 						<xs:annotation>
-							<xs:documentation>CubeRegion defines a slice of the data set (dimensions and attribute values) for the constrained artefacet. A set of included and/or excluded regions can be described.</xs:documentation>
+							<xs:documentation>CubeRegion defines a slice of the data set (dimensions and attribute values) for the constrained artefact. A set of included or excluded regions can be described.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -187,12 +187,7 @@
 					<xs:documentation>MetadataProvider is reference to a metadata provider to which the constraint is attached. If this is used, then only the release calendar is relevant. The referenced is provided as a URN and/or a full set of reference fields.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DataSet" type="common:SetReferenceType" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>DataSet is reference to a data set to which the constraint is attached. The referenced is provided as a URN and/or a full set of reference fields.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="MetadataSet" type="common:SetReferenceType" maxOccurs="unbounded">
+			<xs:element name="MetadataSet" type="common:MetadataSetReferenceType" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>MetadataSet is reference to a metadata set to which the constraint is attached. The referenced is provided as a URN and/or a full set of reference fields.</xs:documentation>
 				</xs:annotation>
@@ -287,7 +282,6 @@
 			<xs:restriction base="ConstraintAttachmentType">
 				<xs:choice>
 					<xs:element name="DataProvider" type="common:DataProviderReferenceType"/>
-					<xs:element name="DataSet" type="common:SetReferenceType" maxOccurs="unbounded"/>
 					<xs:element name="SimpleDataSource" type="xs:anyURI" maxOccurs="unbounded"/>
 					<xs:choice>
 						<xs:sequence>
@@ -316,7 +310,7 @@
 			<xs:restriction base="ConstraintAttachmentType">
 				<xs:choice>
 					<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType"/>
-					<xs:element name="MetadataSet" type="common:SetReferenceType" maxOccurs="unbounded"/>
+					<xs:element name="MetadataSet" type="common:MetadataSetReferenceType" maxOccurs="unbounded"/>
 					<xs:element name="SimpleDataSource" type="xs:anyURI" maxOccurs="unbounded"/>
 					<xs:choice>
 						<xs:sequence>
@@ -380,7 +374,6 @@
 				</xs:attribute>
 				<xs:attribute name="validFrom" type="common:StandardTimePeriodType" use="optional"/>
 				<xs:attribute name="validTo" type="common:StandardTimePeriodType" use="optional"/>
-				<xs:anyAttribute namespace="##local"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -408,7 +401,7 @@
 		</xs:attribute>
 		<xs:attribute name="include" type="xs:boolean" use="optional" default="true">
 			<xs:annotation>
-				<xs:documentation>The include attribute indicates whether the values provided for the referenced component are to be included are excluded from the region in which they are defined.</xs:documentation>
+				<xs:documentation>The include attribute indicates whether the values provided for the referenced component are to be included or excluded from the region in which they are defined.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="removePrefix" type="xs:boolean" use="optional">
@@ -436,7 +429,6 @@
 						<xs:documentation>The include attribute has a fixed value of true for a distinct key, since such a key is always assumed to identify existing data or metadata.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:anyAttribute namespace="##local"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -512,7 +504,7 @@
 		<xs:complexContent>
 			<xs:restriction base="MemberSelectionType">
 				<xs:choice>
-					<xs:element name="Value" type="SimpleComponentValueType" maxOccurs="unbounded"/>
+					<xs:element name="Value" type="CubeKeyValueType" maxOccurs="unbounded"/>
 					<xs:element name="TimeRange" type="TimeRangeValueType"/>
 				</xs:choice>
 				<xs:attribute name="id" type="common:SingleNCNameIDType" use="required"/>
@@ -575,6 +567,17 @@
 		</xs:simpleContent>
 	</xs:complexType>
 
+	<xs:complexType name="CubeKeyValueType">
+		<xs:annotation>
+			<xs:documentation>CubeKeyValueType derives from the SimpleValueType, but does not allow for a locale (xml:lang).</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:restriction base="SimpleComponentValueType">
+				<xs:attribute ref="xml:lang" use="prohibited"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+
 	<xs:complexType name="DataComponentValueType">
 		<xs:annotation>
 			<xs:documentation>DataComponentValueType derives from the SimpleValueType, but does not allow for validity dates.</xs:documentation>
@@ -629,6 +632,8 @@
 				</xs:element>
 			</xs:sequence>
 		</xs:choice>
+		<xs:attribute name="validFrom" type="common:StandardTimePeriodType" use="optional"/>
+		<xs:attribute name="validTo" type="common:StandardTimePeriodType" use="optional"/>
 	</xs:complexType>
 
 	<xs:complexType name="TimePeriodRangeType">

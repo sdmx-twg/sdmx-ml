@@ -964,7 +964,7 @@
 	
 	<xs:simpleType name="ExcludeRootType">
 		<xs:annotation>
-			<xs:documentation>ExcludeRootType is a single enumerated value that indciates that child values should be included, but that the actuall root should not.</xs:documentation>
+			<xs:documentation>ExcludeRootType is a single enumerated value that indciates that child values should be included, but that the actual root should not.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="excluderoot"/>

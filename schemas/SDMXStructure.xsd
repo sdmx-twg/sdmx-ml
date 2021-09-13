@@ -713,7 +713,7 @@
 					<xs:documentation>MetadataConstraint specifies a sub set of the definition of the allowable content of a metadata set.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="MetadataConstraint_MetadataTargetRegionInclusion">
-					<xs:selector xpath="structure:MetadataTragetRegion"/>
+					<xs:selector xpath="structure:MetadataTargetRegion"/>
 					<xs:field xpath="@include"/>
 				</xs:unique>
 			</xs:element>

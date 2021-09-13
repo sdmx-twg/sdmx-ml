@@ -154,7 +154,7 @@
 				<xs:sequence>
 					<xs:element name="ConceptRole" type="common:ConceptReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>ConceptRole references concepts which define roles which this attribute serves. If the concept from which the attribute takes its identity also defines a role the concept serves, then the isConceptRole indicator can be set to true on the concept identity rather than repeating the reference here.</xs:documentation>
+							<xs:documentation>ConceptRole references concepts which define roles which this attribute serves.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="AttributeRelationship" type="AttributeRelationshipType">
@@ -182,9 +182,9 @@
 			<xs:documentation>AttributeRelationshipType defines the structure for stating the relationship between an attribute and other data structure definition components.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
-			<xs:element name="None" type="common:EmptyType">
+			<xs:element name="Dataflow" type="common:EmptyType">
 				<xs:annotation>
-					<xs:documentation>This means that value of the attribute will not vary with any of the dimensions. The attribute will always be treated as a data structure level attribute. The level at which the unique attribute value will be presented in data messages depends on the data format.</xs:documentation>
+					<xs:documentation>This means that the value of the attribute varies per dataflow. It is the data modeller's responsibility to design or use non-overlapping dataflows that do not have observations in common, otherwise the integrity of dataflow-specific attribute values is not assured by the model, e.g. when querying those data through its DSD.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>
@@ -305,10 +305,10 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="DimensionListBaseType">
-				<xs:choice maxOccurs="unbounded">
-					<xs:element ref="Dimension"/>
-					<xs:element ref="TimeDimension"/>
-				</xs:choice>
+				<xs:sequence>
+					<xs:element ref="Dimension" maxOccurs="unbounded"/>
+					<xs:element ref="TimeDimension" minOccurs="0"/>
+				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -338,7 +338,7 @@
 				<xs:sequence>
 					<xs:element name="ConceptRole" type="common:ConceptReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>ConceptRole references concepts which define roles which this dimension serves. If the concept from which the attribute takes its identity also defines a role the concept serves, then the isConceptRole indicator can be set to true on the concept identity rather than repeating the reference here.</xs:documentation>
+							<xs:documentation>ConceptRole references concepts which define roles which this dimension serves.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -395,6 +395,7 @@
 				</xs:sequence>
 				<xs:attribute name="urn" type="common:TimeDimensionUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:NCNameIDType" use="optional" fixed="TIME_PERIOD"/>
+				<xs:attribute name="position" type="xs:int" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -526,7 +527,7 @@
 				<xs:sequence>
 					<xs:element name="ConceptRole" type="common:ConceptReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>ConceptRole references concepts which define roles which this measure serves. If the concept from which the attribute takes its identity also defines a role the concept serves, then the isConceptRole indicator can be set to true on the concept identity rather than repeating the reference here.</xs:documentation>
+							<xs:documentation>ConceptRole references concepts which define roles which this measure serves.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>

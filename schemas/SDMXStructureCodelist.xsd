@@ -116,24 +116,36 @@
 		<xs:annotation>
 			<xs:documentation>CodeSelectionType defines the structure for code selection to be used as inclusive or exclusive extensions.</xs:documentation>
 		</xs:annotation>
-		<xs:choice maxOccurs="unbounded">
-			<xs:element name="WildcardedMemberValue" type="WildcardedMemberValueType">
+		<xs:sequence>
+			<xs:element name="MemberValue" type="MemberValueType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>A wildcard expression that is evaluated to determine codes selected for inclusion/exclusion.</xs:documentation>
+					<xs:documentation>An explicit or wildcard selection of a code(s) from the codelist selected for inclusion/exclusion. If a wildcard expression is used, it is evaluated to determine codes selected for inclusion/exclusion. Otherwise, each member value is a distinct code. If the extended list is hierarchical, this can indicate whether child codes are to be included.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="MemberValue" type="MemberValueType">
-				<xs:annotation>
-					<xs:documentation>An explicit selection of a code from the codelist selected for inclusion/exclusion. If the extended list is hierarchical, this can indicate whether child codes are to be included.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:choice>
+		</xs:sequence>
 	</xs:complexType>
 
+
+	<xs:simpleType name="WildcardedMemberValueType">
+		<xs:annotation>
+			<xs:documentation>WildcardedMemberValueType allows for an optional wildcard characters ('%') in an identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9_@$-%]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:complexType name="MemberValueType">
+		<xs:annotation>
+			<xs:documentation>Allows for a ditinct reference or a wildcard expression for selecting codes from a codelist.</xs:documentation>
+		</xs:annotation>
 		<xs:simpleContent>
-			<xs:extension base="common:IDType">
-				<xs:attribute name="cascadeValues" type="common:CascadeSelectionType" use="optional"/>
+			<xs:extension base="WildcardedMemberValueType">
+				<xs:attribute name="cascadeValues" type="common:CascadeSelectionType" use="optional">
+					<xs:annotation>
+						<xs:documentation>Indicates whether child codes should be selected when the codelist is hierarchical. Possible values are true (include the selected and child codes), false (only include the selected code(s)), and excluderoot (include the children but not the selected code(s)).</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -349,14 +361,5 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-
-	<xs:simpleType name="WildcardedMemberValueType">
-		<xs:annotation>
-			<xs:documentation>WildcardedMemberValueType allows for an optional wildcard character ('%') at the end of an identifier.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:pattern value="[A-Za-z0-9_@$-]+%?"/>
-		</xs:restriction>
-	</xs:simpleType>
 
 </xs:schema>

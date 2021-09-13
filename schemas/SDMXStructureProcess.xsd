@@ -128,7 +128,7 @@
 		<xs:complexContent>
 			<xs:extension base="TransitionBaseType">
 				<xs:sequence>
-					<xs:element name="TargetStep" type="common:IDType">
+					<xs:element name="TargetStep" type="common:NestedIDType">
 						<xs:annotation>
 							<xs:documentation>TargetStep references a process step within the process that should be transitioned to, should the conditions described be met.</xs:documentation>
 						</xs:annotation>
