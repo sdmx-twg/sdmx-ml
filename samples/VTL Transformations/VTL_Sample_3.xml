@@ -16,15 +16,11 @@
     <str:Dataflows>
       <str:Dataflow agencyID="SDMX" id="DF31" version="1.0">
         <com:Name xml:lang="en">Dataflow #3.1</com:Name>
-        <str:Structure>
-          <Ref agencyID="SDMX" id="DS31" version="1.0"/>
-        </str:Structure>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=SDMX:DS31(1.0)</str:Structure>
       </str:Dataflow>
       <str:Dataflow agencyID="SDMX" id="DF3R1" version="1.0">
         <com:Name xml:lang="en">Dataflow for Result #3.1</com:Name>
-        <str:Structure>
-          <Ref agencyID="SDMX" id="DS3R1" version="1.0"/>
-        </str:Structure>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=SDMX:DS3R1(1.0)</str:Structure>
       </str:Dataflow>
     </str:Dataflows>    
     <str:Codelists>
@@ -60,7 +56,7 @@
         </str:Code>
       </str:Codelist>
     </str:Codelists>
-    <str:Concepts>
+    <str:ConceptSchemes>
       <str:ConceptScheme agencyID="SDMX" id="CONCEPTS3" version="1.0">
         <com:Name xml:lang="en">Concepts for DSDs #2.1</com:Name>
         <str:Concept id="GEO_AREA">
@@ -79,46 +75,34 @@
           <com:Name xml:lang="en">Observation Value</com:Name>
         </str:Concept>
       </str:ConceptScheme>
-    </str:Concepts>
+    </str:ConceptSchemes>
     <str:DataStructures>
       <str:DataStructure agencyID="SDMX" id="DS31" version="1.0">
         <com:Name xml:lang="en">Data Structure #3.1</com:Name>
         <str:DataStructureComponents>
           <str:DimensionList>
             <str:Dimension id="COUNTRY">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="COUNTRY" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).COUNTRY</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:Enumeration>
-                  <Ref agencyID="SDMX" id="CL_AREA" version="1.0" />
-                </str:Enumeration>
+				<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+            </str:Dimension>
+            <str:Dimension id="INDICATOR">
+			<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).INDICATOR</str:ConceptIdentity>
+              <str:LocalRepresentation>
+				<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_INDICATOR(1.0)</str:Enumeration>
               </str:LocalRepresentation>
             </str:Dimension>
             <str:TimeDimension id="TIME_PERIOD">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="TIME_PERIOD" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
+			<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).TIME_PERIOD</str:ConceptIdentity>
               <str:LocalRepresentation>
                 <str:TextFormat textType="ObservationalTimePeriod"/>
               </str:LocalRepresentation>
-            </str:TimeDimension>
-            <str:Dimension id="INDICATOR">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="INDICATOR" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
-              <str:LocalRepresentation>
-                <str:Enumeration>
-                  <Ref agencyID="SDMX" id="CL_INDICATOR" version="1.0" />
-                </str:Enumeration>
-              </str:LocalRepresentation>
-            </str:Dimension>
+            </str:TimeDimension>            
           </str:DimensionList>
           <str:MeasureList>
             <str:Measure id="OBS_VALUE">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="OBS_VALUE" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
+			<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).OBS_VALUE</str:ConceptIdentity>
             </str:Measure>
           </str:MeasureList>
         </str:DataStructureComponents>
@@ -128,52 +112,38 @@
         <str:DataStructureComponents>
           <str:DimensionList>
             <str:Dimension id="GEO_AREA">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="GEO_AREA" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).GEO_AREA</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:Enumeration>
-                  <Ref agencyID="SDMX" id="CL_AREA" version="1.0" />
-                </str:Enumeration>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+            </str:Dimension>
+            <str:Dimension id="INDICATOR">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).INDICATOR</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_INDICATOR(1.0)</str:Enumeration>
               </str:LocalRepresentation>
             </str:Dimension>
             <str:TimeDimension id="TIME_PERIOD">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="TIME_PERIOD" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).TIME_PERIOD</str:ConceptIdentity>
               <str:LocalRepresentation>
                 <str:TextFormat textType="ObservationalTimePeriod"/>
               </str:LocalRepresentation>
-            </str:TimeDimension>
-            <str:Dimension id="INDICATOR">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="INDICATOR" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
-              <str:LocalRepresentation>
-                <str:Enumeration>
-                  <Ref agencyID="SDMX" id="CL_INDICATOR" version="1.0" />
-                </str:Enumeration>
-              </str:LocalRepresentation>
-            </str:Dimension>
+            </str:TimeDimension>            
           </str:DimensionList>
           <str:MeasureList>
             <str:Measure id="OBS_VALUE">
-              <str:ConceptIdentity>
-                <Ref maintainableParentID="CONCEPTS3" agencyID="SDMX" id="OBS_VALUE" maintainableParentVersion="1.0"/>
-              </str:ConceptIdentity>
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS3(1.0).OBS_VALUE</str:ConceptIdentity>
             </str:Measure>
           </str:MeasureList>
         </str:DataStructureComponents>
       </str:DataStructure>
     </str:DataStructures>
-    <str:VtlMappings>
+    <str:VtlMappingSchemes>
       <str:VtlMappingScheme agencyID="SDMX" id="VTLMS3" version="1.0">
         <com:Name xml:lang="en">VTL Mapping Scheme #3</com:Name>
         <str:VtlMapping alias="DF3R1" id="VTLM1">
           <com:Name xml:lang="en">VTL Mapping #1</com:Name>
-          <str:Dataflow>
-            <Ref agencyID="SDMX" id="DF3R1" version="1.0"/>
-          </str:Dataflow>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:DF3R1(1.0)</str:Dataflow>
           <str:FromVtlMapping>
             <str:FromVtlSuperSpace>
               <str:Key>INDICATOR</str:Key>
@@ -183,9 +153,7 @@
         </str:VtlMapping>
         <str:VtlMapping alias="DF31" id="VTLM2">
           <com:Name xml:lang="en">VTL Mapping #2</com:Name>
-          <str:Dataflow>
-            <Ref agencyID="SDMX" id="DF31" version="1.0"/>
-          </str:Dataflow>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:D31(1.0)</str:Dataflow>
           <str:ToVtlMapping>
             <str:ToVtlSubSpace>
               <str:Key>INDICATOR</str:Key>
@@ -194,8 +162,8 @@
           </str:ToVtlMapping>
         </str:VtlMapping>
       </str:VtlMappingScheme>
-    </str:VtlMappings>
-    <str:Transformations>
+    </str:VtlMappingSchemes>
+    <str:TransformationSchemes>
       <str:TransformationScheme agencyID="SDMX" id="TS3" version="1.0" vtlVersion="2.0">
         <com:Name xml:lang="en">Transformation Scheme #3 – SDMX/VTL release sample</com:Name>
         <!-- This Transformation Scheme uses an SDMX specific naming convention that requires 
@@ -230,10 +198,8 @@
           <str:Expression>'DF31/GDP.NA' / 'DF31/POPULATION.NA'</str:Expression>
           <str:Result>DF3R1/GDPPERCAPITA.NA</str:Result>
         </str:Transformation>
-        <str:VtlMappingScheme>
-          <Ref agencyID="SDMX" id="VTLMS3" version="1.0"/>
-        </str:VtlMappingScheme>
+        <str:VtlMappingScheme>urn:sdmx:org.sdmx.infomodel.transformation.VtlMappingScheme=SDMX:VTLMS3(1.0)</str:VtlMappingScheme>
       </str:TransformationScheme>
-    </str:Transformations>
+    </str:TransformationSchemes>
   </mes:Structures>
 </mes:Structure>

@@ -167,7 +167,13 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-	
+
+	<xs:complexType name="EmptyType">
+		<xs:annotation>
+			<xs:documentation>EmptyType is an empty complex type for elements where the presence of the tag indicates all that is necessary.</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+
 	<xs:complexType name="CodedStatusMessageType">
 		<xs:annotation>
 			<xs:documentation>CodedStatusMessageType describes the structure of an error or warning message which required a code.</xs:documentation>
@@ -221,14 +227,19 @@
 					<xs:documentation>AnnotationType is used to distinguish between annotations designed to support various uses. The types are not enumerated, as these can be specified by the user or creator of the annotations. The definitions and use of annotation types should be documented by their creator.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AnnotationURL" type="xs:anyURI" minOccurs="0">
+			<xs:element name="AnnotationURL" type="AnnotationURLType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>AnnotationURL is a URI - typically a URL - which points to an external resource which may contain or supplement the annotation. If a specific behavior is desired, an annotation type should be defined which specifies the use of this field more exactly.</xs:documentation>
+					<xs:documentation>AnnotationURL is a URI - typically a URL - which points to an external resource which may contain or supplement the annotation. These can be localised by indicating a language for the resource. If a language is not specified, the resource is assumed to not be localised. If a specific behavior is desired, an annotation type should be defined which specifies the use of this field more exactly.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="AnnotationText" type="TextType" minOccurs="0" maxOccurs="unbounded"> 
 				<xs:annotation>
 					<xs:documentation>AnnotationText holds a language-specific string containing the text of the annotation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AnnotationValue" type="xs:string" minOccurs="0"> 
+				<xs:annotation>
+					<xs:documentation>AnnotationValue holds a non-localised value for the annotation.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -237,6 +248,21 @@
 				<xs:documentation>The id attribute provides a non-standard identification of an annotation. It can be used to disambiguate annotations.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="AnnotationURLType">
+		<xs:annotation>
+			<xs:documentation>AnnotationURLType defines an external resource. These can indicate localisation by specifying a language for the resource.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:anyURI">
+				<xs:attribute ref="xml:lang" use="optional">
+					<xs:annotation>
+						<xs:documentation>Indicates the language of the resources at the URL, if it is localised. If this does not exist, the resource is not localised.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
 	</xs:complexType>
 
 	<xs:element name="Link" type="LinkType">
@@ -263,7 +289,7 @@
 		</xs:attribute>
 		<xs:attribute name="type" type="xs:string" use="optional">
 			<xs:annotation>
-				<xs:documentation>The type of link (e.g. PDF, text, HTML, reference metadata report).</xs:documentation>
+				<xs:documentation>The type of link (e.g. PDF, text, HTML, reference metadata).</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -282,7 +308,7 @@
 						<xs:documentation>The id is the identifier for the object.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="urn" type="xs:anyURI" use="optional">
+				<xs:attribute name="urn" type="UrnType" use="optional">
 					<xs:annotation>
 						<xs:documentation>The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).</xs:documentation>
 					</xs:annotation>
@@ -355,6 +381,7 @@
 					<xs:element ref="Name" maxOccurs="unbounded"/>
 					<xs:element ref="Description" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="MaintainableUrnType" use="optional"/>
 				<xs:attribute name="id" type="IDType" use="required"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -669,7 +696,7 @@
 	
 	<xs:simpleType name="OccurenceType">
 		<xs:annotation>
-			<xs:documentation>OccurenceType is used to express the maximum occurrence of an object. It combines an integer, greater than 1, and the literal text, "unbounded", for objects which have no upper limit on its occurrence.</xs:documentation>
+			<xs:documentation>OccurenceType is used to express the maximum occurrence of an object. It combines an integer, equal or greater than 1, and the literal text, "unbounded", for objects which have no upper limit on its occurrence.</xs:documentation>
 		</xs:annotation>
 		<xs:union memberTypes="MaxOccursNumberType UnboundedCodeType"/>
 	</xs:simpleType>
@@ -769,30 +796,7 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-	
-	<xs:simpleType name="DimensionTypeType">
-		<xs:annotation>
-			<xs:documentation>DimensionTypeType enumerates the sub-classes of a dimension.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="Dimension">
-				<xs:annotation>
-					<xs:documentation>An ordinary dimension.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="MeasureDimension">
-				<xs:annotation>
-					<xs:documentation>A measure dimension.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="TimeDimension">
-				<xs:annotation>
-					<xs:documentation>The time dimension.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-	
+
 	<xs:complexType name="XHTMLType" mixed="true">
 		<xs:annotation>
 			<xs:documentation>XHTMLType allows for mixed content of text and XHTML tags. When using this type, one will have to provide a reference to the XHTML schema, since the processing of the tags within this type is strict, meaning that they are validated against the XHTML schema provided.</xs:documentation>
@@ -816,12 +820,12 @@
 						<xs:documentation>ProvisionAgreement references a provision agreement which the data or metadata is reported against.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="StructureUsage" type="StructureUsageReferenceBaseType">
+				<xs:element name="StructureUsage" type="StructureUsageReferenceType">
 					<xs:annotation>
 						<xs:documentation>StructureUsage references a flow which the data or metadata is reported against.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="Structure" type="StructureReferenceBaseType">
+				<xs:element name="Structure" type="StructureReferenceType">
 					<xs:annotation>
 						<xs:documentation>Structure references the structure which defines the structure of the data or metadata set.</xs:documentation>
 					</xs:annotation>
@@ -960,7 +964,7 @@
 	
 	<xs:simpleType name="ExcludeRootType">
 		<xs:annotation>
-			<xs:documentation>ExcludeRootType is a single enumerated value that indciates that child values should be included, but that the actuall root should not.</xs:documentation>
+			<xs:documentation>ExcludeRootType is a single enumerated value that indciates that child values should be included, but that the actual root should not.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="excluderoot"/>

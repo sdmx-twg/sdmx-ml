@@ -8,12 +8,29 @@
 		<xs:documentation>The generic metadata namespace module describes a generic format for the reporting of reference metadata, regardless of the underlying metadata structure definition.</xs:documentation>
 	</xs:annotation>
 
+	<xs:complexType name="MetadataSetBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>MetadataSetBaseType defines the base refinement of the MetadataSetType. Its purpose is to restrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:MetadataSetUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="MetadataSetType">
 			<xs:annotation>
-				<xs:documentation>MetadataSetType describes the structure for a metadata set, which contains a collection of reported metadata against a set of targets. The targets should conform to the restrictions described by the metadata provision or the metadataflow. Note that this is maintainble, and as such must specify in agency. In this case, the agency is the metadata provider. If a metadata provision agreement is referenced, it is assumed that the metadata provider described in the provsion will be the same as the agency for this set.</xs:documentation>
+				<xs:documentation>MetadataSetType describes the structure for a metadata set, which contains a collection of reported metadata against a set of targets. The targets should conform to the restrictions described by the metadata provision or the metadataflow. Note that this is maintainble, and as such must specify in agency. In this case, the agency is the metadata provider. If a metadata provision agreement is referenced, it is assumed that the metadata provider described in the provision will be the same as the agency for this set.</xs:documentation>
 			</xs:annotation>
 			<xs:complexContent>
-				<xs:extension base="common:MaintainableType">
+				<xs:extension base="MetadataSetBaseType">
 				<xs:sequence minOccurs="0">
 					<xs:choice>
 						<xs:element name="MetadataProvisionAgreement" type="common:MetadataProvisionAgreementReferenceType">
@@ -27,7 +44,7 @@
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
-					<xs:element name="Target" type="common:WildcardObjectReferenceType" maxOccurs="unbounded">
+					<xs:element name="Target" type="common:WildcardUrnType" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>Target references the target structures for which metadata is being reported. These must conform with the constraints defined by the metadata provision agreement and/or the metadataflow.</xs:documentation>
 						</xs:annotation>
@@ -45,7 +62,7 @@
 
 	<xs:element name="Attribute" type="AttributeType">
 		<xs:annotation>
-			<xs:documentation>Att elements hold the reported values for a given metadata attribute. These values conform to the definition of the meatadata attribute in the metadata structure defintion.</xs:documentation>
+			<xs:documentation>Att elements hold the reported values for a given metadata attribute. These values conform to the definition of the meatadata attribute in the metadata structure definition.</xs:documentation>
 		</xs:annotation>
 		<xs:unique name="Att_Unique_Value_Language">
 			<xs:selector xpath="common:Text | common:StructuredText"/>

@@ -38,9 +38,7 @@
 					<com:Name xml:lang="en">Seconds(s)</com:Name>
 				</str:Code>
 				<str:CodelistExtension>
-					<str:Codelist>
-						<URN>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AGE(1.0)</URN>
-					</str:Codelist>
+					<str:Codelist>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AGE(1.0)</str:Codelist>
                     <str:ExclusiveCodeSelection>
                         <str:MemberValue>Y</str:MemberValue>
                     </str:ExclusiveCodeSelection>

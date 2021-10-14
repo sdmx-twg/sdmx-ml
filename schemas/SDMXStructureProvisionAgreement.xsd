@@ -9,12 +9,29 @@
 		<xs:documentation>The provision agreement module defines the structure of the provision agreement constructs.</xs:documentation>
 	</xs:annotation>
 
+	<xs:complexType name="ProvisionAgreementBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>ProvisionAgreementBaseType defines the base refinement of the ProvisionAgreementType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:ProvisionAgreementUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="ProvisionAgreementType">
 		<xs:annotation>
 			<xs:documentation>ProvisionAgreementType describes the structure of a provision agreement. A provision agreement defines an agreement for a data provider to report data against a dataflow. Attributes which describe how the registry must behave when data or metadata is registered against this provision agreement are supplied.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="common:MaintainableType">
+			<xs:extension base="ProvisionAgreementBaseType">
 				<xs:sequence>
 					<xs:element name="Dataflow" type="common:DataflowReferenceType">
 						<xs:annotation>
@@ -31,12 +48,29 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:complexType name="MetadataProvisionAgreementBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>MetadataProvisionAgreementBaseType defines the base refinement of the MetadataProvisionAgreementType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:MetadataProvisionAgreementUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="MetadataProvisionAgreementType">
 		<xs:annotation>
 			<xs:documentation>ProvisionAgreementType describes the structure of a provision agreement. A provision agreement defines an agreement for a data provider to report data or reference metadata against a flow. Attributes which describe how the registry must behave when data or metadata is registered against this provision agreement are supplied.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="common:MaintainableType">
+			<xs:extension base="MetadataProvisionAgreementBaseType">
 				<xs:sequence>
 					<xs:element name="Metadataflow" type="common:MetadataflowReferenceType">
 						<xs:annotation>
@@ -48,7 +82,7 @@
 							<xs:documentation>MetadataProvider provides a reference to a pre-existing metadata provider in the registry. The reference is provided via a URN and/or a full set of reference fields.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Target" type="common:WildcardObjectReferenceType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="Target" type="common:WildcardUrnType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>References identifiable structures to which the refernece metadata described by the metadata structure used by the metadaflow should be restricted to. These references may include wildcards for parts of the reference.</xs:documentation>
 						</xs:annotation>

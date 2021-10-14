@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright SDMX 2021 - http://www.sdmx.org -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/data/structurespecific" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" elementFormDefault="qualified" targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/data/structurespecific">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/data/structurespecific" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" xmlns:metadata="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/metadata/generic" elementFormDefault="qualified" targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/data/structurespecific">
 	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/metadata/generic" schemaLocation="SDMXMetadataGeneric.xsd"/>
 
 	<xs:annotation>
 		<xs:appinfo>SDMX Core Structure Specific Data Namespace Module</xs:appinfo>
@@ -46,6 +47,11 @@
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
+					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+						<xs:annotation>
+							<xs:documentation>Allows for attachment of reference metadata against to the data set.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 				<xs:attributeGroup ref="SetAttributeGroup"/>
 				<xs:anyAttribute namespace="##local"/>
@@ -69,15 +75,15 @@
 							<xs:documentation>Comp contains the details of group level attributes that have complex representation and cannot be expressed as XML attributes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+						<xs:annotation>
+							<xs:documentation>Allows for attachment of reference metadata against to the group.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 				<xs:attribute name="type" type="common:IDType" use="optional">
 					<xs:annotation>
 						<xs:documentation>The type attribute reference the identifier of the group as defined in the data structure definition. This is optional, but derived group types will provide a fixed value for this so that it always available in the post validation information set. This allows the group to be processed in a generic manner.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
-					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived group types may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>
@@ -102,15 +108,15 @@
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Obs" type="ObsType" form="unqualified" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+						<xs:annotation>
+							<xs:documentation>Allows for attachment of reference metadata against to the series.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 				<xs:attribute name="TIME_PERIOD" type="common:ObservationalTimePeriodType" use="optional">
 					<xs:annotation>
 						<xs:documentation>The TIME_PERIOD attribute is an explict attribute for the time dimension. This is declared in the base schema since it has a fixed identifier and representation. The derived series type will either require or prohibit this attribute, depending on whether time is the observation dimension. If the time dimension specifies a more specific representation of time the derived type will restrict the type definition to the appropriate type.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
-					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived series type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>
@@ -152,6 +158,11 @@
 							<xs:documentation>Comp contains the details of observation measures or attributes that have complex representation and cannot be expressed as XML attributes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+						<xs:annotation>
+							<xs:documentation>Allows for attachment of reference metadata against to the observation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 				<xs:attribute name="type" type="common:IDType" use="optional">
 					<xs:annotation>
@@ -161,11 +172,6 @@
 				<xs:attribute name="TIME_PERIOD" type="common:ObservationalTimePeriodType" use="optional">
 					<xs:annotation>
 						<xs:documentation>The TIME_PERIOD attribute is an explicit attribute for the time dimension. This is declared in the base schema since it has a fixed identifier and representation. The derived series type will either require or prohibit this attribute, depending on whether time is the observation dimension. If the time dimension specifies a more specific representation of time the derived type will restrict the type definition to the appropriate type.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
-					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived observation type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>
@@ -190,9 +196,9 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="optional">
+				<xs:attribute name="TIME_PERIOD" type="common:ObservationalTimePeriodType" use="optional">
 					<xs:annotation>
-						<xs:documentation>The REPORTING_YEAR_START_DAY attribute is an explict attribute for the reporting year start day, which provides context to the time dimension when its value contains a reporting period (e.g. 2010-Q1). This attribute is used to state the month and day that the reporting year begins (e.g. --07-01 for July 1st). In the absence of an explicit value provided in this attribute, all reporting period values will be assumed to be based on a reporting year start day of January 1. This is declared in the base schema since it has a fixed identifier and representation. The derived observation type may either require or prohibit this attribute, depending on whether the data structure declared the reporting year start day attribute and if so, the attribute relationship and assignment status assigned to it.</xs:documentation>
+						<xs:documentation>The TIME_PERIOD attribute is an explict attribute for the time dimension. This is declared in the base schema since it has a fixed identifier and representation. The derived series type will either require or prohibit this attribute, depending on whether time is the observation dimension. If the time dimension specifies a more specific representation of time the derived type will restrict the type definition to the appropriate type.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:anyAttribute namespace="##local"/>
@@ -200,34 +206,6 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:simpleType name="DataScopeType">
-		<xs:annotation>
-			<xs:documentation>DataScopeType is an enumeration of the possible validity scopes for a data set. These scopes indicate the level at which the data is stated to be valid.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="DataStructure">
-				<xs:annotation>
-					<xs:documentation>The data set conforms simply to the data structure definition as it is defined, without regard to any constraints.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="ConstrainedDataStructure">
-				<xs:annotation>
-					<xs:documentation>The data set conforms to the known allowable content constraints applied to the data structure definition.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="Dataflow">
-				<xs:annotation>
-					<xs:documentation>The data set conforms to the known allowable content constraints applied to the dataflow.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="ProvisionAgreement">
-				<xs:annotation>
-					<xs:documentation>The data set conforms to the known allowable content constraints applied to the provision agreement.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-	
 	<xs:attributeGroup name="SetAttributeGroup">
 		<xs:annotation>
 			<xs:documentation>The SetAttributeGroup defines a common set of attributes pertaining to any data set. The attributes are qualified, so that they will be easily distinguished from attributes that are specific to the data structure. Note that many of these attributes are duplications of fields available in the header of the data messages. The reason for this is to allow the header values to be overridden at the data set level when a message contains more than one data set. If an attribute here does not have a value, then the value from the header is applied to the data set.</xs:documentation>
@@ -277,12 +255,6 @@
 				<xs:documentation>The publicationPeriod specifies the period of publication of the data or metadata in terms of whatever provisioning agreements might be in force (i.e., "Q1 2005" if that is the time of publication for a data set published on a quarterly basis).</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="dataScope" type="DataScopeType" use="required" form="qualified">
-			<xs:annotation>
-				<xs:documentation>The dataScope attribute indicates the scope at which the data is meant to be validated. These scopes are hierarchical and are (from the top down); DataStructure, ConstrainedDataStructure, Dataflow, and ProvisionAgreement. the hierarchy of these scopes represent the cascading level of constraints, which can restrict the valid values for components. For example, a data structure defines a dimension with a coded representation. A data flow might have a constraint associated with it which further restricts the values allowed from the referenced code list to a subset of the values allowed by the data structure definition. A provision agreement that is based on the dataflow might also have a constraint, which further restricts the subset of the codelist from the dataflow. Therefore, the allowed content becomes stricter lower in the hierarchy. Data that is given a scope of one value is stated to be valid at that level and all levels below it. Therefore, this scope serves to state that data that is meant to be structured simply against the data structure definition is not meant to be validated against the a dataflow, where constraints might be applied.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 	</xs:attributeGroup>
-	
 
 </xs:schema>

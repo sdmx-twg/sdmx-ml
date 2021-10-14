@@ -8,8 +8,8 @@
 		<mes:Receiver id="not_supplied"/>
 	</mes:Header>
 	<mes:Structures>
-		<str:Codelists>
-			<str:ValueList urn="urn:sdmx:org.sdmx.infomodel.valuelist.ValueList=SDMX:VL_CURRENCY_SYMBOL(1.0)" agencyID="EXAMPLE" id="VL_CURRENCY_SYMBOL" version="1.0">
+		<str:ValueLists>
+			<str:ValueList urn="urn:sdmx:org.sdmx.infomodel.codelist.ValueList=SDMX:VL_CURRENCY_SYMBOL(1.0)" agencyID="EXAMPLE" id="VL_CURRENCY_SYMBOL" version="1.0">
 				<com:Name xml:lang="en">Currency Symbol</com:Name>
 				<com:Description xml:lang="en">Enumerated list of currencies identified by symbol</com:Description>
 				<str:ValueItem id="$">
@@ -37,6 +37,6 @@
 					<com:Description xml:lang="en">Japan Yen</com:Description>
 				</str:ValueItem>				
 			</str:ValueList>
-		</str:Codelists>
+		</str:ValueLists>
 	</mes:Structures>
 </mes:Structure>

@@ -50,7 +50,7 @@
 			<xs:documentation>SubmittedStructureType generally references a submitted structural object. When used in a submit structure request, its purpose is to override the default action or external dependency resolution behavior. If neither of these indicators are set, then it will be ignored. In a submit structure response, it is used to reference a submitted object for the purpose of providing a status for the submission. In this case, the action attribute should be populated in order to echo the requested action.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="MaintainableObject" type="common:MaintainableReferenceType"/>
+			<xs:element name="MaintainableObject" type="common:MaintainableUrnReferenceType"/>
 		</xs:sequence>
 		<xs:attribute name="action" type="common:ActionType" use="optional">
 			<xs:annotation>
@@ -59,7 +59,7 @@
 		</xs:attribute>
 		<xs:attribute name="externalDependencies" type="xs:boolean" use="optional">
 			<xs:annotation>
-				<xs:documentation>The externalDependencies attribute should be set to true if the repository is expected to use external reference URLs in the structural components to retrieve objects on which the referenced object has dependencies. (Thus, if a key family referenced here is being submitted to the repository, and the structure message has URLs which point to the locations of the codelists it uses, then this attribute should be set to true). This should not be provided when this structure is used in a submit structure response.</xs:documentation>
+				<xs:documentation>The externalDependencies attribute should be set to true if the repository is expected to use external reference URLs in the structural components to retrieve objects on which the referenced object has dependencies. (Thus, if a data structure referenced here is being submitted to the repository, and the structure message has URLs which point to the locations of the codelists it uses, then this attribute should be set to true). This should not be provided when this structure is used in a submit structure response.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>

@@ -7,7 +7,7 @@
 	<xs:annotation>
 		<xs:appinfo>SDMX Organisation Structure Module</xs:appinfo>
 		<xs:documentation>The organisation structure module defines the structure of organisation schemes and organisation constructs.</xs:documentation>
-	</xs:annotation>	
+	</xs:annotation>
 
 	<xs:complexType name="OrganisationSchemeBaseType" abstract="true">
 		<xs:annotation>
@@ -24,7 +24,7 @@
 				<xs:attribute name="version" type="common:VersionType" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
-	</xs:complexType>	
+	</xs:complexType>
 	
 	<xs:complexType name="OrganisationSchemeType" abstract="true">
 		<xs:annotation>
@@ -57,7 +57,7 @@
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:choice minOccurs="0">
-						<xs:element name="Parent" type="common:LocalOrganisationReferenceBaseType">
+						<xs:element name="Parent" type="common:IDType">
 							<xs:annotation>
 							<xs:documentation>If the particular organisation scheme allows, an organisation may reference a parent organisation defined in the same scheme. This does not affect the identification of the organisation, but rather only serves to state the relationship.</xs:documentation>
 							</xs:annotation>
@@ -100,6 +100,7 @@
 						<xs:element ref="Agency"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:AgencySchemeUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="required" fixed="AGENCIES"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -120,6 +121,7 @@
 						<xs:element ref="DataConsumer"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DataConsumerSchemeUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="required" fixed="DATA_CONSUMERS"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -140,6 +142,7 @@
 						<xs:element ref="DataProvider"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DataProviderSchemeUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="required" fixed="DATA_PROVIDERS"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -160,6 +163,7 @@
 						<xs:element ref="MetadataProvider"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:MetadataProviderSchemeUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:IDType" use="required" fixed="METADATA_PROVIDERS"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -180,13 +184,14 @@
 						<xs:element ref="OrganisationUnit"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:OrganisationUnitSchemeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 	
 	<xs:element name="Agency" type="AgencyType" substitutionGroup="Organisation">
 		<xs:annotation>
-			<xs:documentation>Agency is an organisation which maintains structural metadata such as statistical classifications, glossaries, key family structural definitions, and metadata structure definitions..</xs:documentation>
+			<xs:documentation>Agency is an organisation which maintains structural metadata such as classifications, concepts, data structures, and metadata structures.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 
@@ -227,6 +232,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:AgencyUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:NCNameIDType" use="required">
 					<xs:annotation>
 						<xs:documentation>The id attribute holds the identification of the agency. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the agency identifier will be used as part of the name for simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).</xs:documentation>
@@ -249,6 +255,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DataConsumerUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -266,6 +273,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:DataProviderUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -283,6 +291,7 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:MetadataProviderUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -299,10 +308,11 @@
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:choice minOccurs="0">
-						<xs:element name="Parent" type="common:LocalOrganisationUnitReferenceType"/>
+						<xs:element name="Parent" type="common:IDType"/>
 					</xs:choice>
 					<xs:element name="Contact" type="ContactType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:OrganisationUnitUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>

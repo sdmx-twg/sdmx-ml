@@ -8,10 +8,10 @@
 		<mes:Receiver id="not_supplied"/>
 	</mes:Header>
 	<mes:Structures>
-		<str:OrganisationSchemes>
+		<str:AgencySchemes>
 			<str:AgencyScheme urn="urn:sdmx:org.sdmx.infomodel.base.AgencyScheme=SDMX:AGENCIES(1.0)" isExternalReference="false" agencyID="SDMX" id="AGENCIES">
 				<com:Name xml:lang="en">SDMX Agency Scheme</com:Name>
-				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX" id="SDMX">
+				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0).SDMX" id="SDMX">
 					<com:Name xml:lang="en">SDMX</com:Name>
 					<com:Description xml:lang="en">SDMX is an initiative to foster standards for the exchange of statistical information. It is sponsored by the Bank for International Settlements (BIS), the European Central Bank (ECB), the Statistical Office of the European Union (Eurostat), the International Monetary Fund (IMF), the Organization for Economic Co-Operation and Development (OECD), the United Nations (UN) and the World Bank.</com:Description>
 					<str:Contact>
@@ -22,25 +22,21 @@
 						<str:Email>secretariat@sdmx.org</str:Email>
 					</str:Contact>
 				</str:Agency>
-				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=EXAMPLE" id="EXAMPLE">
+				<str:Agency urn="urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0).EXAMPLE" id="EXAMPLE">
 					<com:Name xml:lang="en">Example Agency</com:Name>
 				</str:Agency>
 			</str:AgencyScheme>
-		</str:OrganisationSchemes>
+		</str:AgencySchemes>
 		<str:Dataflows>
 			<str:Dataflow urn="urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:LABOUR_ISIC(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="LABOUR_ISIC" version="1.0">
 				<com:Name xml:lang="en">Labour with ISIC4 activity coding</com:Name>
 				<com:Description xml:lang="en">Labour with ISIC4 activity coding</com:Description>
-				<str:Structure>
-					<Ref package="datastructure" agencyID="EXAMPLE" id="LABOUR" version="1.0" class="DataStructure"/>
-				</str:Structure>
+				<str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:LABOUR(1.0.0)</str:Structure>
 			</str:Dataflow>
 			<str:Dataflow urn="urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:LABOUR_NACE(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="LABOUR_NACE" version="1.0">
 				<com:Name xml:lang="en">Labour with NACE2 activity coding</com:Name>
 				<com:Description xml:lang="en">Labour with NACE2 activity coding</com:Description>
-				<str:Structure>
-					<Ref package="datastructure" agencyID="EXAMPLE" id="LABOUR" version="1.0" class="DataStructure"/>
-				</str:Structure>
+				<str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:LABOUR(1.0.0)</str:Structure>
 			</str:Dataflow>
 		</str:Dataflows>
 		<str:Codelists>
@@ -48,18 +44,14 @@
 				<com:Name xml:lang="en">Activity</com:Name>
 				<com:Description xml:lang="en">Activity</com:Description>
 				<str:CodelistExtension prefix="NACE2_">
-					<str:Codelist>
-						<URN>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_ACTIVITY_NACE2(1.0)</URN>
-					</str:Codelist>
+				<str:Codelist>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_ACTIVITY_NACE2(1.0)</str:Codelist>
 				</str:CodelistExtension>
 				<str:CodelistExtension prefix="ISIC4_">
-					<str:Codelist>
-						<URN>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_ACTIVITY_ISIC4(1.0)</URN>
-					</str:Codelist>
+					<str:Codelist>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_ACTIVITY_ISIC4(1.0)</str:Codelist>
 				</str:CodelistExtension>				
 			</str:Codelist>
 		</str:Codelists>
-		<str:Concepts>
+		<str:ConceptSchemes>
 			<str:ConceptScheme urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.ConceptScheme=EXAMPLE:CS_EXAMPLE(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="CS_EXAMPLE" version="1.0">
 				<com:Name xml:lang="en">Example concepts</com:Name>
 				<com:Description xml:lang="en">Example concepts</com:Description>
@@ -76,7 +68,7 @@
 					<com:Name xml:lang="en">Observation value</com:Name>
 				</str:Concept>				
 			</str:ConceptScheme>
-		</str:Concepts>
+		</str:ConceptSchemes>
 		<str:DataStructures>
 			<str:DataStructure urn="urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:LABOUR(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="LABOUR" version="1.0">
 				<com:Name xml:lang="en">Labour</com:Name>
@@ -84,47 +76,36 @@
 				<str:DataStructureComponents>
 					<str:DimensionList urn="urn:sdmx:org.sdmx.infomodel.datastructure.DimensionDescriptor=EXAMPLE:LABOUR(1.0).DimensionDescriptor" id="DimensionDescriptor">
 						<str:Dimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.Dimension=EXAMPLE:LABOUR(1.0).INDICATOR" id="INDICATOR" position="1">
-							<str:ConceptIdentity>
-								<Ref maintainableParentID="CS_EXAMPLE" package="conceptscheme" maintainableParentVersion="1.0" agencyID="EXAMPLE" id="INDICATOR" class="Concept"/>
-							</str:ConceptIdentity>
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).INDICATOR</str:ConceptIdentity>
 						</str:Dimension>
 						<str:Dimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.Dimension=EXAMPLE:LABOUR(1.0).ACTIVITY" id="ACTIVITY" position="2">
-							<str:ConceptIdentity>
-								<Ref maintainableParentID="CS_EXAMPLE" package="conceptscheme" maintainableParentVersion="1.0" agencyID="EXAMPLE" id="ACTIVITY" class="Concept"/>
-							</str:ConceptIdentity>
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).ACTIVITY</str:ConceptIdentity>
 							<str:LocalRepresentation>
-								<str:Enumeration>
-									<Ref package="codelist" agencyID="EXAMPLE" id="CL_ACTIVITY" version="1.0" class="Codelist"/>
-								</str:Enumeration>
+								<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_ACTIVITY(1.0)</str:Enumeration>
 							</str:LocalRepresentation>
 						</str:Dimension>
-						<str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=EXAMPLE:LABOUR(1.0).TIME_PERIOD" id="TIME_PERIOD" position="3">
-							<str:ConceptIdentity>
-								<Ref maintainableParentID="CS_EXAMPLE" package="conceptscheme" maintainableParentVersion="1.0" agencyID="EXAMPLE" id="TIME_PERIOD" class="Concept"/>
-							</str:ConceptIdentity>
+						<str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=EXAMPLE:LABOUR(1.0).TIME_PERIOD" id="TIME_PERIOD">
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).TIME_PERIOD</str:ConceptIdentity>
 							<str:LocalRepresentation>
 								<str:TextFormat textType="ObservationalTimePeriod"/>
 							</str:LocalRepresentation>
 						</str:TimeDimension>
 					</str:DimensionList>
 					<str:MeasureList urn="urn:sdmx:org.sdmx.infomodel.datastructure.MeasureDescriptor=EXAMPLE:LABOUR(1.0).MeasureDescriptor" id="MeasureDescriptor">
-						<str:Measure urn="urn:sdmx:org.sdmx.infomodel.datastructure.PrimaryMeasure=EXAMPLE:LABOUR(1.0).OBS_VALUE" id="OBS_VALUE">
-							<str:ConceptIdentity>
-								<Ref maintainableParentID="CS_EXAMPLE" package="conceptscheme" maintainableParentVersion="1.0" agencyID="EXAMPLE" id="OBS_VALUE" class="Concept"/>
-							</str:ConceptIdentity>
+						<str:Measure urn="urn:sdmx:org.sdmx.infomodel.datastructure.Measure=EXAMPLE:LABOUR(1.0).OBS_VALUE" id="OBS_VALUE">
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).OBS_VALUE</str:ConceptIdentity>
+
 						</str:Measure>
 					</str:MeasureList>
 				</str:DataStructureComponents>
 			</str:DataStructure>
 		</str:DataStructures>
-		<str:Constraints>
-			<str:DataConstraint urn="urn:sdmx:org.sdmx.infomodel.registry.ContentConstraint=EXAMPLE:ISIC_CONSTRAINT(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="ISIC_CONSTRAINT" role="Allowed" version="1.0">
+		<str:DataConstraints>
+			<str:DataConstraint urn="urn:sdmx:org.sdmx.infomodel.registry.DataConstraint=EXAMPLE:ISIC_CONSTRAINT(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="ISIC_CONSTRAINT" role="Allowed" version="1.0">
 				<com:Name xml:lang="en">ISIC Constraint</com:Name>
 				<com:Description xml:lang="en">ISIC Constraint</com:Description>
 				<str:ConstraintAttachment>
-					<str:Dataflow>
-						<Ref package="datastructure" agencyID="EXAMPLE" id="LABOUR_ISIC" version="1.0" class="Dataflow"/>
-					</str:Dataflow>
+				<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:LABOUR_ISIC(1.0)</str:Dataflow>
 				</str:ConstraintAttachment>
 				<str:CubeRegion include="true">
 					<str:KeyValue id="ACTIVITY">
@@ -132,13 +113,11 @@
 					</str:KeyValue>
 				</str:CubeRegion>
 			</str:DataConstraint>
-			<str:DataConstraint urn="urn:sdmx:org.sdmx.infomodel.registry.ContentConstraint=EXAMPLE:NACE_CONSTRAINT(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="NACE_CONSTRAINT" role="Allowed" version="1.0">
+			<str:DataConstraint urn="urn:sdmx:org.sdmx.infomodel.registry.DataConstraint=EXAMPLE:NACE_CONSTRAINT(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="NACE_CONSTRAINT" role="Allowed" version="1.0">
 				<com:Name xml:lang="en">NACE Constraint</com:Name>
 				<com:Description xml:lang="en">NACE Constraint</com:Description>
 				<str:ConstraintAttachment>
-					<str:Dataflow>
-						<Ref package="datastructure" agencyID="EXAMPLE" id="LABOUR_NACE" version="1.0" class="Dataflow"/>
-					</str:Dataflow>
+				<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:LABOUR_NACE(1.0)</str:Dataflow>
 				</str:ConstraintAttachment>
 				<str:CubeRegion include="true">
 					<str:KeyValue id="ACTIVITY">
@@ -146,6 +125,6 @@
 					</str:KeyValue>
 				</str:CubeRegion>
 			</str:DataConstraint>
-		</str:Constraints>
+		</str:DataConstraints>
 	</mes:Structures>
 </mes:Structure>

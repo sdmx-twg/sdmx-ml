@@ -26,6 +26,7 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:MetadataflowUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -37,7 +38,7 @@
 		<xs:complexContent>
 			<xs:extension base="MetadataflowBaseType">
 				<xs:sequence>
-					<xs:element name="Target" type="common:WildcardObjectReferenceType" maxOccurs="unbounded">
+					<xs:element name="Target" type="common:WildcardUrnType" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>References identifiable structures to which the refernece metadata described by the referenced metadata structure should be restricted to. These references may include wildcards for parts of the reference.</xs:documentation>
 						</xs:annotation>

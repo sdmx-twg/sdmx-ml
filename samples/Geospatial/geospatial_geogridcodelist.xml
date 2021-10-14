@@ -7,26 +7,26 @@
         <mes:Sender id="Unknown" />
         <mes:Receiver id="not_supplied" /></mes:Header>
     <mes:Structures>
-        <str:Codelists>
-            <str:GeoGridCodelist urn="urn:sdmx:org.sdmx.infomodel.codelist.GeoGridCodelist=EXAMPLE:CL_GRID_LOCATION(1.0)" agencyID="EXAMPLE" id="CL_GRID_LOCATION" version="1.0" geoType="GeoGridCodelist">
+        <str:GeoGridCodelists>
+            <str:GeoGridCodelist urn="urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_GRID_LOCATION(1.0)" agencyID="EXAMPLE" id="CL_GRID_LOCATION" version="1.0" geoType="GeoGridCodelist">
                 <com:Name xml:lang="en">Grid Location</com:Name>
                 <com:Description xml:lang="en">Example GeoGrid Codelist. The grid system is defined at the code list level, with each code being assigned to a specific cell in the grid by defining its row and column in GeoCell.</com:Description>
                 
-                <str:GeoGridCode urn="urn:sdmx:org.sdmx.infomodel.codelist.GeoGridCodelist=EXAMPLE:CL_GRID_LOCATION(1.0).L1" id="L1">
+                <str:GeoGridCode urn="urn:sdmx:org.sdmx.infomodel.codelist.Code=EXAMPLE:CL_GRID_LOCATION(1.0).L1" id="L1">
                     <com:Name xml:lang="en">Location 1</com:Name>
                     <str:GeoCell>
 						GEO_COL, GEO_ROW: GEO_TAG
                     </str:GeoCell>
                 </str:GeoGridCode>
                 
-                <str:GeoGridCode urn="urn:sdmx:org.sdmx.infomodel.codelist.GeoGridCodelist=EXAMPLE:CL_GRID_LOCATION(1.0).L2" id="L2">
+                <str:GeoGridCode urn="urn:sdmx:org.sdmx.infomodel.codelist.Code=EXAMPLE:CL_GRID_LOCATION(1.0).L2" id="L2">
                     <com:Name xml:lang="en">Location 2</com:Name>
                     <str:GeoCell>
 						GEO_COL, GEO_ROW: GEO_TAG
                     </str:GeoCell>
                 </str:GeoGridCode>    
                 
-                <str:GeoGridCode urn="urn:sdmx:org.sdmx.infomodel.codelist.GeoGridCodelist=EXAMPLE:CL_GRID_LOCATION(1.0).L3" id="L3">
+                <str:GeoGridCode urn="urn:sdmx:org.sdmx.infomodel.codelist.Code=EXAMPLE:CL_GRID_LOCATION(1.0).L3" id="L3">
                     <com:Name xml:lang="en">Location 3</com:Name>
                     <str:GeoCell>
 						GEO_COL, GEO_ROW: GEO_TAG
@@ -38,6 +38,6 @@
                 </str:GridDefinition>
         
             </str:GeoGridCodelist>
-        </str:Codelists>
+        </str:GeoGridCodelists>
     </mes:Structures>
 </mes:Structure>
