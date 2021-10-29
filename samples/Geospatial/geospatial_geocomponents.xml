@@ -1,0 +1,64 @@
+<mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/message" xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/message ../../schemas/SDMXMessage.xsd">
+	<mes:Header>
+		<mes:ID>IREF002364</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2021-03-10T18:17:16Z</mes:Prepared>
+		<mes:Sender id="Unknown"/>
+		<mes:Receiver id="not_supplied"/>
+	</mes:Header>
+	<mes:Structures>
+		<str:ConceptSchemes>
+			<str:ConceptScheme urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.ConceptScheme=EXAMPLE:CS_EXAMPLE(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="CS_EXAMPLE" version="1.0">
+				<com:Name xml:lang="en">Example concepts</com:Name>
+				<com:Description xml:lang="en">Example concepts</com:Description>
+				<str:Concept urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).ACTIVITY" id="ACTIVITY">
+					<com:Name xml:lang="en">Labour force activity</com:Name>
+				</str:Concept>
+				<str:Concept urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).INDICATOR" id="INDICATOR">
+					<com:Name xml:lang="en">Labour force indicator</com:Name>
+				</str:Concept>
+				<str:Concept urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).AREA" id="AREA">
+					<com:Name xml:lang="en">Geographical area</com:Name>
+				</str:Concept>
+			</str:ConceptScheme>
+		</str:ConceptSchemes>
+		<str:DataStructures>
+			<str:DataStructure urn="urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_GEO_EXAMPLE(1.0)" isExternalReference="false" agencyID="EXAMPLE" id="DSD_GEO_EXAMPLE" version="1.0">
+				<com:Name xml:lang="en">Geographic coordinates example</com:Name>
+				<str:DataStructureComponents>
+					<str:DimensionList urn="urn:sdmx:org.sdmx.infomodel.datastructure.DimensionDescriptor=EXAMPLE:DSD_GEO_EXAMPLE(1.0).DimensionDescriptor" id="DimensionDescriptor">
+						<str:Dimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.Dimension=EXAMPLE:DSD_GEO_EXAMPLE(1.0).INDICATOR" id="INDICATOR" position="1">
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).INDICATOR</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_INDICATOR(1.0)</str:Enumeration>
+							</str:LocalRepresentation>
+						</str:Dimension>
+						<str:TimeDimension urn="urn:sdmx:org.sdmx.infomodel.datastructure.TimeDimension=EXAMPLE:DSD_GEO_EXAMPLE(1.0).TIME_PERIOD" id="TIME_PERIOD" >
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
+							<str:LocalRepresentation>
+								<str:TextFormat textType="ObservationalTimePeriod"/>
+							</str:LocalRepresentation>
+						</str:TimeDimension>
+					</str:DimensionList>
+					<str:AttributeList urn="urn:sdmx:org.sdmx.infomodel.datastructure.AttributeDescriptor=EXAMPLE:DSD_GEO_EXAMPLE(1.0).AttributeDescriptor" id="AttributeDescriptor">
+						<str:Attribute urn="urn:sdmx:org.sdmx.infomodel.datastructure.DataAttribute=EXAMPLE:DSD_GEO_EXAMPLE(1.0).AREA" id="AREA">
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CS_EXAMPLE(1.0).AREA</str:ConceptIdentity>
+							<str:LocalRepresentation minOccurs="0" maxOccurs="1">
+								<str:TextFormat isSequence="false" textType="GeospatialInformation"/>
+							</str:LocalRepresentation>
+							<str:ConceptRole>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:SDMX_CONCEPT_ROLES(1+.0.0).GEO</str:ConceptRole>
+							<str:AttributeRelationship>
+								<str:Dimension>INDICATOR</str:Dimension>
+							</str:AttributeRelationship>
+						</str:Attribute>
+					</str:AttributeList>
+					<str:MeasureList urn="urn:sdmx:org.sdmx.infomodel.datastructure.MeasureDescriptor=EXAMPLE:DSD_GEO_EXAMPLE(1.0).MeasureDescriptor" id="MeasureDescriptor">
+						<str:Measure urn="urn:sdmx:org.sdmx.infomodel.datastructure.Measure=EXAMPLE:DSD_GEO_EXAMPLE(1.0).OBS_VALUE" id="OBS_VALUE">
+							<str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).OBS_VALUE</str:ConceptIdentity>
+						</str:Measure>
+					</str:MeasureList>
+				</str:DataStructureComponents>
+			</str:DataStructure>
+		</str:DataStructures>
+	</mes:Structures>
+</mes:Structure>

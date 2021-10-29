@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright SDMX 2010 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common" schemaLocation="SDMXCommon.xsd"/>
+<!-- Copyright SDMX 2021 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common">
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_0/common" schemaLocation="SDMXCommon.xsd"/>
 	<xs:include schemaLocation="SDMXStructureBase.xsd"/>
 
 	<xs:annotation>
@@ -32,12 +32,14 @@
 			<xs:restriction base="VtlDefinitionSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="Transformation"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:TransformationSchemeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -85,12 +87,29 @@
 		</xs:annotation>
 	</xs:element>
 
+	<xs:complexType name="TransformationBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>TransformationBaseType defines the base refinement of the TransformationType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:TransformationUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="TransformationType">
 		<xs:annotation>
 			<xs:documentation>TransformationType defines the structure of a transformation. A transformation is an assignment of a VTL expression to a specific result.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="UnnestedItemType">
+			<xs:extension base="TransformationBaseType">
 				<xs:sequence>
 					<xs:element name="Expression" type="xs:string">
 						<xs:annotation>
@@ -120,12 +139,14 @@
 			<xs:restriction base="ItemSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="VtlMapping"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:VtlMappingSchemeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -136,12 +157,29 @@
 		</xs:annotation>
 	</xs:element>
 
-	<xs:complexType name="VtlMappingType">
+	<xs:complexType name="VtlMappingBaseType" abstract="true">
 		<xs:annotation>
-			<xs:documentation>VtlMappingType defines the structure of a single mapping between the reference to a SDMX artefact made from VTL transformations, rulesets, user defined operators and the corresponding SDMX structure identifier. These are used to assign an alternative names to SDMX Dataflows, Codelists, Concept Schemes, or Concepts. Although are distinct sub-classes in the Information Model, this structure serves to express them all. The references SDMX artefact serves to distinguish which type of sub-class (VtlDatflowMapping, VtlCodelistMapping, or VtlConceptSchemeMapping) is being described. When this is used to assign an alias for a SDMX Dataflow, this can also be used to indicate the methods used to convert the data structure from SDMX to VTL and vice-versa. Finally, this can be used to override the deault Basic mapping methods used for Dataflows by utilizing the GenericDataflow element in place of a reference to a specific Dataflow.</xs:documentation>
+			<xs:documentation>VtlMappingBaseType defines the base refinement of the VtlMappingType. Its purpose is to retrict the urn attribute.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="UnnestedItemType">
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:VtlMappingUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VtlMappingType">
+		<xs:annotation>
+			<xs:documentation>VtlMappingType defines the structure of a single mapping between the reference to a SDMX artefact made from VTL transformations, rulesets, user defined operators and the corresponding SDMX structure identifier. These are used to assign an alternative names to SDMX Dataflows, Codelists, Concept Schemes, or Concepts. Although are distinct sub-classes in the Information Model, this structure serves to express them all. The references SDMX artefact serves to distinguish which type of sub-class (VtlDatflowMapping or VtlCodelistMapping, or VtlConceptMapping) is being described. When this is used to assign an alias for a SDMX Dataflow, this can also be used to indicate the methods used to convert the data structure from SDMX to VTL and vice-versa. Finally, this can be used to override the deault Basic mapping methods used for Dataflows by utilizing the GenericDataflow element in place of a reference to a specific Dataflow.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="VtlMappingBaseType">
 				<xs:sequence>
 					<xs:choice>
 						<xs:sequence>
@@ -171,11 +209,6 @@
 						<xs:element name="Codelist" type="common:CodelistReferenceType">
 							<xs:annotation>
 								<xs:documentation>A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="ConceptScheme" type="common:ConceptSchemeReferenceType">
-							<xs:annotation>
-								<xs:documentation>A reference to the SDMX Concept Scheme that the mapping is defined for. This is used to create a VtlConceptSchemeMapping.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Concept" type="common:ConceptReferenceType">
@@ -316,12 +349,14 @@
 			<xs:restriction base="VtlDefinitionSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="NamePersonalisation"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:NamePersonalisationSchemeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -332,12 +367,29 @@
 		</xs:annotation>
 	</xs:element>
 
+	<xs:complexType name="NamePersonalisationBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>NamePersonalisationBaseType defines the base refinement of the NamePersonalisationType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:NamePersonalisationUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="NamePersonalisationType">
 		<xs:annotation>
 			<xs:documentation>NamePersonalisationType defines the structure of a name personalisation. A name personalisation is is used in place of a standard VTL name in some VTL operations.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="UnnestedItemType">
+			<xs:extension base="NamePersonalisationBaseType">
 				<xs:sequence>
 					<xs:element name="VtlDefaultName" type="xs:string">
 						<xs:annotation>
@@ -367,12 +419,14 @@
 			<xs:restriction base="VtlDefinitionSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="Ruleset"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:RulesetSchemeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -400,12 +454,29 @@
 		</xs:annotation>
 	</xs:element>
 
+	<xs:complexType name="RulesetBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>RulesetBaseType defines the base refinement of the RulesetType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:RulesetUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="RulesetType">
 		<xs:annotation>
 			<xs:documentation>RulesetType defines the structure of a ruleset. A ruleset is a persistent set of rules which can be invoked by using appropriate VTL operators.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="UnnestedItemType">
+			<xs:extension base="RulesetBaseType">
 				<xs:sequence>
 					<xs:element name="RulesetDefinition" type="xs:string">
 						<xs:annotation>
@@ -435,12 +506,14 @@
 			<xs:restriction base="VtlDefinitionSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="UserDefinedOperator"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:UserDefinedOperatorSchemeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -473,12 +546,29 @@
 		</xs:annotation>	
 	</xs:element>
 
+	<xs:complexType name="UserDefinedOperatorBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>UserDefinedOperatorBaseType defines the base refinement of the UserDefinedOperatorType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:UserDefinedOperatorUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="UserDefinedOperatorType">
 		<xs:annotation>
 			<xs:documentation>UserDefinedOperatorType defines the structure of a user defined operator. A user defined operator is a custom VTL operator (not existing in the standard library) that extends the VTL standard library for specific purposes. In addition to its identification and name, and definition of the operator must be provided.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="UnnestedItemType">
+			<xs:extension base="UserDefinedOperatorBaseType">
 				<xs:sequence>
 					<xs:element name="OperatorDefinition" type="xs:string">
 						<xs:annotation>
@@ -498,12 +588,14 @@
 			<xs:restriction base="VtlDefinitionSchemeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="CustomType"/>
 					</xs:sequence>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:CustomTypeSchemeUrnType" use="optional"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -514,12 +606,29 @@
 		</xs:annotation>
 	</xs:element>
 
+	<xs:complexType name="CustomTypeBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>CustomTypeBaseType defines the base refinement of the CustomTypeType. Its purpose is to retrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:CustomTypeUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="CustomTypeType">
 		<xs:annotation>
 			<xs:documentation>CustomTypeType defines the structure of a custom type. A custom type specifies a custom conversion for a VTL scalar type to a resulting data type. This conversion overrides the default conversion.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="UnnestedItemType">
+			<xs:extension base="CustomTypeBaseType">
 				<xs:sequence>
 					<xs:element name="VtlScalarType" type="xs:string">
 						<xs:annotation>
