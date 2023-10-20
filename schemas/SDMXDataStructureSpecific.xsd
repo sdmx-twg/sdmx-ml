@@ -47,7 +47,7 @@
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
-					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+					<xs:element name="Metadata" type="MetadataType" minOccurs="0" form="unqualified">
 						<xs:annotation>
 							<xs:documentation>Allows for attachment of reference metadata against to the data set.</xs:documentation>
 						</xs:annotation>
@@ -75,7 +75,7 @@
 							<xs:documentation>Comp contains the details of group level attributes that have complex representation and cannot be expressed as XML attributes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+					<xs:element name="Metadata" type="MetadataType" minOccurs="0" form="unqualified">
 						<xs:annotation>
 							<xs:documentation>Allows for attachment of reference metadata against to the group.</xs:documentation>
 						</xs:annotation>
@@ -108,7 +108,7 @@
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Obs" type="ObsType" form="unqualified" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+					<xs:element name="Metadata" type="MetadataType" minOccurs="0" form="unqualified">
 						<xs:annotation>
 							<xs:documentation>Allows for attachment of reference metadata against to the series.</xs:documentation>
 						</xs:annotation>
@@ -158,7 +158,7 @@
 							<xs:documentation>Comp contains the details of observation measures or attributes that have complex representation and cannot be expressed as XML attributes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Metadata" type="metadata:MetadataSetType" minOccurs="0" form="unqualified">
+					<xs:element name="Metadata" type="MetadataType" minOccurs="0" form="unqualified">
 						<xs:annotation>
 							<xs:documentation>Allows for attachment of reference metadata against to the observation.</xs:documentation>
 						</xs:annotation>
@@ -179,6 +179,23 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:complexType name="MetadataType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>MetadataType describes the structure for reference metadata associated with datasets, groups, series or observations.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:AnnotableType">
+				<xs:sequence minOccurs="0">
+					<xs:element ref="metadata:Attribute" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Attribute elements hold the values being reported for reference metadata attributes, which were defined in the related metadata structure defintion.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
 	<xs:complexType name="AttsType" abstract="true">
 		<xs:annotation>
 			<xs:documentation>
