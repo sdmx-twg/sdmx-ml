@@ -74,7 +74,7 @@
 						</xs:annotation>
 					</xs:element>
 					<xs:choice minOccurs="0">
-						<xs:element name="Parent" type="common:SingleNCNameIDType">
+						<xs:element name="Parent" type="common:IDType">
 							<xs:annotation>
 								<xs:documentation>Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.</xs:documentation>
 							</xs:annotation>
