@@ -62,7 +62,7 @@
 
 	<xs:element name="Attribute" type="AttributeType">
 		<xs:annotation>
-			<xs:documentation>Att elements hold the reported values for a given metadata attribute. These values conform to the definition of the meatadata attribute in the metadata structure definition.</xs:documentation>
+			<xs:documentation>Attribute elements hold the reported values for a given metadata attribute. These values conform to the definition of the meatadata attribute in the metadata structure definition.</xs:documentation>
 		</xs:annotation>
 		<xs:unique name="Att_Unique_Value_Language">
 			<xs:selector xpath="common:Text | common:StructuredText"/>
@@ -96,7 +96,7 @@
 					</xs:choice>
 					<xs:element ref="Attribute" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>Att contains the reported metadata attribute values for the child metadata attributes.</xs:documentation>
+							<xs:documentation>Attribute contains the reported metadata attribute values for the child metadata attributes.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
