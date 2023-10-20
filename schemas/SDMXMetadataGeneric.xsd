@@ -62,7 +62,7 @@
 
 	<xs:element name="Attribute" type="AttributeType">
 		<xs:annotation>
-			<xs:documentation>Attribute elements hold the reported values for a given metadata attribute. These values conform to the definition of the meatadata attribute in the metadata structure definition.</xs:documentation>
+			<xs:documentation>Attribute elements hold the reported values for a given metadata attribute. These values conform to the definition of the metadata attribute in the metadata structure definition.</xs:documentation>
 		</xs:annotation>
 		<xs:unique name="Att_Unique_Value_Language">
 			<xs:selector xpath="common:Text | common:StructuredText"/>
