@@ -179,7 +179,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="MetadataType" abstract="true">
+	<xs:complexType name="MetadataType">
 		<xs:annotation>
 			<xs:documentation>MetadataType describes the structure for reference metadata associated with datasets, groups, series or observations.</xs:documentation>
 		</xs:annotation>
