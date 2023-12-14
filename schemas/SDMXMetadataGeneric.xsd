@@ -80,7 +80,7 @@
 					<xs:choice minOccurs="0">
 						<xs:element name="Value" type="xs:anySimpleType">
 							<xs:annotation>
-								<xs:documentation>Value holds any simple value (enumerated or not) for the metadata attribute. It can be repeated if this metadata attribute allows for multiple values.</xs:documentation>
+								<xs:documentation>Value holds any simple value (enumerated or not) for the metadata attribute.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element ref="common:Text" maxOccurs="unbounded">
