@@ -128,7 +128,7 @@
 					<xs:documentation>DataConstraints contains a collection of data constraint descriptions. The constraints may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="UniqueDataConstraint">
-					<xs:selector xpath="structure:DataConstraing"/>
+					<xs:selector xpath="structure:DataConstraint"/>
 					<xs:field xpath="@id"/>
 					<xs:field xpath="@agencyID"/>
 					<xs:field xpath="@version"/>
@@ -227,7 +227,7 @@
 					<xs:documentation>MetadataConstraints contains a collection of metadata constraint descriptions. The constraints may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="UniqueMetadataConstraint">
-					<xs:selector xpath="structure:MetadataConstraing"/>
+					<xs:selector xpath="structure:MetadataConstraint"/>
 					<xs:field xpath="@id"/>
 					<xs:field xpath="@agencyID"/>
 					<xs:field xpath="@version"/>

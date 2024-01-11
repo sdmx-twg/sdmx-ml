@@ -58,7 +58,7 @@
 		<xs:complexContent>
 			<xs:extension base="ItemBaseType">
 				<xs:choice minOccurs="0">
-					<xs:element name="Parent" type="common:NestedIDType"/>
+					<xs:element name="Parent" type="common:IDType"/>
 					<xs:sequence maxOccurs="unbounded">
 						<xs:element ref="Item"/>
 					</xs:sequence>
