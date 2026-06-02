@@ -1,0 +1,10 @@
+site_name: ml
+
+nav:
+- index.md
+- Message: message.md
+- Common: common.md
+- Structure: structure.md
+- Data: data.md
+- Registry: registry.md
+- Samples: samples.md
