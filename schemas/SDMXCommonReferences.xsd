@@ -13,10 +13,10 @@
 	<!-- Identification and Reference Field Types -->
 	<xs:simpleType name="UrnPrefixPart">
 		<xs:annotation>
-			<xs:documentation>This is validates the first part of the URN (urn:sdmx.org.infomodel.&lt;package>.&lt;class=). It is intended to be further restricted.</xs:documentation>
+			<xs:documentation>This is validates the first part of the URN (urn:sdmx.org.infomodel.&lt;package>.&lt;class=). It is intended to be further restricted. The package consists of one or more period separated lower case tokens; packages of more than one token are used only for instances of custom structure definitions, where the tokens following 'csd' are the lower case agency identifier(s) of the agency maintaining the definition. The final token before the '=' is always the class.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:pattern value="urn:sdmx:org\.sdmx\.infomodel\.[a-z]+\.[A-Za-z]+=[^=]+"/>
+			<xs:pattern value="urn:sdmx:org\.sdmx\.infomodel\.[a-z]+(\.[a-z][a-z0-9_\-]*)*\.[A-Za-z][A-Za-z0-9]*=[^=]+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -50,6 +50,8 @@
 			<xs:pattern value=".+\.codelist\.ValueList=.+"/>
 			<xs:pattern value=".+\.conceptscheme\.Concept=.+"/>
 			<xs:pattern value=".+\.conceptscheme\.ConceptScheme=.+"/>
+			<xs:pattern value=".+\.csd\.CustomStructureDefinition=.+"/>
+			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Za-z][A-Za-z0-9]*=.+"/>
 			<xs:pattern value=".+\.datastructure\.AttributeDescriptor=.+"/>
 			<xs:pattern value=".+\.datastructure\.DataAttribute=.+"/>
 			<xs:pattern value=".+\.datastructure\.Dataflow=.+"/>
@@ -451,6 +453,15 @@
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnType">
 			<xs:pattern value=".+\.conceptscheme\.ConceptScheme=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CustomStructureDefinitionUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a custom structure definition.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnType">
+			<xs:pattern value=".+\.csd\.CustomStructureDefinition=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1129,6 +1140,15 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="CustomStructureDefinitionReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a custom structure definition.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnReferenceType">
+			<xs:pattern value=".+\.csd\.CustomStructureDefinition=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="AttributeDescriptorReferenceType">
 		<xs:annotation>
 			<xs:documentation>A reference type for an attribute descriptor.</xs:documentation>
@@ -1627,6 +1647,26 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:pattern value="(0|[1-9]\d*)(\.(0|[1-9]\d*))?"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Custom Structure Definition Instance URNs -->
+
+	<xs:simpleType name="CustomInstanceUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for an instance of a custom structure definition (urn:sdmx:org.sdmx.infomodel.csd.&lt;agency>.&lt;class>=&lt;agency-id>:&lt;id>(&lt;version>)). The package is 'csd' followed by the period separated agency identifier(s) of the agency which maintains the custom structure definition, in lower case, with the '.' separating an agency from a sub-agency. The final period separated token before the '=' is always the class name of the custom structure definition, making the URN parseable by position. The version of the custom structure definition to which an instance conforms is carried by the instance's reference to its definition, not by the URN class, so the versioning of the definition does not affect the uniqueness of instance URNs. Dynamically generated schemas restrict this type to the class and agency of a specific custom structure definition.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnType">
+			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Za-z][A-Za-z0-9]*=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CustomInstanceUrnReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for an instance of a custom structure definition. It accounts for both legacy and semantic versioning, including late binding.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnReferenceType">
+			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Za-z][A-Za-z0-9]*=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 

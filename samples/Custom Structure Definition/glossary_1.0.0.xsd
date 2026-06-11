@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Dynamically generated schema for urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0) (see custom_item_scheme_csd.xml), following the CSD schema generation rules. -->
+<xs:schema targetNamespace="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)"
+			xmlns="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
+			elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" schemaLocation="../../schemas/SDMXCommon.xsd"/>
+
+	<xs:element name="Glossary" type="GlossaryType">
+		<xs:annotation>
+			<xs:documentation>An instance of the IMF GLOSSARY(1.0.0) custom structure definition (base="ItemScheme"). The element name is the classType of the definition; the namespace is the URN of the definition.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:simpleType name="GlossaryUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a Glossary instance maintained under the csd.imf package.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="common:CustomInstanceUrnType">
+			<xs:pattern value=".+\.csd\.imf\.Glossary=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType abstract="true" name="GlossaryBaseType">
+		<xs:annotation>
+			<xs:documentation>Extends MaintainableType by adding, first, the items element (fixed name, 0..unbounded, typed by the item custom type) and the isPartial attribute inherited from the item scheme behaviour, followed by the other declared properties in order.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element name="CustomStructureDefinition" type="common:CustomStructureDefinitionReferenceType" fixed="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)">
+						<xs:annotation>
+							<xs:documentation>Mandatory reference to the custom structure definition to which this instance conforms. The fixed value guarantees the reference matches the definition from which this schema was generated.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="items" type="TermTypeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="subjectArea" type="common:ConceptReferenceType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="isPartial" type="xs:boolean" use="optional" default="false"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GlossaryType">
+		<xs:annotation>
+			<xs:documentation>Restricts the base type to type the urn attribute to the Glossary instance URN.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GlossaryBaseType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="CustomStructureDefinition" type="common:CustomStructureDefinitionReferenceType" fixed="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)"/>
+					<xs:element name="items" type="TermTypeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="subjectArea" type="common:ConceptReferenceType" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="GlossaryUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType abstract="true" name="TermTypeBaseType">
+		<xs:annotation>
+			<xs:documentation>Generated from custom type TermType (extends Nameable, classType GlossaryTerm), which plays the Item role of the scheme. Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP.GDP_PC, where the id path is the chain of identifiable ancestors).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:NameableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="id" type="common:IDType" use="required"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TermTypeType">
+		<xs:complexContent>
+			<xs:extension base="TermTypeBaseType">
+				<xs:sequence>
+					<xs:element name="definition" type="common:TextType" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>MultilingualText property: one value per language; the property is mandatory (minOccurs 1), interpreted per language.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="children" type="TermTypeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Explicitly modelled item hierarchy: a custom type referencing itself.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>
