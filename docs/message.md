@@ -8,9 +8,9 @@ specific messages that are available for exchange in SDMX.
 
 There are two namespaces associated with the messages. The main
 namespace schema which defines every message in SDMX is
-http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message. Associated
+http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message. Associated
 with this is another sub-namespace,
-http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message/footer. This
+http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message/footer. This
 namespace defines footer level information that is available in messages
 which might require non-standard payload information to be transmitted.
 
@@ -30,7 +30,7 @@ message which is using it.
 
 ### Message Namespace
 
-**http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message**
+**http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message**
 
 #### Summary
 
@@ -38,12 +38,12 @@ Referenced Namespaces:
 
 | **Namespace**                                                            | **Prefix** |
 |--------------------------------------------------------------------------|------------|
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common                 | common     |
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/data/structurespecific | dsd        |
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message/footer         | footer     |
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/metadata/generic       | metadata   |
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry               | registry   |
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure              | structure  |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common                 | common     |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/data/structurespecific | dsd        |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message/footer         | footer     |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/metadata/generic       | metadata   |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/registry               | registry   |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure              | structure  |
 | http://www.w3.org/2001/XMLSchema                                         | xs         |
 
 Contents:
@@ -105,7 +105,7 @@ Content:
 
 ```text
 Header, {any element with namespace of
-http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message}*, Footer?
+http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message}*, Footer?
 ```
 
 Element Documentation:
@@ -553,7 +553,7 @@ Union of:
 
 ###  Message Footer Namespace
 
-**http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message/footer**
+**http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message/footer**
 
 #### Summary
 
@@ -561,7 +561,7 @@ Referenced Namespaces:
 
 | **Namespace**                                            | **Prefix** |
 |----------------------------------------------------------|------------|
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common | common     |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common | common     |
 | http://www.w3.org/2001/XMLSchema                         | xs         |
 
 Contents:

@@ -29,7 +29,7 @@ is maintained, the (metadata-)structure-specific format being deprecated.
 
 ### Structure-Specific Data Namespace
 
-**<http://www.sdmx.org/resources/sdmxml/schemas/v3_1/data/structurespecific>**
+**<http://www.sdmx.org/resources/sdmxml/schemas/v3_2/data/structurespecific>**
 
 #### Summary
 
@@ -38,8 +38,8 @@ Referenced Namespaces:
 | **Namespace**                                                      | **Prefix** |
 |--------------------------------------------------------------------|------------|
 |                                                                    |            |
-| <http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common>           | common     |
-| <http://www.sdmx.org/resources/sdmxml/schemas/v3_1/metadata/generic> | metadata   |
+| <http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common>           | common     |
+| <http://www.sdmx.org/resources/sdmxml/schemas/v3_2/metadata/generic> | metadata   |
 | <http://www.w3.org/2001/XMLSchema>                                   | xs         |
 
 Contents:
@@ -427,7 +427,7 @@ Element Documentation:
 
 ### Generic Reference Metadata Namespace
 
-**<http://www.sdmx.org/resources/sdmxml/schemas/v3_1/metadata/generic>**
+**<http://www.sdmx.org/resources/sdmxml/schemas/v3_2/metadata/generic>**
 
 #### Summary
 
@@ -435,7 +435,7 @@ Referenced Namespaces:
 
 | **Namespace**                                            | **Prefix** |
 |----------------------------------------------------------|------------|
-| <http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common> | common     |
+| <http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common> | common     |
 | <http://www.w3.org/2001/XMLSchema>                         | xs         |
 
 Contents:
@@ -626,7 +626,7 @@ Data-structure-specific schemas are each based on one single core
 construct found in the structure-specific namespace:
 
 Data -
-<http://www.SDMX.org/resources/SDMXML/schemas/v3_1/data/structurespecific>
+<http://www.SDMX.org/resources/SDMXML/schemas/v3_2/data/structurespecific>
 
 #### Basic Terminology
 
@@ -635,9 +635,9 @@ In the subsequent sections, the following namespace prefixes are used:
 | **Namespace**                                                             | **Prefix** |
 |---------------------------------------------------------------------------|------------|
 | <http://www.w3.org/2001/XMLSchema>                                          | xs         |
-| <http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common>                  | common     |
-| <http://www.sdmx.org/resources/sdmxml/schemas/v3_1/data/structurespecific>  | dsd        |
-| <http://www.sdmx.org/resources/sdmxml/schemas/v3_1/metadata/generic>        | metadata   |
+| <http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common>                  | common     |
+| <http://www.sdmx.org/resources/sdmxml/schemas/v3_2/data/structurespecific>  | dsd        |
+| <http://www.sdmx.org/resources/sdmxml/schemas/v3_2/metadata/generic>        | metadata   |
 
 It is assumed that in order to use this guide, the reader is familiar
 with schema terminology. However, for convenience the following is list

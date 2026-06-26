@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright SDMX 2025 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message/footer" 
-			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message/footer" 
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message/footer" 
+			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message/footer" 
 			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" 
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" 
 			xmlns:xml="http://www.w3.org/XML/1998/namespace" 
 			elementFormDefault="qualified">
 			
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" schemaLocation="SDMXCommon.xsd"/>
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" schemaLocation="SDMXCommon.xsd"/>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	
 	<xs:element name="Footer" type="FooterType">

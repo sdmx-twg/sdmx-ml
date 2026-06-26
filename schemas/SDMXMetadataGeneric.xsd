@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright SDMX 2025 - http://www.sdmx.org -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/metadata/generic" 
-			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" 
-			targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/metadata/generic" 
+			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/metadata/generic" 
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" 
+			targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/metadata/generic" 
 			elementFormDefault="qualified">
 				
-   <xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" schemaLocation="SDMXCommon.xsd"/>
+   <xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" schemaLocation="SDMXCommon.xsd"/>
 
 	<xs:annotation>
 		<xs:appinfo>SDMX Generic Metadata Namespace Module</xs:appinfo>
