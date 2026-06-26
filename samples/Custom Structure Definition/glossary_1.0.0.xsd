@@ -10,7 +10,7 @@
 
 	<xs:element name="Glossary" type="GlossaryType">
 		<xs:annotation>
-			<xs:documentation>An instance of the IMF GLOSSARY(1.0.0) custom structure definition (base="ItemScheme"). The element name is the classType of the definition; the namespace is the URN of the definition.</xs:documentation>
+			<xs:documentation>An instance of the IMF GLOSSARY(1.0.0) custom structure definition (base="ItemScheme"). The element name is the sdmxClassName of the definition; the namespace is the URN of the definition.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 
@@ -65,7 +65,7 @@
 
 	<xs:complexType abstract="true" name="TermTypeBaseType">
 		<xs:annotation>
-			<xs:documentation>Generated from custom type TermType (extends Nameable, classType GlossaryTerm), which plays the Item role of the scheme. Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP.GDP_PC, where the id path is the chain of identifiable ancestors).</xs:documentation>
+			<xs:documentation>Generated from custom type TermType (extends Nameable, sdmxClassName GlossaryTerm), which plays the Item role of the scheme. Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP.GDP_PC, where the id path is the chain of identifiable ancestors).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="common:NameableType">
@@ -86,7 +86,7 @@
 				<xs:sequence>
 					<xs:element name="definition" type="common:TextType" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>MultilingualText property: one value per language; the property is mandatory (minOccurs 1), interpreted per language.</xs:documentation>
+							<xs:documentation>Localisable String property (ValueFormat textType="String" isMultiLingual="true"): one value per language; the property is mandatory (minOccurs 1), interpreted per language.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="children" type="TermTypeType" minOccurs="0" maxOccurs="unbounded">

@@ -15,54 +15,51 @@
 	<mes:Structures>
 		<str:CustomStructureDefinitions>
 			<str:CustomStructureDefinition urn="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)"
-					agencyID="IMF" id="PIVOT_TABLE" version="1.0.0" classType="PivotTable" base="Maintainable">
+					agencyID="IMF" id="PIVOT_TABLE" version="1.0.0" sdmxClassName="PivotTable" base="Maintainable">
 				<com:Name xml:lang="en">Pivot Table</com:Name>
 				<com:Description xml:lang="en">Defines the layout of a pivot table over a dataflow. Instances of this definition have the URN class urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTable.</com:Description>
 				<str:Property id="dataflow">
-					<com:Name xml:lang="en">Dataflow</com:Name>
 					<com:Description xml:lang="en">The dataflow whose data the pivot table lays out. Mandatory (minOccurs defaults to 1).</com:Description>
-					<str:Reference targetClass="Dataflow"/>
+					<str:Reference>
+						<str:Target class="Dataflow"/>
+					</str:Reference>
 				</str:Property>
 				<str:Property id="rows" minOccurs="0" maxOccurs="unbounded">
-					<com:Name xml:lang="en">Rows</com:Name>
 					<str:CustomTypeReference type="RowColType"/>
 				</str:Property>
 				<str:Property id="cols" minOccurs="0" maxOccurs="unbounded">
-					<com:Name xml:lang="en">Columns</com:Name>
 					<str:CustomTypeReference type="RowColType"/>
 				</str:Property>
 				<str:Property id="slice" minOccurs="0" maxOccurs="unbounded">
-					<com:Name xml:lang="en">Slices</com:Name>
 					<str:CustomTypeReference type="SliceType"/>
 				</str:Property>
-				<str:CustomType id="RowColType" extends="Nameable" classType="PivotTableRow">
+				<str:CustomType id="RowColType" extends="Nameable" sdmxClassName="PivotTableRow">
 					<com:Name xml:lang="en">Row or Column</com:Name>
 					<com:Description xml:lang="en">A row or column of the pivot table, bound to a dimension of the dataflow. As a nameable type, instances of this type have an id, a name, and a generated URN using the PivotTableRow class.</com:Description>
 					<str:Property id="level" minOccurs="0">
-						<com:Name xml:lang="en">Level</com:Name>
 						<str:ValueFormat textType="Integer" minValue="0"/>
 					</str:Property>
 					<str:Property id="dimension">
-						<com:Name xml:lang="en">Dimension</com:Name>
 						<com:Description xml:lang="en">The identifier of the dimension this row or column is bound to. An indirect reference: the identifier is resolved against the dataflow referenced by the 'dataflow' property of the pivot table.</com:Description>
-						<str:IndirectReference targetClass="Dimension" scope="dataflow"/>
+						<str:IndirectReference targetClass="Dimension" context="dataflow"/>
 					</str:Property>
-					<str:PropertyChoice minOccurs="0">
-						<str:Property id="headingText">
-							<com:Name xml:lang="en">Heading text</com:Name>
-							<str:ValueFormat textType="String"/>
-						</str:Property>
-						<str:Property id="headingCode">
-							<com:Name xml:lang="en">Heading code</com:Name>
-							<str:Reference targetClass="Code"/>
-						</str:Property>
-					</str:PropertyChoice>
+					<str:Property id="headingText" minOccurs="0">
+						<str:ValueFormat textType="String"/>
+					</str:Property>
+					<str:Property id="headingCode" minOccurs="0">
+						<str:Reference>
+							<str:Target class="Code"/>
+						</str:Reference>
+					</str:Property>
+					<str:MutuallyExclusive>
+						<str:Member property="headingText"/>
+						<str:Member property="headingCode"/>
+					</str:MutuallyExclusive>
 				</str:CustomType>
-				<str:CustomType id="SliceType" extendsType="RowColType" classType="PivotTableSlice">
+				<str:CustomType id="SliceType" extendsType="RowColType" sdmxClassName="PivotTableSlice">
 					<com:Name xml:lang="en">Slice</com:Name>
 					<com:Description xml:lang="en">A slice of the pivot table. Extends RowColType, inheriting its properties, and adds a fixed position. Declares its own class name so that generated URNs remain unique.</com:Description>
 					<str:Property id="position" minOccurs="0">
-						<com:Name xml:lang="en">Position</com:Name>
 						<str:ValueFormat textType="Integer" minValue="0"/>
 					</str:Property>
 				</str:CustomType>

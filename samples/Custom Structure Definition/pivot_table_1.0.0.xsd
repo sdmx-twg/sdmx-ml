@@ -10,7 +10,7 @@
 
 	<xs:element name="PivotTable" type="PivotTableType">
 		<xs:annotation>
-			<xs:documentation>An instance of the IMF PIVOT_TABLE(1.0.0) custom structure definition. The element name is the classType of the definition; the namespace is the URN of the definition.</xs:documentation>
+			<xs:documentation>An instance of the IMF PIVOT_TABLE(1.0.0) custom structure definition. The element name is the sdmxClassName of the definition; the namespace is the URN of the definition.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 
@@ -68,7 +68,7 @@
 
 	<xs:complexType abstract="true" name="RowColTypeBaseType">
 		<xs:annotation>
-			<xs:documentation>Generated from custom type RowColType (extends Nameable, classType PivotTableRow). Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTableRow=OECD:POP_SEX_AGE(1.0.0).SEX_ROW).</xs:documentation>
+			<xs:documentation>Generated from custom type RowColType (extends Nameable, sdmxClassName PivotTableRow). Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTableRow=OECD:POP_SEX_AGE(1.0.0).SEX_ROW).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="common:NameableType">
@@ -99,7 +99,7 @@
 					</xs:element>
 					<xs:element name="dimension" type="common:IDType">
 						<xs:annotation>
-							<xs:documentation>IndirectReference targetClass="Dimension" scope="dataflow": the identifier of a dimension of the dataflow referenced by the dataflow property of the pivot table. Resolution is validated by the system, not by this schema.</xs:documentation>
+							<xs:documentation>IndirectReference targetClass="Dimension" context="dataflow": the identifier of a dimension of the dataflow referenced by the dataflow property of the pivot table. Resolution is validated by the system, not by this schema.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:choice minOccurs="0">
@@ -113,7 +113,7 @@
 
 	<xs:complexType name="SliceTypeType">
 		<xs:annotation>
-			<xs:documentation>Generated from custom type SliceType (extendsType RowColType, classType PivotTableSlice). Extends the generated type of RowColType, adding only the subtype's own properties.</xs:documentation>
+			<xs:documentation>Generated from custom type SliceType (extendsType RowColType, sdmxClassName PivotTableSlice). Extends the generated type of RowColType, adding only the subtype's own properties.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="RowColTypeType">
