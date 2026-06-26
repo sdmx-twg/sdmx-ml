@@ -3,10 +3,10 @@
 <xs:schema targetNamespace="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)"
 			xmlns="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)"
 			xmlns:xs="http://www.w3.org/2001/XMLSchema"
-			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
 			elementFormDefault="qualified">
 
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" schemaLocation="../../schemas/SDMXCommon.xsd"/>
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" schemaLocation="../../schemas/SDMXCommon.xsd"/>
 
 	<xs:element name="Glossary" type="GlossaryType">
 		<xs:annotation>

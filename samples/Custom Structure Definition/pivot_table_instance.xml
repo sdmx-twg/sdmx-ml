@@ -2,11 +2,11 @@
 <!-- An instance of the IMF PIVOT_TABLE(1.0.0) custom structure definition, maintained by OECD. Validate against csd_validation.xsd for full validation; validation against SDMXMessage.xsd alone checks the custom content for well-formedness only (lax wildcard). -->
 <mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xmlns:xml="http://www.w3.org/XML/1998/namespace"
-				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message"
-				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure"
-				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message"
+				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
 				xmlns:pt="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)"
-				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message ../../schemas/SDMXMessage.xsd urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0) pivot_table_1.0.0.xsd">
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message ../../schemas/SDMXMessage.xsd urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0) pivot_table_1.0.0.xsd">
 	<mes:Header>
 		<mes:ID>IREF500003</mes:ID>
 		<mes:Test>false</mes:Test>
