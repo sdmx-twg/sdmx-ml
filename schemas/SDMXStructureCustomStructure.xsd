@@ -152,9 +152,9 @@
 				<xs:documentation>The minOccurs attribute indicates the minimum number of values that must be reported for the property. A minimum of 1 (the default) makes the property mandatory. A property which is a member of a MutuallyExclusive set is, in effect, optional regardless of this value, because at most one member of the set may be present.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="maxOccurs" type="common:OccurenceType" use="optional" default="1">
+		<xs:attribute name="maxOccurs" type="common:OccurenceType" use="optional">
 			<xs:annotation>
-				<xs:documentation>The maxOccurs attribute indicates the maximum number of values that can be reported for the property. It may be given the value 'unbounded'.</xs:documentation>
+				<xs:documentation>The maxOccurs attribute indicates the maximum number of values that can be reported for the property. If it is not supplied the property is unbounded; note that this differs from the XML Schema convention of defaulting to 1, and is so that the absence of the attribute carries the same meaning in every format (the JSON formats express an unbounded property by omitting maxOccurs, having no literal for 'unbounded'). A single valued property must therefore state maxOccurs explicitly. The literal text 'unbounded' remains a permitted value, and is equivalent to omitting the attribute.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
