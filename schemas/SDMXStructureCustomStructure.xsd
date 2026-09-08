@@ -41,7 +41,7 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:attribute name="sdmxClassName" type="ClassNameType" use="required">
+				<xs:attribute name="sdmxClassName" type="common:ClassNameType" use="required">
 					<xs:annotation>
 						<xs:documentation>The sdmxClassName attribute holds the class name used in the URN of instances of this custom structure definition (e.g. PivotTable). It is decoupled from the identifier of the definition; the maintenance agency is responsible for ensuring that the same class name is not used by two different custom structure definitions which it maintains.</xs:documentation>
 					</xs:annotation>
@@ -68,7 +68,12 @@
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:choice minOccurs="0" maxOccurs="unbounded">
 						<xs:element name="Property" type="PropertyType"/>
-						<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType"/>
+						<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType">
+							<xs:unique name="CustomStructureDefinition_UniqueMember">
+								<xs:selector xpath="structure:Member"/>
+								<xs:field xpath="@property"/>
+							</xs:unique>
+						</xs:element>
 					</xs:choice>
 					<xs:element name="CustomType" type="LocalCustomTypeType" minOccurs="0" maxOccurs="unbounded">
 						<xs:unique name="CustomType_UniqueProperty">
@@ -97,15 +102,6 @@
 					<xs:documentation>Instances are item schemes; the 'items' property of the definition declares the item type.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-
-	<xs:simpleType name="ClassNameType">
-		<xs:annotation>
-			<xs:documentation>ClassNameType restricts the format of a class name used for URN generation. By convention class names are in camel case starting with an upper case letter (e.g. PivotTable), although this is not enforced.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:NCName">
-			<xs:pattern value="[A-Za-z][A-Za-z0-9]*"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -152,16 +148,16 @@
 				<xs:documentation>The minOccurs attribute indicates the minimum number of values that must be reported for the property. A minimum of 1 (the default) makes the property mandatory. A property which is a member of a MutuallyExclusive set is, in effect, optional regardless of this value, because at most one member of the set may be present.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="maxOccurs" type="common:OccurenceType" use="optional">
+		<xs:attribute name="maxOccurs" type="common:OccurenceType" use="optional" default="unbounded">
 			<xs:annotation>
-				<xs:documentation>The maxOccurs attribute indicates the maximum number of values that can be reported for the property. If it is not supplied the property is unbounded; note that this differs from the XML Schema convention of defaulting to 1, and is so that the absence of the attribute carries the same meaning in every format (the JSON formats express an unbounded property by omitting maxOccurs, having no literal for 'unbounded'). A single valued property must therefore state maxOccurs explicitly. The literal text 'unbounded' remains a permitted value, and is equivalent to omitting the attribute.</xs:documentation>
+				<xs:documentation>The maxOccurs attribute indicates the maximum number of values that can be reported for the property. It defaults to unbounded, rather than to 1 as is the XML Schema convention, so that the absence of the attribute carries the same meaning in every format (the JSON formats express an unbounded property by omitting maxOccurs, having no literal for 'unbounded'). A single valued property must therefore state maxOccurs explicitly.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 
 	<xs:complexType name="MutuallyExclusiveType">
 		<xs:annotation>
-			<xs:documentation>MutuallyExclusiveType declares a set of two or more mutually exclusive properties by referencing, by identifier, properties declared in the same containing custom structure definition or custom type. At most one member of the set may appear in an instance. In the dynamically generated instance schema the members are rendered as a native xs:choice so that schema validation enforces the constraint.</xs:documentation>
+			<xs:documentation>MutuallyExclusiveType declares a set of two or more mutually exclusive properties by referencing, by identifier, properties declared in the same containing custom structure definition or custom type. Each property may be named at most once in a set. At most one member of the set may appear in an instance. In the dynamically generated instance schema the members are rendered as a native xs:choice so that schema validation enforces the constraint.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Member" minOccurs="2" maxOccurs="unbounded">
@@ -189,7 +185,7 @@
 					<xs:documentation>Target restricts the property to one permitted target. Exactly one of class and csd must be supplied. Note that a csd reference which pins the absolute three part version of a custom structure definition is restrictive; modellers may prefer a wildcarded or late binding version reference.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:attribute name="class" type="ObjectClassType" use="optional">
+					<xs:attribute name="class" type="common:ObjectClassType" use="optional">
 						<xs:annotation>
 							<xs:documentation>The class attribute restricts the property to reference artefacts of this class of SDMX artefact.</xs:documentation>
 						</xs:annotation>
@@ -208,7 +204,7 @@
 		<xs:annotation>
 			<xs:documentation>IndirectReferencePropertyType describes the representation of an indirect reference property. The property value is the identifier of an object of the target class, resolved against the context established by the reference property named by the context attribute.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="targetClass" type="ObjectClassType" use="required">
+		<xs:attribute name="targetClass" type="common:ObjectClassType" use="required">
 			<xs:annotation>
 				<xs:documentation>The targetClass attribute indicates the class of the object identified by the property value (e.g. Dimension, Code).</xs:documentation>
 			</xs:annotation>
@@ -256,6 +252,10 @@
 					<xs:annotation>
 						<xs:documentation>MutuallyExclusive defines a set of mutually exclusive properties of the custom type.</xs:documentation>
 					</xs:annotation>
+					<xs:unique name="CustomType_UniqueMember">
+						<xs:selector xpath="structure:Member"/>
+						<xs:field xpath="@property"/>
+					</xs:unique>
 				</xs:element>
 			</xs:choice>
 		</xs:sequence>
@@ -274,7 +274,7 @@
 				<xs:documentation>The extendsType attribute references, by identifier, another custom type defined in the same custom structure definition which this custom type extends. It must not be used together with the extends attribute.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="sdmxClassName" type="ClassNameType" use="optional">
+		<xs:attribute name="sdmxClassName" type="common:ClassNameType" use="optional">
 			<xs:annotation>
 				<xs:documentation>The sdmxClassName attribute holds the class name used for the automatic generation of URNs of objects of this type within an instance (e.g. PivotTableRow). It is required when the custom type extends, directly or transitively, Identifiable or Nameable, and must not be used for purely annotatable types. Each type in an extension chain must declare its own, unique class name so that generated URNs remain unique.</xs:documentation>
 			</xs:annotation>
@@ -312,97 +312,5 @@
 			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-
-	<xs:simpleType name="ObjectClassType">
-		<xs:annotation>
-			<xs:documentation>ObjectClassType provides a comprehensive enumeration of the classes of SDMX artefacts which may be the target of a reference property, together with the open values Any, AnyMaintainable, and AnyIdentifiable.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Any">
-				<xs:annotation>
-					<xs:documentation>Any SDMX identifiable or maintainable object, including instances of custom structure definitions.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="AnyIdentifiable">
-				<xs:annotation>
-					<xs:documentation>Any SDMX identifiable object.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="AnyMaintainable">
-				<xs:annotation>
-					<xs:documentation>Any SDMX maintainable object.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="Agency"/>
-			<xs:enumeration value="AgencyScheme"/>
-			<xs:enumeration value="AttributeDescriptor"/>
-			<xs:enumeration value="Categorisation"/>
-			<xs:enumeration value="Category"/>
-			<xs:enumeration value="CategoryScheme"/>
-			<xs:enumeration value="CategorySchemeMap"/>
-			<xs:enumeration value="Code"/>
-			<xs:enumeration value="Codelist"/>
-			<xs:enumeration value="Concept"/>
-			<xs:enumeration value="ConceptScheme"/>
-			<xs:enumeration value="ConceptSchemeMap"/>
-			<xs:enumeration value="CustomStructureDefinition"/>
-			<xs:enumeration value="CustomType"/>
-			<xs:enumeration value="CustomTypeScheme"/>
-			<xs:enumeration value="DataAttribute"/>
-			<xs:enumeration value="DataConstraint"/>
-			<xs:enumeration value="DataConsumer"/>
-			<xs:enumeration value="DataConsumerScheme"/>
-			<xs:enumeration value="Dataflow"/>
-			<xs:enumeration value="DataProvider"/>
-			<xs:enumeration value="DataProviderScheme"/>
-			<xs:enumeration value="DataStructure"/>
-			<xs:enumeration value="DatePatternMap"/>
-			<xs:enumeration value="Dimension"/>
-			<xs:enumeration value="DimensionDescriptor"/>
-			<xs:enumeration value="EpochMap"/>
-			<xs:enumeration value="FrequencyFormatMapping"/>
-			<xs:enumeration value="GroupDimensionDescriptor"/>
-			<xs:enumeration value="HierarchicalCode"/>
-			<xs:enumeration value="Hierarchy"/>
-			<xs:enumeration value="HierarchyAssociation"/>
-			<xs:enumeration value="Level"/>
-			<xs:enumeration value="Measure"/>
-			<xs:enumeration value="MeasureDescriptor"/>
-			<xs:enumeration value="MetadataAttribute"/>
-			<xs:enumeration value="MetadataConstraint"/>
-			<xs:enumeration value="Metadataflow"/>
-			<xs:enumeration value="MetadataProvider"/>
-			<xs:enumeration value="MetadataProviderScheme"/>
-			<xs:enumeration value="MetadataProvisionAgreement"/>
-			<xs:enumeration value="MetadataSet"/>
-			<xs:enumeration value="MetadataStructure"/>
-			<xs:enumeration value="NamePersonalisation"/>
-			<xs:enumeration value="NamePersonalisationScheme"/>
-			<xs:enumeration value="OrganisationSchemeMap"/>
-			<xs:enumeration value="OrganisationUnit"/>
-			<xs:enumeration value="OrganisationUnitScheme"/>
-			<xs:enumeration value="Process"/>
-			<xs:enumeration value="ProcessStep"/>
-			<xs:enumeration value="ProvisionAgreement"/>
-			<xs:enumeration value="ReportingCategory"/>
-			<xs:enumeration value="ReportingTaxonomy"/>
-			<xs:enumeration value="ReportingTaxonomyMap"/>
-			<xs:enumeration value="RepresentationMap"/>
-			<xs:enumeration value="Ruleset"/>
-			<xs:enumeration value="RulesetScheme"/>
-			<xs:enumeration value="StructureMap"/>
-			<xs:enumeration value="TimeDimension"/>
-			<xs:enumeration value="Transformation"/>
-			<xs:enumeration value="TransformationScheme"/>
-			<xs:enumeration value="Transition"/>
-			<xs:enumeration value="UserDefinedOperator"/>
-			<xs:enumeration value="UserDefinedOperatorScheme"/>
-			<xs:enumeration value="ValueList"/>
-			<xs:enumeration value="VtlCodelistMapping"/>
-			<xs:enumeration value="VtlConceptMapping"/>
-			<xs:enumeration value="VtlDataflowMapping"/>
-			<xs:enumeration value="VtlMappingScheme"/>
-		</xs:restriction>
-	</xs:simpleType>
 
 </xs:schema>
