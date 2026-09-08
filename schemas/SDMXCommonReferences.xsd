@@ -51,7 +51,7 @@
 			<xs:pattern value=".+\.conceptscheme\.Concept=.+"/>
 			<xs:pattern value=".+\.conceptscheme\.ConceptScheme=.+"/>
 			<xs:pattern value=".+\.csd\.CustomStructureDefinition=.+"/>
-			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Za-z][A-Za-z0-9]*=.+"/>
+			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
 			<xs:pattern value=".+\.datastructure\.AttributeDescriptor=.+"/>
 			<xs:pattern value=".+\.datastructure\.DataAttribute=.+"/>
 			<xs:pattern value=".+\.datastructure\.Dataflow=.+"/>
@@ -96,6 +96,101 @@
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlMappingScheme=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ObjectClassType">
+		<xs:annotation>
+			<xs:documentation>ObjectClassType provides a comprehensive enumeration of the classes of the SDMX Information Model, together with the abstract classes Component, Item and ItemScheme, and the open values Any, AnyIdentifiable and AnyMaintainable. It is used, for example, to restrict the classes of artefact which may be the target of a reference. The enumerated classes are maintained in step with the class part of the URN patterns (see UrnClassesPart).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Any">
+				<xs:annotation>
+					<xs:documentation>Any SDMX identifiable or maintainable object, including instances of custom structure definitions.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AnyIdentifiable">
+				<xs:annotation>
+					<xs:documentation>Any SDMX identifiable object.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AnyMaintainable">
+				<xs:annotation>
+					<xs:documentation>Any SDMX maintainable object.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Agency"/>
+			<xs:enumeration value="AgencyScheme"/>
+			<xs:enumeration value="AttributeDescriptor"/>
+			<xs:enumeration value="Categorisation"/>
+			<xs:enumeration value="Category"/>
+			<xs:enumeration value="CategoryScheme"/>
+			<xs:enumeration value="CategorySchemeMap"/>
+			<xs:enumeration value="Code"/>
+			<xs:enumeration value="Codelist"/>
+			<xs:enumeration value="Component"/>
+			<xs:enumeration value="Concept"/>
+			<xs:enumeration value="ConceptScheme"/>
+			<xs:enumeration value="ConceptSchemeMap"/>
+			<xs:enumeration value="CustomStructureDefinition"/>
+			<xs:enumeration value="CustomType"/>
+			<xs:enumeration value="CustomTypeScheme"/>
+			<xs:enumeration value="DataAttribute"/>
+			<xs:enumeration value="DataConstraint"/>
+			<xs:enumeration value="DataConsumer"/>
+			<xs:enumeration value="DataConsumerScheme"/>
+			<xs:enumeration value="Dataflow"/>
+			<xs:enumeration value="DataProvider"/>
+			<xs:enumeration value="DataProviderScheme"/>
+			<xs:enumeration value="DataStructure"/>
+			<xs:enumeration value="DatePatternMap"/>
+			<xs:enumeration value="Dimension"/>
+			<xs:enumeration value="DimensionDescriptor"/>
+			<xs:enumeration value="EpochMap"/>
+			<xs:enumeration value="FrequencyFormatMapping"/>
+			<xs:enumeration value="GroupDimensionDescriptor"/>
+			<xs:enumeration value="HierarchicalCode"/>
+			<xs:enumeration value="Hierarchy"/>
+			<xs:enumeration value="HierarchyAssociation"/>
+			<xs:enumeration value="Item"/>
+			<xs:enumeration value="ItemScheme"/>
+			<xs:enumeration value="Level"/>
+			<xs:enumeration value="Measure"/>
+			<xs:enumeration value="MeasureDescriptor"/>
+			<xs:enumeration value="MetadataAttribute"/>
+			<xs:enumeration value="MetadataConstraint"/>
+			<xs:enumeration value="Metadataflow"/>
+			<xs:enumeration value="MetadataProvider"/>
+			<xs:enumeration value="MetadataProviderScheme"/>
+			<xs:enumeration value="MetadataProvisionAgreement"/>
+			<xs:enumeration value="MetadataSet"/>
+			<xs:enumeration value="MetadataStructure"/>
+			<xs:enumeration value="NamePersonalisation"/>
+			<xs:enumeration value="NamePersonalisationScheme"/>
+			<xs:enumeration value="OrganisationSchemeMap"/>
+			<xs:enumeration value="OrganisationUnit"/>
+			<xs:enumeration value="OrganisationUnitScheme"/>
+			<xs:enumeration value="Process"/>
+			<xs:enumeration value="ProcessStep"/>
+			<xs:enumeration value="ProvisionAgreement"/>
+			<xs:enumeration value="ReportingCategory"/>
+			<xs:enumeration value="ReportingTaxonomy"/>
+			<xs:enumeration value="ReportingTaxonomyMap"/>
+			<xs:enumeration value="RepresentationMap"/>
+			<xs:enumeration value="Ruleset"/>
+			<xs:enumeration value="RulesetScheme"/>
+			<xs:enumeration value="StructureMap"/>
+			<xs:enumeration value="TimeDimension"/>
+			<xs:enumeration value="Transformation"/>
+			<xs:enumeration value="TransformationScheme"/>
+			<xs:enumeration value="Transition"/>
+			<xs:enumeration value="UserDefinedOperator"/>
+			<xs:enumeration value="UserDefinedOperatorScheme"/>
+			<xs:enumeration value="ValueList"/>
+			<xs:enumeration value="VtlCodelistMapping"/>
+			<xs:enumeration value="VtlConceptMapping"/>
+			<xs:enumeration value="VtlDataflowMapping"/>
+			<xs:enumeration value="VtlMappingScheme"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
@@ -1607,6 +1702,15 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="ClassNameType">
+		<xs:annotation>
+			<xs:documentation>ClassNameType restricts the format of a class name, as used for the class part of a URN and for the generation of XML component names. Class names are in camel case, starting with an upper case letter (e.g. PivotTable).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NCName">
+			<xs:pattern value="[A-Z][A-Za-z0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="NestedNCNameIDType">
 		<xs:annotation>
 			<xs:documentation>NestedNCNameIDType restricts the NestedIDType, so that the id may be used to generate valid XML components. IDs created from this type conform to the W3C XML Schema NCNAME type, and therefore can be used as element or attribute names.</xs:documentation>
@@ -1657,7 +1761,7 @@
 			<xs:documentation>Urn type for an instance of a custom structure definition (urn:sdmx:org.sdmx.infomodel.csd.&lt;agency>.&lt;class>=&lt;agency-id>:&lt;id>(&lt;version>)). The package is 'csd' followed by the period separated agency identifier(s) of the agency which maintains the custom structure definition, in lower case, with the '.' separating an agency from a sub-agency. The final period separated token before the '=' is always the class name of the custom structure definition, making the URN parseable by position. The version of the custom structure definition to which an instance conforms is carried by the instance's reference to its definition, not by the URN class, so the versioning of the definition does not affect the uniqueness of instance URNs. Dynamically generated schemas restrict this type to the class and agency of a specific custom structure definition.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnType">
-			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Za-z][A-Za-z0-9]*=.+"/>
+			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1666,7 +1770,7 @@
 			<xs:documentation>A reference type for an instance of a custom structure definition. It accounts for both legacy and semantic versioning, including late binding.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnReferenceType">
-			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Za-z][A-Za-z0-9]*=.+"/>
+			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
