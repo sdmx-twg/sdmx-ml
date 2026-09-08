@@ -242,22 +242,20 @@
 					<xs:documentation>Description provides a longer human-readable description of the custom type. This may be provided in multiple, parallel language-equivalent forms.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element name="Property" type="PropertyType">
-					<xs:annotation>
-						<xs:documentation>Property defines a single property of the custom type.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType">
-					<xs:annotation>
-						<xs:documentation>MutuallyExclusive defines a set of mutually exclusive properties of the custom type.</xs:documentation>
-					</xs:annotation>
-					<xs:unique name="CustomType_UniqueMember">
-						<xs:selector xpath="structure:Member"/>
-						<xs:field xpath="@property"/>
-					</xs:unique>
-				</xs:element>
-			</xs:choice>
+			<xs:element name="Property" type="PropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Property defines a single property of the custom type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>MutuallyExclusive defines a set of mutually exclusive properties of the custom type.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="CustomType_UniqueMember">
+					<xs:selector xpath="structure:Member"/>
+					<xs:field xpath="@property"/>
+				</xs:unique>
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="id" type="common:NCNameIDType" use="required">
 			<xs:annotation>
