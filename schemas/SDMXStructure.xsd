@@ -581,7 +581,7 @@
 		<xs:sequence>
 			<xs:element name="CustomStructureDefinition" type="CustomStructureDefinitionType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>CustomStructureDefinition provides the details of a custom structure definition, which defines the schema (properties, choices of properties, and custom types) to which instances of the custom structure must conform.</xs:documentation>
+					<xs:documentation>CustomStructureDefinition provides the details of a custom structure definition, which defines the schema (properties, mutually exclusive sets of properties, and custom types) to which instances of the custom structure must conform.</xs:documentation>
 				</xs:annotation>
 				<xs:key name="CustomStructureDefinition_CustomTypeKey">
 					<xs:selector xpath="structure:CustomType"/>
@@ -591,16 +591,12 @@
 					<xs:selector xpath=".//structure:CustomTypeReference"/>
 					<xs:field xpath="@type"/>
 				</xs:keyref>
-				<xs:keyref name="CustomStructureDefinition_ItemsType" refer="CustomStructureDefinition_CustomTypeKey">
-					<xs:selector xpath="structure:Items"/>
-					<xs:field xpath="@type"/>
-				</xs:keyref>
 				<xs:keyref name="CustomStructureDefinition_ExtendsType" refer="CustomStructureDefinition_CustomTypeKey">
 					<xs:selector xpath="structure:CustomType"/>
 					<xs:field xpath="@extendsType"/>
 				</xs:keyref>
 				<xs:unique name="CustomStructureDefinition_UniqueProperty">
-					<xs:selector xpath="structure:Property | structure:PropertyChoice/structure:Property"/>
+					<xs:selector xpath="structure:Property"/>
 					<xs:field xpath="@id"/>
 				</xs:unique>
 			</xs:element>
