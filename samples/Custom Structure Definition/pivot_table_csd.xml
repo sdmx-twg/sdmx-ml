@@ -18,7 +18,7 @@
 					agencyID="IMF" id="PIVOT_TABLE" version="1.0.0" sdmxClassName="PivotTable" base="Maintainable">
 				<com:Name xml:lang="en">Pivot Table</com:Name>
 				<com:Description xml:lang="en">Defines the layout of a pivot table over a dataflow. Instances of this definition have the URN class urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTable.</com:Description>
-				<str:Property id="dataflow">
+				<str:Property id="dataflow" maxOccurs="1">
 					<com:Description xml:lang="en">The dataflow whose data the pivot table lays out. Mandatory (minOccurs defaults to 1).</com:Description>
 					<str:Reference>
 						<str:Target class="Dataflow"/>
@@ -36,17 +36,17 @@
 				<str:CustomType id="RowColType" extends="Nameable" sdmxClassName="PivotTableRow">
 					<com:Name xml:lang="en">Row or Column</com:Name>
 					<com:Description xml:lang="en">A row or column of the pivot table, bound to a dimension of the dataflow. As a nameable type, instances of this type have an id, a name, and a generated URN using the PivotTableRow class.</com:Description>
-					<str:Property id="level" minOccurs="0">
+					<str:Property id="level" minOccurs="0" maxOccurs="1">
 						<str:ValueFormat textType="Integer" minValue="0"/>
 					</str:Property>
-					<str:Property id="dimension">
+					<str:Property id="dimension" maxOccurs="1">
 						<com:Description xml:lang="en">The identifier of the dimension this row or column is bound to. An indirect reference: the identifier is resolved against the dataflow referenced by the 'dataflow' property of the pivot table.</com:Description>
 						<str:IndirectReference targetClass="Dimension" context="dataflow"/>
 					</str:Property>
-					<str:Property id="headingText" minOccurs="0">
+					<str:Property id="headingText" minOccurs="0" maxOccurs="1">
 						<str:ValueFormat textType="String"/>
 					</str:Property>
-					<str:Property id="headingCode" minOccurs="0">
+					<str:Property id="headingCode" minOccurs="0" maxOccurs="1">
 						<str:Reference>
 							<str:Target class="Code"/>
 						</str:Reference>
@@ -59,7 +59,7 @@
 				<str:CustomType id="SliceType" extendsType="RowColType" sdmxClassName="PivotTableSlice">
 					<com:Name xml:lang="en">Slice</com:Name>
 					<com:Description xml:lang="en">A slice of the pivot table. Extends RowColType, inheriting its properties, and adds a fixed position. Declares its own class name so that generated URNs remain unique.</com:Description>
-					<str:Property id="position" minOccurs="0">
+					<str:Property id="position" minOccurs="0" maxOccurs="1">
 						<str:ValueFormat textType="Integer" minValue="0"/>
 					</str:Property>
 				</str:CustomType>
