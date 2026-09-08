@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:xml="http://www.w3.org/XML/1998/namespace"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message"
+				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message ../../schemas/SDMXMessage.xsd">
+	<mes:Header>
+		<mes:ID>IREF500002</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2026-06-11T10:00:00Z</mes:Prepared>
+		<mes:Sender id="IMF"/>
+		<mes:Receiver id="not_supplied"/>
+	</mes:Header>
+	<mes:Structures>
+		<str:CustomStructureDefinitions>
+			<str:CustomStructureDefinition urn="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)"
+					agencyID="IMF" id="GLOSSARY" version="1.0.0" sdmxClassName="Glossary" base="ItemScheme">
+				<com:Name xml:lang="en">Glossary</com:Name>
+				<com:Description xml:lang="en">An item scheme based custom structure whose items are glossary terms. The items property of instances is always named 'items' and holds zero or more terms; the isPartial behaviour of item schemes is inherited. The term hierarchy is modelled explicitly through the 'children' property.</com:Description>
+				<str:Property id="items" minOccurs="0" maxOccurs="unbounded">
+					<com:Description xml:lang="en">The terms of the glossary. As the definition extends ItemScheme, the 'items' property plays the item role; its custom type must extend Nameable.</com:Description>
+					<str:CustomTypeReference type="TermType"/>
+				</str:Property>
+				<str:Property id="subjectArea" minOccurs="0">
+					<com:Description xml:lang="en">A non-item property alongside the items: the statistical subject area covered by the glossary, taken from a concept.</com:Description>
+					<str:Reference>
+						<str:Target class="Concept"/>
+					</str:Reference>
+				</str:Property>
+				<str:CustomType id="TermType" extends="Nameable" sdmxClassName="GlossaryTerm">
+					<com:Name xml:lang="en">Glossary term</com:Name>
+					<com:Description xml:lang="en">A glossary term. Plays the Item role of the scheme and so must extend Nameable.</com:Description>
+					<str:Property id="definition" maxOccurs="unbounded">
+						<com:Description xml:lang="en">The definition of the term, a localisable text reported once per language.</com:Description>
+						<str:ValueFormat textType="String" isMultiLingual="true"/>
+					</str:Property>
+					<str:Property id="children" minOccurs="0" maxOccurs="unbounded">
+						<com:Description xml:lang="en">Narrower terms of this term. A custom type may reference itself, allowing an explicit hierarchy of items.</com:Description>
+						<str:CustomTypeReference type="TermType"/>
+					</str:Property>
+				</str:CustomType>
+			</str:CustomStructureDefinition>
+		</str:CustomStructureDefinitions>
+	</mes:Structures>
+</mes:Structure>
