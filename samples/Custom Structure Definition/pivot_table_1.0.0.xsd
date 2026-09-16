@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Dynamically generated schema for urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0) (see pivot_table_csd.xml), following the CSD schema generation rules. -->
+<xs:schema targetNamespace="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)"
+			xmlns="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+			elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" schemaLocation="../../schemas/SDMXCommon.xsd"/>
+
+	<xs:element name="PivotTable" type="PivotTableType">
+		<xs:annotation>
+			<xs:documentation>An instance of the IMF PIVOT_TABLE(1.0.0) custom structure definition. The element name is the sdmxClassName of the definition; the namespace is the URN of the definition.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:simpleType name="PivotTableUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a PivotTable instance maintained under the csd.imf package.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="common:CustomInstanceUrnType">
+			<xs:pattern value=".+\.csd\.imf\.PivotTable=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType abstract="true" name="PivotTableBaseType">
+		<xs:annotation>
+			<xs:documentation>Extends MaintainableType (base="Maintainable" in the definition) by adding the declared properties in order.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element name="CustomStructureDefinition" type="common:CustomStructureDefinitionReferenceType" fixed="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)">
+						<xs:annotation>
+							<xs:documentation>Mandatory reference to the custom structure definition to which this instance conforms. The fixed value guarantees the reference matches the definition from which this schema was generated.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="dataflow" type="common:DataflowReferenceType"/>
+					<xs:element name="rows" type="RowColTypeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="cols" type="RowColTypeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="slice" type="SliceTypeType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="PivotTableType">
+		<xs:annotation>
+			<xs:documentation>Restricts the base type to type the urn attribute to the PivotTable instance URN.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="PivotTableBaseType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="CustomStructureDefinition" type="common:CustomStructureDefinitionReferenceType" fixed="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)"/>
+					<xs:element name="dataflow" type="common:DataflowReferenceType"/>
+					<xs:element name="rows" type="RowColTypeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="cols" type="RowColTypeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="slice" type="SliceTypeType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="PivotTableUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType abstract="true" name="RowColTypeBaseType">
+		<xs:annotation>
+			<xs:documentation>Generated from custom type RowColType (extends Nameable, sdmxClassName PivotTableRow). Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTableRow=OECD:POP_SEX_AGE(1.0.0).SEX_ROW).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:NameableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="id" type="common:IDType" use="required"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RowColTypeType">
+		<xs:complexContent>
+			<xs:extension base="RowColTypeBaseType">
+				<xs:sequence>
+					<xs:element name="level" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ValueFormat textType="Integer" minValue="0".</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="dimension" type="common:IDType">
+						<xs:annotation>
+							<xs:documentation>IndirectReference targetClass="Dimension" context="dataflow": the identifier of a dimension of the dataflow referenced by the dataflow property of the pivot table. Resolution is validated by the system, not by this schema.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:choice minOccurs="0">
+						<xs:element name="headingText" type="xs:string"/>
+						<xs:element name="headingCode" type="common:CodeReferenceType"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SliceTypeType">
+		<xs:annotation>
+			<xs:documentation>Generated from custom type SliceType (extendsType RowColType, sdmxClassName PivotTableSlice). Extends the generated type of RowColType, adding only the subtype's own properties.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RowColTypeType">
+				<xs:sequence>
+					<xs:element name="position" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright SDMX 2025 - http://www.sdmx.org -->
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+			xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+			elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" schemaLocation="SDMXCommon.xsd"/>
+
+	<xs:include schemaLocation="SDMXStructureBase.xsd"/>
+
+	<xs:annotation>
+		<xs:appinfo>SDMX Custom Structure Definition Module</xs:appinfo>
+		<xs:documentation>The custom structure definition module defines the structure of custom structure definition (CSD) constructs. A custom structure definition allows an agency to define the schema of a new maintainable structure type which does not exist in the SDMX Information Model. Instances conforming to a custom structure definition are validated against a dynamically generated schema derived from the definition.</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType abstract="true" name="CustomStructureDefinitionBaseType">
+		<xs:annotation>
+			<xs:documentation>CustomStructureDefinitionBaseType is an abstract base type that forms the basis for the CustomStructureDefinitionType. It extends the maintainable type to add the definition of the instance content model: a collection of properties, the mutually exclusive constraints over those properties, and a collection of locally defined custom types. A custom structure definition is itself a complex type and so declares its own properties directly. When the base attribute is ItemScheme, the definition must declare a property identified 'items' whose representation is a CustomTypeReference to a Nameable custom type; that property plays the item role and may occur zero or more times.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:MaintainableType">
+				<xs:sequence>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Property" type="PropertyType">
+							<xs:annotation>
+								<xs:documentation>Property defines a single property of instances of the custom structure definition.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType">
+							<xs:annotation>
+								<xs:documentation>MutuallyExclusive declares that a set of two or more of the declared properties are mutually exclusive. In the dynamically generated instance schema the members of the set are rendered as a native xs:choice, so that schema validation enforces the exclusivity.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="CustomType" type="LocalCustomTypeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>CustomType defines a reusable complex type which is local to this custom structure definition, and which may be used as the representation of properties via a CustomTypeReference.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="sdmxClassName" type="common:ClassNameType" use="required">
+					<xs:annotation>
+						<xs:documentation>The sdmxClassName attribute holds the class name used in the URN of instances of this custom structure definition (e.g. PivotTable). It is decoupled from the identifier of the definition; the maintenance agency is responsible for ensuring that the same class name is not used by two different custom structure definitions which it maintains.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="base" type="CustomStructureBaseType" use="optional" default="Maintainable">
+					<xs:annotation>
+						<xs:documentation>The base attribute indicates the SDMX base type which instances of this custom structure definition extend. Instances are always maintainable artefacts (agency, id, version, and name as a minimum). If the base is ItemScheme, the definition must declare an 'items' property whose representation is a CustomTypeReference to a Nameable custom type.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="CustomStructureDefinitionType">
+		<xs:annotation>
+			<xs:documentation>CustomStructureDefinitionType describes the structure of a custom structure definition. A custom structure definition declares the content model (properties, mutually exclusive constraints over them, and locally defined custom types) to which instances of the custom structure must conform.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="CustomStructureDefinitionBaseType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Property" type="PropertyType"/>
+						<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType">
+							<xs:unique name="CustomStructureDefinition_UniqueMember">
+								<xs:selector xpath="structure:Member"/>
+								<xs:field xpath="@property"/>
+							</xs:unique>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="CustomType" type="LocalCustomTypeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:unique name="CustomType_UniqueProperty">
+							<xs:selector xpath="structure:Property"/>
+							<xs:field xpath="@id"/>
+						</xs:unique>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:CustomStructureDefinitionUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:simpleType name="CustomStructureBaseType">
+		<xs:annotation>
+			<xs:documentation>CustomStructureBaseType provides an enumeration of the SDMX base types available to a custom structure definition.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Maintainable">
+				<xs:annotation>
+					<xs:documentation>Instances are plain maintainable artefacts.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ItemScheme">
+				<xs:annotation>
+					<xs:documentation>Instances are item schemes; the 'items' property of the definition declares the item type.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="PropertyType">
+		<xs:annotation>
+			<xs:documentation>PropertyType describes a single property of instances of a custom structure definition or of a custom type. The property identifier becomes an element name in the dynamically generated instance schema and is therefore restricted to the NCNameIDType. Exactly one representation must be supplied for the property.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="common:Description" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Description provides a single human-readable description documenting the property. A property has no name; its identifier serves that role.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="ValueFormat" type="TextFormatType">
+					<xs:annotation>
+						<xs:documentation>ValueFormat describes a value property with a primitive or higher level text type (e.g. String, Boolean, Integer, ObservationalTimePeriod), optionally restricted with the standard SDMX facets (minValue, maxValue, minLength, maxLength, pattern, decimals, etc.). A localisable text property is a ValueFormat of text type String with isMultiLingual set to true; in instances the property is reported once per language (with xml:lang).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Reference" type="ReferencePropertyType">
+					<xs:annotation>
+						<xs:documentation>Reference describes a reference property; in instances the property holds the URN of the referenced artefact.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="IndirectReference" type="IndirectReferencePropertyType">
+					<xs:annotation>
+						<xs:documentation>IndirectReference describes a string property which holds the identifier of an object that is resolved against the context established by another reference property of the instance (e.g. a dimension identifier resolved against the dataflow referenced by a sibling property). This allows a system to validate that the referenced object exists and to support reference resolution and referential integrity.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CustomTypeReference" type="CustomTypeReferenceType">
+					<xs:annotation>
+						<xs:documentation>CustomTypeReference describes a property whose representation is a custom type defined in this custom structure definition. A custom type may reference itself or its containing type, allowing recursive structures (e.g. an explicit hierarchy of items).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="common:NCNameIDType" use="required">
+			<xs:annotation>
+				<xs:documentation>The id attribute holds the identifier of the property. Because property identifiers are used to create XML elements in the dynamically generated instance schemas, they must be compliant with the NCName type in XML Schema. Property identifiers must be unique within their containing custom structure definition or custom type. The identifiers 'id', 'name' and 'description' (the base attributes supplied implicitly by the extension base), 'items' (the items property of item scheme based custom structures) and 'CustomStructureDefinition' (the mandatory reference of every instance to its defining custom structure definition) are reserved.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="minOccurs" type="xs:nonNegativeInteger" use="optional" default="1">
+			<xs:annotation>
+				<xs:documentation>The minOccurs attribute indicates the minimum number of values that must be reported for the property. A minimum of 1 (the default) makes the property mandatory. A property which is a member of a MutuallyExclusive set is, in effect, optional regardless of this value, because at most one member of the set may be present.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="maxOccurs" type="common:OccurenceType" use="optional" default="unbounded">
+			<xs:annotation>
+				<xs:documentation>The maxOccurs attribute indicates the maximum number of values that can be reported for the property. It defaults to unbounded, rather than to 1 as is the XML Schema convention, so that the absence of the attribute carries the same meaning in every format (the JSON formats express an unbounded property by omitting maxOccurs, having no literal for 'unbounded'). A single valued property must therefore state maxOccurs explicitly.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="MutuallyExclusiveType">
+		<xs:annotation>
+			<xs:documentation>MutuallyExclusiveType declares a set of two or more mutually exclusive properties by referencing, by identifier, properties declared in the same containing custom structure definition or custom type. Each property may be named at most once in a set. At most one member of the set may appear in an instance. In the dynamically generated instance schema the members are rendered as a native xs:choice so that schema validation enforces the constraint.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Member" minOccurs="2" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Member references one property of the set by its identifier.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="property" type="common:NCNameIDType" use="required">
+						<xs:annotation>
+							<xs:documentation>The property attribute holds the identifier of a property declared in the same container.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ReferencePropertyType">
+		<xs:annotation>
+			<xs:documentation>ReferencePropertyType describes the representation of a reference property. The set of permitted targets is given by zero or more Target elements; each Target restricts the property to a class of SDMX artefacts (class) or to instances of a custom structure definition (csd). When several Target elements are provided the permitted set is their union. When no Target is provided the property is fully open and may reference any SDMX identifiable (equivalent to a single Target with class Any).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Target" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Target restricts the property to one permitted target. Exactly one of class and csd must be supplied. Note that a csd reference which pins the absolute three part version of a custom structure definition is restrictive; modellers may prefer a wildcarded or late binding version reference.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="class" type="common:ObjectClassType" use="optional">
+						<xs:annotation>
+							<xs:documentation>The class attribute restricts the property to reference artefacts of this class of SDMX artefact.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="csd" type="common:CustomStructureDefinitionReferenceType" use="optional">
+						<xs:annotation>
+							<xs:documentation>The csd attribute restricts the property to reference instances of the referenced custom structure definition, which may be this definition or one maintained by any agency.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IndirectReferencePropertyType">
+		<xs:annotation>
+			<xs:documentation>IndirectReferencePropertyType describes the representation of an indirect reference property. The property value is the identifier of an object of the target class, resolved against the context established by the reference property named by the context attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="targetClass" type="common:ObjectClassType" use="required">
+			<xs:annotation>
+				<xs:documentation>The targetClass attribute indicates the class of the object identified by the property value (e.g. Dimension, Code).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="context" type="common:NCNameIDType" use="required">
+			<xs:annotation>
+				<xs:documentation>The context attribute holds the identifier of the reference property which establishes the resolution context. This may be a sibling property, or, from within a custom type, a property defined at the root level of the custom structure definition.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CustomTypeReferenceType">
+		<xs:annotation>
+			<xs:documentation>CustomTypeReferenceType describes the representation of a property whose value is a complex structure conforming to a custom type defined in the same custom structure definition.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="type" type="common:NCNameIDType" use="required">
+			<xs:annotation>
+				<xs:documentation>The type attribute references a custom type defined in this custom structure definition by its identifier.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="LocalCustomTypeType">
+		<xs:annotation>
+			<xs:documentation>LocalCustomTypeType describes a complex type defined locally within a custom structure definition. A custom type extends one of the abstract SDMX bases (Annotatable, Identifiable, Nameable) or another custom type defined in the same custom structure definition. The extends and extendsType attributes are mutually exclusive; if neither is provided the type extends Annotatable, unless an sdmxClassName is supplied, in which case it extends at least Identifiable. Extension is additive only: a subtype adds properties and must not redefine or restrict inherited ones, and extension chains must be acyclic.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="common:Name" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Name provides a human-readable name documenting the custom type. This may be provided in multiple, parallel language-equivalent forms.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Description provides a longer human-readable description of the custom type. This may be provided in multiple, parallel language-equivalent forms.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Property" type="PropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Property defines a single property of the custom type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>MutuallyExclusive defines a set of mutually exclusive properties of the custom type.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="CustomType_UniqueMember">
+					<xs:selector xpath="structure:Member"/>
+					<xs:field xpath="@property"/>
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="common:NCNameIDType" use="required">
+			<xs:annotation>
+				<xs:documentation>The id attribute holds the identifier of the custom type, which must be unique within the custom structure definition.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="extends" type="ExtensibleBaseType" use="optional">
+			<xs:annotation>
+				<xs:documentation>The extends attribute indicates the abstract SDMX base type which this custom type extends. It must not be used together with the extendsType attribute. ItemScheme is not a valid base for a custom type; it is only available at the level of the custom structure definition itself.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="extendsType" type="common:NCNameIDType" use="optional">
+			<xs:annotation>
+				<xs:documentation>The extendsType attribute references, by identifier, another custom type defined in the same custom structure definition which this custom type extends. It must not be used together with the extends attribute.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="sdmxClassName" type="common:ClassNameType" use="optional">
+			<xs:annotation>
+				<xs:documentation>The sdmxClassName attribute holds the class name used for the automatic generation of URNs of objects of this type within an instance (e.g. PivotTableRow). It is required when the custom type extends, directly or transitively, Identifiable or Nameable, and must not be used for purely annotatable types. Each type in an extension chain must declare its own, unique class name so that generated URNs remain unique.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:simpleType name="ExtensibleBaseType">
+		<xs:annotation>
+			<xs:documentation>ExtensibleBaseType provides an enumeration of the abstract SDMX base types which a custom type may extend.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Annotatable">
+				<xs:annotation>
+					<xs:documentation>The type carries only annotations in addition to its declared properties.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Identifiable">
+				<xs:annotation>
+					<xs:documentation>The type has an identifier and a generated URN in addition to annotations.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Nameable">
+				<xs:annotation>
+					<xs:documentation>The type has an identifier, a generated URN, a multilingual name, and an optional multilingual description in addition to annotations.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="CustomStructuresType">
+		<xs:annotation>
+			<xs:documentation>CustomStructuresType describes the structure of the container for instances of custom structure definitions. Each instance is an element in the namespace given by the URN of the custom structure definition to which it conforms, with the element name being the class name of the definition (e.g. an element PivotTable in the namespace urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)). Each instance also carries a mandatory CustomStructureDefinition element which references, by URN, the custom structure definition to which it conforms; the dynamically generated schema fixes this value to the URN of the definition, guaranteeing it agrees with the namespace. Because the namespace and reference include the version of the definition, instances conforming to different versions of the same definition may coexist in one message. The content is processed laxly: a validator equipped with the dynamically generated schemas of the custom structure definitions it knows (see the schema generation rules) validates the instances in full, while a validator with only the standard SDMX schema set checks well-formedness only.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
