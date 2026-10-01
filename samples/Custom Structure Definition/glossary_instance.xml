@@ -16,20 +16,20 @@
 	</mes:Header>
 	<mes:Structures>
 		<str:CustomStructures>
-			<gl:Glossary urn="urn:sdmx:org.sdmx.infomodel.csd.imf.Glossary=ECB:STAT_GLOSSARY(1.0.0)"
+			<gl:Glossary urn="urn:sdmx:org.sdmx.infomodel.customscheme.imf.Glossary=ECB:STAT_GLOSSARY(1.0.0)"
 					agencyID="ECB" id="STAT_GLOSSARY" version="1.0.0" isPartial="false">
 				<com:Name xml:lang="en">Statistical Glossary</com:Name>
 				<gl:CustomStructureDefinition>urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:GLOSSARY(1.0.0)</gl:CustomStructureDefinition>
-				<gl:items id="GDP" urn="urn:sdmx:org.sdmx.infomodel.csd.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP">
+				<gl:items id="GDP" urn="urn:sdmx:org.sdmx.infomodel.customscheme.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP">
 					<com:Name xml:lang="en">Gross Domestic Product</com:Name>
 					<gl:definition xml:lang="en">The total monetary value of all final goods and services produced within a country in a given period.</gl:definition>
 					<gl:definition xml:lang="fr">La valeur monétaire totale de tous les biens et services finaux produits dans un pays sur une période donnée.</gl:definition>
-					<gl:children id="GDP_PC" urn="urn:sdmx:org.sdmx.infomodel.csd.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP.GDP_PC">
+					<gl:children id="GDP_PC" urn="urn:sdmx:org.sdmx.infomodel.customscheme.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP.GDP_PC">
 						<com:Name xml:lang="en">GDP per capita</com:Name>
 						<gl:definition xml:lang="en">Gross domestic product divided by the population of the country.</gl:definition>
 					</gl:children>
 				</gl:items>
-				<gl:items id="CPI" urn="urn:sdmx:org.sdmx.infomodel.csd.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).CPI">
+				<gl:items id="CPI" urn="urn:sdmx:org.sdmx.infomodel.customscheme.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).CPI">
 					<com:Name xml:lang="en">Consumer Price Index</com:Name>
 					<gl:definition xml:lang="en">A measure of the average change over time in the prices paid by consumers for a basket of goods and services.</gl:definition>
 				</gl:items>

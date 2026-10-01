@@ -17,7 +17,7 @@
 			<str:CustomStructureDefinition urn="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=IMF:PIVOT_TABLE(1.0.0)"
 					agencyID="IMF" id="PIVOT_TABLE" version="1.0.0" sdmxClassName="PivotTable" base="Maintainable">
 				<com:Name xml:lang="en">Pivot Table</com:Name>
-				<com:Description xml:lang="en">Defines the layout of a pivot table over a dataflow. Instances of this definition have the URN class urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTable.</com:Description>
+				<com:Description xml:lang="en">Defines the layout of a pivot table over a dataflow. Instances of this definition have the URN class urn:sdmx:org.sdmx.infomodel.custom.imf.PivotTable.</com:Description>
 				<str:Property id="dataflow" maxOccurs="1">
 					<com:Description xml:lang="en">The dataflow whose data the pivot table lays out. Mandatory (minOccurs defaults to 1).</com:Description>
 					<str:Reference>

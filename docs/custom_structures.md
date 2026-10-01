@@ -32,7 +32,7 @@ it conforms to**, with the element name being the definition's `sdmxClassName`:
 
 ```xml
 <str:CustomStructures>
-    <pt:PivotTable urn="urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTable=OECD:POP_SEX_AGE(1.0.0)"
+    <pt:PivotTable urn="urn:sdmx:org.sdmx.infomodel.custom.imf.PivotTable=OECD:POP_SEX_AGE(1.0.0)"
             agencyID="OECD" id="POP_SEX_AGE" version="1.0.0">
         …
     </pt:PivotTable>
@@ -150,7 +150,7 @@ and extend the content model in one step.
 ```xml
 <xs:simpleType name="PivotTableUrnType">
     <xs:restriction base="common:CustomInstanceUrnType">
-        <xs:pattern value=".+\.csd\.imf\.PivotTable=.+"/>
+        <xs:pattern value=".+\.custom\.imf\.PivotTable=.+"/>
     </xs:restriction>
 </xs:simpleType>
 
@@ -191,12 +191,14 @@ and extend the content model in one step.
 ```
 
 **The URN simple type** restricts `common:CustomInstanceUrnType` to the class of
-this definition. The pattern is `.+\.csd\.<agency>\.<sdmxClassName>=.+`, where
-`<agency>` is the `agencyID` of the **definition** lower-cased (a nested agency
-keeps its `.` separators). Note that this is the agency of the definition, not of
-the instance: in the sample, the class part is `csd.imf.PivotTable` because IMF
-maintains the definition, while the instance itself is maintained by OECD and so
-its URN is `urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTable=OECD:POP_SEX_AGE(1.0.0)`.
+this definition. The pattern is `.+\.custom\.<agency>\.<sdmxClassName>=.+`, where
+the root package token is `custom`, or `customscheme` when the definition sets
+`base="ItemScheme"`, and `<agency>` is the `agencyID` of the **definition**
+lower-cased (a nested agency keeps its `.` separators). Note that this is the
+agency of the definition, not of the instance: in the sample, the class part is
+`custom.imf.PivotTable` because IMF maintains the definition, while the instance
+itself is maintained by OECD and so its URN is
+`urn:sdmx:org.sdmx.infomodel.custom.imf.PivotTable=OECD:POP_SEX_AGE(1.0.0)`.
 The version of the definition does not appear in the instance URN — it is
 carried by the instance's reference to its definition — so it does not appear in
 the pattern either.
@@ -321,7 +323,7 @@ is not available to a custom type; it is a base for the definition itself only.
 
 The `sdmxClassName` of a custom type plays no part in the generated schema. It
 is the class used when the URN of an object of that type is generated —
-`urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTableRow=OECD:POP_SEX_AGE(1.0.0).SEX_ROW`
+`urn:sdmx:org.sdmx.infomodel.custom.imf.PivotTableRow=OECD:POP_SEX_AGE(1.0.0).SEX_ROW`
 for the `SEX_ROW` object in the sample — and each type in an extension chain
 must declare its own so that those URNs stay unique. Nested objects inherit the
 optional `urn` attribute from `common:IdentifiableType` and may report it, as
@@ -540,9 +542,9 @@ tightest type in the common namespace:
 
 | `Reference` holds | Generate |
 | --- | --- |
-| one `Target` with a `class` which has a dedicated reference type | that type, e.g. `common:DataflowReferenceType` |
+| one `Target` with an SDMX `class` which has a dedicated reference type | that type, e.g. `common:DataflowReferenceType` |
 | several `Target` elements | an anonymous `xs:union` of their reference types |
-| a `Target` with a `csd` attribute | `common:CustomInstanceUrnReferenceType`, restricted by pattern to the class and agency of that definition where it is known (as in section 2) |
+| one `Target` with a package qualified custom `class` (e.g. `custom.imf.PivotTable`) | `common:CustomInstanceUrnReferenceType`, restricted by pattern to that class (as in section 2) |
 | no `Target`, or `class="Any"` | `common:UrnReferenceType` |
 
 ```xml
@@ -576,7 +578,10 @@ Use the `…ReferenceType` family rather than the `…UrnType` family: the refer
 types accept wildcarded and late bound versions as well as absolute ones.
 
 **`IndirectReference`** → the value is an identifier, not a URN, so the element
-is typed `common:IDType`:
+is typed `common:IDType`. The `targetClass` may be an SDMX class or a package
+qualified custom class (e.g. `custom.imf.PivotTableRow`, naming an object within
+instances of a custom structure definition); either way the generated type is the
+same, as the value is only an identifier:
 
 ```xml
 <str:Property id="dimension" maxOccurs="1">
@@ -699,8 +704,9 @@ right namespace which references a different definition is rejected.
 
 # Examples
 
-Two custom structure definitions, one of each `base`, with the derived schema
-and a conforming instance for each. They are the XML equivalents of the samples
+Three custom structure definitions — one of each `base`, and one which references
+the instances of the other two — with the derived schema and a conforming
+instance for each. They are the XML equivalents of the samples
 in `docs/structure_message` in the
 [sdmx-json](https://github.com/sdmx-twg/sdmx-json) repository, so the two
 formats can be compared side by side.
@@ -713,10 +719,13 @@ formats can be compared side by side.
 | `custom_item_scheme_csd.xml` | A CSD with `base="ItemScheme"`, defining a glossary. Shows the reserved `items` property, a multilingual property, and a custom type that references itself to build a hierarchy. |
 | `glossary_1.0.0.xsd` | The schema derived from it. |
 | `glossary_instance.xml` | A glossary maintained by ECB, conforming to the IMF definition. |
-| `csd_validation.xsd` | The wrapper described in the previous section, covering both definitions. |
+| `dashboard_csd.xml` | A CSD maintained by OECD whose panels reference the instances of the two IMF definitions above: a `Reference` to a `custom.imf.PivotTable` and to a `customscheme.imf.Glossary`, and `IndirectReference`s to a `custom.imf.PivotTableRow` and a `customscheme.imf.GlossaryTerm` within them. Also shows an indirect reference whose context is a property of the definition rather than a sibling. |
+| `dashboard_1.0.0.xsd` | The schema derived from it, showing how a custom target class becomes a pattern-narrowed `common:CustomInstanceUrnReferenceType`. |
+| `dashboard_instance.xml` | A dashboard maintained by ECB, conforming to the OECD definition, over the pivot table and glossary instances above. |
+| `csd_validation.xsd` | The wrapper described in the previous section, covering all three definitions. |
 
-All seven are in the `samples/Custom Structure Definition` folder. To validate
-the two instances in full, validate them against `csd_validation.xsd` with any
+All ten are in the `samples/Custom Structure Definition` folder. To validate
+the three instances in full, validate them against `csd_validation.xsd` with any
 XML Schema 1.0 validator; the `../../schemas/` locations resolve to the standard
 schemas in this repository. Validating them against `SDMXMessage.xsd` alone
 checks the message and the maintainable parts only, and passes over the custom

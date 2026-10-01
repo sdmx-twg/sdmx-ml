@@ -16,10 +16,10 @@
 
 	<xs:simpleType name="GlossaryUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a Glossary instance maintained under the csd.imf package.</xs:documentation>
+			<xs:documentation>Urn type for a Glossary instance maintained under the customscheme.imf package.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="common:CustomInstanceUrnType">
-			<xs:pattern value=".+\.csd\.imf\.Glossary=.+"/>
+			<xs:pattern value=".+\.customscheme\.imf\.Glossary=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -65,7 +65,7 @@
 
 	<xs:complexType abstract="true" name="TermTypeBaseType">
 		<xs:annotation>
-			<xs:documentation>Generated from custom type TermType (extends Nameable, sdmxClassName GlossaryTerm), which plays the Item role of the scheme. Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP.GDP_PC, where the id path is the chain of identifiable ancestors).</xs:documentation>
+			<xs:documentation>Generated from custom type TermType (extends Nameable, sdmxClassName GlossaryTerm), which plays the Item role of the scheme. Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.customscheme.imf.GlossaryTerm=ECB:STAT_GLOSSARY(1.0.0).GDP.GDP_PC, where the id path is the chain of identifiable ancestors).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="common:NameableType">

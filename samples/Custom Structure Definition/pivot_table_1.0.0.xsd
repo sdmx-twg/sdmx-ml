@@ -16,10 +16,10 @@
 
 	<xs:simpleType name="PivotTableUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a PivotTable instance maintained under the csd.imf package.</xs:documentation>
+			<xs:documentation>Urn type for a PivotTable instance maintained under the custom.imf package.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="common:CustomInstanceUrnType">
-			<xs:pattern value=".+\.csd\.imf\.PivotTable=.+"/>
+			<xs:pattern value=".+\.custom\.imf\.PivotTable=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -68,7 +68,7 @@
 
 	<xs:complexType abstract="true" name="RowColTypeBaseType">
 		<xs:annotation>
-			<xs:documentation>Generated from custom type RowColType (extends Nameable, sdmxClassName PivotTableRow). Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.csd.imf.PivotTableRow=OECD:POP_SEX_AGE(1.0.0).SEX_ROW).</xs:documentation>
+			<xs:documentation>Generated from custom type RowColType (extends Nameable, sdmxClassName PivotTableRow). Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.custom.imf.PivotTableRow=OECD:POP_SEX_AGE(1.0.0).SEX_ROW).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="common:NameableType">
