@@ -177,22 +177,17 @@
 
 	<xs:complexType name="ReferencePropertyType">
 		<xs:annotation>
-			<xs:documentation>ReferencePropertyType describes the representation of a reference property. The set of permitted targets is given by zero or more Target elements; each Target restricts the property to a class of SDMX artefacts (class) or to instances of a custom structure definition (csd). When several Target elements are provided the permitted set is their union. When no Target is provided the property is fully open and may reference any SDMX identifiable (equivalent to a single Target with class Any).</xs:documentation>
+			<xs:documentation>ReferencePropertyType describes the representation of a reference property. The set of permitted targets is given by zero or more Target elements; each Target restricts the property to a class of SDMX artefacts, or to instances of a custom structure definition. When several Target elements are provided the permitted set is their union. When no Target is provided the property is fully open and may reference any SDMX identifiable (equivalent to a single Target with class Any).</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Target" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Target restricts the property to one permitted target. Exactly one of class and csd must be supplied. Note that a csd reference which pins the absolute three part version of a custom structure definition is restrictive; modellers may prefer a wildcarded or late binding version reference.</xs:documentation>
+					<xs:documentation>Target restricts the property to one permitted target class.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:attribute name="class" type="common:ObjectClassType" use="optional">
+					<xs:attribute name="class" type="common:ReferenceTargetClassType" use="required">
 						<xs:annotation>
-							<xs:documentation>The class attribute restricts the property to reference artefacts of this class of SDMX artefact.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="csd" type="common:CustomStructureDefinitionReferenceType" use="optional">
-						<xs:annotation>
-							<xs:documentation>The csd attribute restricts the property to reference instances of the referenced custom structure definition, which may be this definition or one maintained by any agency.</xs:documentation>
+							<xs:documentation>The class attribute restricts the property to reference artefacts of this class. The class is either a class of the SDMX Information Model (e.g. Dataflow), or the class of instances of a custom structure definition qualified by the URN package of the instances (e.g. custom.imf.PivotTable, or customscheme.oecd.Glossary for a custom structure definition which extends ItemScheme). The qualified class identifies the custom structure definition by its maintenance agency and class name, independently of its version, and may be this definition or one maintained by any agency.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
@@ -204,9 +199,9 @@
 		<xs:annotation>
 			<xs:documentation>IndirectReferencePropertyType describes the representation of an indirect reference property. The property value is the identifier of an object of the target class, resolved against the context established by the reference property named by the context attribute.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="targetClass" type="common:ObjectClassType" use="required">
+		<xs:attribute name="targetClass" type="common:ReferenceTargetClassType" use="required">
 			<xs:annotation>
-				<xs:documentation>The targetClass attribute indicates the class of the object identified by the property value (e.g. Dimension, Code).</xs:documentation>
+				<xs:documentation>The targetClass attribute indicates the class of the object identified by the property value. The class is either a class of the SDMX Information Model (e.g. Dimension, Code), or the class of an object within instances of a custom structure definition qualified by the URN package of the instances (e.g. custom.imf.PivotTableRow, customscheme.oecd.GlossaryTerm). A qualified class may be that of the instances themselves or of an identifiable custom type within them; which of the two is determined by the custom structure definition which declares the class.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="context" type="common:NCNameIDType" use="required">
@@ -242,20 +237,22 @@
 					<xs:documentation>Description provides a longer human-readable description of the custom type. This may be provided in multiple, parallel language-equivalent forms.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Property" type="PropertyType" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Property defines a single property of the custom type.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>MutuallyExclusive defines a set of mutually exclusive properties of the custom type.</xs:documentation>
-				</xs:annotation>
-				<xs:unique name="CustomType_UniqueMember">
-					<xs:selector xpath="structure:Member"/>
-					<xs:field xpath="@property"/>
-				</xs:unique>
-			</xs:element>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="Property" type="PropertyType">
+					<xs:annotation>
+						<xs:documentation>Property defines a single property of the custom type.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MutuallyExclusive" type="MutuallyExclusiveType">
+					<xs:annotation>
+						<xs:documentation>MutuallyExclusive defines a set of mutually exclusive properties of the custom type.</xs:documentation>
+					</xs:annotation>
+					<xs:unique name="CustomType_UniqueMember">
+						<xs:selector xpath="structure:Member"/>
+						<xs:field xpath="@property"/>
+					</xs:unique>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 		<xs:attribute name="id" type="common:NCNameIDType" use="required">
 			<xs:annotation>
