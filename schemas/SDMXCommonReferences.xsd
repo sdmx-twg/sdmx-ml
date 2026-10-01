@@ -13,7 +13,7 @@
 	<!-- Identification and Reference Field Types -->
 	<xs:simpleType name="UrnPrefixPart">
 		<xs:annotation>
-			<xs:documentation>This is validates the first part of the URN (urn:sdmx.org.infomodel.&lt;package>.&lt;class=). It is intended to be further restricted. The package consists of one or more period separated lower case tokens; packages of more than one token are used only for instances of custom structure definitions, where the tokens following 'csd' are the lower case agency identifier(s) of the agency maintaining the definition. The final token before the '=' is always the class.</xs:documentation>
+			<xs:documentation>This is validates the first part of the URN (urn:sdmx.org.infomodel.&lt;package>.&lt;class=). It is intended to be further restricted. The package consists of one or more period separated lower case tokens; packages of more than one token are used only for instances of custom structure definitions, where the root token is 'custom' (or 'customscheme' if the definition extends ItemScheme) and the tokens following it are the lower case agency identifier(s) of the agency maintaining the definition. The final token before the '=' is always the class.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:pattern value="urn:sdmx:org\.sdmx\.infomodel\.[a-z]+(\.[a-z][a-z0-9_\-]*)*\.[A-Za-z][A-Za-z0-9]*=[^=]+"/>
@@ -51,7 +51,7 @@
 			<xs:pattern value=".+\.conceptscheme\.Concept=.+"/>
 			<xs:pattern value=".+\.conceptscheme\.ConceptScheme=.+"/>
 			<xs:pattern value=".+\.csd\.CustomStructureDefinition=.+"/>
-			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
+			<xs:pattern value=".+\.custom(scheme)?(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
 			<xs:pattern value=".+\.datastructure\.AttributeDescriptor=.+"/>
 			<xs:pattern value=".+\.datastructure\.DataAttribute=.+"/>
 			<xs:pattern value=".+\.datastructure\.Dataflow=.+"/>
@@ -1758,10 +1758,10 @@
 
 	<xs:simpleType name="CustomInstanceUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for an instance of a custom structure definition (urn:sdmx:org.sdmx.infomodel.csd.&lt;agency>.&lt;class>=&lt;agency-id>:&lt;id>(&lt;version>)). The package is 'csd' followed by the period separated agency identifier(s) of the agency which maintains the custom structure definition, in lower case, with the '.' separating an agency from a sub-agency. The final period separated token before the '=' is always the class name of the custom structure definition, making the URN parseable by position. The version of the custom structure definition to which an instance conforms is carried by the instance's reference to its definition, not by the URN class, so the versioning of the definition does not affect the uniqueness of instance URNs. Dynamically generated schemas restrict this type to the class and agency of a specific custom structure definition.</xs:documentation>
+			<xs:documentation>Urn type for an instance of a custom structure definition (urn:sdmx:org.sdmx.infomodel.custom.&lt;agency>.&lt;class>=&lt;agency-id>:&lt;id>(&lt;version>)). The package is 'custom', or 'customscheme' if the custom structure definition extends ItemScheme, followed by the period separated agency identifier(s) of the agency which maintains the custom structure definition, in lower case, with the '.' separating an agency from a sub-agency (e.g. custom.imf.PivotTable, customscheme.oecd.Glossary). The item scheme differentiator is the root token of the package so that it can not be mistaken for an agency identifier. The final period separated token before the '=' is always the class name of the custom structure definition, making the URN parseable by position. The version of the custom structure definition to which an instance conforms is carried by the instance's reference to its definition, not by the URN class, so the versioning of the definition does not affect the uniqueness of instance URNs. Dynamically generated schemas restrict this type to the class and agency of a specific custom structure definition.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnType">
-			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
+			<xs:pattern value=".+\.custom(scheme)?(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1770,8 +1770,24 @@
 			<xs:documentation>A reference type for an instance of a custom structure definition. It accounts for both legacy and semantic versioning, including late binding.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnReferenceType">
-			<xs:pattern value=".+\.csd(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
+			<xs:pattern value=".+\.custom(scheme)?(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*=.+"/>
 		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CustomClassType">
+		<xs:annotation>
+			<xs:documentation>CustomClassType is the class of instances of a custom structure definition, or of an identifiable object within them, qualified by the URN package of the instances: the text of a URN between 'urn:sdmx:org.sdmx.infomodel.' and the '=' (e.g. custom.imf.PivotTable, custom.imf.PivotTableRow, customscheme.oecd.Glossary). The maintenance agency of the custom structure definition, and whether the instances are item schemes, can be determined without resolving the custom structure definition. It is independent of the version of the custom structure definition.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="custom(scheme)?(\.[a-z][a-z0-9_\-]*)+\.[A-Z][A-Za-z0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ReferenceTargetClassType">
+		<xs:annotation>
+			<xs:documentation>ReferenceTargetClassType is the class of artefact which may be the target of a reference or indirect reference. It is either a class of the SDMX Information Model (see ObjectClassType, e.g. Dataflow or AnyMaintainable), or the package qualified class of instances of a custom structure definition, or of an identifiable object within them (see CustomClassType, e.g. custom.imf.PivotTable).</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="ObjectClassType CustomClassType"/>
 	</xs:simpleType>
 
 </xs:schema>
