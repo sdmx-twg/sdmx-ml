@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Dynamically generated schema for urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0) (see dashboard_csd.xml), following the CSD schema generation rules. -->
+<xs:schema targetNamespace="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0)"
+			xmlns="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0)"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+			elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" schemaLocation="../../schemas/SDMXCommon.xsd"/>
+
+	<xs:element name="Dashboard" type="DashboardType">
+		<xs:annotation>
+			<xs:documentation>An instance of the OECD DASHBOARD(1.0.0) custom structure definition. The element name is the sdmxClassName of the definition; the namespace is the URN of the definition.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:simpleType name="DashboardUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a Dashboard instance maintained under the custom.oecd package.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="common:CustomInstanceUrnType">
+			<xs:pattern value=".+\.custom\.oecd\.Dashboard=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GlossaryReferenceType">
+		<xs:annotation>
+			<xs:documentation>Generated from the Target class customscheme.imf.Glossary of the glossary property: a reference to an instance of another custom structure definition narrows common:CustomInstanceUrnReferenceType by a pattern to the target class, in the same way section 2 narrows the urn attribute of the instance itself. The class is all that is needed to write the pattern, so the referenced definition does not have to be resolved; its version does not take part.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="common:CustomInstanceUrnReferenceType">
+			<xs:pattern value=".+\.customscheme\.imf\.Glossary=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="PivotTableReferenceType">
+		<xs:annotation>
+			<xs:documentation>Generated from the Target class custom.imf.PivotTable of the table property of PanelType.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="common:CustomInstanceUrnReferenceType">
+			<xs:pattern value=".+\.custom\.imf\.PivotTable=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType abstract="true" name="DashboardBaseType">
+		<xs:annotation>
+			<xs:documentation>Extends MaintainableType (base="Maintainable" in the definition) by adding the declared properties in order.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element name="CustomStructureDefinition" type="common:CustomStructureDefinitionReferenceType" fixed="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0)">
+						<xs:annotation>
+							<xs:documentation>Mandatory reference to the custom structure definition to which this instance conforms. The fixed value guarantees the reference matches the definition from which this schema was generated.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="glossary" type="GlossaryReferenceType" minOccurs="0"/>
+					<xs:element name="panels" type="PanelTypeType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="DashboardType">
+		<xs:annotation>
+			<xs:documentation>Restricts the base type to type the urn attribute to the Dashboard instance URN.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="DashboardBaseType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="CustomStructureDefinition" type="common:CustomStructureDefinitionReferenceType" fixed="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0)"/>
+					<xs:element name="glossary" type="GlossaryReferenceType" minOccurs="0"/>
+					<xs:element name="panels" type="PanelTypeType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="DashboardUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType abstract="true" name="PanelTypeBaseType">
+		<xs:annotation>
+			<xs:documentation>Generated from custom type PanelType (extends Nameable, sdmxClassName DashboardPanel). Restricts NameableType to require the id, which is used for the automatic generation of the object URN (e.g. urn:sdmx:org.sdmx.infomodel.custom.oecd.DashboardPanel=ECB:POP_DASHBOARD(1.0.0).SEX_PANEL).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:NameableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="id" type="common:IDType" use="required"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="PanelTypeType">
+		<xs:complexContent>
+			<xs:extension base="PanelTypeBaseType">
+				<xs:sequence>
+					<xs:element name="table" type="PivotTableReferenceType">
+						<xs:annotation>
+							<xs:documentation>Reference to an instance of the IMF PIVOT_TABLE definition. Mandatory (minOccurs defaults to 1).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="pinnedRow" type="common:IDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>IndirectReference targetClass="custom.imf.PivotTableRow" context="table": the identifier of a row of the pivot table referenced by the table property. A custom target class generates the same type as an SDMX one, because the value is only an identifier; resolution is validated by the system, not by this schema.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="term" type="common:IDType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>IndirectReference targetClass="customscheme.imf.GlossaryTerm" context="glossary": the identifier of a term of the glossary referenced by the glossary property of the dashboard. The context is a property of the definition itself, not of this custom type; this makes no difference to the generated schema.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="position" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ValueFormat textType="Integer" minValue="0".</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>
