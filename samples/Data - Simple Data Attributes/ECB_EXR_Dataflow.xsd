@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<xs:schema xmlns:dsd="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/data/structurespecific"
+<xs:schema xmlns:dsd="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/data/structurespecific"
     xmlns="urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0):ObsLevelDim:TIME_PERIOD"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:compact="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structurespecific"
-    xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
-    xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/data/structurespecific"
+    xmlns:compact="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structurespecific"
+    xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+    xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/data/structurespecific"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     targetNamespace="urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0):ObsLevelDim:TIME_PERIOD"
     elementFormDefault="qualified" attributeFormDefault="unqualified">
-    <xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
-        schemaLocation="https://xml.sdmx.org/3.1/SDMXCommon.xsd"/>
-    <xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/data/structurespecific"
-        schemaLocation="https://xml.sdmx.org/3.1/SDMXDataStructureSpecific.xsd"/>
+    <xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+        schemaLocation="https://xml.sdmx.org/3.2/SDMXCommon.xsd"/>
+    <xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/data/structurespecific"
+        schemaLocation="https://xml.sdmx.org/3.2/SDMXDataStructureSpecific.xsd"/>
     <xs:simpleType name="BREAKS">
         <xs:restriction base="xs:string">
             <xs:maxLength value="350"/>

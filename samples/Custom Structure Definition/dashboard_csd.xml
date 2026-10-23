@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:xml="http://www.w3.org/XML/1998/namespace"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message"
+				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message ../../schemas/SDMXMessage.xsd">
+	<mes:Header>
+		<mes:ID>IREF500005</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2026-06-11T10:00:00Z</mes:Prepared>
+		<mes:Sender id="OECD"/>
+		<mes:Receiver id="not_supplied"/>
+	</mes:Header>
+	<mes:Structures>
+		<str:CustomStructureDefinitions>
+			<str:CustomStructureDefinition urn="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0)"
+					agencyID="OECD" id="DASHBOARD" version="1.0.0" sdmxClassName="Dashboard" base="Maintainable">
+				<com:Name xml:lang="en">Dashboard</com:Name>
+				<com:Description xml:lang="en">A dashboard assembled from pivot tables. Instances of this definition have the URN class urn:sdmx:org.sdmx.infomodel.custom.oecd.Dashboard. This definition references instances of two other custom structure definitions, both maintained by IMF: a panel points at a PivotTable instance (urn class custom.imf.PivotTable), and may name one of that table's rows (custom.imf.PivotTableRow) and one term of the dashboard's glossary (customscheme.imf.GlossaryTerm). A target class is always the class of the referenced object qualified by its URN package, so it carries the maintenance agency of the definition and, through the root package token, whether its instances are item schemes - the definition itself need not be resolved to read the target, and its version does not affect the target.</com:Description>
+				<str:Property id="glossary" minOccurs="0" maxOccurs="1">
+					<com:Description xml:lang="en">The glossary which defines the terms used by the panels of this dashboard. A reference to an instance of another custom structure definition: the target class customscheme.imf.Glossary is the class of instances of the IMF GLOSSARY definition, whose root package token is 'customscheme' because that definition extends ItemScheme.</com:Description>
+					<str:Reference>
+						<str:Target class="customscheme.imf.Glossary"/>
+					</str:Reference>
+				</str:Property>
+				<str:Property id="panels" minOccurs="0" maxOccurs="unbounded">
+					<str:CustomTypeReference type="PanelType"/>
+				</str:Property>
+				<str:CustomType id="PanelType" extends="Nameable" sdmxClassName="DashboardPanel">
+					<com:Name xml:lang="en">Dashboard panel</com:Name>
+					<com:Description xml:lang="en">One panel of the dashboard, presenting a single pivot table.</com:Description>
+					<str:Property id="table" maxOccurs="1">
+						<com:Description xml:lang="en">The pivot table presented by this panel. A reference to an instance of another custom structure definition: the target class custom.imf.PivotTable is the class of instances of the IMF PIVOT_TABLE definition, which has the default base of Maintainable.</com:Description>
+						<str:Reference>
+							<str:Target class="custom.imf.PivotTable"/>
+						</str:Reference>
+					</str:Property>
+					<str:Property id="pinnedRow" minOccurs="0" maxOccurs="1">
+						<com:Description xml:lang="en">The identifier of the row of the referenced pivot table to pin at the top of the panel. An indirect reference whose target class names an object within instances of a custom structure definition: PivotTableRow is a custom type of the IMF PIVOT_TABLE definition, so the identifier is resolved against the pivot table referenced by the sibling 'table' property.</com:Description>
+						<str:IndirectReference targetClass="custom.imf.PivotTableRow" context="table"/>
+					</str:Property>
+					<str:Property id="term" minOccurs="0" maxOccurs="1">
+						<com:Description xml:lang="en">The identifier of the glossary term which defines the subject of this panel. An indirect reference resolved against the 'glossary' property, which is declared at the root level of this definition rather than as a sibling of this property.</com:Description>
+						<str:IndirectReference targetClass="customscheme.imf.GlossaryTerm" context="glossary"/>
+					</str:Property>
+					<str:Property id="position" minOccurs="0" maxOccurs="1">
+						<com:Description xml:lang="en">The position of the panel in the dashboard, counting from zero.</com:Description>
+						<str:ValueFormat textType="Integer" minValue="0"/>
+					</str:Property>
+				</str:CustomType>
+			</str:CustomStructureDefinition>
+		</str:CustomStructureDefinitions>
+	</mes:Structures>
+</mes:Structure>

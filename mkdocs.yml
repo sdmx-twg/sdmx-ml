@@ -5,6 +5,7 @@ nav:
 - Message: message.md
 - Common: common.md
 - Structure: structure.md
+- Custom Structures: custom_structures.md
 - Data: data.md
 - Registry: registry.md
 - Samples: samples.md

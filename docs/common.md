@@ -49,7 +49,7 @@ attributes if it weren't for the complete reference requirement.
 
 ### Common Namespace
 
-**<http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common>**
+**<http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common>**
 
 #### Summary
 

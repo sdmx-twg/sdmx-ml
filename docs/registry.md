@@ -15,7 +15,7 @@ the registry to function in more standard web service manner.
 
 ### Registry Namespace
 
-**http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry**
+**http://www.sdmx.org/resources/sdmxml/schemas/v3_2/registry**
 
 #### Summary
 
@@ -23,8 +23,8 @@ Referenced Namespaces:
 
 | **Namespace**                                               | **Prefix** |
 |-------------------------------------------------------------|------------|
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common    | common     |
-| http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure | structure  |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common    | common     |
+| http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure | structure  |
 | http://www.w3.org/2001/XMLSchema                            | xs         |
 
 Contents:
