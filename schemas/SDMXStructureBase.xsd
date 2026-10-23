@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright SDMX 2025 - http://www.sdmx.org -->
-<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure" 
-			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure" 
+<xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure" 
+			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure" 
 			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
-			xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure" 
+			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+			xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure" 
 			elementFormDefault="qualified">
 
-	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" schemaLocation="SDMXCommon.xsd"/>
+	<xs:import namespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common" schemaLocation="SDMXCommon.xsd"/>
 	
 	<xs:annotation>
 		<xs:appinfo>SDMX Base Structure Module</xs:appinfo>
