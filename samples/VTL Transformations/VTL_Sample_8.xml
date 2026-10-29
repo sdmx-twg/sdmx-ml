@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright SDMX 2025 - www.sdmx.org -->
+<mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:xml="http://www.w3.org/XML/1998/namespace"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message"
+				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message https://xml.sdmx.org/3.2/SDMXMessage.xsd">
+  <mes:Header>
+    <mes:ID>VTL_SAMPLE8</mes:ID>
+    <mes:Test>false</mes:Test>
+    <mes:Prepared>2026-10-29T00:00:00Z</mes:Prepared>
+    <mes:Sender id="EXAMPLE" />
+    <mes:Receiver id="SDMX" />
+  </mes:Header>
+  <mes:Structures>
+    <!-- A VTL 2.2 program using user defined operators, one of which invokes another. -->
+    <str:AgencySchemes>
+      <str:AgencyScheme agencyID="SDMX" id="AGENCIES">
+        <com:Name xml:lang="en">SDMX Agency Scheme</com:Name>
+        <str:Agency id="SDMX">
+          <com:Name xml:lang="en">SDMX</com:Name>
+          <com:Description xml:lang="en">SDMX is an initiative to foster standards for the exchange of statistical information. It is sponsored by the Bank for International Settlements (BIS), the European Central Bank (ECB), the Statistical Office of the European Union (Eurostat), the International Monetary Fund (IMF), the Organization for Economic Co-Operation and Development (OECD), the United Nations (UN) and the World Bank.</com:Description>
+          <str:Contact>
+            <com:Name xml:lang="en">SDMX Secretariat</com:Name>
+            <str:Department xml:lang="en">SDMX Secretariat</str:Department>
+            <str:Role xml:lang="en">Single entry point for external inquiries</str:Role>
+            <str:URI>http://sdmx.org</str:URI>
+            <str:Email>secretariat@sdmx.org</str:Email>
+          </str:Contact>
+        </str:Agency>
+        <str:Agency id="EXAMPLE">
+          <com:Name xml:lang="en">Example Agency</com:Name>
+        </str:Agency>
+      </str:AgencyScheme>
+    </str:AgencySchemes>
+    <str:Codelists>
+      <str:Codelist agencyID="EXAMPLE" id="CL_AREA" version="1.0">
+        <com:Name xml:lang="en">Reference area</com:Name>
+        <str:Code id="USA">
+          <com:Name xml:lang="en">United States</com:Name>
+        </str:Code>
+        <str:Code id="CAN">
+          <com:Name xml:lang="en">Canada</com:Name>
+        </str:Code>
+        <str:Code id="MEX">
+          <com:Name xml:lang="en">Mexico</com:Name>
+        </str:Code>
+      </str:Codelist>
+    </str:Codelists>
+    <str:ConceptSchemes>
+      <str:ConceptScheme agencyID="EXAMPLE" id="CONCEPTS" version="1.0">
+        <com:Name xml:lang="en">Concepts</com:Name>
+        <str:Concept id="REF_AREA">
+          <com:Name xml:lang="en">Reference area</com:Name>
+        </str:Concept>
+        <str:Concept id="TIME_PERIOD">
+          <com:Name xml:lang="en">Time period</com:Name>
+        </str:Concept>
+        <str:Concept id="OBS_VALUE">
+          <com:Name xml:lang="en">Observation value</com:Name>
+        </str:Concept>
+      </str:ConceptScheme>
+    </str:ConceptSchemes>
+    <str:DataStructures>
+      <str:DataStructure agencyID="EXAMPLE" id="DSD_TRADE" version="1.0">
+        <com:Name xml:lang="en">Trade in goods</com:Name>
+        <str:DataStructureComponents>
+          <str:DimensionList>
+            <str:Dimension id="REF_AREA">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).REF_AREA</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_AREA(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+            </str:Dimension>
+            <str:TimeDimension id="TIME_PERIOD">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="ObservationalTimePeriod"/>
+              </str:LocalRepresentation>
+            </str:TimeDimension>
+          </str:DimensionList>
+          <str:MeasureList>
+            <str:Measure id="OBS_VALUE">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).OBS_VALUE</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="Double"/>
+              </str:LocalRepresentation>
+            </str:Measure>
+          </str:MeasureList>
+        </str:DataStructureComponents>
+      </str:DataStructure>
+    </str:DataStructures>
+    <str:Dataflows>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_EXPORTS" version="1.0">
+        <com:Name xml:lang="en">Exports of goods</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_TRADE(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_IMPORTS" version="1.0">
+        <com:Name xml:lang="en">Imports of goods</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_TRADE(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_TRADE_BALANCE" version="1.0">
+        <com:Name xml:lang="en">Trade balance in goods</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_TRADE(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_EXPORT_SHARE" version="1.0">
+        <com:Name xml:lang="en">Share of the exports in the trade in goods</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_TRADE(1.0)</str:Structure>
+      </str:Dataflow>
+    </str:Dataflows>
+    <str:VtlMappingSchemes>
+      <str:VtlMappingScheme agencyID="EXAMPLE" id="VTL_MAP_TRADE" version="1.0">
+        <com:Name xml:lang="en">VTL mappings of TS_TRADE</com:Name>
+        <str:VtlDatasetMapping id="DS_EXPORTS" vtlAlias="ds_exports" isInput="true">
+          <com:Name xml:lang="en">Exports of goods</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_EXPORTS(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="DS_IMPORTS" vtlAlias="ds_imports" isInput="true">
+          <com:Name xml:lang="en">Imports of goods</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_IMPORTS(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="DS_BALANCE" vtlAlias="ds_balance" isInput="false">
+          <com:Name xml:lang="en">Trade balance in goods</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_TRADE_BALANCE(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="DS_EXPORT_SHARE" vtlAlias="ds_export_share" isInput="false">
+          <com:Name xml:lang="en">Share of the exports in the trade in goods</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_EXPORT_SHARE(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+      </str:VtlMappingScheme>
+    </str:VtlMappingSchemes>
+    <str:UserDefinedOperatorSchemes>
+      <str:UserDefinedOperatorScheme agencyID="EXAMPLE" id="UDO_TRADE" version="1.0" vtlVersion="2.2">
+        <com:Name xml:lang="en">Operators for the trade in goods</com:Name>
+        <!-- The operators are defined on generic operands (the parameters), passed at the invocation. -->
+        <str:UserDefinedOperator id="TRADE_BALANCE">
+          <com:Name xml:lang="en">Trade balance</com:Name>
+          <str:OperatorDefinition>
+            define operator trade_balance (exports dataset, imports dataset)
+              returns dataset is
+                exports - imports
+            end operator
+          </str:OperatorDefinition>
+        </str:UserDefinedOperator>
+        <str:UserDefinedOperator id="SHARE">
+          <com:Name xml:lang="en">Share of a part in a whole, as a percentage</com:Name>
+          <str:OperatorDefinition>
+            define operator share (part dataset, whole dataset)
+              returns dataset is
+                part / whole * 100
+            end operator
+          </str:OperatorDefinition>
+        </str:UserDefinedOperator>
+        <!-- export_share invokes share: the user defined operator schemes of the transformation scheme must contain
+             all the operators used by its transformations, also indirectly. -->
+        <str:UserDefinedOperator id="EXPORT_SHARE">
+          <com:Name xml:lang="en">Share of the exports in the trade</com:Name>
+          <str:OperatorDefinition>
+            define operator export_share (exports dataset, imports dataset)
+              returns dataset is
+                share(exports, exports + imports)
+            end operator
+          </str:OperatorDefinition>
+        </str:UserDefinedOperator>
+      </str:UserDefinedOperatorScheme>
+    </str:UserDefinedOperatorSchemes>
+    <str:TransformationSchemes>
+      <str:TransformationScheme agencyID="EXAMPLE" id="TS_TRADE" version="1.0" vtlVersion="2.2">
+        <com:Name xml:lang="en">Trade balance and export share</com:Name>
+        <str:Transformation id="BALANCE" isPersistent="true">
+          <com:Name xml:lang="en">Trade balance</com:Name>
+          <str:Expression>trade_balance(ds_exports, ds_imports)</str:Expression>
+          <str:Result>ds_balance</str:Result>
+        </str:Transformation>
+        <str:Transformation id="EXPORT_SHARE" isPersistent="true">
+          <com:Name xml:lang="en">Share of the exports in the trade</com:Name>
+          <str:Expression>export_share(ds_exports, ds_imports)</str:Expression>
+          <str:Result>ds_export_share</str:Result>
+        </str:Transformation>
+        <str:VtlMappingScheme>urn:sdmx:org.sdmx.infomodel.transformation.VtlMappingScheme=EXAMPLE:VTL_MAP_TRADE(1.0)</str:VtlMappingScheme>
+        <str:UserDefinedOperatorScheme>urn:sdmx:org.sdmx.infomodel.transformation.UserDefinedOperatorScheme=EXAMPLE:UDO_TRADE(1.0)</str:UserDefinedOperatorScheme>
+      </str:TransformationScheme>
+    </str:TransformationSchemes>
+  </mes:Structures>
+</mes:Structure>

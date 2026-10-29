@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright SDMX 2025 - www.sdmx.org -->
+<mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:xml="http://www.w3.org/XML/1998/namespace"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message"
+				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message https://xml.sdmx.org/3.2/SDMXMessage.xsd">
+  <mes:Header>
+    <mes:ID>VTL_SAMPLE7</mes:ID>
+    <mes:Test>false</mes:Test>
+    <mes:Prepared>2026-10-29T00:00:00Z</mes:Prepared>
+    <mes:Sender id="EXAMPLE" />
+    <mes:Receiver id="SDMX" />
+  </mes:Header>
+  <mes:Structures>
+    <!-- A VTL 2.2 program using the three types of VTL rulesets: a datapoint ruleset defined on Variables, a
+         hierarchical ruleset defined on a Value Domain mapped to a Codelist, and a viral propagation. -->
+    <str:AgencySchemes>
+      <str:AgencyScheme agencyID="SDMX" id="AGENCIES">
+        <com:Name xml:lang="en">SDMX Agency Scheme</com:Name>
+        <str:Agency id="SDMX">
+          <com:Name xml:lang="en">SDMX</com:Name>
+          <com:Description xml:lang="en">SDMX is an initiative to foster standards for the exchange of statistical information. It is sponsored by the Bank for International Settlements (BIS), the European Central Bank (ECB), the Statistical Office of the European Union (Eurostat), the International Monetary Fund (IMF), the Organization for Economic Co-Operation and Development (OECD), the United Nations (UN) and the World Bank.</com:Description>
+          <str:Contact>
+            <com:Name xml:lang="en">SDMX Secretariat</com:Name>
+            <str:Department xml:lang="en">SDMX Secretariat</str:Department>
+            <str:Role xml:lang="en">Single entry point for external inquiries</str:Role>
+            <str:URI>http://sdmx.org</str:URI>
+            <str:Email>secretariat@sdmx.org</str:Email>
+          </str:Contact>
+        </str:Agency>
+        <str:Agency id="EXAMPLE">
+          <com:Name xml:lang="en">Example Agency</com:Name>
+        </str:Agency>
+      </str:AgencyScheme>
+    </str:AgencySchemes>
+    <str:Codelists>
+      <str:Codelist agencyID="EXAMPLE" id="CL_AREA" version="1.0">
+        <com:Name xml:lang="en">Reference area</com:Name>
+        <str:Code id="BE">
+          <com:Name xml:lang="en">Belgium</com:Name>
+        </str:Code>
+        <str:Code id="LU">
+          <com:Name xml:lang="en">Luxembourg</com:Name>
+        </str:Code>
+        <str:Code id="NL">
+          <com:Name xml:lang="en">Netherlands</com:Name>
+        </str:Code>
+        <str:Code id="BENELUX">
+          <com:Name xml:lang="en">Benelux</com:Name>
+        </str:Code>
+      </str:Codelist>
+      <str:Codelist agencyID="EXAMPLE" id="CL_OBS_STATUS" version="1.0">
+        <com:Name xml:lang="en">Observation status</com:Name>
+        <str:Code id="A">
+          <com:Name xml:lang="en">Normal value</com:Name>
+        </str:Code>
+        <str:Code id="E">
+          <com:Name xml:lang="en">Estimated value</com:Name>
+        </str:Code>
+        <str:Code id="M">
+          <com:Name xml:lang="en">Missing value</com:Name>
+        </str:Code>
+      </str:Codelist>
+    </str:Codelists>
+    <str:ConceptSchemes>
+      <str:ConceptScheme agencyID="EXAMPLE" id="CONCEPTS" version="1.0">
+        <com:Name xml:lang="en">Concepts</com:Name>
+        <str:Concept id="REF_AREA">
+          <com:Name xml:lang="en">Reference area</com:Name>
+        </str:Concept>
+        <str:Concept id="TIME_PERIOD">
+          <com:Name xml:lang="en">Time period</com:Name>
+        </str:Concept>
+        <str:Concept id="OBS_VALUE">
+          <com:Name xml:lang="en">Observation value</com:Name>
+        </str:Concept>
+        <str:Concept id="OBS_STATUS">
+          <com:Name xml:lang="en">Observation status</com:Name>
+        </str:Concept>
+        <str:Concept id="RULEID">
+          <com:Name xml:lang="en">Rule identifier</com:Name>
+        </str:Concept>
+        <str:Concept id="ERRORCODE">
+          <com:Name xml:lang="en">Error code</com:Name>
+        </str:Concept>
+        <str:Concept id="ERRORLEVEL">
+          <com:Name xml:lang="en">Error level</com:Name>
+        </str:Concept>
+      </str:ConceptScheme>
+    </str:ConceptSchemes>
+    <str:DataStructures>
+      <str:DataStructure agencyID="EXAMPLE" id="DSD_POP" version="1.0">
+        <com:Name xml:lang="en">Population</com:Name>
+        <str:DataStructureComponents>
+          <str:DimensionList>
+            <str:Dimension id="REF_AREA">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).REF_AREA</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_AREA(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+            </str:Dimension>
+            <str:TimeDimension id="TIME_PERIOD">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="ObservationalTimePeriod"/>
+              </str:LocalRepresentation>
+            </str:TimeDimension>
+          </str:DimensionList>
+          <str:AttributeList>
+            <str:Attribute id="OBS_STATUS">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).OBS_STATUS</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_OBS_STATUS(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+              <str:AttributeRelationship>
+                <str:Observation />
+              </str:AttributeRelationship>
+            </str:Attribute>
+          </str:AttributeList>
+          <str:MeasureList>
+            <str:Measure id="OBS_VALUE">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).OBS_VALUE</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="Double"/>
+              </str:LocalRepresentation>
+            </str:Measure>
+          </str:MeasureList>
+        </str:DataStructureComponents>
+      </str:DataStructure>
+      <!-- The data structure of the result of check_datapoint (Basic mapping): the Identifier ruleid and the Measures
+           errorcode and errorlevel added by the operator correspond to RULEID, ERRORCODE and ERRORLEVEL, as the VTL
+           regular names are case insensitive. -->
+      <str:DataStructure agencyID="EXAMPLE" id="DSD_POP_ERRORS" version="1.0">
+        <com:Name xml:lang="en">Population - validation errors</com:Name>
+        <str:DataStructureComponents>
+          <str:DimensionList>
+            <str:Dimension id="REF_AREA">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).REF_AREA</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_AREA(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+            </str:Dimension>
+            <str:Dimension id="RULEID">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).RULEID</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="String"/>
+              </str:LocalRepresentation>
+            </str:Dimension>
+            <str:TimeDimension id="TIME_PERIOD">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="ObservationalTimePeriod"/>
+              </str:LocalRepresentation>
+            </str:TimeDimension>
+          </str:DimensionList>
+          <str:AttributeList>
+            <str:Attribute id="OBS_STATUS">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).OBS_STATUS</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_OBS_STATUS(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+              <str:AttributeRelationship>
+                <str:Observation />
+              </str:AttributeRelationship>
+            </str:Attribute>
+          </str:AttributeList>
+          <str:MeasureList>
+            <str:Measure id="OBS_VALUE">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).OBS_VALUE</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="Double"/>
+              </str:LocalRepresentation>
+            </str:Measure>
+            <str:Measure id="ERRORCODE">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).ERRORCODE</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="String"/>
+              </str:LocalRepresentation>
+            </str:Measure>
+            <str:Measure id="ERRORLEVEL">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).ERRORLEVEL</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="Integer"/>
+              </str:LocalRepresentation>
+            </str:Measure>
+          </str:MeasureList>
+        </str:DataStructureComponents>
+      </str:DataStructure>
+    </str:DataStructures>
+    <str:Dataflows>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_POP" version="1.0">
+        <com:Name xml:lang="en">Population</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_POP(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_POP_BENELUX" version="1.0">
+        <com:Name xml:lang="en">Population of the Benelux</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_POP(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_POP_ERRORS" version="1.0">
+        <com:Name xml:lang="en">Population - validation errors</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_POP_ERRORS(1.0)</str:Structure>
+      </str:Dataflow>
+    </str:Dataflows>
+    <str:VtlMappingSchemes>
+      <str:VtlMappingScheme agencyID="EXAMPLE" id="VTL_MAP_POP" version="1.0">
+        <com:Name xml:lang="en">VTL mappings of TS_POP_CHECKS</com:Name>
+        <str:VtlDatasetMapping id="DS_POP" vtlAlias="ds_pop" isInput="true">
+          <com:Name xml:lang="en">Population</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_POP(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="DS_BENELUX" vtlAlias="ds_benelux" isInput="false">
+          <com:Name xml:lang="en">Population of the Benelux</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_POP_BENELUX(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="DS_ERRORS" vtlAlias="ds_errors" isInput="false">
+          <com:Name xml:lang="en">Population - validation errors</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_POP_ERRORS(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <!-- The Value Domain on which the hierarchical ruleset is defined: its values are the Codes of CL_AREA. -->
+        <str:VtlCodelistMapping id="CL_AREA" vtlAlias="cl_area">
+          <com:Name xml:lang="en">Reference areas</com:Name>
+          <str:Codelist>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_AREA(1.0)</str:Codelist>
+        </str:VtlCodelistMapping>
+      </str:VtlMappingScheme>
+    </str:VtlMappingSchemes>
+    <str:RulesetSchemes>
+      <str:RulesetScheme agencyID="EXAMPLE" id="RS_POP" version="1.0" vtlVersion="2.2">
+        <com:Name xml:lang="en">Rulesets for the population data</com:Name>
+        <!-- A datapoint ruleset defined on the Variables OBS_VALUE and OBS_STATUS, i.e. the components having these
+             names in the VTL Data Sets on which it is applied, which need no mapping. -->
+        <str:Ruleset id="DPR_VALUE" rulesetType="datapoint" rulesetScope="variable">
+          <com:Name xml:lang="en">Consistency of the observation values</com:Name>
+          <str:RulesetDefinition>
+            define datapoint ruleset DPR_VALUE (variable OBS_VALUE as V, OBS_STATUS as S) is
+              VALUE_NOT_NEGATIVE : V &gt;= 0 errorcode "NEGATIVE_VALUE" errorlevel 1;
+              MISSING_WITHOUT_VALUE : when S = "M" then isnull(V) errorcode "VALUE_WITH_MISSING_STATUS" errorlevel 2
+            end datapoint ruleset
+          </str:RulesetDefinition>
+        </str:Ruleset>
+        <!-- A hierarchical ruleset defined on the Value Domain cl_area, mapped to the Codelist EXAMPLE:CL_AREA(1.0). -->
+        <str:Ruleset id="HR_BENELUX" rulesetType="hierarchical" rulesetScope="valuedomain">
+          <com:Name xml:lang="en">Benelux aggregate</com:Name>
+          <str:RulesetDefinition>
+            define hierarchical ruleset HR_BENELUX (valuedomain rule cl_area) is
+              BENELUX_TOTAL : BENELUX = BE + LU + NL errorcode "BENELUX_NOT_SUM" errorlevel 1
+            end hierarchical ruleset
+          </str:RulesetDefinition>
+        </str:Ruleset>
+        <!-- A viral propagation (VTL 2.2) defined on the Variable OBS_STATUS, which makes OBS_STATUS a viral VTL
+             Attribute: a missing value prevails over an estimated one, which prevails over a normal one. -->
+        <str:Ruleset id="VP_OBS_STATUS" rulesetType="viral" rulesetScope="variable">
+          <com:Name xml:lang="en">Viral propagation of OBS_STATUS</com:Name>
+          <str:RulesetDefinition>
+            define viral propagation VP_OBS_STATUS (variable OBS_STATUS) is
+              when "M" then "M";
+              when "E" then "E";
+              else "A"
+            end viral propagation
+          </str:RulesetDefinition>
+        </str:Ruleset>
+      </str:RulesetScheme>
+    </str:RulesetSchemes>
+    <str:TransformationSchemes>
+      <str:TransformationScheme agencyID="EXAMPLE" id="TS_POP_CHECKS" version="1.0" vtlVersion="2.2">
+        <com:Name xml:lang="en">Validation and aggregation of the population data</com:Name>
+        <str:Transformation id="ERRORS" isPersistent="true">
+          <com:Name xml:lang="en">Validation errors</com:Name>
+          <com:Description xml:lang="en">Applies the datapoint ruleset DPR_VALUE to ds_pop and keeps the data points that do not comply with its rules, with the identifier of the rule (ruleid) and its errorcode and errorlevel. OBS_STATUS is kept, as it is a viral VTL Attribute.</com:Description>
+          <str:Expression>check_datapoint(ds_pop, DPR_VALUE invalid)</str:Expression>
+          <str:Result>ds_errors</str:Result>
+        </str:Transformation>
+        <str:Transformation id="BENELUX" isPersistent="true">
+          <com:Name xml:lang="en">Benelux aggregate</com:Name>
+          <com:Description xml:lang="en">Calculates BENELUX as BE + LU + NL through the hierarchical ruleset HR_BENELUX, applied to the Identifier REF_AREA. The values of OBS_STATUS of the components are combined through the viral propagation VP_OBS_STATUS.</com:Description>
+          <str:Expression>hierarchy(ds_pop, HR_BENELUX rule REF_AREA)</str:Expression>
+          <str:Result>ds_benelux</str:Result>
+        </str:Transformation>
+        <str:VtlMappingScheme>urn:sdmx:org.sdmx.infomodel.transformation.VtlMappingScheme=EXAMPLE:VTL_MAP_POP(1.0)</str:VtlMappingScheme>
+        <str:RulesetScheme>urn:sdmx:org.sdmx.infomodel.transformation.RulesetScheme=EXAMPLE:RS_POP(1.0)</str:RulesetScheme>
+      </str:TransformationScheme>
+    </str:TransformationSchemes>
+  </mes:Structures>
+</mes:Structure>

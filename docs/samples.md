@@ -317,6 +317,57 @@ artefacts.
     The SDMX and EXAMPLE agencies used in the sample are declared in the
     SDMX agency scheme included in the message.
 
+??? example "VTL Sample 7.xml"
+
+    Illustrates the three types of VTL rulesets.
+
+    The ruleset scheme EXAMPLE:RS_POP contains a datapoint ruleset defined
+    on the Variables OBS_VALUE and OBS_STATUS (DPR_VALUE), a hierarchical
+    ruleset defined on the VTL Value Domain cl_area, which a
+    VtlCodelistMapping maps to the code list EXAMPLE:CL_AREA (HR_BENELUX),
+    and a viral propagation for OBS_STATUS (VP_OBS_STATUS, rulesetType
+    "viral", introduced in VTL 2.2). The transformation scheme
+    EXAMPLE:TS_POP_CHECKS validates the population data with
+    `check_datapoint`, whose result keeps the invalid data points with the
+    rule identifier, error code and error level, and calculates the Benelux
+    aggregate with `hierarchy`, which combines the values of OBS_STATUS
+    through the viral propagation.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
+??? example "VTL Sample 8.xml"
+
+    Illustrates user defined operators.
+
+    The user defined operator scheme EXAMPLE:UDO_TRADE defines
+    trade_balance, share and export_share, which invokes share. The
+    transformation scheme EXAMPLE:TS_TRADE references it and calculates the
+    trade balance and the share of the exports in the trade from the
+    dataflows of exports and imports. As export_share invokes share, the
+    scheme contains both: the user defined operator schemes of a
+    transformation scheme must contain all the operators used by its
+    transformations, also indirectly.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
+??? example "VTL Sample 9.xml"
+
+    Illustrates VTL Data Sets whose names are written between single quotes
+    in the VTL statements.
+
+    The aliases power and diff coincide with VTL keywords, so the
+    transformation scheme EXAMPLE:TS_ENERGY writes them between single
+    quotes (`'diff' <- 'power' - consumption`), while their vtlAlias
+    contains the name without the quotes. The regular name consumption is
+    written without quotes in one statement and with quotes in the other
+    (`'power' / 'consumption' * 100`): both forms denote the same VTL Data
+    Set, and the VTL engines identify the mapped dataflow in both cases.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
 ## Data Samples
 
 SDMX-ML 3.0 has a single format for data transmission - the Structure
