@@ -203,7 +203,7 @@ artefacts.
 
 ### VTL Transformations
 
-??? example "VTL Sample 1.xml"
+??? example "deprecated-VTL Sample 1.xml"
 
     Illustrates the use of VTL Rulesets to validate an SDMX
     dataflow. The validation process adds additional identifiers and
@@ -224,7 +224,7 @@ artefacts.
     constructs" of the chapter on the Validation and Transformation
     Language of the SDMX Technical Notes.
 
-??? example "VTL Sample 2.xml"
+??? example "deprecated-VTL Sample 2.xml"
 
     Illustrates aggregation of an SDMX dataflow using VTL
     hierarchical rulesets, filtering and user defined operators.
@@ -242,7 +242,7 @@ artefacts.
     the chapter on the Validation and Transformation Language of the SDMX
     Technical Notes.
 
-??? example "VTL Sample 3.xml"
+??? example "deprecated-VTL Sample 3.xml"
 
     Illustrates the calculation of a GDP per capita dataset
     from an input mapped SDMX dataflow containing GDP and population
