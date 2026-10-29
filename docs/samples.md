@@ -295,6 +295,11 @@ artefacts.
     same Data Structure Definition, by setting it as the Context of its
     query extractions.
 
+    OBS_VALUE is an Integer with minValue 0 in the population data (VTL
+    integer) and a Double with minValue 0 in the ratio (VTL number, as the
+    division of two integers is a number). TIME_PERIOD is a GregorianYear
+    (VTL date) with startTime 1950.
+
     The SDMX and EXAMPLE agencies used in the sample are declared in the
     SDMX agency scheme included in the message.
 
@@ -314,6 +319,10 @@ artefacts.
     The sample has no VtlExecution, which is optional: the data of the
     inputs are then provided to the VTL engine at run time.
 
+    REF_AREA is not coded in the data structure definition: it is an Alpha
+    string of two letters (minLength and maxLength 2), whose values the
+    program checks against the code list.
+
     The SDMX and EXAMPLE agencies used in the sample are declared in the
     SDMX agency scheme included in the message.
 
@@ -326,12 +335,16 @@ artefacts.
     ruleset defined on the VTL Value Domain cl_area, which a
     VtlCodelistMapping maps to the code list EXAMPLE:CL_AREA (HR_BENELUX),
     and a viral propagation for OBS_STATUS (VP_OBS_STATUS, rulesetType
-    "viral", introduced in VTL 2.2). The transformation scheme
-    EXAMPLE:TS_POP_CHECKS validates the population data with
-    `check_datapoint`, whose result keeps the invalid data points with the
-    rule identifier, error code and error level, and calculates the Benelux
-    aggregate with `hierarchy`, which combines the values of OBS_STATUS
-    through the viral propagation.
+    "viral", introduced in VTL 2.2).
+
+    The transformation scheme EXAMPLE:TS_POP_CHECKS validates the
+    population data with `check_datapoint`, whose result (all_measures)
+    contains, for each data point and rule, the population (an Integer),
+    the boolean outcome of the rule (BOOL_VAR, a Boolean measure) and, when
+    the rule is not satisfied, its error code and error level, restricted
+    by the facets maxLength, minValue and maxValue. It also calculates the
+    Benelux aggregate with `hierarchy`, which combines the values of
+    OBS_STATUS through the viral propagation.
 
     The SDMX and EXAMPLE agencies used in the sample are declared in the
     SDMX agency scheme included in the message.
@@ -349,6 +362,9 @@ artefacts.
     transformation scheme must contain all the operators used by its
     transformations, also indirectly.
 
+    The amounts are Decimals with two decimals (VTL number), by
+    ReportingTimePeriod (VTL time_period).
+
     The SDMX and EXAMPLE agencies used in the sample are declared in the
     SDMX agency scheme included in the message.
 
@@ -364,6 +380,9 @@ artefacts.
     written without quotes in one statement and with quotes in the other
     (`'power' / 'consumption' * 100`): both forms denote the same VTL Data
     Set, and the VTL engines identify the mapped dataflow in both cases.
+
+    The amounts are Decimals with one decimal (VTL number), by
+    GregorianYearMonth (VTL date).
 
     The SDMX and EXAMPLE agencies used in the sample are declared in the
     SDMX agency scheme included in the message.

@@ -98,7 +98,7 @@
             <str:Dimension id="REF_AREA">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).REF_AREA</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:TextFormat textType="String"/>
+                <str:TextFormat textType="Alpha" minLength="2" maxLength="2"/>
               </str:LocalRepresentation>
             </str:Dimension>
             <str:TimeDimension id="TIME_PERIOD">

@@ -117,7 +117,7 @@
             <str:TimeDimension id="TIME_PERIOD">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:POP_CONCEPTS(1.0.0).TIME_PERIOD</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:TextFormat textType="ObservationalTimePeriod"/>
+                <str:TextFormat textType="GregorianYear" startTime="1950"/>
               </str:LocalRepresentation>
             </str:TimeDimension>
           </str:DimensionList>
@@ -125,7 +125,7 @@
             <str:Measure id="OBS_VALUE">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:POP_CONCEPTS(1.0.0).OBS_VALUE</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:TextFormat textType="Double"/>
+                <str:TextFormat textType="Integer" minValue="0"/>
               </str:LocalRepresentation>
             </str:Measure>
           </str:MeasureList>
@@ -150,7 +150,7 @@
             <str:TimeDimension id="TIME_PERIOD">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:POP_CONCEPTS(1.0.0).TIME_PERIOD</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:TextFormat textType="ObservationalTimePeriod"/>
+                <str:TextFormat textType="GregorianYear" startTime="1950"/>
               </str:LocalRepresentation>
             </str:TimeDimension>
           </str:DimensionList>
@@ -158,7 +158,7 @@
             <str:Measure id="OBS_VALUE">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:POP_CONCEPTS(1.0.0).OBS_VALUE</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:TextFormat textType="Double"/>
+                <str:TextFormat textType="Double" minValue="0"/>
               </str:LocalRepresentation>
             </str:Measure>
           </str:MeasureList>

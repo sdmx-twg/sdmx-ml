@@ -80,7 +80,7 @@
             <str:TimeDimension id="TIME_PERIOD">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:TextFormat textType="ObservationalTimePeriod"/>
+                <str:TextFormat textType="GregorianYearMonth"/>
               </str:LocalRepresentation>
             </str:TimeDimension>
           </str:DimensionList>
@@ -88,7 +88,7 @@
             <str:Measure id="OBS_VALUE">
               <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).OBS_VALUE</str:ConceptIdentity>
               <str:LocalRepresentation>
-                <str:TextFormat textType="Double"/>
+                <str:TextFormat textType="Decimal" decimals="1"/>
               </str:LocalRepresentation>
             </str:Measure>
           </str:MeasureList>
