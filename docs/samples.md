@@ -216,6 +216,14 @@ artefacts.
     high-severity validation errors and persists the result back to a SDMX
     dataflow using VTL mappings.
 
+    This sample uses constructs deprecated in SDMX 3.2: the VtlMapping
+    element, with its mapping methods and concept mappings, the name
+    personalisation scheme and the reference from the ruleset scheme to
+    the VTL mapping scheme. Their representation in SDMX 3.2 is described
+    in the section "Conversion of definitions based on deprecated
+    constructs" of the chapter on the Validation and Transformation
+    Language of the SDMX Technical Notes.
+
 ??? example "VTL Sample 2.xml"
 
     Illustrates aggregation of an SDMX dataflow using VTL
@@ -226,11 +234,79 @@ artefacts.
     subsequently applied to calculate a percentage measure with the final
     persistent result mapped from VTL to a SDMX dataflow.
 
+    This sample uses constructs deprecated in SDMX 3.2: the VtlMapping
+    element, with its mapping methods and concept mappings, the custom
+    type scheme and the reference from the ruleset scheme to the VTL
+    mapping scheme. Their representation in SDMX 3.2 is described in the
+    section "Conversion of definitions based on deprecated constructs" of
+    the chapter on the Validation and Transformation Language of the SDMX
+    Technical Notes.
+
 ??? example "VTL Sample 3.xml"
 
     Illustrates the calculation of a GDP per capita dataset
     from an input mapped SDMX dataflow containing GDP and population
     indicators on a country by country basis.
+
+    This sample uses constructs deprecated in SDMX 3.2: the VtlMapping
+    element with the subspace and superspace of the mapped dataflows, and
+    the references to their parts in the VTL statements (ordered
+    concatenation notation). Their representation in SDMX 3.2 is
+    described in the section "Conversion of definitions based on
+    deprecated constructs" of the chapter on the Validation and
+    Transformation Language of the SDMX Technical Notes.
+
+??? example "VTL Sample 4.xml"
+
+    Illustrates the mapping of VTL Data Sets to SDMX artefacts and the
+    retrieval of their data, introduced in SDMX 3.2.
+
+    The transformation scheme AG:TS_DIFF calculates the difference between
+    two dataflows (`ds_diff <- ds_a - ds_b`). Its VTL mapping scheme maps
+    the inputs ds_a and ds_b and the output ds_diff to dataflows through
+    VtlDatasetMappings, whose isInput attribute gives the direction of the
+    mapping. Under the Basic mapping, the dimensions become VTL Identifiers
+    and the measure a VTL Measure.
+
+    The VtlExecution AG:EXEC_DIFF specifies how the data of the inputs are
+    retrieved: a QueryExtraction for ds_a, which queries a web service
+    implementing version 1.5 of the SDMX REST API with a fixed key and a
+    default start period that can be overridden at run time, and a
+    UrlExtraction for ds_b, whose URL template contains tokens replaced by
+    the values of the query parameters.
+
+??? example "VTL Sample 5.xml"
+
+    Illustrates two VTL Data Sets mapped to the same Data Structure
+    Definition, and two executions of the same transformation scheme.
+
+    The transformation scheme AG:TS_POPRATIO calculates the ratio between
+    the male and the female population
+    (`ratio <- pop_m [ sub SEX = "M" ] / pop_f [ sub SEX = "F" ]`), where
+    pop_m and pop_f are both mapped to the Data Structure Definition
+    AG:POP. The VtlExecution AG:EXEC_POPRATIO retrieves their data from a
+    web service implementing version 2.1 of the SDMX REST API, with a
+    different fixed key for each input and a default filter on the time
+    period. The VtlExecution AG2:EXEC_POPRATIO, maintained by another
+    agency, executes the same transformation scheme on the data of its own
+    dataflow AG2:DF_POP, which uses the same Data Structure Definition, by
+    setting it as the Context of its query extractions.
+
+??? example "VTL Sample 6.xml"
+
+    Illustrates a VTL 2.2 program using a VTL Value Domain and a viral
+    propagation.
+
+    A VtlCodelistMapping maps the VTL Value Domain cl_area to the code list
+    SDMX:CL_AREA(2.0), which is used to select the data points whose
+    reference area is not valid. The ruleset scheme referenced by the
+    transformation scheme contains a viral propagation (rulesetType
+    "viral") for OBS_STATUS, which makes it a viral VTL Attribute: the `+`
+    operator keeps it and combines its values, so that the result has the
+    data structure of the output dataflow.
+
+    The sample has no VtlExecution, which is optional: the data of the
+    inputs are then provided to the VTL engine at run time.
 
 ## Data Samples
 
