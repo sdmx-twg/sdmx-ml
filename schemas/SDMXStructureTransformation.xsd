@@ -341,7 +341,7 @@
 						</xs:sequence>
 						<xs:element name="Codelist" type="common:CodelistReferenceType">
 							<xs:annotation>
-								<xs:documentation>Deprecated. A VTL Value Domain is mapped to a Codelist through a VtlCodelistMapping. A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.</xs:documentation>
+								<xs:documentation>Deprecated. A VTL Value Domain is mapped to a Codelist through the VtlCodelistMapping element. A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Concept" type="common:ConceptReferenceType">
@@ -597,16 +597,16 @@
 
 	<xs:complexType name="QueryParameterType">
 		<xs:annotation>
-			<xs:documentation>QueryParameterType describes a name-value pair used for retrieving the data of an input VTL Data Set. A fixed parameter must have a value, which is always used as it is. A non-fixed parameter can have a value, which is a default that can be overridden at run time; if it has no value, its value must be provided at run time. The values provided at run time are assigned to the input VTL Data Sets through their aliases. The credentials needed to access protected web services should not be put in the query parameters or in the URL template.</xs:documentation>
+			<xs:documentation>QueryParameterType describes a name-value pair used for retrieving the data of an input VTL Data Set. A fixed parameter must have a value, which is always used as it is. A non-fixed parameter can have a value, which is a default that can be overridden at run time; if it has no value, its value must be provided at run time. The values provided at run time are assigned to the input VTL Data Sets through their aliases. The credentials needed to access protected web services should not be put in the query parameters or in the URL template. An empty value (value="") is no value, the same as a null: it does not satisfy a fixed parameter, and a non-fixed parameter with an empty value has no default.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="name" type="xs:string" use="required">
+		<xs:attribute name="name" type="QueryParameterNameType" use="required">
 			<xs:annotation>
-				<xs:documentation>The name of the parameter (e.g. key, startPeriod, c[TIME_PERIOD]), unique within the data extraction.</xs:documentation>
+				<xs:documentation>The name of the parameter (e.g. key, startPeriod, c[TIME_PERIOD]), unique within the data extraction. It cannot be empty or contain whitespace.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="value" type="xs:string" use="optional">
 			<xs:annotation>
-				<xs:documentation>The value of the parameter: mandatory if the parameter is fixed, otherwise a default value that can be overridden at run time.</xs:documentation>
+				<xs:documentation>The value of the parameter: mandatory if the parameter is fixed, otherwise a default value that can be overridden at run time. An empty value is no value, the same as a null.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="isFixed" type="xs:boolean" use="required">
@@ -615,6 +615,15 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
+
+	<xs:simpleType name="QueryParameterNameType">
+		<xs:annotation>
+			<xs:documentation>A simple type for the name of a query parameter (e.g. key, startPeriod or c[TIME_PERIOD]). It cannot be empty or contain whitespace.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\S+"/>
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:simpleType name="SdmxApiVersionType">
 		<xs:annotation>

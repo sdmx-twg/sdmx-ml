@@ -36,7 +36,7 @@ Contents:
 
 40 Global Elements  
 251 Complex Types  
-20 Simple Types
+21 Simple Types
 
 #### Global Elements
 
@@ -9640,7 +9640,7 @@ Element Documentation:
 | GenericDataflow | EmptyType | Deprecated. The Basic mapping is the only mapping method, therefore no default mapping methods can be declared. Indicates that the ToVtlMapping and FromVtlMapping are the default mapping methods to be applied, overriding the Basic methods if necessary. The mapping methods in this case would be applied to any dataflows that are not explicitly defined in other VtlMappings. |
 | ToVtlMapping | ToVtlMappingType | Deprecated. The Basic mapping is the only mapping method between SDMX and VTL data structures; any restructuring of the data is performed in the VTL program through the VTL operators. Describes the mapping from a SDMX dataflow to a VTL data structure. |
 | FromVtlMapping | FromVtlMappingType | Deprecated. The Basic mapping is the only mapping method between SDMX and VTL data structures; any restructuring of the data is performed in the VTL program through the VTL operators. Describes the mapping to a SDMX dataflow from a VTL data structure. |
-| Codelist | CodelistReferenceType | Deprecated. A VTL Value Domain is mapped to a Codelist through a VtlCodelistMapping. A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping. |
+| Codelist | CodelistReferenceType | Deprecated. A VTL Value Domain is mapped to a Codelist through the VtlCodelistMapping element. A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping. |
 | Concept | ConceptReferenceType | Deprecated. The VTL Variables correspond to the homonymous components of the VTL Data Sets and do not need any mapping. A reference to the SDMX Concept that the mapping is defined for. This is used to create a VtlConceptMapping. |
 
 **ToVtlMappingType:** Deprecated. The Basic mapping is the only mapping
@@ -9937,7 +9937,10 @@ can have a value, which is a default that can be overridden at run time;
 if it has no value, its value must be provided at run time. The values
 provided at run time are assigned to the input VTL Data Sets through
 their aliases. The credentials needed to access protected web services
-should not be put in the query parameters or in the URL template.
+should not be put in the query parameters or in the URL template. An
+empty value (value="") is no value, the same as a null: it does not
+satisfy a fixed parameter, and a non-fixed parameter with an empty value
+has no default.
 
 Attributes:
 
@@ -9949,8 +9952,8 @@ Attribute Documentation:
 
 | **Name** | **Type**   | **Documentation**                                                                                                                                              |
 |----------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name     | xs:string  | The name of the parameter (e.g. key, startPeriod, c[TIME_PERIOD]), unique within the data extraction.                                                          |
-| value    | xs:string  | The value of the parameter: mandatory if the parameter is fixed, otherwise a default value that can be overridden at run time.                                 |
+| name | QueryParameterNameType | The name of the parameter (e.g. key, startPeriod, c[TIME_PERIOD]), unique within the data extraction. It cannot be empty or contain whitespace. |
+| value | xs:string | The value of the parameter: mandatory if the parameter is fixed, otherwise a default value that can be overridden at run time. An empty value is no value, the same as a null. |
 | isFixed  | xs:boolean | Indicates whether the value is fixed (true) or can be overridden at run time (false). A non-fixed parameter without a value must be given a value at run time. |
 
 **NamePersonalisationSchemeType:** Deprecated. The name personalisation
@@ -10988,6 +10991,14 @@ method enumeration value or a string value for other mapping methods.
 Union of:
 
 StandardFromVtlMappingMethodType, xs:string.
+
+**QueryParameterNameType:** A simple type for the name of a query
+parameter (e.g. key, startPeriod or c[TIME_PERIOD]). It cannot be empty
+or contain whitespace.
+
+Derived by restriction of xs:string .
+
+Regular Expression Pattern: `\S+`
 
 **SdmxApiVersionType:** A simple type for the version of the SDMX REST
 API implemented by a web service. It is given by the code of a release
