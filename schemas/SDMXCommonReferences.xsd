@@ -728,7 +728,7 @@
 
 	<xs:simpleType name="CustomTypeUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a custom type.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a custom type.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.CustomType=.+"/>
@@ -737,7 +737,7 @@
 
 	<xs:simpleType name="CustomTypeSchemeUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a custom type scheme.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a custom type scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnType">
 			<xs:pattern value=".+\.transformation\.CustomTypeScheme=.+"/>
@@ -746,7 +746,7 @@
 
 	<xs:simpleType name="NamePersonalisationUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a name personalisation.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a name personalisation.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisation=.+"/>
@@ -755,7 +755,7 @@
 
 	<xs:simpleType name="NamePersonalisationSchemeUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a name personalisation scheme.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a name personalisation scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisationScheme=.+"/>
@@ -1441,7 +1441,7 @@
 
 	<xs:simpleType name="CustomTypeReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a custom type.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a custom type.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.CustomType=.+"/>
@@ -1450,7 +1450,7 @@
 
 	<xs:simpleType name="CustomTypeSchemeReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a custom type scheme.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a custom type scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.CustomTypeScheme=.+"/>
@@ -1459,7 +1459,7 @@
 
 	<xs:simpleType name="NamePersonalisationReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a name personalisation.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a name personalisation.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisation=.+"/>
@@ -1468,7 +1468,7 @@
 
 	<xs:simpleType name="NamePersonalisationSchemeReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a name personalisation scheme.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a name personalisation scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisationScheme=.+"/>

@@ -130,7 +130,7 @@
 			</xs:element>
 			<xs:element name="CustomTypeSchemes" type="CustomTypeSchemesType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>CustomTypeSchemes contains a collection of custom type schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+					<xs:documentation>Deprecated. The custom type schemes are deprecated in SDMX 3.2. CustomTypeSchemes contains a collection of custom type schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="UniqueCustomTypeScheme">
 					<xs:selector xpath="structure:CustomTypeScheme"/>
@@ -295,7 +295,7 @@
 			</xs:element>
 			<xs:element name="NamePersonalisationSchemes" type="NamePersonalisationSchemesType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>NamePersonalisationSchemes contains a collection of name personalisation schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+					<xs:documentation>Deprecated. The name personalisation schemes are deprecated in SDMX 3.2. NamePersonalisationSchemes contains a collection of name personalisation schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="UniqueNamePersonalisationScheme">
 					<xs:selector xpath="structure:NamePersonalisationScheme"/>
@@ -570,7 +570,7 @@
 
 	<xs:complexType name="CustomTypeSchemesType">
 		<xs:annotation>
-			<xs:documentation>CustomTypeSchemesType describes the structure of the custom type schemes container. It contains one or more custom type scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+			<xs:documentation>Deprecated. The custom type schemes are deprecated in SDMX 3.2. CustomTypeSchemesType describes the structure of the custom type schemes container. It contains one or more custom type scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="CustomTypeScheme" type="CustomTypeSchemeType" maxOccurs="unbounded">
@@ -822,7 +822,7 @@
 
 	<xs:complexType name="NamePersonalisationSchemesType">
 		<xs:annotation>
-			<xs:documentation>NamePersonalisationSchemesType describes the structure of the name personalisation schemes container. It contains one or more name personalisation scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+			<xs:documentation>Deprecated. The name personalisation schemes are deprecated in SDMX 3.2. NamePersonalisationSchemesType describes the structure of the name personalisation schemes container. It contains one or more name personalisation scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="NamePersonalisationScheme" type="NamePersonalisationSchemeType" maxOccurs="unbounded">
