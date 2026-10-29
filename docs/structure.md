@@ -34,8 +34,8 @@ Referenced Namespaces:
 
 Contents:
 
-38 Global Elements  
-235 Complex Types  
+40 Global Elements  
+251 Complex Types  
 19 Simple Types
 
 #### Global Elements
@@ -51,8 +51,8 @@ concrete instance of ItemType.
 Substitutions: Category, Code, *GeoRefCode*, GeoFeatureSetCode,
 GeoGridCode, Concept, *Organisation*, Agency, DataConsumer,
 DataProvider, MetadataProvider, OrganisationUnit, ReportingCategory,
-Transformation, VtlMapping, NamePersonalisation, Ruleset,
-UserDefinedOperator, CustomType
+Transformation, VtlDatasetMapping, VtlCodelistMapping, VtlMapping,
+NamePersonalisation, Ruleset, UserDefinedOperator, CustomType
 
 **Grouping (GroupingType):** Grouping is an abstract element that
 serves as a substitution head for all structure groupings. Groupings
@@ -285,13 +285,27 @@ details of a single transformation within a transformation scheme.
 
 Substitution For: *Item*
 
-**VtlMapping (VtlMappingType):** VtlMapping details a mapping between
-SDMX and VTL transformation.
+**VtlDatasetMapping (VtlDatasetMappingType):** VtlDatasetMapping details
+a mapping between a VTL Data Set and the SDMX Data Structure Definition,
+Dataflow or Provision Agreement that defines it.
 
 Substitution For: *Item*
 
-**NamePersonalisation (NamePersonalisationType):** NamePersonalisation
-details a name personalisation that is used in a transformation.
+**VtlCodelistMapping (VtlCodelistMappingType):** VtlCodelistMapping
+details a mapping between a VTL Value Domain and the SDMX Codelist whose
+codes are its values.
+
+Substitution For: *Item*
+
+**VtlMapping (VtlMappingType):** Deprecated. Replaced by
+VtlDatasetMapping and VtlCodelistMapping. VtlMapping details a mapping
+between SDMX and VTL transformation.
+
+Substitution For: *Item*
+
+**NamePersonalisation (NamePersonalisationType):** Deprecated. See
+NamePersonalisationSchemeType. NamePersonalisation details a name
+personalisation that is used in a transformation.
 
 Substitution For: *Item*
 
@@ -305,8 +319,8 @@ details a user defined operators within a user defined operator scheme.
 
 Substitution For: *Item*
 
-**CustomType (CustomTypeType):** CustomType details a custom type within
-a custom type scheme.
+**CustomType (CustomTypeType):** Deprecated. See CustomTypeSchemeType.
+CustomType details a custom type within a custom type scheme.
 
 Substitution For: *Item*
 
@@ -322,7 +336,7 @@ structural component be included by reference.
 Content:
 
 ```text
-ALL(AgencySchemesCategorisationsCategorySchemeMapsCategorySchemesCodelistsConceptSchemeMapsConceptSchemesCustomTypeSchemesDataConstraintsDataConsumerSchemesDataflowsDataProviderSchemesDataStructuresGeographicCodelistsGeoGridCodelistsHierarchiesHierarchyAssociationsMetadataConstraintsMetadataflowsMetadataProviderSchemesMetadataProvisionAgreementsMetadataStructuresNamePersonalisationSchemesOrganisationSchemeMapsOrganisationUnitSchemesProcessesProvisionAgreementsReportingTaxonomiesReportingTaxonomyMapsRepresentationMapsRulesetSchemesStructureMapsTransformationSchemesUserDefinedOperatorSchemesValueListsVtlMappingSchemes)
+ALL(AgencySchemesCategorisationsCategorySchemeMapsCategorySchemesCodelistsConceptSchemeMapsConceptSchemesCustomTypeSchemesDataConstraintsDataConsumerSchemesDataflowsDataProviderSchemesDataStructuresGeographicCodelistsGeoGridCodelistsHierarchiesHierarchyAssociationsMetadataConstraintsMetadataflowsMetadataProviderSchemesMetadataProvisionAgreementsMetadataStructuresNamePersonalisationSchemesOrganisationSchemeMapsOrganisationUnitSchemesProcessesProvisionAgreementsReportingTaxonomiesReportingTaxonomyMapsRepresentationMapsRulesetSchemesStructureMapsTransformationSchemesUserDefinedOperatorSchemesValueListsVtlExecutionsVtlMappingSchemes)
 ```
 
 Element Documentation:
@@ -336,7 +350,7 @@ Element Documentation:
 | Codelists                    | CodelistsType                    | Codelists contains a collection of code list descriptions. The code lists may be detailed in full, or referenced from an external structure document or registry service.                                                                                             |
 | ConceptSchemeMaps            | ConceptSchemeMapsTyp e           | ConceptSchemeMaps contains a collection of concept scheme map descriptions. The concept scheme maps may be detailed in full, or referenced from an external structure document or registry service.                                                                   |
 | ConceptSchemes               | ConceptSchemesType               | ConceptSchemes contains a collection of concept scheme descriptions. The concept schemes described are contained within schemes. The concepts may be detailed in full, or referenced from an external structure document or registry service.                         |
-| CustomTypeSchemes            | CustomTypeSchemesTyp e           | CustomTypeSchemes contains a collection of custom type schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.                                                                                            |
+| CustomTypeSchemes | CustomTypeSchemesType | Deprecated. The custom type schemes are deprecated in SDMX 3.2. CustomTypeSchemes contains a collection of custom type schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service. |
 | DataConstraints              | DataConstraintsType              | DataConstraints contains a collection of data constraint descriptions. The constraints may be detailed in full, or referenced from an external structure document or registry service.                                                                                |
 | DataConsumerSchemes          | DataConsumerSchemesT ype         | DataConsumerSchemes contains a collection of data consumer scheme descriptions. The data consumer schemes may be detailed in full, or referenced from an external structure document or registry service.                                                             |
 | Dataflows                    | DataflowsType                    | Dataflows contains a collection of data flow descriptions. The data flows may be detailed in full, or referenced from an external structure document or registry service.                                                                                             |
@@ -351,7 +365,7 @@ Element Documentation:
 | MetadataProviderSche mes     | MetadataProviderSche mesType     | MetadataProviderSchemes contains a collection of metadata provider scheme descriptions. The meatadata provider schemes may be detailed in full, or referenced from an external structure document or registry service.                                                |
 | MetadataProvisionAgr eements | MetadataProvisionAgr eementsType | ProvisionAgreements contains a collection of provision agreements. The provision agreements may be detailed in full, or referenced from an external structure document or registry service.                                                                           |
 | MetadataStructures           | MetadataStructuresTy pe          | MetadataStructures contains a collection of metadata structure definition descriptions. The metadata structure definitions may be detailed in full, or referenced from an external structure document or registry service.                                            |
-| NamePersonalisationS chemes  | NamePersonalisationS chemesType  | NamePersonalisationSchemes contains a collection of name personalisation schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.                                                                          |
+| NamePersonalisationSchemes | NamePersonalisationSchemesType | Deprecated. The name personalisation schemes are deprecated in SDMX 3.2. NamePersonalisationSchemes contains a collection of name personalisation schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service. |
 | OrganisationSchemeMa ps      | OrganisationSchemeMa psType      | OrganisationSchemeMaps contains a collection of organisation scheme map descriptions. The organisation scheme maps may be detailed in full, or referenced from an external structure document or registry service.                                                    |
 | OrganisationUnitSche mes     | OrganisationUnitSche mesType     | OrganisationUnitSchemes contains a collection of organisation unit scheme descriptions. The organisation unit schemes may be detailed in full, or referenced from an external structure document or registry service.                                                 |
 | Processes                    | ProcessesType                    | Processes contains a collection of process descriptions. The processes may be detailed in full, or referenced from an external structure document or registry service.                                                                                                |
@@ -364,6 +378,7 @@ Element Documentation:
 | TransformationScheme s       | TransformationScheme sType       | TransformationSchemes contains a collection of transformation schemes. The transformation schemes may be detailed in full, or referenced from an external structure document or registry service.                                                                     |
 | UserDefinedOperatorS chemes  | UserDefinedOperatorS chemesType  | UserDefinedOperatorSchemes contains a collection of user defined operator schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.                                                                         |
 | ValueLists                   | ValueListsType                   | ValueLists contains a collection of value list descriptions. The value lists may be detailed in full, or referenced from an external structure document or registry service.                                                                                          |
+| VtlExecutions | VtlExecutionsType | VtlExecutions contains a collection of VTL executions. The executions may be detailed in full, or referenced from an external structure document or registry service. |
 | VtlMappingSchemes            | VtlMappingSchemesTyp e           | VtlMappingSchemes contains a collection of VTL mapping schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.                                                                                            |
 
 **AgencySchemesType:** AgencySchemesType describes the structure of the
@@ -486,10 +501,11 @@ Element Documentation:
 |----------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | Codelist | CodelistType | Codelist provides the details of a codelist, which is defined as a list from which some statistical concepts (coded concepts) take their values. |
 
-**CustomTypeSchemesType:** CustomTypeSchemesType describes the structure
-of the custom type schemes container. It contains one or more custom
-type scheme, which can be explicitly detailed or referenced from an
-external structure document or registry service.
+**CustomTypeSchemesType:** Deprecated. The custom type schemes are
+deprecated in SDMX 3.2. CustomTypeSchemesType describes the structure of
+the custom type schemes container. It contains one or more custom type
+scheme, which can be explicitly detailed or referenced from an external
+structure document or registry service.
 
 Content:
 
@@ -745,7 +761,8 @@ Element Documentation:
 |-------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | MetadataStructure | MetadataStructureTyp e | MetadataStructure provides the details of a metadata structure definition, which is defined as a collection of metadata concepts, their structure and usage when used to collect or disseminate reference metadata. A metadata structure definition performs several functions: it groups sets of objects into "targets" against which reference metadata may be reported. Targets define the structure of the reference metadata "keys" which identify specific types of reported metadata, and describe the valid values for populating the keys. Also, metadata structure definitions provide a presentational organization of concepts for reporting purposes. The structure of reference metadata is derived from this presentational structure. |
 
-**NamePersonalisationSchemesType:** NamePersonalisationSchemesType
+**NamePersonalisationSchemesType:** Deprecated. The name personalisation
+schemes are deprecated in SDMX 3.2. NamePersonalisationSchemesType
 describes the structure of the name personalisation schemes container.
 It contains one or more name personalisation scheme, which can be
 explicitly detailed or referenced from an external structure document or
@@ -967,6 +984,23 @@ Element Documentation:
 | **Name**  | **Type**      | **Documentation**                                                                                                                                                                                                                                    |
 |-----------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ValueList | ValueListType | ValueList provides the details of a value list, which is a closed set of values that can occur for a dimension, measure, or attribute. This may be a simple list of values, or a list of values with names and descriptions (similar to a codelist). |
+
+**VtlExecutionsType:** VtlExecutionsType describes the structure of the
+VTL executions container. It contains one or more VTL executions, which
+can be explicitly detailed or referenced from an external structure
+document or registry service.
+
+Content:
+
+```text
+VtlExecution+
+```
+
+Element Documentation:
+
+| **Name**     | **Type**         | **Documentation**                                                                                                                                       |
+|--------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| VtlExecution | VtlExecutionType | VtlExecution provides the details of a VTL execution, which specifies how the data of the input VTL Data Sets of a transformation scheme are retrieved. |
 
 **VtlMappingSchemesType:** VtlMappingSchemesType describes the structure
 of the VTL mappings schemes container. It contains one or more VTL
@@ -8931,7 +8965,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI           | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean          | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string           | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -8991,7 +9025,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI                    | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean                   | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string                    | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -9007,7 +9041,10 @@ Element Documentation:
 structure of a transformation scheme. A transformation scheme contains a
 set of transformations to be executed together (in the same run). It can
 contain any number of transformations that produce any number of
-results.
+results. It references all the other schemes used by the VTL program
+(the VTL mapping scheme, the ruleset schemes and the user defined
+operator schemes); the semantic analysis and the execution of the
+program detect any missing definition.
 
 Derivation:
 
@@ -9057,7 +9094,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI                    | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean                   | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string                    | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -9068,11 +9105,11 @@ Element Documentation:
 | Name                       | TextType                                | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                          |
 | Description                | TextType                                | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                      |
 | Transformation             | TransformationType                      | Transformation describes the details of a single transformation within a transformation scheme.                                                                                                                                                                                                                                                                                        |
-| VtlMappingScheme           | VtlMappingSchemeRefe renceType          | References a VTL mapping scheme which defines aliases for given SDMX artefacts that are used in the transformations as well as the mapping methods used when converting between SDMX and VTL data structures. All aliases must be defined in the referenced scheme. This also must be used if the basic mapping methods are not used.                                                  |
-| NamePersonalisationS cheme | NamePersonalisationS chemeReferenceType | References a name personalisation scheme, which defines the overriding of some standard VTL names (to be assigned to some measures and/or attributes of the data structure) with some corresponding personalised names. This must be used if transformations within a transformation scheme personalise standard names. All personalisations must be defined in the referenced scheme. |
-| CustomTypeScheme           | CustomTypeSchemeRefe renceType          | References a custom type scheme which defines custom conversions of VTL scalar types to SDMX data types. This must be used if custom type conversions are used in the transformations defined in a transformation scheme. All custom conversions must be defined in the referenced scheme.                                                                                             |
-| RulesetScheme              | RulesetSchemeReferen ceType             | References a ruleset scheme that defines one or more previously defined rulesets which can be invoked by VTL operators. If a transformation defined in a transformation scheme refers to a ruleset, the scheme in which the ruleset is defined must be referenced here.                                                                                                                |
-| UserDefinedOperatorS cheme | UserDefinedOperatorS chemeReferenceType | References a user defined operator scheme that defines one or more user defined operators used by the transformations defined in a transformation scheme. If a transformation in a transformation scheme refers to a user defined operator, the scheme in which the user defined operator is defined must be referenced here.                                                          |
+| VtlMappingScheme | VtlMappingSchemeReferenceType | References the VTL mapping scheme which defines the aliases of the SDMX artefacts used in the transformations, rulesets and user defined operators of the transformation scheme. As the VTL is strongly typed and has no declarations of variables, its mappings provide the definitions of the VTL Data Sets and Value Domains used by the VTL program; therefore, a transformation scheme that references SDMX artefacts is complete only together with its VTL mapping scheme. |
+| NamePersonalisationScheme | NamePersonalisationSchemeReferenceType | Deprecated. The name personalisation schemes are deprecated in SDMX 3.2: the names assigned by default by the VTL operators (e.g. bool_var, errorcode) can be changed in the VTL program, for example through the rename clause. References a name personalisation scheme, which defines the overriding of some standard VTL names (to be assigned to some measures and/or attributes of the data structure) with some corresponding personalised names. This must be used if transformations within a transformation scheme personalise standard names. All personalisations must be defined in the referenced scheme. |
+| CustomTypeScheme | CustomTypeSchemeReferenceType | Deprecated. The custom type schemes are deprecated in SDMX 3.2: the default conversions between VTL and SDMX data types apply, unless overridden by the representation defined in the data structure definition of the referenced SDMX artefact; the VTL NULLs become missing values in SDMX, the VTL literals are written in the default format, and explicit type conversions are expressed in the VTL program through the cast operator. References a custom type scheme which defines custom conversions of VTL scalar types to SDMX data types. This must be used if custom type conversions are used in the transformations defined in a transformation scheme. All custom conversions must be defined in the referenced scheme. |
+| RulesetScheme | RulesetSchemeReferenceType | References a ruleset scheme that defines rulesets used by the VTL program, i.e. rulesets invoked by VTL operators or, from VTL 2.2, viral propagations. The ruleset schemes referenced by a transformation scheme must contain all the rulesets used by its transformations, also indirectly (e.g. the rulesets invoked by a user defined operator), and all the viral propagations to be applied. |
+| UserDefinedOperatorScheme | UserDefinedOperatorSchemeReferenceType | References a user defined operator scheme that defines one or more user defined operators used by the transformations of the transformation scheme. The user defined operator schemes referenced by a transformation scheme must contain all the user defined operators used by its transformations, also indirectly (e.g. the operators invoked by other user defined operators). |
 
 **TransformationBaseType:** TransformationBaseType defines the base
 refinement of the TransformationType. Its purpose is to retrict the urn
@@ -9165,23 +9202,25 @@ Element Documentation:
 | Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata.                                                                                                              |
 | Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                  |
 | Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                              |
-| Expression  | xs:string       | The right-hand side of the VTL statement. This is expression that is executed for this transformation. It include references to operands and other artefacts. The expression may contain references to SDMX artefacts using the reduced URN format; see Section 6 SDMX Standards ("SDMX Technical Notes"), 10.2.3 ("Abbreviation of the URN"). |
-| Result      | xs:string       | The left-hand side of the VTL statement. This identifies the result artefact, which may be used in subsequent transformations. If the result is an SDMX artefact, the is expressed using the alias; see Section 6 SDMX Standards ("SDMX Technical Notes"), 10.2.3 ("Abbreviation of the URN").                                                 |
+| Expression | xs:string | The right-hand side of the VTL statement. This is the expression that is executed for this transformation. It includes references to operands and other artefacts. The SDMX artefacts are referenced through the aliases (vtlAlias) defined in the VTL mapping scheme of the transformation scheme. The references to SDMX artefacts through their URN or the abbreviated URN (see the SDMX Technical Notes, "References to SDMX artefacts from VTL statements") are deprecated. |
+| Result | xs:string | The left-hand side of the VTL statement. This identifies the result artefact, which may be used in subsequent transformations. If the result is an output of the VTL program whose data are converted into SDMX, it is the vtlAlias of a VtlDatasetMapping of the VTL mapping scheme whose isInput is false, and the transformation must be persistent. The references through the URN or the abbreviated URN are deprecated. |
 
-**VtlMappingSchemeType:** VtlMappingSchemeType defines a set of mappings
-between SDMX and VTL.
+**VtlMappingSchemeBaseType:** VtlMappingSchemeBaseType is an abstract
+base type for the VtlMappingSchemeType. It restricts the urn attribute
+and removes the generic items, which the VtlMappingSchemeType replaces
+with the VTL mappings.
 
 Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (extension)  
-               VersionableType (restriction)  
-                     MaintainableBaseType (extension)  
-                           MaintainableType (extension)  
-                                 ItemSchemeType (restriction)  
-                                       VtlMappingSchemeType
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       VtlMappingSchemeBaseType
 ```
 
 Attributes:
@@ -9194,25 +9233,25 @@ isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?, isPartial?
 Content:
 
 ```text
-Annotations?, Link*, Name+, Description*, VtlMapping*
+Annotations?, Link*, Name+, Description*
 ```
 
 Attribute Documentation:
 
-| **Name**                             | **Type**                 | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-|--------------------------------------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                                   | IDType                   | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| urn                                  | VtlMappingSchemeUrnT ype | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| uri                                  | xs:anyURI                | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| version                              | VersionType              | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| validFrom                            | xs:dateTime              | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| validTo                              | xs:dateTime              | The validTo attribute provides the inclusive end date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| agencyID                             | NestedNCNameIDType       | The agencyID must be provided, and identifies the maintenance agency of the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| isExternalReference (default: false) | xs:boolean               | The isExternalReference attribute, if true, indicates that the actual object is not defined the corresponding element, rather its full details are defined elsewhere - indicated by either the registryURL, the repositoryURL, or the structureURL. The purpose of this is so that each structure message does not have to redefine object that are already defined elsewhere. If the isExternalReference attribute is not set, then it is assumed to be false, and the object should contain the full definition of its contents. If more than one of the registryURL, the repositoryURL, and the structureURL are supplied, then the application processing the object can choose the method it finds best suited to retrieve the details of the object. |
-| serviceURL                           | xs:anyURI                | The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| structureURL                         | xs:anyURI                | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| isPartial (default: false)           | xs:boolean               | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Name**                             | **Type**                | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|--------------------------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                   | IDType                  | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| urn                                  | VtlMappingSchemeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| uri                                  | xs:anyURI               | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| version                              | VersionType             | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| validFrom                            | xs:dateTime             | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| validTo                              | xs:dateTime             | The validTo attribute provides the inclusive end date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| agencyID                             | NestedNCNameIDType      | The agencyID must be provided, and identifies the maintenance agency of the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| isExternalReference (default: false) | xs:boolean              | The isExternalReference attribute, if true, indicates that the actual object is not defined the corresponding element, rather its full details are defined elsewhere - indicated by either the registryURL, the repositoryURL, or the structureURL. The purpose of this is so that each structure message does not have to redefine object that are already defined elsewhere. If the isExternalReference attribute is not set, then it is assumed to be false, and the object should contain the full definition of its contents. If more than one of the registryURL, the repositoryURL, and the structureURL are supplied, then the application processing the object can choose the method it finds best suited to retrieve the details of the object. |
+| serviceURL                           | xs:anyURI               | The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| structureURL                         | xs:anyURI               | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| isPartialLanguage (default: false)   | xs:boolean              | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| isPartial (default: false)           | xs:boolean              | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 Element Documentation:
 
@@ -9222,10 +9261,276 @@ Element Documentation:
 | Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
 | Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
-| VtlMapping  | VtlMappingType  | VtlMapping details a mapping between SDMX and VTL transformation.                                                                                                                                                                 |
 
-**VtlMappingBaseType:** VtlMappingBaseType defines the base refinement
-of the VtlMappingType. Its purpose is to retrict the urn attribute.
+**VtlMappingSchemeType:** VtlMappingSchemeType defines a set of mappings
+between SDMX and VTL. The mappings define the VTL Data Sets and Value
+Domains used by the transformations, rulesets and user defined operators
+of a transformation scheme: a VtlDatasetMapping maps a VTL Data Set to a
+Data Structure Definition, Dataflow or Provision Agreement, and a
+VtlCodelistMapping maps a VTL Value Domain to a Codelist. The VtlMapping
+is the deprecated encoding of the mappings used in SDMX 3.0 and 3.1.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       VtlMappingSchemeBaseType (extension)  
+                                             VtlMappingSchemeType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, version?, validFrom?, validTo?, agencyID,
+isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?, isPartial?
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*, (VtlDatasetMapping | VtlCodelistMapping | VtlMapping)*
+```
+
+Attribute Documentation:
+
+| **Name**                             | **Type**                | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|--------------------------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                   | IDType                  | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| urn                                  | VtlMappingSchemeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| uri                                  | xs:anyURI               | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| version                              | VersionType             | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| validFrom                            | xs:dateTime             | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| validTo                              | xs:dateTime             | The validTo attribute provides the inclusive end date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| agencyID                             | NestedNCNameIDType      | The agencyID must be provided, and identifies the maintenance agency of the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| isExternalReference (default: false) | xs:boolean              | The isExternalReference attribute, if true, indicates that the actual object is not defined the corresponding element, rather its full details are defined elsewhere - indicated by either the registryURL, the repositoryURL, or the structureURL. The purpose of this is so that each structure message does not have to redefine object that are already defined elsewhere. If the isExternalReference attribute is not set, then it is assumed to be false, and the object should contain the full definition of its contents. If more than one of the registryURL, the repositoryURL, and the structureURL are supplied, then the application processing the object can choose the method it finds best suited to retrieve the details of the object. |
+| serviceURL                           | xs:anyURI               | The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| structureURL                         | xs:anyURI               | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| isPartialLanguage (default: false)   | xs:boolean              | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| isPartial (default: false)           | xs:boolean              | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+
+Element Documentation:
+
+| **Name**           | **Type**               | **Documentation**                                                                                                                                                                                                                 |
+|--------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations        | AnnotationsType        | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link               | LinkType               | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name               | TextType               | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
+| Description        | TextType               | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
+| VtlDatasetMapping  | VtlDatasetMappingType  | VtlDatasetMapping details a mapping between a VTL Data Set and the SDMX Data Structure Definition, Dataflow or Provision Agreement that defines it.                                                                               |
+| VtlCodelistMapping | VtlCodelistMappingType | VtlCodelistMapping details a mapping between a VTL Value Domain and the SDMX Codelist whose codes are its values.                                                                                                                 |
+| VtlMapping         | VtlMappingType         | Deprecated. Replaced by VtlDatasetMapping and VtlCodelistMapping. VtlMapping details a mapping between SDMX and VTL transformation.                                                                                               |
+
+**VtlDatasetMappingBaseType:** VtlDatasetMappingBaseType defines the
+base refinement of the VtlDatasetMappingType. Its purpose is to restrict
+the urn attribute.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           UnnestedItemType (restriction)  
+                                 VtlDatasetMappingBaseType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*
+```
+
+Attribute Documentation:
+
+| **Name** | **Type**                 | **Documentation**                                                                                                                                                  |
+|----------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType                   | The id is the identifier for the object.                                                                                                                           |
+| urn      | VtlDatasetMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| uri      | xs:anyURI                | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+
+Element Documentation:
+
+| **Name**    | **Type**        | **Documentation**                                                                                                                                                                                                                 |
+|-------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
+| Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
+
+**VtlDatasetMappingType:** VtlDatasetMappingType defines the structure
+of a mapping between a VTL Data Set, named by its alias, and an SDMX
+Data Structure Definition, Dataflow or Provision Agreement. As the VTL
+is strongly typed and has no declarations of variables, the mapping is
+the definition of the VTL Data Set used by the transformations, rulesets
+and user defined operators of a transformation scheme. The data
+structure of the VTL Data Set corresponds to the Data Structure
+Definition (referenced directly, or used by the Dataflow, referenced
+directly or through the Provision Agreement) through the Basic mapping,
+which maps the Dimensions and the TimeDimension to VTL Identifiers, the
+Measures to VTL Measures and the DataAttributes to VTL Attributes, and
+vice-versa. The same SDMX artefact can be referenced by several VTL
+dataset mappings, with distinct aliases.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           UnnestedItemType (restriction)  
+                                 VtlDatasetMappingBaseType (extension)  
+                                       VtlDatasetMappingType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, vtlAlias, isInput
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*, (DataStructure | Dataflow | ProvisionAgreement)
+```
+
+Attribute Documentation:
+
+| **Name** | **Type**                 | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|----------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType                   | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                              |
+| urn      | VtlDatasetMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                      |
+| uri      | xs:anyURI                | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                    |
+| vtlAlias | xs:string                | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It must comply with the VTL naming rules and be unique within the VTL mapping scheme.                                                                                                                                                                                                                                    |
+| isInput  | xs:boolean               | Indicates whether the VTL Data Set is an input of the VTL program (true), whose definition and data are obtained from SDMX, or an output of the VTL program (false), whose data are converted into SDMX. An output must be persistent, i.e. the vtlAlias must be the result of a transformation whose isPersistent is true. An SDMX artefact that is both read and written by the VTL program is mapped twice, with distinct aliases. |
+
+Element Documentation:
+
+| **Name**           | **Type**                        | **Documentation**                                                                                                                                                                                                                 |
+|--------------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations        | AnnotationsType                 | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link               | LinkType                        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name               | TextType                        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
+| Description        | TextType                        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
+| DataStructure      | DataStructureReferenceType      | A reference to the SDMX Data Structure Definition to which the VTL Data Set is mapped.                                                                                                                                            |
+| Dataflow           | DataflowReferenceType           | A reference to the SDMX Dataflow to which the VTL Data Set is mapped.                                                                                                                                                             |
+| ProvisionAgreement | ProvisionAgreementReferenceType | A reference to the SDMX Provision Agreement to which the VTL Data Set is mapped.                                                                                                                                                  |
+
+**VtlCodelistMappingBaseType:** VtlCodelistMappingBaseType defines the
+base refinement of the VtlCodelistMappingType. Its purpose is to
+restrict the urn attribute.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           UnnestedItemType (restriction)  
+                                 VtlCodelistMappingBaseType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*
+```
+
+Attribute Documentation:
+
+| **Name** | **Type**                  | **Documentation**                                                                                                                                                  |
+|----------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType                    | The id is the identifier for the object.                                                                                                                           |
+| urn      | VtlCodelistMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| uri      | xs:anyURI                 | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+
+Element Documentation:
+
+| **Name**    | **Type**        | **Documentation**                                                                                                                                                                                                                 |
+|-------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
+| Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
+
+**VtlCodelistMappingType:** VtlCodelistMappingType defines the structure
+of a mapping between a VTL Value Domain, named by its alias, and an SDMX
+Codelist, whose codes are the values of the Value Domain. As the VTL
+programs do not produce Value Domains, the mapping applies only to
+inputs.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           UnnestedItemType (restriction)  
+                                 VtlCodelistMappingBaseType (extension)  
+                                       VtlCodelistMappingType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, vtlAlias
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*, Codelist
+```
+
+Attribute Documentation:
+
+| **Name** | **Type**                  | **Documentation**                                                                                                                                                                                      |
+|----------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType                    | The id is the identifier for the object.                                                                                                                                                               |
+| urn      | VtlCodelistMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                       |
+| uri      | xs:anyURI                 | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                     |
+| vtlAlias | xs:string                 | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It must comply with the VTL naming rules and be unique within the VTL mapping scheme. |
+
+Element Documentation:
+
+| **Name**    | **Type**              | **Documentation**                                                                                                                                                                                                                 |
+|-------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType       | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType              | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType              | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
+| Description | TextType              | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
+| Codelist    | CodelistReferenceType | A reference to the SDMX Codelist whose codes are the values of the VTL Value Domain.                                                                                                                                              |
+
+**VtlMappingBaseType:** Deprecated. Replaced by
+VtlDatasetMappingBaseType and VtlCodelistMappingBaseType.
+VtlMappingBaseType defines the base refinement of the VtlMappingType.
+Its purpose is to restrict the urn attribute.
 
 Derivation:
 
@@ -9268,20 +9573,24 @@ Element Documentation:
 | Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
 
-**VtlMappingType:** VtlMappingType defines the structure of a single
-mapping between the reference to a SDMX artefact made from VTL
-transformations, rulesets, user defined operators and the corresponding
-SDMX structure identifier. These are used to assign an alternative names
-to SDMX Dataflows, Codelists, Concept Schemes, or Concepts. Although are
-distinct sub-classes in the Information Model, this structure serves to
-express them all. The references SDMX artefact serves to distinguish
-which type of sub-class (VtlDatflowMapping or VtlCodelistMapping, or
-VtlConceptMapping) is being described. When this is used to assign an
-alias for a SDMX Dataflow, this can also be used to indicate the methods
-used to convert the data structure from SDMX to VTL and vice-versa.
-Finally, this can be used to override the deault Basic mapping methods
-used for Dataflows by utilizing the GenericDataflow element in place of
-a reference to a specific Dataflow.
+**VtlMappingType:** Deprecated. Replaced by VtlDatasetMappingType and
+VtlCodelistMappingType, as the VtlDataflowMapping and the
+VtlConceptMapping are deprecated and the Basic mapping is the only
+mapping method (see the SDMX Technical Notes, "Conversion of definitions
+based on deprecated constructs"). VtlMappingType defines the structure
+of a single mapping between the reference to a SDMX artefact made from
+VTL transformations, rulesets, user defined operators and the
+corresponding SDMX structure identifier. These are used to assign an
+alternative names to SDMX Dataflows, Codelists, Concept Schemes, or
+Concepts. Although are distinct sub-classes in the Information Model,
+this structure serves to express them all. The references SDMX artefact
+serves to distinguish which type of sub-class (VtlDatflowMapping or
+VtlCodelistMapping, or VtlConceptMapping) is being described. When this
+is used to assign an alias for a SDMX Dataflow, this can also be used to
+indicate the methods used to convert the data structure from SDMX to VTL
+and vice-versa. Finally, this can be used to override the default Basic
+mapping methods used for Dataflows by utilizing the GenericDataflow
+element in place of a reference to a specific Dataflow.
 
 Derivation:
 
@@ -9317,7 +9626,7 @@ Attribute Documentation:
 | id       | IDType            | The id is the identifier for the object.                                                                                                                           |
 | urn      | VtlMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI         | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
-| alias    | xs:string         | The alias used to refer to the reference SDMX artefact in the transformations. This must be unique within the mapping scheme in which it is defined.               |
+| alias | xs:string | Deprecated. Replaced by the vtlAlias of VtlDatasetMapping and VtlCodelistMapping; it represents the deprecated dataflowAlias, codelistAlias and conceptAlias. The alias used to refer to the reference SDMX artefact in the transformations. This must be unique within the mapping scheme in which it is defined. |
 
 Element Documentation:
 
@@ -9327,15 +9636,18 @@ Element Documentation:
 | Link            | LinkType               | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata.                                     |
 | Name            | TextType               | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                         |
 | Description     | TextType               | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                     |
-| Dataflow        | DataflowReferenceTyp e | A reference to the SDMX Dataflow that the mapping is defined for. This is used to create a VtlDataflowMapping. In this case, it is possible to specify the mapping details to and from VTL.                                                                           |
-| GenericDataflow | EmptyType              | Indicates that the ToVtlMapping and FromVtlMapping are the default mapping methods to be applied, overriding the Basic methods if necessary. The mapping methods in this case would be applied to any dataflows that are not explicitly defined in other VtlMappings. |
-| ToVtlMapping    | ToVtlMappingType       | Describes the mapping from a SDMX dataflow to a VTL data structure.                                                                                                                                                                                                   |
-| FromVtlMapping  | FromVtlMappingType     | Describes the mapping to a SDMX dataflow from a VTL data structure.                                                                                                                                                                                                   |
-| Codelist        | CodelistReferenceTyp e | A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.                                                                                                                                                        |
-| Concept         | ConceptReferenceType   | A reference to the SDMX Concept that the mapping is defined for. This is used to create a VtlConceptMapping.                                                                                                                                                          |
+| Dataflow | DataflowReferenceType | Deprecated. A VTL Data Set is mapped to a Dataflow through a VtlDatasetMapping. A reference to the SDMX Dataflow that the mapping is defined for. This is used to create a VtlDataflowMapping. In this case, it is possible to specify the mapping details to and from VTL. |
+| GenericDataflow | EmptyType | Deprecated. The Basic mapping is the only mapping method, therefore no default mapping methods can be declared. Indicates that the ToVtlMapping and FromVtlMapping are the default mapping methods to be applied, overriding the Basic methods if necessary. The mapping methods in this case would be applied to any dataflows that are not explicitly defined in other VtlMappings. |
+| ToVtlMapping | ToVtlMappingType | Deprecated. The Basic mapping is the only mapping method between SDMX and VTL data structures; any restructuring of the data is performed in the VTL program through the VTL operators. Describes the mapping from a SDMX dataflow to a VTL data structure. |
+| FromVtlMapping | FromVtlMappingType | Deprecated. The Basic mapping is the only mapping method between SDMX and VTL data structures; any restructuring of the data is performed in the VTL program through the VTL operators. Describes the mapping to a SDMX dataflow from a VTL data structure. |
+| Codelist | CodelistReferenceType | Deprecated. A VTL Value Domain is mapped to a Codelist through a VtlCodelistMapping. A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping. |
+| Concept | ConceptReferenceType | Deprecated. The VTL Variables correspond to the homonymous components of the VTL Data Sets and do not need any mapping. A reference to the SDMX Concept that the mapping is defined for. This is used to create a VtlConceptMapping. |
 
-**ToVtlMappingType:** ToVtlMappingType defines the mapping method and
-filter used when mapping from SDMX to VTL.
+**ToVtlMappingType:** Deprecated. The Basic mapping is the only mapping
+method from SDMX to VTL; parts of the data are retrieved through the
+query parameters of a data extraction of a VTL execution and selected in
+the VTL program through the sub clause. ToVtlMappingType defines the
+mapping method and filter used when mapping from SDMX to VTL.
 
 Attributes:
 
@@ -9353,16 +9665,20 @@ Attribute Documentation:
 
 | **Name** | **Type**                | **Documentation**                                                                                                                                                                                      |
 |----------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| method   | ToVtlMappingMethodTy pe | The mapping method used when mapping from SDMX to VTL. This is typically a StandardToVtlMappingMethodType, but can be any other value to allow for non-standard methods. The implied default is Basic. |
+| method | ToVtlMappingMethodType | Deprecated. The Basic mapping is the only mapping method. The mapping method used when mapping from SDMX to VTL. This is typically a StandardToVtlMappingMethodType, but can be any other value to allow for non-standard methods. The implied default is Basic. |
 
 Element Documentation:
 
 | **Name**      | **Type**     | **Documentation**                                                                                                                                      |
 |---------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ToVtlSubSpace | SpaceKeyType | Identfies a sub space of the mapped dataflow that the mapping applies to. This is a collection of references to the dimensions that make up the space. |
+| ToVtlSubSpace | SpaceKeyType | Deprecated. The same SDMX artefact can be mapped to distinct input VTL Data Sets, each one fed with the desired part of the data through the query parameters of its data extraction, and the VTL program selects the parts through the sub clause. Identifies a sub space of the mapped dataflow that the mapping applies to. This is a collection of references to the dimensions that make up the space. |
 
-**FromVtlMappingType:** FromVtlMappingType defines the mapping method
-and filter used when mapping from VTL to SDMX.
+**FromVtlMappingType:** Deprecated. The Basic mapping is the only
+mapping method from VTL to SDMX; the VTL program restructures the data
+(e.g. through the calc clause and the union operator) and its result is
+mapped through a VtlDatasetMapping whose isInput is false.
+FromVtlMappingType defines the mapping method and filter used when
+mapping from VTL to SDMX.
 
 Attributes:
 
@@ -9380,16 +9696,17 @@ Attribute Documentation:
 
 | **Name** | **Type**                  | **Documentation**                                                                                                                                                                                                                                                                                 |
 |----------|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| method   | FromVtlMappingMethod Type | The mapping method used when mapping from VTL to SDMX. This is typically a StandardFromVtlMappingMethodType, but can be any other value to allow for non-standard methods. The implied default is Basic for single-measure VTL data structures and Unpivot for multi-meausre VTL data structures. |
+| method | FromVtlMappingMethodType | Deprecated. The Basic mapping is the only mapping method. The mapping method used when mapping from VTL to SDMX. This is typically a StandardFromVtlMappingMethodType, but can be any other value to allow for non-standard methods. The implied default is Basic for single-measure VTL data structures and Unpivot for multi-meausre VTL data structures. |
 
 Element Documentation:
 
 | **Name**          | **Type**     | **Documentation**                                                                                                                                        |
 |-------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| FromVtlSuperSpace | SpaceKeyType | Identfies a super space of the mapped dataflow that the mapping applies to. This is a collection of references to the dimensions that make up the space. |
+| FromVtlSuperSpace | SpaceKeyType | Deprecated. The VTL program adds the mapping dimensions through the calc clause and combines the VTL Data Sets through the union operator. Identifies a super space of the mapped dataflow that the mapping applies to. This is a collection of references to the dimensions that make up the space. |
 
-**SpaceKeyType:** SpaceKey defines the structure of a super- or sub-
-space for a SDMX Dataflow. It is a collection of references to the
+**SpaceKeyType:** Deprecated. Used only by the deprecated ToVtlSubSpace
+and FromVtlSuperSpace. SpaceKey defines the structure of a super- or
+sub- space for a SDMX Dataflow. It is a collection of references to the
 dimensions that make up the space.
 
 Content:
@@ -9404,9 +9721,244 @@ Element Documentation:
 |----------|--------------------|-----------------------------------------------|
 | Key      | SingleNCNameIDType | A reference to a dimension by its identifier. |
 
-**NamePersonalisationSchemeType:** NamePersonalisationSchemeType defines
-a set of personalisations of VTL standard names that are used in a set
-of transformations.
+**VtlExecutionBaseType:** VtlExecutionBaseType defines the base
+refinement of the VtlExecutionType. Its purpose is to restrict the urn
+attribute.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (restriction)  
+                                 VtlExecutionBaseType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, version?, validFrom?, validTo?, agencyID,
+isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*
+```
+
+Attribute Documentation:
+
+| **Name**                             | **Type**            | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|--------------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                   | IDType              | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| urn                                  | VtlExecutionUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| uri                                  | xs:anyURI           | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| version                              | VersionType         | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| validFrom                            | xs:dateTime         | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| validTo                              | xs:dateTime         | The validTo attribute provides the inclusive end date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| agencyID                             | NestedNCNameIDType  | The agencyID must be provided, and identifies the maintenance agency of the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| isExternalReference (default: false) | xs:boolean          | The isExternalReference attribute, if true, indicates that the actual object is not defined the corresponding element, rather its full details are defined elsewhere - indicated by either the registryURL, the repositoryURL, or the structureURL. The purpose of this is so that each structure message does not have to redefine object that are already defined elsewhere. If the isExternalReference attribute is not set, then it is assumed to be false, and the object should contain the full definition of its contents. If more than one of the registryURL, the repositoryURL, and the structureURL are supplied, then the application processing the object can choose the method it finds best suited to retrieve the details of the object. |
+| serviceURL                           | xs:anyURI           | The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| structureURL                         | xs:anyURI           | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| isPartialLanguage (default: false)   | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+
+Element Documentation:
+
+| **Name**    | **Type**        | **Documentation**                                                                                                                                                                                                                 |
+|-------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
+| Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
+
+**VtlExecutionType:** VtlExecutionType describes the structure of a VTL
+execution, which specifies how the data of the input VTL Data Sets of a
+transformation scheme are retrieved, so that the transformation scheme
+can be executed on the basis of its SDMX definition. A VTL execution is
+an execution configuration, maintained independently of the
+transformation scheme: several executions can reference the same
+transformation scheme, also one maintained by another organisation, and
+the sources of the data can change without a new version of the
+transformation scheme. It contains at most one data extraction for each
+input VTL Data Set; the data of the inputs without a data extraction are
+provided to the VTL engine at run time. As for the other maintainable
+artefacts, a VTL execution included as an external reference
+(isExternalReference="true") still contains the reference to its
+transformation scheme and at least one data extraction.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (restriction)  
+                                 VtlExecutionBaseType (extension)  
+                                       VtlExecutionType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, version?, validFrom?, validTo?, agencyID,
+isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*, TransformationScheme, (QueryExtraction | UrlExtraction)+
+```
+
+Attribute Documentation:
+
+| **Name**                             | **Type**            | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|--------------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                   | IDType              | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| urn                                  | VtlExecutionUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| uri                                  | xs:anyURI           | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| version                              | VersionType         | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| validFrom                            | xs:dateTime         | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| validTo                              | xs:dateTime         | The validTo attribute provides the inclusive end date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| agencyID                             | NestedNCNameIDType  | The agencyID must be provided, and identifies the maintenance agency of the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| isExternalReference (default: false) | xs:boolean          | The isExternalReference attribute, if true, indicates that the actual object is not defined the corresponding element, rather its full details are defined elsewhere - indicated by either the registryURL, the repositoryURL, or the structureURL. The purpose of this is so that each structure message does not have to redefine object that are already defined elsewhere. If the isExternalReference attribute is not set, then it is assumed to be false, and the object should contain the full definition of its contents. If more than one of the registryURL, the repositoryURL, and the structureURL are supplied, then the application processing the object can choose the method it finds best suited to retrieve the details of the object. |
+| serviceURL                           | xs:anyURI           | The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| structureURL                         | xs:anyURI           | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| isPartialLanguage (default: false)   | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+
+Element Documentation:
+
+| **Name**             | **Type**                          | **Documentation**                                                                                                                                                                                                                 |
+|----------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations          | AnnotationsType                   | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link                 | LinkType                          | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name                 | TextType                          | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
+| Description          | TextType                          | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
+| TransformationScheme | TransformationSchemeReferenceType | References the transformation scheme to be executed.                                                                                                                                                                              |
+| QueryExtraction      | QueryExtractionType               | Retrieval of the data of an input VTL Data Set through a query to a web service compliant with the SDMX REST API.                                                                                                                 |
+| UrlExtraction        | UrlExtractionType                 | Retrieval of the data of an input VTL Data Set through a URL built from a template, for web services that are not fully compliant with the SDMX REST API.                                                                         |
+
+**VtlDataExtractionType:** VtlDataExtractionType is an abstract base
+type for the data extractions of a VTL execution. A data extraction
+specifies how to retrieve the data of an input VTL Data Set. It is not
+identifiable, as it is part of its VTL execution.
+
+Content:
+
+```text
+DatasetMapping
+```
+
+Element Documentation:
+
+| **Name**       | **Type**                       | **Documentation**                                                                                                                                                                                                                                                                                       |
+|----------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DatasetMapping | VtlDatasetMappingReferenceType | References the VTL dataset mapping of the input VTL Data Set whose data are retrieved. The mapping must belong to the VTL mapping scheme of the transformation scheme of the VTL execution, and its isInput must be true. A VTL execution has at most one data extraction for each VTL dataset mapping. |
+
+**QueryExtractionType:** QueryExtractionType describes the retrieval of
+the data of an input VTL Data Set through a query to a web service
+compliant with the SDMX REST API. The VTL engine builds the data query
+for the artefact referenced by the context or, if absent, by the VTL
+dataset mapping, according to the syntax of the version of the SDMX REST
+API, by using the query parameters: the parameter named key, if present,
+provides the key of the data query, while the other parameters are added
+as query parameters (e.g. startPeriod, or component filters such as
+c[TIME_PERIOD]).
+
+Derivation:
+
+```text
+VtlDataExtractionType (extension)  
+   QueryExtractionType
+```
+
+Attributes:
+
+```text
+sdmxApiVersion?
+```
+
+Content:
+
+```text
+DatasetMapping, EntryPoint, Context?, QueryParameter*
+```
+
+Attribute Documentation:
+
+| **Name**       | **Type**           | **Documentation**                                                                                                                                                               |
+|----------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| sdmxApiVersion | SdmxApiVersionType | The version of the SDMX REST API implemented by the entry point, which determines the syntax of the query. If not specified, the default version of the web service is assumed. |
+
+Element Documentation:
+
+| **Name**       | **Type**                                  | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                            |
+|----------------|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DatasetMapping | VtlDatasetMappingReferenceType            | References the VTL dataset mapping of the input VTL Data Set whose data are retrieved. The mapping must belong to the VTL mapping scheme of the transformation scheme of the VTL execution, and its isInput must be true. A VTL execution has at most one data extraction for each VTL dataset mapping.                                                                                                                      |
+| EntryPoint     | xs:anyURI                                 | The URL of the entry point of the SDMX REST web service (e.g. https://sdmx.example.org/rest).                                                                                                                                                                                                                                                                                                                                |
+| Context        | DataflowOrProvisionAgreementReferenceType | References the dataflow or provision agreement whose data are queried, which must use the same data structure definition as the SDMX artefact referenced by the VTL dataset mapping (i.e. the data structure definition itself, or the one used by the dataflow, referenced directly or through the provision agreement). If not specified, the data of the SDMX artefact referenced by the VTL dataset mapping are queried. |
+| QueryParameter | QueryParameterType                        | A name-value pair used for building the query. The names are unique within the data extraction.                                                                                                                                                                                                                                                                                                                              |
+
+**UrlExtractionType:** UrlExtractionType describes the retrieval of the
+data of an input VTL Data Set through a URL built from a template, meant
+for web services that are not fully compliant with the SDMX REST API.
+
+Derivation:
+
+```text
+VtlDataExtractionType (extension)  
+   UrlExtractionType
+```
+
+Content:
+
+```text
+DatasetMapping, UrlTemplate, QueryParameter*
+```
+
+Element Documentation:
+
+| **Name**       | **Type**                       | **Documentation**                                                                                                                                                                                                                                                                                       |
+|----------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DatasetMapping | VtlDatasetMappingReferenceType | References the VTL dataset mapping of the input VTL Data Set whose data are retrieved. The mapping must belong to the VTL mapping scheme of the transformation scheme of the VTL execution, and its isInput must be true. A VTL execution has at most one data extraction for each VTL dataset mapping. |
+| UrlTemplate    | xs:string                      | The complete URL of the query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are replaced by the values of the query parameters having the same names. Each token must have a query parameter with the same name. Any part of the URL, including the entry point, can be a token.          |
+| QueryParameter | QueryParameterType             | A name-value pair providing the value of the token of the URL template having the same name. The names are unique within the data extraction.                                                                                                                                                           |
+
+**QueryParameterType:** QueryParameterType describes a name-value pair
+used for retrieving the data of an input VTL Data Set. A fixed parameter
+must have a value, which is always used as it is. A non-fixed parameter
+can have a value, which is a default that can be overridden at run time;
+if it has no value, its value must be provided at run time. The values
+provided at run time are assigned to the input VTL Data Sets through
+their aliases. The credentials needed to access protected web services
+must not be put in the query parameters or in the URL template.
+
+Attributes:
+
+```text
+name, value?, isFixed
+```
+
+Attribute Documentation:
+
+| **Name** | **Type**   | **Documentation**                                                                                                                                              |
+|----------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name     | xs:string  | The name of the parameter (e.g. key, startPeriod, c[TIME_PERIOD]), unique within the data extraction.                                                          |
+| value    | xs:string  | The value of the parameter: mandatory if the parameter is fixed, otherwise a default value that can be overridden at run time.                                 |
+| isFixed  | xs:boolean | Indicates whether the value is fixed (true) or can be overridden at run time (false). A non-fixed parameter without a value must be given a value at run time. |
+
+**NamePersonalisationSchemeType:** Deprecated. The name personalisation
+schemes are deprecated in SDMX 3.2: the names assigned by default by the
+VTL operators (e.g. bool_var, errorcode) can be changed in the VTL
+program, for example through the rename clause.
+NamePersonalisationSchemeType defines a set of personalisations of VTL
+standard names that are used in a set of transformations.
 
 Derivation:
 
@@ -9452,7 +10004,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI                         | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean                        | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string                         | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -9462,11 +10014,12 @@ Element Documentation:
 | Link                | LinkType                 | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
 | Name                | TextType                 | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description         | TextType                 | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
-| NamePersonalisation | NamePersonalisationT ype | NamePersonalisation details a name personalisation that is used in a transformation.                                                                                                                                              |
+| NamePersonalisation | NamePersonalisationType | Deprecated. See NamePersonalisationSchemeType. NamePersonalisation details a name personalisation that is used in a transformation. |
 
-**NamePersonalisationBaseType:** NamePersonalisationBaseType defines
-the base refinement of the NamePersonalisationType. Its purpose is to
-retrict the urn attribute.
+**NamePersonalisationBaseType:** Deprecated. See
+NamePersonalisationSchemeType. NamePersonalisationBaseType defines the
+base refinement of the NamePersonalisationType. Its purpose is to
+restrict the urn attribute.
 
 Derivation:
 
@@ -9509,7 +10062,8 @@ Element Documentation:
 | Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
 
-**NamePersonalisationType:** NamePersonalisationType defines the
+**NamePersonalisationType:** Deprecated. See
+NamePersonalisationSchemeType. NamePersonalisationType defines the
 structure of a name personalisation. A name personalisation is is used
 in place of a standard VTL name in some VTL operations.
 
@@ -9608,7 +10162,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI            | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean           | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string            | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -9621,7 +10175,8 @@ Element Documentation:
 | Ruleset     | RulesetType     | Ruleset details a ruleset within a ruleset scheme.                                                                                                                                                                                |
 
 **RulesetSchemeType:** RulesetSchemeType defines a collection of
-rulesets that are used in transformations.
+rulesets that are used in transformations, including, from VTL 2.2, the
+viral propagations.
 
 Derivation:
 
@@ -9669,7 +10224,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI            | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean           | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string            | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -9680,7 +10235,7 @@ Element Documentation:
 | Name             | TextType                       | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                                            |
 | Description      | TextType                       | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                        |
 | Ruleset          | RulesetType                    | Ruleset details a ruleset within a ruleset scheme.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| VtlMappingScheme | VtlMappingSchemeRefe renceType | References a VTL mapping scheme which defines aliases for given SDMX artefacts that are used in the rulesets. Rulesets defined on value domains reference Codelists or Concept Schemes (the latter in VTL are considered as the Value Domains of the variables corresponding to the SDMX Measure Dimensions). The rulesets defined on variables reference Concepts (for which a definite representation is assumed). Therefore, a ruleset should only refer to Codelists, Concept Schemes, and Concepts. |
+| VtlMappingScheme | VtlMappingSchemeReferenceType | Deprecated. The mappings used by the rulesets are provided by the VTL mapping scheme of the transformation scheme. References a VTL mapping scheme which defines aliases for given SDMX artefacts that are used in the rulesets. Rulesets defined on value domains reference Codelists or Concept Schemes (the latter in VTL are considered as the Value Domains of the variables corresponding to the SDMX Measure Dimensions). The rulesets defined on variables reference Concepts (for which a definite representation is assumed). Therefore, a ruleset should only refer to Codelists, Concept Schemes, and Concepts. |
 
 **RulesetBaseType:** RulesetBaseType defines the base refinement of
 the RulesetType. Its purpose is to retrict the urn attribute.
@@ -9728,7 +10283,14 @@ Element Documentation:
 
 **RulesetType:** RulesetType defines the structure of a ruleset. A
 ruleset is a persistent set of rules which can be invoked by using
-appropriate VTL operators.
+appropriate VTL operators. From VTL 2.2, a ruleset can also define a
+viral propagation, i.e. the algorithm for combining the values of a
+viral attribute, which is not invoked by the operators but applied by
+all the operators that propagate the viral attributes. An SDMX data
+attribute is mapped to a viral VTL attribute when a ruleset scheme
+referenced by the transformation scheme contains a viral propagation for
+it, defined on its variable (named after its id) or on its value domain
+(the codelist of its representation).
 
 Derivation:
 
@@ -9762,7 +10324,7 @@ Attribute Documentation:
 | id           | IDType         | The id is the identifier for the object.                                                                                                                           |
 | urn          | RulesetUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri          | xs:anyURI      | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
-| rulesetType  | xs:string      | The VTL type of the ruleset. In VTL 2.0, this is datapoint or hierarchical                                                                                         |
+| rulesetType | xs:string | The VTL type of the ruleset. In VTL 2.0, this is datapoint or hierarchical; VTL 2.2 adds viral, for the viral propagations. |
 | rulesetScope | xs:string      | This model artefact on which the ruleset is defined. In VTL 2.0, this is value domain or variable.                                                                 |
 
 Element Documentation:
@@ -9773,7 +10335,7 @@ Element Documentation:
 | Link              | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
 | Name              | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description       | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
-| RulesetDefinition | xs:string       | A VTL statement for the definition of a ruleset. This must conform to the syntax of the VTL definition language.                                                                                                                  |
+| RulesetDefinition | xs:string | A VTL statement for the definition of a ruleset (e.g. define datapoint ruleset, define hierarchical ruleset or, from VTL 2.2, define viral propagation). This must conform to the syntax of the VTL definition language. |
 
 **UserDefinedOperatorSchemeBaseType:**
 UserDefinedOperatorSchemeBaseType is an abstract base type for the
@@ -9824,7 +10386,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI                         | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean                        | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string                         | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -9886,7 +10448,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI                         | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean                        | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string                         | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -9897,8 +10459,8 @@ Element Documentation:
 | Name                | TextType                       | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                                                             |
 | Description         | TextType                       | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                                         |
 | UserDefinedOperator | UserDefinedOperatorT ype       | UserDefinedOperator details a user defined operators within a user defined operator scheme.                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| VtlMappingScheme    | VtlMappingSchemeRefe renceType | References a VTL mapping scheme which defines aliases for given SDMX artefacts that are used in the user defined operators. Although the VTL user defined operators are conceived to be defined on generic operands, so that the specific artefacts to be manipulated are passed as parameters at the invocation, it is also possible that they reference specific SDMX artefacts like Dataflows, Codelists and ConceptSchemes. In this case, the mapping schemes referenced here define the mappings to those artefacts. |
-| RulesetScheme       | RulesetSchemeReferen ceType    | References a ruleset scheme defining rulesets utilized in the user defined operators.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| VtlMappingScheme | VtlMappingSchemeReferenceType | Deprecated. The mappings used by the user defined operators are provided by the VTL mapping scheme of the transformation scheme. References a VTL mapping scheme which defines aliases for given SDMX artefacts that are used in the user defined operators. Although the VTL user defined operators are conceived to be defined on generic operands, so that the specific artefacts to be manipulated are passed as parameters at the invocation, it is also possible that they reference specific SDMX artefacts like Dataflows, Codelists and ConceptSchemes. In this case, the mapping schemes referenced here define the mappings to those artefacts. |
+| RulesetScheme | RulesetSchemeReferenceType | Deprecated. The rulesets used by the user defined operators are provided by the ruleset schemes of the transformation scheme. References a ruleset scheme defining rulesets utilized in the user defined operators. |
 
 **UserDefinedOperatorBaseType:** UserDefinedOperatorBaseType defines
 the base refinement of the UserDefinedOperatorType. Its purpose is to
@@ -9996,8 +10558,14 @@ Element Documentation:
 | Description        | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
 | OperatorDefinition | xs:string       | A VTL statement for the definition of a new operator: it specifies the operator name, its parameters and their data types, the VTL expression that defines its behaviour.                                                         |
 
-**CustomTypeSchemeType:** CustomTypeSchemeType defines a collection of
-custom types that are used in transformations.
+**CustomTypeSchemeType:** Deprecated. The custom type schemes are
+deprecated in SDMX 3.2: the default conversions between VTL and SDMX
+data types apply, unless overridden by the representation defined in the
+data structure definition of the referenced SDMX artefact; the VTL NULLs
+become missing values in SDMX, the VTL literals are written in the
+default format, and explicit type conversions are expressed in the VTL
+program through the cast operator. CustomTypeSchemeType defines a
+collection of custom types that are used in transformations.
 
 Derivation:
 
@@ -10043,7 +10611,7 @@ Attribute Documentation:
 | structureURL                         | xs:anyURI                | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | isPartial (default: false)           | xs:boolean               | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| vtlVersion                           | xs:string                | Identifies the VTL version to which the items in the defined scheme comply. Note that definition schemes can only reference definition schemes using the same VTL version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| vtlVersion | xs:string | Identifies the VTL version to which the items in the defined scheme comply (e.g. 2.2), which determines the syntax used in their definitions. It is mandatory. Note that definition schemes can only reference definition schemes using the same VTL version. |
 
 Element Documentation:
 
@@ -10053,10 +10621,11 @@ Element Documentation:
 | Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
 | Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
-| CustomType  | CustomTypeType  | CustomType details a custom type within a custom type scheme.                                                                                                                                                                     |
+| CustomType | CustomTypeType | Deprecated. See CustomTypeSchemeType. CustomType details a custom type within a custom type scheme. |
 
-**CustomTypeBaseType:** CustomTypeBaseType defines the base refinement
-of the CustomTypeType. Its purpose is to retrict the urn attribute.
+**CustomTypeBaseType:** Deprecated. See CustomTypeSchemeType.
+CustomTypeBaseType defines the base refinement of the CustomTypeType.
+Its purpose is to restrict the urn attribute.
 
 Derivation:
 
@@ -10099,10 +10668,10 @@ Element Documentation:
 | Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
 
-**CustomTypeType:** CustomTypeType defines the structure of a custom
-type. A custom type specifies a custom conversion for a VTL scalar type
-to a resulting data type. This conversion overrides the default
-conversion.
+**CustomTypeType:** Deprecated. See CustomTypeSchemeType. CustomTypeType
+defines the structure of a custom type. A custom type specifies a custom
+conversion for a VTL scalar type to a resulting data type. This
+conversion overrides the default conversion.
 
 Derivation:
 
@@ -10356,9 +10925,9 @@ Enumerations:
 | endOfPeriod   |                   |
 | midPeriod     |                   |
 
-**StandardToVtlMappingMethodType:** A simple type enumerating the
-standard mapping methods when converting from data structures from SDMX
-to VLT.
+**StandardToVtlMappingMethodType:** Deprecated. The Basic mapping is the
+only mapping method. A simple type enumerating the standard mapping
+methods when converting from data structures from SDMX to VLT.
 
 Derived by restriction of xs:string .
 
@@ -10371,17 +10940,17 @@ Enumerations:
 | Basic-A2M | The basic mapping method, using attributes to measures. See Section 6 SDMX Standards ("SDMX Technical Notes"), 10.3.3.3 ("From SDMX DataAttributes to VTL Measures"). |
 | Pivot-A2M | The pivot mapping method, using attributes to measures. See Section 6 SDMX Standards ("SDMX Technical Notes"), 10.3.3.3 ("From SDMX DataAttributes to VTL Measures"). |
 
-**ToVtlMappingMethodType:** A simple type that allows for a standard to
-VTL mapping method enumeration value or a string value for other mapping
-methods.
+**ToVtlMappingMethodType:** Deprecated. The Basic mapping is the only
+mapping method. A simple type that allows for a standard to VTL mapping
+method enumeration value or a string value for other mapping methods.
 
 Union of:
 
 StandardToVtlMappingMethodType, xs:string.
 
-**StandardFromVtlMappingMethodType:** A simple type enumerating the
-standard mapping methods when converting from data structures from VTL
-to SDMX.
+**StandardFromVtlMappingMethodType:** Deprecated. The Basic mapping is
+the only mapping method. A simple type enumerating the standard mapping
+methods when converting from data structures from VTL to SDMX.
 
 Derived by restriction of xs:string .
 
@@ -10393,16 +10962,28 @@ Enumerations:
 | Unpivot   | The mapping method to be used when the VTL data structure has more than one measure component. See Section 6 SDMX Standards ("SDMX Technical Notes"), 10.3.4.2 ("Unpivot Mapping").                                                                         |
 | M2A       | Mapping of multi-measure VTL where on measure is mapped to the SDMX primary measure and the remaining measures are mapped as data attributes. See Section 6 SDMX Standards ("SDMX Technical Notes"), 10.3.4.3 ("From VTL Measures to SDMX DataAttributes"). |
 
-**FromVtlMappingMethodType:** A simple type that allows for standard
-from VTL mapping method enumeration value or a string value for other
-mapping methods.
+**FromVtlMappingMethodType:** Deprecated. The Basic mapping is the only
+mapping method. A simple type that allows for standard from VTL mapping
+method enumeration value or a string value for other mapping methods.
 
 Union of:
 
 StandardFromVtlMappingMethodType, xs:string.
 
-**CustomTypeDataType:** A simple type that allows for a SDMX simple data
-type enumeration value or a string value for other data types.
+**SdmxApiVersionType:** A simple type for the version of the SDMX REST
+API implemented by a web service. It is given by the code of a release
+of the SDMX REST API, written as major.minor, without the leading "v"
+and the patch number (e.g. 1.5, 2.1 or 2.2, from the releases v1.5.0,
+v2.1.0 and v2.2.2).
+
+Derived by restriction of xs:string .
+
+Regular Expression Pattern:
+`(0|[1-9]\d*)\.(0|[1-9]\d*)`
+
+**CustomTypeDataType:** Deprecated. See CustomTypeSchemeType. A simple
+type that allows for a SDMX simple data type enumeration value or a
+string value for other data types.
 
 Union of:
 
