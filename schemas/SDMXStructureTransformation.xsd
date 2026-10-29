@@ -137,9 +137,9 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="VtlMappingSchemeType">
+	<xs:complexType name="VtlMappingSchemeBaseType" abstract="true">
 		<xs:annotation>
-			<xs:documentation>VtlMappingSchemeType defines a set of mappings between SDMX and VTL.</xs:documentation>
+			<xs:documentation>VtlMappingSchemeBaseType is an abstract base type for the VtlMappingSchemeType. It restricts the urn attribute and removes the generic items, which the VtlMappingSchemeType replaces with the VTL mappings.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="ItemSchemeType">
@@ -148,12 +148,129 @@
 					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:sequence minOccurs="0" maxOccurs="unbounded">
-						<xs:element ref="VtlMapping"/>
-					</xs:sequence>
 				</xs:sequence>
 				<xs:attribute name="urn" type="common:VtlMappingSchemeUrnType" use="optional"/>
 			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VtlMappingSchemeType">
+		<xs:annotation>
+			<xs:documentation>VtlMappingSchemeType defines a set of mappings between SDMX and VTL. The mappings define the VTL Data Sets and Value Domains used by the transformations, rulesets and user defined operators of a transformation scheme: a VtlDatasetMapping maps a VTL Data Set to a Data Structure Definition, Dataflow or Provision Agreement, and a VtlCodelistMapping maps a VTL Value Domain to a Codelist. The VtlMapping is the deprecated encoding of the mappings used in SDMX 3.0 and 3.1.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="VtlMappingSchemeBaseType">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="VtlDatasetMapping"/>
+					<xs:element ref="VtlCodelistMapping"/>
+					<xs:element ref="VtlMapping"/>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="VtlDatasetMapping" type="VtlDatasetMappingType" substitutionGroup="Item">
+		<xs:annotation>
+			<xs:documentation>VtlDatasetMapping details a mapping between a VTL Data Set and the SDMX Data Structure Definition, Dataflow or Provision Agreement that defines it.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="VtlDatasetMappingBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>VtlDatasetMappingBaseType defines the base refinement of the VtlDatasetMappingType. Its purpose is to restrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:VtlDatasetMappingUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VtlDatasetMappingType">
+		<xs:annotation>
+			<xs:documentation>VtlDatasetMappingType defines the structure of a mapping between a VTL Data Set, named by its alias, and an SDMX Data Structure Definition, Dataflow or Provision Agreement. As the VTL is strongly typed and has no declarations of variables, the mapping is the definition of the VTL Data Set used by the transformations, rulesets and user defined operators of a transformation scheme. The data structure of the VTL Data Set corresponds to the Data Structure Definition (referenced directly, or used by the Dataflow, referenced directly or through the Provision Agreement) through the Basic mapping, which maps the Dimensions and the TimeDimension to VTL Identifiers, the Measures to VTL Measures and the DataAttributes to VTL Attributes, and vice-versa. The same SDMX artefact can be referenced by several VTL dataset mappings, with distinct aliases.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="VtlDatasetMappingBaseType">
+				<xs:choice>
+					<xs:element name="DataStructure" type="common:DataStructureReferenceType">
+						<xs:annotation>
+							<xs:documentation>A reference to the SDMX Data Structure Definition to which the VTL Data Set is mapped.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Dataflow" type="common:DataflowReferenceType">
+						<xs:annotation>
+							<xs:documentation>A reference to the SDMX Dataflow to which the VTL Data Set is mapped.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProvisionAgreement" type="common:ProvisionAgreementReferenceType">
+						<xs:annotation>
+							<xs:documentation>A reference to the SDMX Provision Agreement to which the VTL Data Set is mapped.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+				<xs:attribute name="vtlAlias" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It must comply with the VTL naming rules and be unique within the VTL mapping scheme.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="isInput" type="xs:boolean" use="required">
+					<xs:annotation>
+						<xs:documentation>Indicates whether the VTL Data Set is an input of the VTL program (true), whose definition and data are obtained from SDMX, or an output of the VTL program (false), whose data are converted into SDMX. An output must be persistent, i.e. the vtlAlias must be the result of a transformation whose isPersistent is true. An SDMX artefact that is both read and written by the VTL program is mapped twice, with distinct aliases.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="VtlCodelistMapping" type="VtlCodelistMappingType" substitutionGroup="Item">
+		<xs:annotation>
+			<xs:documentation>VtlCodelistMapping details a mapping between a VTL Value Domain and the SDMX Codelist whose codes are its values.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="VtlCodelistMappingBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>VtlCodelistMappingBaseType defines the base refinement of the VtlCodelistMappingType. Its purpose is to restrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="UnnestedItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:VtlCodelistMappingUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VtlCodelistMappingType">
+		<xs:annotation>
+			<xs:documentation>VtlCodelistMappingType defines the structure of a mapping between a VTL Value Domain, named by its alias, and an SDMX Codelist, whose codes are the values of the Value Domain. As the VTL programs do not produce Value Domains, the mapping applies only to inputs.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="VtlCodelistMappingBaseType">
+				<xs:sequence>
+					<xs:element name="Codelist" type="common:CodelistReferenceType">
+						<xs:annotation>
+							<xs:documentation>A reference to the SDMX Codelist whose codes are the values of the VTL Value Domain.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="vtlAlias" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It must comply with the VTL naming rules and be unique within the VTL mapping scheme.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 

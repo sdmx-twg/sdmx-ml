@@ -93,10 +93,11 @@
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlMappingScheme=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
-	
+
 	<xs:simpleType name="UrnAgencyPart">
 		<xs:annotation>
 			<xs:documentation>This restricts the prefix and classes patterns to validate the agency part of the URN (=&lt;agency_id>:).</xs:documentation>
@@ -814,14 +815,33 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="VtlCodelistMappingUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a VTL codelist mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnType">
+			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="VtlDatasetMappingUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a VTL dataset mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnType">
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="VtlMappingUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a VTL mapping.</xs:documentation>
+			<xs:documentation>Urn type for a VTL mapping. The VtlConceptMapping and VtlDataflowMapping classes are deprecated.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1490,14 +1510,33 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="VtlCodelistMappingReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a VTL codelist mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnReferenceType">
+			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="VtlDatasetMappingReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a VTL dataset mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnReferenceType">
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="VtlMappingReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a VTL mapping.</xs:documentation>
+			<xs:documentation>A reference type for a VTL mapping. The VtlConceptMapping and VtlDataflowMapping classes are deprecated.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
