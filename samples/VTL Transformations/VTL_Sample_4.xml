@@ -15,9 +15,7 @@
   </mes:Header>
   <mes:Structures>
     <!-- Example 1 of the section "Retrieving the data of the input VTL Data Sets" of the SDMX Technical Notes:
-         the difference between two Dataflows, with a VtlExecution that retrieves the data of the inputs. The
-         result is named ds_diff instead of diff (the name used in the Technical Notes), as diff is a reserved
-         word of VTL, which can be used as a name only between single quotes ('diff'). -->
+         the difference between two Dataflows, with a VtlExecution that retrieves the data of the inputs. -->
     <str:Codelists>
       <str:Codelist agencyID="AG" id="CL_FREQ" version="1.0">
         <com:Name xml:lang="en">Frequency</com:Name>

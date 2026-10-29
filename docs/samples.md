@@ -266,10 +266,7 @@ artefacts.
     the inputs ds_a and ds_b and the output ds_diff to dataflows through
     VtlDatasetMappings, whose isInput attribute gives the direction of the
     mapping. Under the Basic mapping, the dimensions become VTL Identifiers
-    and the measure a VTL Measure. The result is named ds_diff instead of
-    diff (the name used in the Technical Notes), as diff is a reserved word
-    of VTL, which can be used as a name only between single quotes
-    ('diff').
+    and the measure a VTL Measure.
 
     The VtlExecution AG:EXEC_DIFF specifies how the data of the inputs are
     retrieved: a QueryExtraction for ds_a, which queries a web service
