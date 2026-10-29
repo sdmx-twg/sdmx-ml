@@ -587,7 +587,7 @@
 
 	<xs:complexType name="QueryParameterType">
 		<xs:annotation>
-			<xs:documentation>QueryParameterType describes a name-value pair used for retrieving the data of an input VTL Data Set. A fixed parameter must have a value, which is always used as it is. A non-fixed parameter can have a value, which is a default that can be overridden at run time; if it has no value, its value must be provided at run time. The values provided at run time are assigned to the input VTL Data Sets through their aliases. The credentials needed to access protected web services must not be put in the query parameters or in the URL template.</xs:documentation>
+			<xs:documentation>QueryParameterType describes a name-value pair used for retrieving the data of an input VTL Data Set. A fixed parameter must have a value, which is always used as it is. A non-fixed parameter can have a value, which is a default that can be overridden at run time; if it has no value, its value must be provided at run time. The values provided at run time are assigned to the input VTL Data Sets through their aliases. The credentials needed to access protected web services should not be put in the query parameters or in the URL template.</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="name" type="xs:string" use="required">
 			<xs:annotation>

@@ -9937,7 +9937,7 @@ can have a value, which is a default that can be overridden at run time;
 if it has no value, its value must be provided at run time. The values
 provided at run time are assigned to the input VTL Data Sets through
 their aliases. The credentials needed to access protected web services
-must not be put in the query parameters or in the URL template.
+should not be put in the query parameters or in the URL template.
 
 Attributes:
 

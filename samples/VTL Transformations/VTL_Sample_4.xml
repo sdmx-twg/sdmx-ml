@@ -15,7 +15,9 @@
   </mes:Header>
   <mes:Structures>
     <!-- Example 1 of the section "Retrieving the data of the input VTL Data Sets" of the SDMX Technical Notes:
-         the difference between two Dataflows, with a VtlExecution that retrieves the data of the inputs. -->
+         the difference between two Dataflows, with a VtlExecution that retrieves the data of the inputs. The
+         result is named ds_diff instead of diff (the name used in the Technical Notes), which is a reserved
+         word of VTL. -->
     <str:Codelists>
       <str:Codelist agencyID="AG" id="CL_FREQ" version="1.0">
         <com:Name xml:lang="en">Frequency</com:Name>
@@ -177,8 +179,9 @@
           <str:QueryParameter name="startPeriod" value="2015" isFixed="false"/>
           <str:QueryParameter name="endPeriod" isFixed="false"/>
         </str:QueryExtraction>
-        <!-- The same retrieval written as a URL template: the tokens in curly braces are replaced by the values of the
-             query parameters having the same names. endPeriod has no default, so it must be provided at run time. -->
+        <!-- The analogous retrieval for ds_b, written as a URL template: the tokens in curly braces are replaced by the
+             values of the query parameters having the same names. endPeriod has no default, so it must be provided
+             at run time. -->
         <str:UrlExtraction>
           <str:DatasetMapping>urn:sdmx:org.sdmx.infomodel.transformation.VtlDatasetMapping=AG:VTL_MAP(1.0).DS_B</str:DatasetMapping>
           <str:UrlTemplate>https://sdmx.example.org/rest/data/AG,DF_B,1.0/A.USA.?startPeriod={startPeriod}&amp;endPeriod={endPeriod}</str:UrlTemplate>
