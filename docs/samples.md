@@ -261,36 +261,42 @@ artefacts.
     Illustrates the mapping of VTL Data Sets to SDMX artefacts and the
     retrieval of their data, introduced in SDMX 3.2.
 
-    The transformation scheme AG:TS_DIFF calculates the difference between
+    The transformation scheme EXAMPLE:TS_DIFF calculates the difference between
     two dataflows (`ds_diff <- ds_a - ds_b`). Its VTL mapping scheme maps
     the inputs ds_a and ds_b and the output ds_diff to dataflows through
     VtlDatasetMappings, whose isInput attribute gives the direction of the
     mapping. Under the Basic mapping, the dimensions become VTL Identifiers
     and the measure a VTL Measure.
 
-    The VtlExecution AG:EXEC_DIFF specifies how the data of the inputs are
+    The VtlExecution EXAMPLE:EXEC_DIFF specifies how the data of the inputs are
     retrieved: a QueryExtraction for ds_a, which queries a web service
     implementing version 1.5 of the SDMX REST API with a fixed key and a
     default start period that can be overridden at run time, and a
     UrlExtraction for ds_b, whose URL template contains tokens replaced by
     the values of the query parameters.
 
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
 ??? example "VTL Sample 5.xml"
 
     Illustrates two VTL Data Sets mapped to the same Data Structure
     Definition, and two executions of the same transformation scheme.
 
-    The transformation scheme AG:TS_POPRATIO calculates the ratio between
-    the male and the female population
-    (`ratio <- pop_m [ sub SEX = "M" ] / pop_f [ sub SEX = "F" ]`), where
-    pop_m and pop_f are both mapped to the Data Structure Definition
-    AG:POP. The VtlExecution AG:EXEC_POPRATIO retrieves their data from a
-    web service implementing version 2.1 of the SDMX REST API, with a
-    different fixed key for each input and a default filter on the time
-    period. The VtlExecution AG2:EXEC_POPRATIO, maintained by another
-    agency, executes the same transformation scheme on the data of its own
-    dataflow AG2:DF_POP, which uses the same Data Structure Definition, by
-    setting it as the Context of its query extractions.
+    The transformation scheme SDMX:TS_POPRATIO calculates the ratio between
+    the male and the female population (`ratio <- pop_m [ sub SEX = "M" ] /
+    pop_f [ sub SEX = "F" ]`), where pop_m and pop_f are both mapped to the
+    Data Structure Definition SDMX:POP. The VtlExecution SDMX:EXEC_POPRATIO
+    retrieves their data from a web service implementing version 2.1 of the
+    SDMX REST API, with a different fixed key for each input and a default
+    filter on the time period. The VtlExecution EXAMPLE:EXEC_POPRATIO,
+    maintained by the Example Agency, executes the same transformation
+    scheme on the data of its own dataflow EXAMPLE:DF_POP, which uses the
+    same Data Structure Definition, by setting it as the Context of its
+    query extractions.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
 
 ??? example "VTL Sample 6.xml"
 
@@ -307,6 +313,9 @@ artefacts.
 
     The sample has no VtlExecution, which is optional: the data of the
     inputs are then provided to the VTL engine at run time.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
 
 ## Data Samples
 
