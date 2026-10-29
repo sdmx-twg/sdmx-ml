@@ -215,9 +215,9 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
-				<xs:attribute name="vtlAlias" type="xs:string" use="required">
+				<xs:attribute name="vtlAlias" type="VtlAliasType" use="required">
 					<xs:annotation>
-						<xs:documentation>The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It must comply with the VTL naming rules and be unique within the VTL mapping scheme.</xs:documentation>
+						<xs:documentation>The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It cannot be empty, as it identifies the VTL Data Set defined by the mapping, and it must comply with the VTL naming rules and be unique within the VTL mapping scheme.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:attribute name="isInput" type="xs:boolean" use="required">
@@ -265,14 +265,23 @@
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:attribute name="vtlAlias" type="xs:string" use="required">
+				<xs:attribute name="vtlAlias" type="VtlAliasType" use="required">
 					<xs:annotation>
-						<xs:documentation>The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It must comply with the VTL naming rules and be unique within the VTL mapping scheme.</xs:documentation>
+						<xs:documentation>The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It cannot be empty, as it identifies the VTL Value Domain defined by the mapping, and it must comply with the VTL naming rules and be unique within the VTL mapping scheme.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+
+	<xs:simpleType name="VtlAliasType">
+		<xs:annotation>
+			<xs:documentation>A simple type for the alias used in VTL to refer to a mapped SDMX artefact. The alias must contain at least one non-whitespace character, as it identifies the VTL Data Set or Value Domain defined by the mapping; it must also comply with the VTL naming rules.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value=".*\S.*"/>
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:element name="VtlMapping" type="VtlMappingType" substitutionGroup="Item">
 		<xs:annotation>

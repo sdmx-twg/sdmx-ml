@@ -845,7 +845,7 @@
 
 	<xs:simpleType name="VtlMappingUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a VTL mapping expressed with the deprecated VtlMapping element, i.e. a VtlCodelistMapping or one of the deprecated VtlConceptMapping and VtlDataflowMapping classes. The VtlDatasetMapping is expressed with its own element only.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type of the deprecated VtlMapping element, for a VtlCodelistMapping or one of the deprecated VtlConceptMapping and VtlDataflowMapping classes; the VtlDatasetMapping and VtlCodelistMapping elements use the VtlDatasetMappingUrnType and the VtlCodelistMappingUrnType.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>

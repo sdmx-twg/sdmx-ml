@@ -36,7 +36,7 @@ Contents:
 
 40 Global Elements  
 251 Complex Types  
-19 Simple Types
+20 Simple Types
 
 #### Global Elements
 
@@ -9417,7 +9417,7 @@ Attribute Documentation:
 | id       | IDType                   | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                              |
 | urn      | VtlDatasetMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                      |
 | uri      | xs:anyURI                | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                    |
-| vtlAlias | xs:string                | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It must comply with the VTL naming rules and be unique within the VTL mapping scheme.                                                                                                                                                                                                                                    |
+| vtlAlias | VtlAliasType | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It cannot be empty, as it identifies the VTL Data Set defined by the mapping, and it must comply with the VTL naming rules and be unique within the VTL mapping scheme. |
 | isInput  | xs:boolean               | Indicates whether the VTL Data Set is an input of the VTL program (true), whose definition and data are obtained from SDMX, or an output of the VTL program (false), whose data are converted into SDMX. An output must be persistent, i.e. the vtlAlias must be the result of a transformation whose isPersistent is true. An SDMX artefact that is both read and written by the VTL program is mapped twice, with distinct aliases. |
 
 Element Documentation:
@@ -9515,7 +9515,7 @@ Attribute Documentation:
 | id       | IDType                    | The id is the identifier for the object.                                                                                                                                                               |
 | urn      | VtlCodelistMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                       |
 | uri      | xs:anyURI                 | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                     |
-| vtlAlias | xs:string                 | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It must comply with the VTL naming rules and be unique within the VTL mapping scheme. |
+| vtlAlias | VtlAliasType | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It cannot be empty, as it identifies the VTL Value Domain defined by the mapping, and it must comply with the VTL naming rules and be unique within the VTL mapping scheme. |
 
 Element Documentation:
 
@@ -10924,6 +10924,16 @@ Enumerations:
 | startOfPeriod |                   |
 | endOfPeriod   |                   |
 | midPeriod     |                   |
+
+**VtlAliasType:** A simple type for the alias used in VTL to refer to a
+mapped SDMX artefact. The alias must contain at least one non-whitespace
+character, as it identifies the VTL Data Set or Value Domain defined by
+the mapping; it must also comply with the VTL naming rules.
+
+Derived by restriction of xs:string .
+
+Regular Expression Pattern:
+`.*\S.*`
 
 **StandardToVtlMappingMethodType:** Deprecated. The Basic mapping is the
 only mapping method. A simple type enumerating the standard mapping

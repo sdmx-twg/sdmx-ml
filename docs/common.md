@@ -1992,10 +1992,11 @@ Regular Expression Pattern: `.+\\transformation\\VtlDatasetMapping=.+`
 Derived by restriction of `MaintainableUrnType`.  
 Regular Expression Pattern: `.+\\transformation\\VtlExecution=.+`
 
-**VtlMappingUrnType:** Urn type for a VTL mapping expressed with the
-deprecated VtlMapping element, i.e. a VtlCodelistMapping or one of the
-deprecated VtlConceptMapping and VtlDataflowMapping classes. The
-VtlDatasetMapping is expressed with its own element only.
+**VtlMappingUrnType:** Deprecated. Urn type of the deprecated VtlMapping
+element, for a VtlCodelistMapping or one of the deprecated
+VtlConceptMapping and VtlDataflowMapping classes; the VtlDatasetMapping
+and VtlCodelistMapping elements use the VtlDatasetMappingUrnType and the
+VtlCodelistMappingUrnType.
 
 Derived by restriction of `ComponentUrnType`.  
 Regular Expression Pattern:
