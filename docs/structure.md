@@ -9417,7 +9417,7 @@ Attribute Documentation:
 | id       | IDType                   | The id is the identifier for the object.                                                                                                                                                                                                                                                                                                                                                                                              |
 | urn      | VtlDatasetMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                      |
 | uri      | xs:anyURI                | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                    |
-| vtlAlias | VtlAliasType | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It cannot be empty, as it identifies the VTL Data Set defined by the mapping; it is a regular VTL name (see VtlAliasType) and must be unique within the VTL mapping scheme. |
+| vtlAlias | VtlAliasType | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Data Set. It cannot be empty, as it identifies the VTL Data Set defined by the mapping; it is a VTL name given without single quotes (see VtlAliasType) and must be unique within the VTL mapping scheme. |
 | isInput  | xs:boolean               | Indicates whether the VTL Data Set is an input of the VTL program (true), whose definition and data are obtained from SDMX, or an output of the VTL program (false), whose data are converted into SDMX. An output must be persistent, i.e. the vtlAlias must be the result of a transformation whose isPersistent is true. An SDMX artefact that is both read and written by the VTL program is mapped twice, with distinct aliases. |
 
 Element Documentation:
@@ -9515,7 +9515,7 @@ Attribute Documentation:
 | id       | IDType                    | The id is the identifier for the object.                                                                                                                                                               |
 | urn      | VtlCodelistMappingUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                       |
 | uri      | xs:anyURI                 | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                     |
-| vtlAlias | VtlAliasType | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It cannot be empty, as it identifies the VTL Value Domain defined by the mapping; it is a regular VTL name (see VtlAliasType) and must be unique within the VTL mapping scheme. |
+| vtlAlias | VtlAliasType | The alias used in the VTL transformations, rulesets and user defined operators to refer to the VTL Value Domain. It cannot be empty, as it identifies the VTL Value Domain defined by the mapping; it is a VTL name given without single quotes (see VtlAliasType) and must be unique within the VTL mapping scheme. |
 
 Element Documentation:
 
@@ -10926,20 +10926,21 @@ Enumerations:
 | midPeriod     |                   |
 
 **VtlAliasType:** A simple type for the alias used in VTL to refer to a
-mapped SDMX artefact. It is a regular VTL name, given without quotes: it
-begins with a letter, contains only letters, digits, underscores and
-dots, without whitespace, and is at most 128 characters long. It cannot
-be a VTL reserved word (e.g. filter or diff), as a reserved word can be
-used as a name only between single quotes. These are the regular names
-of the VTL User Manual that every version of the VTL grammar accepts
-without quotes. The VTL statements can write the alias with or without
-single quotes (e.g. ds_a or 'ds_a'), and the VTL engines identify the
-mapped VTL Data Set or Value Domain in both cases.
+mapped SDMX artefact. It is a name compliant with the VTL naming rules,
+given without the single quotes that can enclose it in the VTL
+statements: a name that coincides with a VTL keyword (e.g. diff) or
+contains characters not allowed in the VTL regular names (e.g. 1ab-cde)
+is written between single quotes in the VTL statements ('diff'), while a
+regular name (e.g. ds_a) can be written with or without single quotes
+(ds_a or 'ds_a'). As a quoted and an unquoted name denote the same
+artefact, the VTL engines identify the mapped VTL Data Set or Value
+Domain in both cases. The alias cannot contain whitespace or single
+quotes and is at most 128 characters long.
 
 Derived by restriction of xs:string .
 
 Regular Expression Pattern:
-`[A-Za-z][A-Za-z0-9_.]*`
+`[^\s']+`
 
 Maximum Length: 128
 
