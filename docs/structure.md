@@ -10926,13 +10926,15 @@ Enumerations:
 | midPeriod     |                   |
 
 **VtlAliasType:** A simple type for the alias used in VTL to refer to a
-mapped SDMX artefact. It is a regular VTL name, written without quotes
-in the VTL statements: it begins with a letter, contains only letters,
-digits, underscores and dots, without whitespace, and is at most 128
-characters long. It cannot be a VTL reserved word (e.g. filter or diff),
-as a reserved word can be used as a name only between single quotes.
-These are the regular names of the VTL User Manual that every version of
-the VTL grammar accepts without quotes.
+mapped SDMX artefact. It is a regular VTL name, given without quotes: it
+begins with a letter, contains only letters, digits, underscores and
+dots, without whitespace, and is at most 128 characters long. It cannot
+be a VTL reserved word (e.g. filter or diff), as a reserved word can be
+used as a name only between single quotes. These are the regular names
+of the VTL User Manual that every version of the VTL grammar accepts
+without quotes. The VTL statements can write the alias with or without
+single quotes (e.g. ds_a or 'ds_a'), and the VTL engines identify the
+mapped VTL Data Set or Value Domain in both cases.
 
 Derived by restriction of xs:string .
 
