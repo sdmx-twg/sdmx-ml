@@ -464,6 +464,157 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<xs:complexType name="VtlExecutionBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>VtlExecutionBaseType defines the base refinement of the VtlExecutionType. Its purpose is to restrict the urn attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="common:MaintainableType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:VtlExecutionUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VtlExecutionType">
+		<xs:annotation>
+			<xs:documentation>VtlExecutionType describes the structure of a VTL execution, which specifies how the data of the input VTL Data Sets of a transformation scheme are retrieved, so that the transformation scheme can be executed on the basis of its SDMX definition. A VTL execution is an execution configuration, maintained independently of the transformation scheme: several executions can reference the same transformation scheme, also one maintained by another organisation, and the sources of the data can change without a new version of the transformation scheme. It contains at most one data extraction for each input VTL Data Set; the data of the inputs without a data extraction are provided to the VTL engine at run time. As for the other maintainable artefacts, a VTL execution included as an external reference (isExternalReference="true") still contains the reference to its transformation scheme and at least one data extraction.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="VtlExecutionBaseType">
+				<xs:sequence>
+					<xs:element name="TransformationScheme" type="common:TransformationSchemeReferenceType">
+						<xs:annotation>
+							<xs:documentation>References the transformation scheme to be executed.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="QueryExtraction" type="QueryExtractionType">
+							<xs:annotation>
+								<xs:documentation>Retrieval of the data of an input VTL Data Set through a query to a web service compliant with the SDMX REST API.</xs:documentation>
+							</xs:annotation>
+							<xs:unique name="QueryExtraction_UniqueQueryParameter">
+								<xs:selector xpath="structure:QueryParameter"/>
+								<xs:field xpath="@name"/>
+							</xs:unique>
+						</xs:element>
+						<xs:element name="UrlExtraction" type="UrlExtractionType">
+							<xs:annotation>
+								<xs:documentation>Retrieval of the data of an input VTL Data Set through a URL built from a template, for web services that are not fully compliant with the SDMX REST API.</xs:documentation>
+							</xs:annotation>
+							<xs:unique name="UrlExtraction_UniqueQueryParameter">
+								<xs:selector xpath="structure:QueryParameter"/>
+								<xs:field xpath="@name"/>
+							</xs:unique>
+						</xs:element>
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VtlDataExtractionType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>VtlDataExtractionType is an abstract base type for the data extractions of a VTL execution. A data extraction specifies how to retrieve the data of an input VTL Data Set. It is not identifiable, as it is part of its VTL execution.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DatasetMapping" type="common:VtlDatasetMappingReferenceType">
+				<xs:annotation>
+					<xs:documentation>References the VTL dataset mapping of the input VTL Data Set whose data are retrieved. The mapping must belong to the VTL mapping scheme of the transformation scheme of the VTL execution, and its isInput must be true. A VTL execution has at most one data extraction for each VTL dataset mapping.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="QueryExtractionType">
+		<xs:annotation>
+			<xs:documentation>QueryExtractionType describes the retrieval of the data of an input VTL Data Set through a query to a web service compliant with the SDMX REST API. The VTL engine builds the data query for the artefact referenced by the context or, if absent, by the VTL dataset mapping, according to the syntax of the version of the SDMX REST API, by using the query parameters: the parameter named key, if present, provides the key of the data query, while the other parameters are added as query parameters (e.g. startPeriod, or component filters such as c[TIME_PERIOD]).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="VtlDataExtractionType">
+				<xs:sequence>
+					<xs:element name="EntryPoint" type="xs:anyURI">
+						<xs:annotation>
+							<xs:documentation>The URL of the entry point of the SDMX REST web service (e.g. https://sdmx.example.org/rest).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Context" type="common:DataflowOrProvisionAgreementReferenceType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>References the dataflow or provision agreement whose data are queried, which must use the same data structure definition as the SDMX artefact referenced by the VTL dataset mapping (i.e. the data structure definition itself, or the one used by the dataflow, referenced directly or through the provision agreement). If not specified, the data of the SDMX artefact referenced by the VTL dataset mapping are queried.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QueryParameter" type="QueryParameterType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>A name-value pair used for building the query. The names are unique within the data extraction.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="sdmxApiVersion" type="SdmxApiVersionType" use="optional">
+					<xs:annotation>
+						<xs:documentation>The version of the SDMX REST API implemented by the entry point, which determines the syntax of the query. If not specified, the default version of the web service is assumed.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="UrlExtractionType">
+		<xs:annotation>
+			<xs:documentation>UrlExtractionType describes the retrieval of the data of an input VTL Data Set through a URL built from a template, meant for web services that are not fully compliant with the SDMX REST API.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="VtlDataExtractionType">
+				<xs:sequence>
+					<xs:element name="UrlTemplate" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The complete URL of the query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are replaced by the values of the query parameters having the same names. Each token must have a query parameter with the same name. Any part of the URL, including the entry point, can be a token.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QueryParameter" type="QueryParameterType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>A name-value pair providing the value of the token of the URL template having the same name. The names are unique within the data extraction.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="QueryParameterType">
+		<xs:annotation>
+			<xs:documentation>QueryParameterType describes a name-value pair used for retrieving the data of an input VTL Data Set. A fixed parameter must have a value, which is always used as it is. A non-fixed parameter can have a value, which is a default that can be overridden at run time; if it has no value, its value must be provided at run time. The values provided at run time are assigned to the input VTL Data Sets through their aliases. The credentials needed to access protected web services must not be put in the query parameters or in the URL template.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of the parameter (e.g. key, startPeriod, c[TIME_PERIOD]), unique within the data extraction.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>The value of the parameter: mandatory if the parameter is fixed, otherwise a default value that can be overridden at run time.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="isFixed" type="xs:boolean" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates whether the value is fixed (true) or can be overridden at run time (false). A non-fixed parameter without a value must be given a value at run time.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:simpleType name="SdmxApiVersionType">
+		<xs:annotation>
+			<xs:documentation>A simple type for the version of the SDMX REST API implemented by a web service. It is given by the code of a release of the SDMX REST API, written as major.minor, without the leading "v" and the patch number (e.g. 1.5, 2.1 or 2.2, from the releases v1.5.0, v2.1.0 and v2.2.2).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(0|[1-9]\d*)\.(0|[1-9]\d*)"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:complexType name="NamePersonalisationSchemeType">
 		<xs:annotation>
 			<xs:documentation>NamePersonalisationSchemeType defines a set of personalisations of VTL standard names that are used in a set of transformations.</xs:documentation>

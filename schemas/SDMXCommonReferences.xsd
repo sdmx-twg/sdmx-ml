@@ -94,10 +94,11 @@
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
+			<xs:pattern value=".+\.transformation\.VtlExecution=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlMappingScheme=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
-
+	
 	<xs:simpleType name="UrnAgencyPart">
 		<xs:annotation>
 			<xs:documentation>This restricts the prefix and classes patterns to validate the agency part of the URN (=&lt;agency_id>:).</xs:documentation>
@@ -833,15 +834,23 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="VtlExecutionUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a VTL execution.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnType">
+			<xs:pattern value=".+\.transformation\.VtlExecution=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="VtlMappingUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a VTL mapping. The VtlConceptMapping and VtlDataflowMapping classes are deprecated.</xs:documentation>
+			<xs:documentation>Urn type for a VTL mapping expressed with the deprecated VtlMapping element, i.e. a VtlCodelistMapping or one of the deprecated VtlConceptMapping and VtlDataflowMapping classes. The VtlDatasetMapping is expressed with its own element only.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
-			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -930,6 +939,16 @@
 		<xs:restriction base="MaintainableUrnReferenceType">
 			<xs:pattern value=".+\.registry\.DataConstraint=.+"/>
 			<xs:pattern value=".+\.registry\.MetadataConstraint=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="DataflowOrProvisionAgreementReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a dataflow or a provision agreement.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnReferenceType">
+			<xs:pattern value=".+\.datastructure\.Dataflow=.+"/>
+			<xs:pattern value=".+\.registry\.ProvisionAgreement=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1525,6 +1544,15 @@
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="VtlExecutionReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a VTL execution.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnReferenceType">
+			<xs:pattern value=".+\.transformation\.VtlExecution=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 

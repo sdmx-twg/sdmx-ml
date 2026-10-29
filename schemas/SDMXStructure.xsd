@@ -436,6 +436,17 @@
 					<xs:field xpath="@version"/>
 				</xs:unique>
 			</xs:element>
+			<xs:element name="VtlExecutions" type="VtlExecutionsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>VtlExecutions contains a collection of VTL executions. The executions may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="UniqueVtlExecution">
+					<xs:selector xpath="structure:VtlExecution"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+			</xs:element>
 			<xs:element name="VtlMappingSchemes" type="VtlMappingSchemesType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>VtlMappingSchemes contains a collection of VTL mapping schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
@@ -1014,6 +1025,23 @@
 				<xs:annotation>
 					<xs:documentation>ValueList provides the details of a value list, which is a closed set of values that can occur for a dimension, measure, or attribute. This may be a simple list of values, or a list of values with names and descriptions (similar to a codelist).</xs:documentation>
 				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="VtlExecutionsType">
+		<xs:annotation>
+			<xs:documentation>VtlExecutionsType describes the structure of the VTL executions container. It contains one or more VTL executions, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VtlExecution" type="VtlExecutionType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>VtlExecution provides the details of a VTL execution, which specifies how the data of the input VTL Data Sets of a transformation scheme are retrieved.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="VtlExecution_UniqueDatasetMapping">
+					<xs:selector xpath="structure:QueryExtraction|structure:UrlExtraction"/>
+					<xs:field xpath="structure:DatasetMapping"/>
+				</xs:unique>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
