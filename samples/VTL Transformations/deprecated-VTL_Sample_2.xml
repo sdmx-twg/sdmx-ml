@@ -21,7 +21,7 @@
 			</str:Dataflow>
 			<str:Dataflow agencyID="SDMX" id="DF2R1" version="1.0">
 				<com:Name xml:lang="en">Dataflow for Result #2.1</com:Name>
-				<str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=SDMX:DS21(1.0)</str:Structure>
+				<str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=SDMX:DS2R1(1.0)</str:Structure>
 			</str:Dataflow>
 		</str:Dataflows>
 		<str:Codelists>
@@ -57,6 +57,15 @@
 				</str:Code>
 				<str:Code id="SK">
 					<com:Name xml:lang="en">Slovakia</com:Name>
+				</str:Code>
+			</str:Codelist>
+			<str:Codelist agencyID="SDMX" id="CS2R1" version="1.0">
+				<com:Name xml:lang="en">Measures in Results #2.1</com:Name>
+				<str:Code id="PERC_EU_IMPORT">
+					<com:Name xml:lang="en">Import for EU in percentage</com:Name>
+				</str:Code>
+				<str:Code id="PERC_EU_EXPORT">
+					<com:Name xml:lang="en">Export for EU in percentage</com:Name>
 				</str:Code>
 			</str:Codelist>
 		</str:Codelists>
@@ -177,43 +186,33 @@
 		<str:VtlMappingSchemes>
 			<str:VtlMappingScheme agencyID="SDMX" id="VTLMS1" version="1.0">
 				<com:Name xml:lang="en">VTL Mapping Scheme #1</com:Name>
-				<str:VtlMapping alias="DF1R1" id="VTLM1">
-					<com:Name xml:lang="en">VTL Mapping #1</com:Name>
-					<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:DF1R1(1.0)</str:Dataflow>
-					<str:FromVtlMapping method="M2A"/>
-				</str:VtlMapping>
-				<str:VtlMapping alias="DF11" id="VTLM2">
-					<com:Name xml:lang="en">VTL Mapping #2</com:Name>
-					<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:D11(1.0)</str:Dataflow>
-					<str:ToVtlMapping method="Basic"/>
-				</str:VtlMapping>
 				<str:VtlMapping alias="INDICATOR" id="VTLM3">
 					<com:Name xml:lang="en">Variable INDICATOR mapping</com:Name>
-					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS(1.0).MEASURE_DIMENSION</str:Concept>
+					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS2(1.0).MEASURE_DIMENSION</str:Concept>
 				</str:VtlMapping>
 				<str:VtlMapping alias="VALUE" id="VTLM4">
 					<com:Name xml:lang="en">Variable VALUE mapping</com:Name>
-					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS(1.0).OBS_VALUE</str:Concept>
+					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS2(1.0).OBS_VALUE</str:Concept>
 				</str:VtlMapping>
 				<str:VtlMapping alias="TIME" id="VTLM5">
 					<com:Name xml:lang="en">Variable TIME mapping</com:Name>
-					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS(1.0).TIME_PERIOD</str:Concept>
+					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS2(1.0).TIME_PERIOD</str:Concept>
 				</str:VtlMapping>
 				<str:VtlMapping alias="GEO" id="VTLM6">
 					<com:Name xml:lang="en">Variable GEO mapping</com:Name>
-					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS(1.0).COUNTRY</str:Concept>
+					<str:Concept>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CONCEPTS2(1.0).GEO_AREA</str:Concept>
 				</str:VtlMapping>
 			</str:VtlMappingScheme>
 			<str:VtlMappingScheme agencyID="SDMX" id="VTLMS2" version="1.0">
 				<com:Name xml:lang="en">VTL Mapping Scheme #2</com:Name>
 				<str:VtlMapping alias="DF21" id="VTLM1">
 					<com:Name xml:lang="en">VTL Mapping #1</com:Name>
-					<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:D21(1.0)</str:Dataflow>
+					<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:DF21(1.0)</str:Dataflow>
 					<str:ToVtlMapping method="Pivot"/>
 				</str:VtlMapping>
 				<str:VtlMapping alias="DF2R1" id="VTLM2">
 					<com:Name xml:lang="en">VTL Mapping #2</com:Name>
-					<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:D2R1(1.0)</str:Dataflow>
+					<str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:DF2R1(1.0)</str:Dataflow>
 					<str:FromVtlMapping method="Unpivot"/>
 				</str:VtlMapping>
 			</str:VtlMappingScheme>

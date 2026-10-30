@@ -130,7 +130,7 @@
 			</xs:element>
 			<xs:element name="CustomTypeSchemes" type="CustomTypeSchemesType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>CustomTypeSchemes contains a collection of custom type schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+					<xs:documentation>Deprecated. The custom type schemes are deprecated in SDMX 3.2. CustomTypeSchemes contains a collection of custom type schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="UniqueCustomTypeScheme">
 					<xs:selector xpath="structure:CustomTypeScheme"/>
@@ -295,7 +295,7 @@
 			</xs:element>
 			<xs:element name="NamePersonalisationSchemes" type="NamePersonalisationSchemesType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>NamePersonalisationSchemes contains a collection of name personalisation schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+					<xs:documentation>Deprecated. The name personalisation schemes are deprecated in SDMX 3.2. NamePersonalisationSchemes contains a collection of name personalisation schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="UniqueNamePersonalisationScheme">
 					<xs:selector xpath="structure:NamePersonalisationScheme"/>
@@ -436,6 +436,17 @@
 					<xs:field xpath="@version"/>
 				</xs:unique>
 			</xs:element>
+			<xs:element name="VtlExecutions" type="VtlExecutionsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>VtlExecutions contains a collection of VTL executions. The executions may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="UniqueVtlExecution">
+					<xs:selector xpath="structure:VtlExecution"/>
+					<xs:field xpath="@id"/>
+					<xs:field xpath="@agencyID"/>
+					<xs:field xpath="@version"/>
+				</xs:unique>
+			</xs:element>
 			<xs:element name="VtlMappingSchemes" type="VtlMappingSchemesType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>VtlMappingSchemes contains a collection of VTL mapping schemes. The scheme may be detailed in full, or referenced from an external structure document or registry service.</xs:documentation>
@@ -559,7 +570,7 @@
 
 	<xs:complexType name="CustomTypeSchemesType">
 		<xs:annotation>
-			<xs:documentation>CustomTypeSchemesType describes the structure of the custom type schemes container. It contains one or more custom type scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+			<xs:documentation>Deprecated. The custom type schemes are deprecated in SDMX 3.2. CustomTypeSchemesType describes the structure of the custom type schemes container. It contains one or more custom type scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="CustomTypeScheme" type="CustomTypeSchemeType" maxOccurs="unbounded">
@@ -811,7 +822,7 @@
 
 	<xs:complexType name="NamePersonalisationSchemesType">
 		<xs:annotation>
-			<xs:documentation>NamePersonalisationSchemesType describes the structure of the name personalisation schemes container. It contains one or more name personalisation scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+			<xs:documentation>Deprecated. The name personalisation schemes are deprecated in SDMX 3.2. NamePersonalisationSchemesType describes the structure of the name personalisation schemes container. It contains one or more name personalisation scheme, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="NamePersonalisationScheme" type="NamePersonalisationSchemeType" maxOccurs="unbounded">
@@ -1018,6 +1029,23 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<xs:complexType name="VtlExecutionsType">
+		<xs:annotation>
+			<xs:documentation>VtlExecutionsType describes the structure of the VTL executions container. It contains one or more VTL executions, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VtlExecution" type="VtlExecutionType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>VtlExecution provides the details of a VTL execution, which specifies how the data of the input VTL Data Sets of a transformation scheme are retrieved.</xs:documentation>
+				</xs:annotation>
+				<xs:unique name="VtlExecution_UniqueDatasetMapping">
+					<xs:selector xpath="structure:QueryExtraction|structure:UrlExtraction"/>
+					<xs:field xpath="structure:DatasetMapping"/>
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
 	<xs:complexType name="VtlMappingSchemesType">
 		<xs:annotation>
 			<xs:documentation>VtlMappingSchemesType describes the structure of the VTL mappings schemes container. It contains one or more VTL mapping schemes, which can be explicitly detailed or referenced from an external structure document or registry service.</xs:documentation>
@@ -1028,12 +1056,12 @@
 					<xs:documentation>VtlMappingScheme provides the details of a VTL mapping scheme, in which VTL mappings are described.</xs:documentation>
 				</xs:annotation>
 				<xs:unique name="VtlMappingScheme_UniqueVtlMapping">
-					<xs:selector xpath="structure:VtlMapping"/>
+					<xs:selector xpath="structure:VtlMapping|structure:VtlDatasetMapping|structure:VtlCodelistMapping"/>
 					<xs:field xpath="@id"/>
 				</xs:unique>
 				<xs:unique name="VtlMappingScheme_UniqueVtlAlias">
-					<xs:selector xpath="structure:VtlMapping"/>
-					<xs:field xpath="@alias"/>
+					<xs:selector xpath="structure:VtlMapping|structure:VtlDatasetMapping|structure:VtlCodelistMapping"/>
+					<xs:field xpath="@alias|@vtlAlias"/>
 				</xs:unique>
 			</xs:element>
 		</xs:sequence>

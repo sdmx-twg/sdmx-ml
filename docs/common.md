@@ -64,7 +64,7 @@ Contents:
 
 - 6 Global Elements  
 - 30 Complex Types  
-- 206 Simple Types
+- 267 Simple Types
 
 #### Global Elements
 
@@ -1513,7 +1513,7 @@ patterns must match. It is intended to be further restricted.
 
 Derived by restriction of `UrnPrefixPart`.  
 Regular Expression Pattern:
-`.+\\base\\Agency=.+.+\\base\\AgencyScheme=.+.+\\base\\Any=.+.+\\base\\DataConsumer=.+.+\\base\\DataConsumerScheme=.+.+\\base\\DataProvider=.+.+\\base\\DataProviderScheme=.+.+\\base\\MetadataProvider=.+.+\\base\\MetadataProviderScheme=.+.+\\base\\OrganisationUnit=.+.+\\base\\OrganisationUnitScheme=.+.+\\categoryscheme\\Categorisation=.+.+\\categoryscheme\\Category=.+.+\\categoryscheme\\CategoryScheme=.+.+\\categoryscheme\\ReportingCategory=.+.+\\categoryscheme\\ReportingTaxonomy=.+.+\\codelist\\Code=.+.+\\codelist\\Codelist=.+.+\\codelist\\HierarchicalCode=.+.+\\codelist\\Hierarchy=.+.+\\codelist\\HierarchyAssociation=.+.+\\codelist\\Level=.+.+\\codelist\\ValueList=.+.+\\conceptscheme\\Concept=.+.+\\conceptscheme\\ConceptScheme=.+.+\\datastructure\\AttributeDescriptor=.+.+\\datastructure\\DataAttribute=.+.+\\datastructure\\Dataflow=.+.+\\datastructure\\DataStructure=.+.+\\datastructure\\Dimension=.+.+\\datastructure\\DimensionDescriptor=.+.+\\datastructure\\GroupDimensionDescriptor=.+.+\\datastructure\\Measure=.+.+\\datastructure\\MeasureDescriptor=.+.+\\datastructure\\TimeDimension=.+.+\\metadatastructure\\MetadataAttribute=.+.+\\metadatastructure\\Metadataflow=.+.+\\metadatastructure\\MetadataSet=.+.+\\metadatastructure\\MetadataStructure=.+.+\\process\\Process=.+.+\\process\\ProcessStep=.+.+\\process\\Transition=.+.+\\registry\\DataConstraint=.+.+\\registry\\MetadataConstraint=.+.+\\registry\\MetadataProvisionAgreement=.+.+\\registry\\ProvisionAgreement=.+.+\\structuremapping\\CategorySchemeMap=.+.+\\structuremapping\\ConceptSchemeMap=.+.+\\structuremapping\\DatePatternMap=.+.+\\structuremapping\\EpochMap=.+.+\\structuremapping\\FrequencyFormatMapping=.+.+\\structuremapping\\OrganisationSchemeMap=.+.+\\structuremapping\\ReportingTaxonomyMap=.+.+\\structuremapping\\RepresentationMap=.+.+\\structuremapping\\StructureMap=.+.+\\transformation\\CustomType=.+.+\\transformation\\CustomTypeScheme=.+.+\\transformation\\NamePersonalisation=.+.+\\transformation\\NamePersonalisationScheme=.+.+\\transformation\\Ruleset=.+.+\\transformation\\RulesetScheme=.+.+\\transformation\\Transformation=.+.+\\transformation\\TransformationScheme=.+.+\\transformation\\UserDefinedOperator=.+.+\\transformation\\UserDefinedOperatorScheme=.+.+\\transformation\\VtlCodelistMapping=.+.+\\transformation\\VtlConceptMapping=.+.+\\transformation\\VtlDataflowMapping=.+.+\\transformation\\VtlMappingScheme=.+`
+`.+\\base\\Agency=.+.+\\base\\AgencyScheme=.+.+\\base\\Any=.+.+\\base\\DataConsumer=.+.+\\base\\DataConsumerScheme=.+.+\\base\\DataProvider=.+.+\\base\\DataProviderScheme=.+.+\\base\\MetadataProvider=.+.+\\base\\MetadataProviderScheme=.+.+\\base\\OrganisationUnit=.+.+\\base\\OrganisationUnitScheme=.+.+\\categoryscheme\\Categorisation=.+.+\\categoryscheme\\Category=.+.+\\categoryscheme\\CategoryScheme=.+.+\\categoryscheme\\ReportingCategory=.+.+\\categoryscheme\\ReportingTaxonomy=.+.+\\codelist\\Code=.+.+\\codelist\\Codelist=.+.+\\codelist\\HierarchicalCode=.+.+\\codelist\\Hierarchy=.+.+\\codelist\\HierarchyAssociation=.+.+\\codelist\\Level=.+.+\\codelist\\ValueList=.+.+\\conceptscheme\\Concept=.+.+\\conceptscheme\\ConceptScheme=.+.+\\datastructure\\AttributeDescriptor=.+.+\\datastructure\\DataAttribute=.+.+\\datastructure\\Dataflow=.+.+\\datastructure\\DataStructure=.+.+\\datastructure\\Dimension=.+.+\\datastructure\\DimensionDescriptor=.+.+\\datastructure\\GroupDimensionDescriptor=.+.+\\datastructure\\Measure=.+.+\\datastructure\\MeasureDescriptor=.+.+\\datastructure\\TimeDimension=.+.+\\metadatastructure\\MetadataAttribute=.+.+\\metadatastructure\\Metadataflow=.+.+\\metadatastructure\\MetadataSet=.+.+\\metadatastructure\\MetadataStructure=.+.+\\process\\Process=.+.+\\process\\ProcessStep=.+.+\\process\\Transition=.+.+\\registry\\DataConstraint=.+.+\\registry\\MetadataConstraint=.+.+\\registry\\MetadataProvisionAgreement=.+.+\\registry\\ProvisionAgreement=.+.+\\structuremapping\\CategorySchemeMap=.+.+\\structuremapping\\ConceptSchemeMap=.+.+\\structuremapping\\DatePatternMap=.+.+\\structuremapping\\EpochMap=.+.+\\structuremapping\\FrequencyFormatMapping=.+.+\\structuremapping\\OrganisationSchemeMap=.+.+\\structuremapping\\ReportingTaxonomyMap=.+.+\\structuremapping\\RepresentationMap=.+.+\\structuremapping\\StructureMap=.+.+\\transformation\\CustomType=.+.+\\transformation\\CustomTypeScheme=.+.+\\transformation\\NamePersonalisation=.+.+\\transformation\\NamePersonalisationScheme=.+.+\\transformation\\Ruleset=.+.+\\transformation\\RulesetScheme=.+.+\\transformation\\Transformation=.+.+\\transformation\\TransformationScheme=.+.+\\transformation\\UserDefinedOperator=.+.+\\transformation\\UserDefinedOperatorScheme=.+.+\\transformation\\VtlCodelistMapping=.+.+\\transformation\\VtlConceptMapping=.+.+\\transformation\\VtlDataflowMapping=.+.+\\transformation\\VtlDatasetMapping=.+.+\\transformation\\VtlExecution=.+.+\\transformation\\VtlMappingScheme=.+`
 
 **UrnAgencyPart:** This restricts the prefix and classes patterns to
 validate the agency part of the URN (=\<agency_id\>:).
@@ -1921,22 +1921,24 @@ Regular Expression Pattern: `.+\\structuremapping\\RepresentationMap=.+`
 Derived by restriction of `MaintainableUrnType`.  
 Regular Expression Pattern: `.+\\structuremapping\\StructureMap=.+`
 
-**CustomTypeUrnType:** Urn type for a custom type.
+**CustomTypeUrnType:** Deprecated. Urn type for a custom type.
 
 Derived by restriction of `ComponentUrnType`.  
 Regular Expression Pattern: `.+\\transformation\\CustomType=.+`
 
-**CustomTypeSchemeUrnType:** Urn type for a custom type scheme.
+**CustomTypeSchemeUrnType:** Deprecated. Urn type for a custom type
+scheme.
 
 Derived by restriction of `MaintainableUrnType`.  
 Regular Expression Pattern: `.+\\transformation\\CustomTypeScheme=.+`
 
-**NamePersonalisationUrnType:** Urn type for a name personalisation.
+**NamePersonalisationUrnType:** Deprecated. Urn type for a name
+personalisation.
 
 Derived by restriction of `ComponentUrnType`.  
 Regular Expression Pattern: `.+\\transformation\\NamePersonalisation=.+`
 
-**NamePersonalisationSchemeUrnType:** Urn type for a name
+**NamePersonalisationSchemeUrnType:** Deprecated. Urn type for a name
 personalisation scheme.
 
 Derived by restriction of `MaintainableUrnType`.  
@@ -1975,7 +1977,26 @@ Derived by restriction of `MaintainableUrnType`.
 Regular Expression Pattern:
 `.+\\transformation\\UserDefinedOperatorScheme=.+`
 
-**VtlMappingUrnType:** Urn type for a VTL mapping.
+**VtlCodelistMappingUrnType:** Urn type for a VTL codelist mapping.
+
+Derived by restriction of `ComponentUrnType`.  
+Regular Expression Pattern: `.+\\transformation\\VtlCodelistMapping=.+`
+
+**VtlDatasetMappingUrnType:** Urn type for a VTL dataset mapping.
+
+Derived by restriction of `ComponentUrnType`.  
+Regular Expression Pattern: `.+\\transformation\\VtlDatasetMapping=.+`
+
+**VtlExecutionUrnType:** Urn type for a VTL execution.
+
+Derived by restriction of `MaintainableUrnType`.  
+Regular Expression Pattern: `.+\\transformation\\VtlExecution=.+`
+
+**VtlMappingUrnType:** Deprecated. Urn type of the deprecated VtlMapping
+element, for a VtlCodelistMapping or one of the deprecated
+VtlConceptMapping and VtlDataflowMapping classes; the VtlDatasetMapping
+and VtlCodelistMapping elements use the VtlDatasetMappingUrnType and the
+VtlCodelistMappingUrnType.
 
 Derived by restriction of `ComponentUrnType`.  
 Regular Expression Pattern:
@@ -2031,6 +2052,13 @@ Regular Expression Pattern:
 Derived by restriction of `MaintainableUrnReferenceType`.  
 Regular Expression Pattern:
 `.+\\registry\\DataConstraint=.+.+\\registry\\MetadataConstraint=.+`
+
+**DataflowOrProvisionAgreementReferenceType:** A reference type for a
+dataflow or a provision agreement.
+
+Derived by restriction of `MaintainableUrnReferenceType`.  
+Regular Expression Pattern:
+`.+\\datastructure\\Dataflow=.+.+\\registry\\ProvisionAgreement=.+`
 
 **AgencyReferenceType:** A reference type for an agency.
 
@@ -2338,25 +2366,26 @@ Regular Expression Pattern: `.+\\structuremapping\\RepresentationMap=.+`
 Derived by restriction of `MaintainableUrnReferenceType`.  
 Regular Expression Pattern: `.+\\structuremapping\\StructureMap=.+`
 
-**CustomTypeReferenceType:** A reference type for a custom type.
+**CustomTypeReferenceType:** Deprecated. A reference type for a custom
+type.
 
 Derived by restriction of `ComponentUrnReferenceType`.  
 Regular Expression Pattern: `.+\\transformation\\CustomType=.+`
 
-**CustomTypeSchemeReferenceType:** A reference type for a custom type
-scheme.
+**CustomTypeSchemeReferenceType:** Deprecated. A reference type for a
+custom type scheme.
 
 Derived by restriction of `MaintainableUrnReferenceType`.  
 Regular Expression Pattern: `.+\\transformation\\CustomTypeScheme=.+`
 
-**NamePersonalisationReferenceType:** A reference type for a name
-personalisation.
+**NamePersonalisationReferenceType:** Deprecated. A reference type for a
+name personalisation.
 
 Derived by restriction of `ComponentUrnReferenceType`.  
 Regular Expression Pattern: `.+\\transformation\\NamePersonalisation=.+`
 
-**NamePersonalisationSchemeReferenceType:** A reference type for a name
-personalisation scheme.
+**NamePersonalisationSchemeReferenceType:** Deprecated. A reference type
+for a name personalisation scheme.
 
 Derived by restriction of `MaintainableUrnReferenceType`.  
 Regular Expression Pattern:
@@ -2396,11 +2425,29 @@ Derived by restriction of `MaintainableUrnReferenceType`.
 Regular Expression Pattern:
 `.+\\transformation\\UserDefinedOperatorScheme=.+`
 
-**VtlMappingReferenceType:** A reference type for a VTL mapping.
+**VtlCodelistMappingReferenceType:** A reference type for a VTL codelist
+mapping.
+
+Derived by restriction of `ComponentUrnReferenceType`.  
+Regular Expression Pattern: `.+\\transformation\\VtlCodelistMapping=.+`
+
+**VtlDatasetMappingReferenceType:** A reference type for a VTL dataset
+mapping.
+
+Derived by restriction of `ComponentUrnReferenceType`.  
+Regular Expression Pattern: `.+\\transformation\\VtlDatasetMapping=.+`
+
+**VtlExecutionReferenceType:** A reference type for a VTL execution.
+
+Derived by restriction of `MaintainableUrnReferenceType`.  
+Regular Expression Pattern: `.+\\transformation\\VtlExecution=.+`
+
+**VtlMappingReferenceType:** A reference type for a VTL mapping. The
+VtlConceptMapping and VtlDataflowMapping classes are deprecated.
 
 Derived by restriction of `ComponentUrnReferenceType`.  
 Regular Expression Pattern:
-`.+\\transformation\\VtlCodelistMapping=.+.+\\transformation\\VtlConceptMapping=.+.+\\transformation\\VtlDataflowMapping=.+`
+`.+\\transformation\\VtlCodelistMapping=.+.+\\transformation\\VtlConceptMapping=.+.+\\transformation\\VtlDataflowMapping=.+.+\\transformation\\VtlDatasetMapping=.+`
 
 **VtlMappingSchemeReferenceType:** A reference type for a VTL mapping
 scheme.

@@ -226,7 +226,7 @@
       </str:VtlMappingScheme>
     </str:VtlMappingSchemes>
     <str:NamePersonalisationSchemes>
-      <str:NamePersonalisationScheme vtlVersion="2.0" agencyID="SDMX" id="NPS1">
+      <str:NamePersonalisationScheme vtlVersion="2.0" agencyID="SDMX" id="NPS1" version="1.0">
         <com:Name xml:lang="en">Name Peronalisation Scheme #1</com:Name>
         <str:NamePersonalisation vtlArtefact="variable" id="NP1">
           <com:Name xml:lang="en">Name Personalisation #1</com:Name>

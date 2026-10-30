@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright SDMX 2025 - www.sdmx.org -->
+<mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:xml="http://www.w3.org/XML/1998/namespace"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message"
+				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message https://xml.sdmx.org/3.2/SDMXMessage.xsd">
+  <mes:Header>
+    <mes:ID>VTL_SAMPLE9</mes:ID>
+    <mes:Test>false</mes:Test>
+    <mes:Prepared>2026-10-29T00:00:00Z</mes:Prepared>
+    <mes:Sender id="EXAMPLE" />
+    <mes:Receiver id="SDMX" />
+  </mes:Header>
+  <mes:Structures>
+    <!-- VTL Data Sets whose names are written between single quotes in the VTL statements. The aliases power and
+         diff coincide with VTL keywords (the power and diff operators), therefore the VTL statements write them
+         between single quotes ('power', 'diff'), while the vtlAlias always contains the name without the quotes.
+         consumption is a regular VTL name, which the statements can write with or without single quotes: both forms
+         denote the same VTL Data Set. -->
+    <str:AgencySchemes>
+      <str:AgencyScheme agencyID="SDMX" id="AGENCIES">
+        <com:Name xml:lang="en">SDMX Agency Scheme</com:Name>
+        <str:Agency id="SDMX">
+          <com:Name xml:lang="en">SDMX</com:Name>
+          <com:Description xml:lang="en">SDMX is an initiative to foster standards for the exchange of statistical information. It is sponsored by the Bank for International Settlements (BIS), the European Central Bank (ECB), the Statistical Office of the European Union (Eurostat), the International Monetary Fund (IMF), the Organization for Economic Co-Operation and Development (OECD), the United Nations (UN) and the World Bank.</com:Description>
+          <str:Contact>
+            <com:Name xml:lang="en">SDMX Secretariat</com:Name>
+            <str:Department xml:lang="en">SDMX Secretariat</str:Department>
+            <str:Role xml:lang="en">Single entry point for external inquiries</str:Role>
+            <str:URI>http://sdmx.org</str:URI>
+            <str:Email>secretariat@sdmx.org</str:Email>
+          </str:Contact>
+        </str:Agency>
+        <str:Agency id="EXAMPLE">
+          <com:Name xml:lang="en">Example Agency</com:Name>
+        </str:Agency>
+      </str:AgencyScheme>
+    </str:AgencySchemes>
+    <str:Codelists>
+      <str:Codelist agencyID="EXAMPLE" id="CL_AREA" version="1.0">
+        <com:Name xml:lang="en">Reference area</com:Name>
+        <str:Code id="DE">
+          <com:Name xml:lang="en">Germany</com:Name>
+        </str:Code>
+        <str:Code id="ES">
+          <com:Name xml:lang="en">Spain</com:Name>
+        </str:Code>
+        <str:Code id="FR">
+          <com:Name xml:lang="en">France</com:Name>
+        </str:Code>
+      </str:Codelist>
+    </str:Codelists>
+    <str:ConceptSchemes>
+      <str:ConceptScheme agencyID="EXAMPLE" id="CONCEPTS" version="1.0">
+        <com:Name xml:lang="en">Concepts</com:Name>
+        <str:Concept id="REF_AREA">
+          <com:Name xml:lang="en">Reference area</com:Name>
+        </str:Concept>
+        <str:Concept id="TIME_PERIOD">
+          <com:Name xml:lang="en">Time period</com:Name>
+        </str:Concept>
+        <str:Concept id="OBS_VALUE">
+          <com:Name xml:lang="en">Observation value</com:Name>
+        </str:Concept>
+      </str:ConceptScheme>
+    </str:ConceptSchemes>
+    <str:DataStructures>
+      <str:DataStructure agencyID="EXAMPLE" id="DSD_ENERGY" version="1.0">
+        <com:Name xml:lang="en">Electricity</com:Name>
+        <str:DataStructureComponents>
+          <str:DimensionList>
+            <str:Dimension id="REF_AREA">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).REF_AREA</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:Enumeration>urn:sdmx:org.sdmx.infomodel.codelist.Codelist=EXAMPLE:CL_AREA(1.0)</str:Enumeration>
+              </str:LocalRepresentation>
+            </str:Dimension>
+            <str:TimeDimension id="TIME_PERIOD">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).TIME_PERIOD</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="GregorianYearMonth"/>
+              </str:LocalRepresentation>
+            </str:TimeDimension>
+          </str:DimensionList>
+          <str:MeasureList>
+            <str:Measure id="OBS_VALUE">
+              <str:ConceptIdentity>urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=EXAMPLE:CONCEPTS(1.0).OBS_VALUE</str:ConceptIdentity>
+              <str:LocalRepresentation>
+                <str:TextFormat textType="Decimal" decimals="1"/>
+              </str:LocalRepresentation>
+            </str:Measure>
+          </str:MeasureList>
+        </str:DataStructureComponents>
+      </str:DataStructure>
+    </str:DataStructures>
+    <str:Dataflows>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_POWER" version="1.0">
+        <com:Name xml:lang="en">Electricity generation</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_ENERGY(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_CONSUMPTION" version="1.0">
+        <com:Name xml:lang="en">Electricity consumption</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_ENERGY(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_SURPLUS" version="1.0">
+        <com:Name xml:lang="en">Electricity surplus (generation minus consumption)</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_ENERGY(1.0)</str:Structure>
+      </str:Dataflow>
+      <str:Dataflow agencyID="EXAMPLE" id="DF_SELF_SUFFICIENCY" version="1.0">
+        <com:Name xml:lang="en">Electricity self-sufficiency (generation as a percentage of consumption)</com:Name>
+        <str:Structure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=EXAMPLE:DSD_ENERGY(1.0)</str:Structure>
+      </str:Dataflow>
+    </str:Dataflows>
+    <str:VtlMappingSchemes>
+      <str:VtlMappingScheme agencyID="EXAMPLE" id="VTL_MAP_ENERGY" version="1.0">
+        <com:Name xml:lang="en">VTL mappings of TS_ENERGY</com:Name>
+        <!-- The vtlAlias is written without the single quotes, also when the VTL statements need them. -->
+        <str:VtlDatasetMapping id="POWER" vtlAlias="power" isInput="true">
+          <com:Name xml:lang="en">Electricity generation</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_POWER(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="CONSUMPTION" vtlAlias="consumption" isInput="true">
+          <com:Name xml:lang="en">Electricity consumption</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_CONSUMPTION(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="DIFF" vtlAlias="diff" isInput="false">
+          <com:Name xml:lang="en">Electricity surplus</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_SURPLUS(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+        <str:VtlDatasetMapping id="RATIO" vtlAlias="ratio" isInput="false">
+          <com:Name xml:lang="en">Electricity self-sufficiency</com:Name>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=EXAMPLE:DF_SELF_SUFFICIENCY(1.0)</str:Dataflow>
+        </str:VtlDatasetMapping>
+      </str:VtlMappingScheme>
+    </str:VtlMappingSchemes>
+    <str:TransformationSchemes>
+      <str:TransformationScheme agencyID="EXAMPLE" id="TS_ENERGY" version="1.0" vtlVersion="2.2">
+        <com:Name xml:lang="en">Electricity surplus and self-sufficiency</com:Name>
+        <str:Transformation id="SURPLUS" isPersistent="true">
+          <com:Name xml:lang="en">Electricity surplus</com:Name>
+          <com:Description xml:lang="en">The input power and the result diff coincide with VTL keywords, so they are written between single quotes; the input consumption is a regular name, written here without quotes. The result 'diff' is the output mapped through the vtlAlias diff.</com:Description>
+          <str:Expression>'power' - consumption</str:Expression>
+          <str:Result>'diff'</str:Result>
+        </str:Transformation>
+        <str:Transformation id="SELF_SUFFICIENCY" isPersistent="true">
+          <com:Name xml:lang="en">Electricity self-sufficiency</com:Name>
+          <com:Description xml:lang="en">The regular name consumption is written here between single quotes: 'consumption' and consumption denote the same VTL Data Set.</com:Description>
+          <str:Expression>'power' / 'consumption' * 100</str:Expression>
+          <str:Result>ratio</str:Result>
+        </str:Transformation>
+        <str:VtlMappingScheme>urn:sdmx:org.sdmx.infomodel.transformation.VtlMappingScheme=EXAMPLE:VTL_MAP_ENERGY(1.0)</str:VtlMappingScheme>
+      </str:TransformationScheme>
+    </str:TransformationSchemes>
+  </mes:Structures>
+</mes:Structure>
