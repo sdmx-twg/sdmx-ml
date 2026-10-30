@@ -60,7 +60,7 @@
 				</str:Code>
 			</str:Codelist>
 			<str:Codelist agencyID="SDMX" id="CS2R1" version="1.0">
-				<com:Name xml:lang="en">Concepts for Measures in Results #2.1</com:Name>
+				<com:Name xml:lang="en">Measures in Results #2.1</com:Name>
 				<str:Code id="PERC_EU_IMPORT">
 					<com:Name xml:lang="en">Import for EU in percentage</com:Name>
 				</str:Code>
