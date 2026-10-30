@@ -548,9 +548,9 @@
 		<xs:complexContent>
 			<xs:extension base="VtlDataExtractionType">
 				<xs:sequence>
-					<xs:element name="EntryPoint" type="xs:anyURI">
+					<xs:element name="EntryPoint" type="EntryPointType">
 						<xs:annotation>
-							<xs:documentation>The URL of the entry point of the SDMX REST web service (e.g. https://sdmx.example.org/rest).</xs:documentation>
+							<xs:documentation>The URL of the entry point of the SDMX REST web service (e.g. https://sdmx.example.org/rest). It cannot be empty.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Context" type="common:DataflowOrProvisionAgreementReferenceType" minOccurs="0">
@@ -580,9 +580,9 @@
 		<xs:complexContent>
 			<xs:extension base="VtlDataExtractionType">
 				<xs:sequence>
-					<xs:element name="UrlTemplate" type="xs:string">
+					<xs:element name="UrlTemplate" type="UrlTemplateType">
 						<xs:annotation>
-							<xs:documentation>The complete URL of the query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are replaced by the values of the query parameters having the same names. Each token must have a query parameter with the same name. Any part of the URL, including the entry point, can be a token.</xs:documentation>
+							<xs:documentation>The complete URL of the query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are replaced by the values of the query parameters having the same names. Each token must have a query parameter with the same name. Any part of the URL, including the entry point, can be a token. It cannot be empty.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="QueryParameter" type="QueryParameterType" minOccurs="0" maxOccurs="unbounded">
@@ -615,6 +615,24 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
+
+	<xs:simpleType name="EntryPointType">
+		<xs:annotation>
+			<xs:documentation>A simple type for the URL of the entry point of a web service compliant with the SDMX REST API (e.g. https://sdmx.example.org/rest). It cannot be empty.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:anyURI">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="UrlTemplateType">
+		<xs:annotation>
+			<xs:documentation>A simple type for the template of the URL of a query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are replaced by the values of the query parameters having the same names. It cannot be empty.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:simpleType name="QueryParameterNameType">
 		<xs:annotation>

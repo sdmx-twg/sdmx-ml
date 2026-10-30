@@ -36,7 +36,7 @@ Contents:
 
 40 Global Elements  
 251 Complex Types  
-21 Simple Types
+23 Simple Types
 
 #### Global Elements
 
@@ -9901,7 +9901,7 @@ Element Documentation:
 | **Name**       | **Type**                                  | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                            |
 |----------------|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | DatasetMapping | VtlDatasetMappingReferenceType            | References the VTL dataset mapping of the input VTL Data Set whose data are retrieved. The mapping must belong to the VTL mapping scheme of the transformation scheme of the VTL execution, and its isInput must be true. A VTL execution has at most one data extraction for each VTL dataset mapping.                                                                                                                      |
-| EntryPoint     | xs:anyURI                                 | The URL of the entry point of the SDMX REST web service (e.g. https://sdmx.example.org/rest).                                                                                                                                                                                                                                                                                                                                |
+| EntryPoint     | EntryPointType                            | The URL of the entry point of the SDMX REST web service (e.g. https://sdmx.example.org/rest). It cannot be empty.                                                                                                                                                                                                                                                                                                            |
 | Context        | DataflowOrProvisionAgreementReferenceType | References the dataflow or provision agreement whose data are queried, which must use the same data structure definition as the SDMX artefact referenced by the VTL dataset mapping (i.e. the data structure definition itself, or the one used by the dataflow, referenced directly or through the provision agreement). If not specified, the data of the SDMX artefact referenced by the VTL dataset mapping are queried. |
 | QueryParameter | QueryParameterType                        | A name-value pair used for building the query. The names are unique within the data extraction.                                                                                                                                                                                                                                                                                                                              |
 
@@ -9927,7 +9927,7 @@ Element Documentation:
 | **Name**       | **Type**                       | **Documentation**                                                                                                                                                                                                                                                                                       |
 |----------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | DatasetMapping | VtlDatasetMappingReferenceType | References the VTL dataset mapping of the input VTL Data Set whose data are retrieved. The mapping must belong to the VTL mapping scheme of the transformation scheme of the VTL execution, and its isInput must be true. A VTL execution has at most one data extraction for each VTL dataset mapping. |
-| UrlTemplate    | xs:string                      | The complete URL of the query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are replaced by the values of the query parameters having the same names. Each token must have a query parameter with the same name. Any part of the URL, including the entry point, can be a token.          |
+| UrlTemplate    | UrlTemplateType                | The complete URL of the query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are replaced by the values of the query parameters having the same names. Each token must have a query parameter with the same name. Any part of the URL, including the entry point, can be a token. It cannot be empty. |
 | QueryParameter | QueryParameterType             | A name-value pair providing the value of the token of the URL template having the same name. The names are unique within the data extraction.                                                                                                                                                           |
 
 **QueryParameterType:** QueryParameterType describes a name-value pair
@@ -10991,6 +10991,23 @@ method enumeration value or a string value for other mapping methods.
 Union of:
 
 StandardFromVtlMappingMethodType, xs:string.
+
+**EntryPointType:** A simple type for the URL of the entry point of a
+web service compliant with the SDMX REST API (e.g.
+https://sdmx.example.org/rest). It cannot be empty.
+
+Derived by restriction of xs:anyURI .
+
+Minimum Length: 1
+
+**UrlTemplateType:** A simple type for the template of the URL of a
+query, whose tokens enclosed in curly braces (e.g. {startPeriod}) are
+replaced by the values of the query parameters having the same names. It
+cannot be empty.
+
+Derived by restriction of xs:string .
+
+Minimum Length: 1
 
 **QueryParameterNameType:** A simple type for the name of a query
 parameter (e.g. key, startPeriod or c[TIME_PERIOD]). It cannot be empty
