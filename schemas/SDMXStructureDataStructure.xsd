@@ -43,9 +43,9 @@
 		<xs:complexContent>
 			<xs:extension base="DataStructureBaseType">
 				<xs:sequence>	
-					<xs:element name="Metadata" type="common:MetadataStructureReferenceType" minOccurs="0">
+					<xs:element name="Metadata" type="common:MetadataStructureReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>A data structure definition may be related to a metadata structure definition in order to use its metadata attributes as part of the data. Note that the referenced metadata set cannot contain nested metadata attributes, as these are not supported in the data. By default all metadata attributes can be associated at any level of the data. However, a metadata attribute usage can be used to provide a specific attribute relationship for a given metadata attribute.</xs:documentation>
+							<xs:documentation>A data structure definition may be related to one or more metadata structure definitions in order to use their metadata attributes as part of the data. Note that the referenced metadata structure definitions cannot contain nested metadata attributes, as these are not supported in the data. In case of a conflict (duplicated identifier or concept) between the metadata attributes of the referenced metadata structure definitions, only the first occurrence of the metadata attribute is taken into account, following the order of the Metadata elements. By default all metadata attributes can be associated at any level of the data. However, a metadata attribute usage can be used to provide a specific attribute relationship for a given metadata attribute.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -242,7 +242,7 @@
 
 	<xs:element name="MetadataAttributeUsage" type="MetadataAttributeUsageType" substitutionGroup="Component">
 		<xs:annotation>
-			<xs:documentation>MetadataAttributeUsage refines the details of how a metadata attribute from the metadata structure referenced from the data structure is used. By default, metadata attributes can be expressed at any level of the data. This allows an attribute relationship to be defined in order restrict the reporting of a metadata attribute to a specific part of the data.</xs:documentation>
+			<xs:documentation>MetadataAttributeUsage refines the details of how a metadata attribute from one of the metadata structures referenced from the data structure is used. By default, metadata attributes can be expressed at any level of the data. This allows an attribute relationship to be defined in order restrict the reporting of a metadata attribute to a specific part of the data.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 
@@ -265,14 +265,14 @@
 
 	<xs:complexType name="MetadataAttributeUsageType">
 		<xs:annotation>
-			<xs:documentation>MetadataAttributeUsageType defines the structure of how a metadata attribute is used in a data structure. This is a local reference to a metadata attribute from the metadata structure referenced by the data structure. An attribute relationship can be defined in order to describe the relationship of the metadata attribute to the data structure components.</xs:documentation>
+			<xs:documentation>MetadataAttributeUsageType defines the structure of how a metadata attribute is used in a data structure. This is a local reference to a metadata attribute from one of the metadata structures referenced by the data structure. An attribute relationship can be defined in order to describe the relationship of the metadata attribute to the data structure components.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MetadataAttributeUsageBaseType">
 				<xs:sequence>
 					<xs:element name="MetadataAttributeReference" type="common:NCNameIDType">
 						<xs:annotation>
-							<xs:documentation>MetadataAttributeReference is a local reference to a metadata attribute defined in the metadata structure referenced by this data structure.</xs:documentation>
+							<xs:documentation>MetadataAttributeReference is a local reference to a metadata attribute defined in one of the metadata structures referenced by this data structure. If several referenced metadata structures define a metadata attribute with this identifier, the first occurrence is used, following the order of the Metadata elements.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="AttributeRelationship" type="AttributeRelationshipType">
