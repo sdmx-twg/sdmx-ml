@@ -1718,15 +1718,47 @@ Regular Expression Pattern: `.+\\categoryscheme\\ReportingCategory=.+`
 Derived by restriction of `MaintainableUrnType`.  
 Regular Expression Pattern: `.+\\categoryscheme\\ReportingTaxonomy=.+`
 
-**CodeUrnType:** Urn type for a code.
+**AnyCodeUrnType:** Urn type for any type of code (code, geo feature set code
+or geo grid code).
 
 Derived by restriction of `ComponentUrnType`.  
+Regular Expression Pattern: `.+\\codelist\\Code=.+.+\\codelist\\GeoFeatureSetCode=.+.+\\codelist\\GeoGridCode=.+`
+
+**CodeUrnType:** Urn type for a code.
+
+Derived by restriction of `AnyCodeUrnType`.  
 Regular Expression Pattern: `.+\\codelist\\Code=.+`
+
+**GeoFeatureSetCodeUrnType:** Urn type for a geo feature set code.
+
+Derived by restriction of `AnyCodeUrnType`.  
+Regular Expression Pattern: `.+\\codelist\\GeoFeatureSetCode=.+`
+
+**GeoGridCodeUrnType:** Urn type for a geo grid code.
+
+Derived by restriction of `AnyCodeUrnType`.  
+Regular Expression Pattern: `.+\\codelist\\GeoGridCode=.+`
+
+**AnyCodelistUrnType:** Urn type for any type of codelist (codelist, geographic
+codelist or geo grid codelist).
+
+Derived by restriction of `MaintainableUrnType`.  
+Regular Expression Pattern: `.+\\codelist\\Codelist=.+.+\\codelist\\GeographicCodelist=.+.+\\codelist\\GeoGridCodelist=.+`
 
 **CodelistUrnType:** Urn type for a codelist.
 
-Derived by restriction of `MaintainableUrnType`.  
+Derived by restriction of `AnyCodelistUrnType`.  
 Regular Expression Pattern: `.+\\codelist\\Codelist=.+`
+
+**GeographicCodelistUrnType:** Urn type for a geographic codelist.
+
+Derived by restriction of `AnyCodelistUrnType`.  
+Regular Expression Pattern: `.+\\codelist\\GeographicCodelist=.+`
+
+**GeoGridCodelistUrnType:** Urn type for a geo grid codelist.
+
+Derived by restriction of `AnyCodelistUrnType`.  
+Regular Expression Pattern: `.+\\codelist\\GeoGridCodelist=.+`
 
 **HierarchicalCodeUrnType:** Urn type for a hierarchical code.
 
@@ -2005,12 +2037,12 @@ Derived by restriction of `StructureOrUsageReferenceType`.
 Regular Expression Pattern:
 `.+\\datastructure\\DataStructure=.+.+\\metadatastructure\\MetadataStructure=.+`
 
-**AnyCodelistReferenceType:** A reference type for a codelist or value
-list.
+**AnyCodelistReferenceType:** A reference type for a codelist (of any type) or
+value list.
 
 Derived by restriction of `MaintainableUrnReferenceType`.  
 Regular Expression Pattern:
-`.+\\codelist\\Codelist=.+.+\\codelist\\ValueList=.+`
+`.+\\codelist\\Codelist=.+.+\\codelist\\GeographicCodelist=.+.+\\codelist\\GeoGridCodelist=.+.+\\codelist\\ValueList=.+`
 
 **OrganisationSchemeReferenceType:** A reference type for any type of
 organisation scheme.
@@ -2121,15 +2153,31 @@ taxonomy.
 Derived by restriction of `MaintainableUrnReferenceType`.  
 Regular Expression Pattern: `.+\\categoryscheme\\ReportingTaxonomy=.+`
 
-**CodeReferenceType:** A reference type for a code.
+**CodeReferenceType:** A reference type for a code (of any type).
 
 Derived by restriction of `ComponentUrnReferenceType`.  
-Regular Expression Pattern: .+\\codelist\\Code=.+
+Regular Expression Pattern: `.+\\codelist\\Code=.+.+\\codelist\\GeoFeatureSetCode=.+.+\\codelist\\GeoGridCode=.+`
+
+**GenericCodelistReferenceType:** A reference type for any type of codelist (codelist,
+geographic codelist or geo grid codelist), excluding value lists.
+
+Derived by restriction of `AnyCodelistReferenceType`.  
+Regular Expression Pattern: `.+\\codelist\\Codelist=.+.+\\codelist\\GeographicCodelist=.+.+\\codelist\\GeoGridCodelist=.+`
 
 **CodelistReferenceType:** A reference type for a codelist.
 
-Derived by restriction of `AnyCodelistReferenceType`.  
+Derived by restriction of `GenericCodelistReferenceType`.  
 Regular Expression Pattern: `.+\\codelist\\Codelist=.+`
+
+**GeographicCodelistReferenceType:** A reference type for a geographic codelist.
+
+Derived by restriction of `GenericCodelistReferenceType`.  
+Regular Expression Pattern: `.+\\codelist\\GeographicCodelist=.+`
+
+**GeoGridCodelistReferenceType:** A reference type for a geo grid codelist.
+
+Derived by restriction of `GenericCodelistReferenceType`.  
+Regular Expression Pattern: `.+\\codelist\\GeoGridCodelist=.+`
 
 **HierarchicalCodeReferenceType:** A reference type for a hierarchical
 code.
