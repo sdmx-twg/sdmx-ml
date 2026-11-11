@@ -88,12 +88,10 @@ may be added through the use of annotations.
 
 Substitution For: *Item*
 
-Substitutions: *GeoRefCode*, GeoFeatureSetCode, GeoGridCode
-
 **GeoRefCode (GeoRefCodeType):** GeoRefCode is the abstract base
 from which specific types of geographic codes will be derived.
 
-Substitution For: Code
+Substitution For: *Item*
 
 Substitutions: GeoFeatureSetCode, GeoGridCode
 
@@ -1995,8 +1993,7 @@ isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?, isPartial?
 Content:
 
 ```text
-Annotations?, Link*, Name+, Description*, (Code | GeoFeatureSetCode
-| GeoGridCode)*
+Annotations?, Link*, Name+, Description*, *Item**
 ```
 
 Attribute Documentation:
@@ -2004,7 +2001,7 @@ Attribute Documentation:
 | **Name**                             | **Type**           | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |--------------------------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                   | NCNameIDType       | The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).                                                                                                                                                                                                                                                                                                                                                                                     |
-| urn                                  | CodelistUrnType    | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| urn                                  | AnyCodelistUrnType    | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | uri                                  | xs:anyURI          | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | version                              | VersionType        | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | validFrom                            | xs:dateTime        | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2024,22 +2021,26 @@ Element Documentation:
 | Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata.           |
 | Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                               |
 | Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                           |
-| Code        | CodeType        | Code describes a code in a codelist. In addition to the identification and description of the code, basic presentational information is also available. Presentational information not present may be added through the use of annotations. |
+| *Item*      | *ItemType*      | Item is an abstract element that serves as a substitution head for all items in an item scheme, including those items nested within other items. Concrete instances of this must use a concrete instance of ItemType. |
 
-**CodelistType:**
+**GenericCodelistType:** GenericCodelistType is an abstract base type for
+all types of codelists (codelists, geographic codelists and geo grid
+codelists). Each type of codelist restricts its codes, its urn and its
+codelist extensions, so that a codelist can only extend codelists of the
+same type.
 
 Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (extension)  
-               VersionableType (restriction)  
-                     MaintainableBaseType (extension)  
-                           MaintainableType (extension)  
-                                 ItemSchemeType (restriction)  
-                                       CodelistBaseType (extension)  
-                                             CodelistType
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       CodelistBaseType (extension)  
+                                             GenericCodelistType
 ```
 
 Attributes:
@@ -2052,8 +2053,66 @@ isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?, isPartial?
 Content:
 
 ```text
-Annotations?, Link*, Name+, Description*, (Code | GeoFeatureSetCode
-| GeoGridCode)*, CodelistExtension*
+Annotations?, Link*, Name+, Description*, *Item**,
+CodelistExtension*
+```
+
+Attribute Documentation:
+
+| **Name**                             | **Type**           | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|--------------------------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                   | NCNameIDType       | The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).                                                                                                                                                                                                                                                                                                                                                                                     |
+| urn                                  | AnyCodelistUrnType    | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| uri                                  | xs:anyURI          | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| version                              | VersionType        | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| validFrom                            | xs:dateTime        | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| validTo                              | xs:dateTime        | The validTo attribute provides the inclusive end date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| agencyID                             | NestedNCNameIDType | The agencyID must be provided, and identifies the maintenance agency of the object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| isExternalReference (default: false) | xs:boolean         | The isExternalReference attribute, if true, indicates that the actual object is not defined the corresponding element, rather its full details are defined elsewhere - indicated by either the registryURL, the repositoryURL, or the structureURL. The purpose of this is so that each structure message does not have to redefine object that are already defined elsewhere. If the isExternalReference attribute is not set, then it is assumed to be false, and the object should contain the full definition of its contents. If more than one of the registryURL, the repositoryURL, and the structureURL are supplied, then the application processing the object can choose the method it finds best suited to retrieve the details of the object. |
+| serviceURL                           | xs:anyURI          | The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| structureURL                         | xs:anyURI          | The structureURL attribute indicates the URL of a SDMX-ML structure message (in the same version as the source document) in which the externally referenced object is contained. Note that this may be a URL of an SDMX RESTful web service which will return the referenced object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| isPartialLanguage (default: false)           | xs:boolean          | The isPartialLanguage attribute, if true, indicates that the object doesn't contain the complete set of all available languages, e.g., when obtained as a response to a GET query that requested specific languages through the HTTP header ‘Accept-Language’.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| isPartial (default: false)           | xs:boolean         | The isPartial, if true, indicates that only the relevant portion of the item scheme is being communicated. This is used in cases where a codelist is returned for a data structure in the context of a constraint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+
+Element Documentation:
+
+| **Name**    | **Type**        | **Documentation**                                                                                                                                                                                                                           |
+|-------------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                                         |
+| Link        | LinkType        | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata.           |
+| Name        | TextType        | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                               |
+| Description | TextType        | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                           |
+| *Item*      | *ItemType*      | Item is an abstract element that serves as a substitution head for all items in an item scheme, including those items nested within other items. Concrete instances of this must use a concrete instance of ItemType. |
+| CodelistExtension | CodelistExtensionBaseType | |
+
+**CodelistType:**
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       CodelistBaseType (extension)  
+                                             GenericCodelistType (restriction)  
+                                                   CodelistType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, version?, validFrom?, validTo?, agencyID,
+isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?, isPartial?
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*, Code*, CodelistExtension*
 ```
 
 Attribute Documentation:
@@ -2123,9 +2182,7 @@ forms.</td>
 <td>Code describes a code in a codelist. In addition to the
 identification and description of the code, basic presentational
 information is also available. Presentational information not present
-may be added through the use of annotations.<br />
-<br />
-<strong>Substitutions:</strong> GeoFeatureSetCode, GeoGridCode</td>
+may be added through the use of annotations.</td>
 </tr>
 <tr class="even">
 <td>CodelistExtension</td>
@@ -2141,21 +2198,19 @@ extending codelist, in case conflicting codes must be included.</td>
 </tbody>
 </table>
 
-**CodeType:** CodeType describes the structure of a code. A code is
-defined as a language independent set of letters, numbers or symbols
-that represent a concept whose meaning is described in a natural
-language. Presentational information not present may be added through
-the use of annotations.
+**CodeBaseType:** CodeBaseType is an abstract base type for all types of
+codes (codes, geo feature set codes and geo grid codes). Each type of
+code restricts its urn to its own class.
 
 Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (restriction)  
-               ItemBaseType (extension)  
-                     ItemType (restriction)  
-                           CodeType
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType
 ```
 
 Attributes:
@@ -2173,7 +2228,7 @@ Attribute Documentation:
 | **Name** | **Type**    | **Documentation**                                                                                                                                                  |
 |----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
-| urn      | CodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| urn      | AnyCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
 
 Element Documentation:
@@ -2186,10 +2241,142 @@ Element Documentation:
 | Description | TextType           | Description provides a plain text, human-readable description of the code. This may be provided in multiple, parallel language-equivalent forms.                                                                                  |
 | Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
 
+**GenericCodeType:** GenericCodeType is an abstract base type for all types
+of codes (codes, geo feature set codes and geo grid codes). It adds the
+business validity of the code, which all types of codes inherit.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, validFrom?, validTo?
+```
+
+Content:
+
+Annotations?, Link*, Name+, Description*, Parent?
+
+Attribute Documentation:
+
+| **Name** | **Type**    | **Documentation**                                                                                                                                                  |
+|----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType      | The id is the identifier for the object.                                                                                                                           |
+| urn      | AnyCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
+
+Element Documentation:
+
+| **Name**    | **Type**           | **Documentation**                                                                                                                                                                                                                 |
+|-------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType    | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType           | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType           | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms. It may be used in place of a short description.                                                     |
+| Description | TextType           | Description provides a plain text, human-readable description of the code. This may be provided in multiple, parallel language-equivalent forms.                                                                                  |
+| Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
+**CodeType:** CodeType describes the structure of a code. A code is
+defined as a language independent set of letters, numbers or symbols
+that represent a concept whose meaning is described in a natural
+language. Presentational information not present may be added through
+the use of annotations.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType (restriction)  
+                                       CodeType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, validFrom?, validTo?
+```
+
+Content:
+
+Annotations?, Link*, Name+, Description*, Parent?
+
+Attribute Documentation:
+
+| **Name** | **Type**    | **Documentation**                                                                                                                                                  |
+|----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType      | The id is the identifier for the object.                                                                                                                           |
+| urn      | CodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
+
+Element Documentation:
+
+| **Name**    | **Type**           | **Documentation**                                                                                                                                                                                                                 |
+|-------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType    | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType           | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType           | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms. It may be used in place of a short description.                                                     |
+| Description | TextType           | Description provides a plain text, human-readable description of the code. This may be provided in multiple, parallel language-equivalent forms.                                                                                  |
+| Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
+
+**CodelistExtensionBaseType:** CodelistExtensionBaseType is an abstract
+base type defining the structure of a codelist to be extended by the codelist defining the extension. It
+provides a reference to the extended codelist and selection criteria to
+indicate the codes to be included in the extending codelist. It is
+restricted for each type of codelist, so that a codelist can only extend
+codelists of the same type.
+
+Attributes:
+
+```text
+prefix?
+```
+
+Content:
+
+Codelist, (InclusiveCodeSelection | ExclusiveCodeSelection)?
+
+Attribute Documentation:
+
+| **Name** | **Type**  | **Documentation**                                                                                                                                                                          |
+|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| prefix   | xs:string | A reference to a codelist may contain a prefix. If a prefix is provided, this prefix will be applied to all the codes in the codelist before they are imported into the extended codelist. |
+
+Element Documentation:
+
+| **Name**                | **Type**               | **Documentation**                                                                                    |
+|-------------------------|------------------------|------------------------------------------------------------------------------------------------------|
+| Codelist                | GenericCodelistReferenceType |                                                                                                      |
+| InclusiveCodeSelecti on | CodeSelectionType      | Selection of codes from the referenced (extended) codelist to be included in the extending codelist. |
+| ExclusiveCodeSelecti on | CodeSelectionType      | Selection of codes from the referenced (extended) codelist to be excluded in the extending codelist. |
+
 **CodelistExtensionType:** CodelistExtensionType defines the structure
 of a codelist to be extended by the codelist defining the extension. It
 provides a reference to the extended codelist and selection criteria to
 indicate the codes to be included in the extending codelist.
+
+Derivation:
+
+```text
+CodelistExtensionBaseType (restriction)  
+   CodelistExtensionType
+```
 
 Attributes:
 
@@ -2212,6 +2399,41 @@ Element Documentation:
 | **Name**                | **Type**               | **Documentation**                                                                                    |
 |-------------------------|------------------------|------------------------------------------------------------------------------------------------------|
 | Codelist                | CodelistReferenceTyp e |                                                                                                      |
+| InclusiveCodeSelecti on | CodeSelectionType      | Selection of codes from the referenced (extended) codelist to be included in the extending codelist. |
+| ExclusiveCodeSelecti on | CodeSelectionType      | Selection of codes from the referenced (extended) codelist to be excluded in the extending codelist. |
+
+**GeographicCodelistExtensionType:** GeographicCodelistExtensionType
+restricts the codelist extension so that a geographic codelist can only
+extend other geographic codelists.
+
+Derivation:
+
+```text
+CodelistExtensionBaseType (restriction)  
+   GeographicCodelistExtensionType
+```
+
+Attributes:
+
+```text
+prefix?
+```
+
+Content:
+
+Codelist, (InclusiveCodeSelection | ExclusiveCodeSelection)?
+
+Attribute Documentation:
+
+| **Name** | **Type**  | **Documentation**                                                                                                                                                                          |
+|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| prefix   | xs:string | A reference to a codelist may contain a prefix. If a prefix is provided, this prefix will be applied to all the codes in the codelist before they are imported into the extended codelist. |
+
+Element Documentation:
+
+| **Name**                | **Type**               | **Documentation**                                                                                    |
+|-------------------------|------------------------|------------------------------------------------------------------------------------------------------|
+| Codelist                | GeographicCodelistReferenceType |                                                                                                      |
 | InclusiveCodeSelecti on | CodeSelectionType      | Selection of codes from the referenced (extended) codelist to be included in the extending codelist. |
 | ExclusiveCodeSelecti on | CodeSelectionType      | Selection of codes from the referenced (extended) codelist to be excluded in the extending codelist. |
 
@@ -2262,16 +2484,15 @@ Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (extension)  
-               VersionableType (restriction)  
-                     MaintainableBaseType (extension)  
-                           MaintainableType (extension)  
-                                 ItemSchemeType (restriction)  
-                                       CodelistBaseType (extension)  
-                                             CodelistType
-(restriction)  
-                                                   GeoCodelistBaseType
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       CodelistBaseType (extension)  
+                                             GenericCodelistType (restriction)  
+                                                   GeoCodelistBaseType
 ```
 
 Attributes:
@@ -2293,7 +2514,7 @@ Attribute Documentation:
 | **Name**                             | **Type**           | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |--------------------------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                   | NCNameIDType       | The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).                                                                                                                                                                                                                                                                                                                                                                                     |
-| urn                                  | CodelistUrnType    | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| urn                                  | AnyCodelistUrnType    | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | uri                                  | xs:anyURI          | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | version                              | VersionType        | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | validFrom                            | xs:dateTime        | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2314,7 +2535,7 @@ Element Documentation:
 | Name              | TextType               | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                 |
 | Description       | TextType               | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                             |
 | *GeoRefCode*      | *GeoRefCodeType*       | GeoRefCode is the abstract base from which specific types of geographic codes will be derived.                                                                                                                                                                                                                                                                                                                                                                                |
-| CodelistExtension | CodelistExtensionTyp e | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
+| CodelistExtension | CodelistExtensionBaseType | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
 
 **GeoCodelistType:** GeoCodelistType is an abstract refinement of a
 codelist from which specific types of geographic codelists will be
@@ -2324,18 +2545,16 @@ Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (extension)  
-               VersionableType (restriction)  
-                     MaintainableBaseType (extension)  
-                           MaintainableType (extension)  
-                                 ItemSchemeType (restriction)  
-                                       CodelistBaseType (extension)  
-                                             CodelistType
-(restriction)  
-                                                   GeoCodelistBaseType
-(extension)  
-                                                         GeoCodelistType
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       CodelistBaseType (extension)  
+                                             GenericCodelistType (restriction)  
+                                                   GeoCodelistBaseType (extension)  
+                                                         GeoCodelistType
 ```
 
 Attributes:
@@ -2357,7 +2576,7 @@ Attribute Documentation:
 | **Name**                             | **Type**            | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |--------------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                   | NCNameIDType        | The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).                                                                                                                                                                                                                                                                                                                                                                                     |
-| urn                                  | CodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| urn                                  | AnyCodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | uri                                  | xs:anyURI           | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | version                              | VersionType         | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | validFrom                            | xs:dateTime         | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2379,7 +2598,7 @@ Element Documentation:
 | Name              | TextType               | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                 |
 | Description       | TextType               | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                             |
 | *GeoRefCode*      | *GeoRefCodeType*       | GeoRefCode is the abstract base from which specific types of geographic codes will be derived.                                                                                                                                                                                                                                                                                                                                                                                |
-| CodelistExtension | CodelistExtensionTyp e | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
+| CodelistExtension | CodelistExtensionBaseType | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
 
 **GeoRefCodeType:** GeoRefCodeType is the abstract base type defining
 the structure of geographic codes.
@@ -2388,18 +2607,19 @@ Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (restriction)  
-               ItemBaseType (extension)  
-                     ItemType (restriction)  
-                           CodeType (extension)  
-                                 GeoRefCodeType
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2413,8 +2633,10 @@ Attribute Documentation:
 | **Name** | **Type**    | **Documentation**                                                                                                                                                  |
 |----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
-| urn      | CodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| urn      | AnyCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -2435,20 +2657,17 @@ Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (extension)  
-               VersionableType (restriction)  
-                     MaintainableBaseType (extension)  
-                           MaintainableType (extension)  
-                                 ItemSchemeType (restriction)  
-                                       CodelistBaseType (extension)  
-                                             CodelistType
-(restriction)  
-                                                   GeoCodelistBaseType
-(extension)  
-                                                         GeoCodelistType
-(restriction)  
-                                                               GeographicCodelistType
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       CodelistBaseType (extension)  
+                                             GenericCodelistType (restriction)  
+                                                   GeoCodelistBaseType (extension)  
+                                                         GeoCodelistType (restriction)  
+                                                               GeographicCodelistType
 ```
 
 Attributes:
@@ -2470,7 +2689,7 @@ Attribute Documentation:
 | **Name**                             | **Type**            | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |--------------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                   | NCNameIDType        | The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).                                                                                                                                                                                                                                                                                                                                                                                     |
-| urn                                  | CodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| urn                                  | GeographicCodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | uri                                  | xs:anyURI           | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | version                              | VersionType         | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | validFrom                            | xs:dateTime         | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2492,28 +2711,29 @@ Element Documentation:
 | Name              | TextType               | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                 |
 | Description       | TextType               | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                             |
 | GeoFeatureSetCode | GeoFeatureSetCodeTyp e | Is a geographic code in a geographic codelist. It adds a value to a code that folows a pattern to represent a geo feature set.                                                                                                                                                                                                                                                                                                                                                |
-| CodelistExtension | CodelistExtensionTyp e | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
+| CodelistExtension | GeographicCodelistExtensionType | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
 
-**GeoFeatureSetCodeType:** GeoFeatureSetCodeType defines the structure
-of a geogrphic code.
+**GeoFeatureSetCodeBaseType:** GeoFeatureSetCodeBaseType is an abstract base type that restricts the urn of
+a geo feature set code to its own class.
 
 Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (restriction)  
-               ItemBaseType (extension)  
-                     ItemType (restriction)  
-                           CodeType (extension)  
-                                 GeoRefCodeType (extension)  
-                                       GeoFeatureSetCodeType
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoFeatureSetCodeBaseType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?, value
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2527,8 +2747,60 @@ Attribute Documentation:
 | **Name** | **Type**    | **Documentation**                                                                                                                                                  |
 |----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
-| urn      | CodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| urn      | GeoFeatureSetCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
+
+Element Documentation:
+
+| **Name**    | **Type**           | **Documentation**                                                                                                                                                                                                                 |
+|-------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType    | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType           | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType           | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms. It may be used in place of a short description.                                                     |
+| Description | TextType           | Description provides a plain text, human-readable description of the code. This may be provided in multiple, parallel language-equivalent forms.                                                                                  |
+| Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
+
+**GeoFeatureSetCodeType:** GeoFeatureSetCodeType defines the structure
+of a geogrphic code.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoFeatureSetCodeBaseType (extension)  
+                                                   GeoFeatureSetCodeType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, validFrom?, validTo?, value
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*, Parent?
+```
+
+Attribute Documentation:
+
+| **Name** | **Type**    | **Documentation**                                                                                                                                                  |
+|----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType      | The id is the identifier for the object.                                                                                                                           |
+| urn      | GeoFeatureSetCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 | value    | xs:string   | The geo feature set of the Code, which represents a set of points defining a feature in a format defined a predefined pattern (see section 6).                     |
 
 Element Documentation:
@@ -2542,26 +2814,24 @@ Element Documentation:
 | Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
 
 **GeoGridCodelistBaseType:** GeoGridCodelistBaseType is the abstract
-base refinement for a geographic grid codelist.
+base refinement for a geographic grid codelist. A geo grid codelist
+cannot extend other codelists.
 
 Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (extension)  
-               VersionableType (restriction)  
-                     MaintainableBaseType (extension)  
-                           MaintainableType (extension)  
-                                 ItemSchemeType (restriction)  
-                                       CodelistBaseType (extension)  
-                                             CodelistType
-(restriction)  
-                                                   GeoCodelistBaseType
-(extension)  
-                                                         GeoCodelistType
-(restriction)  
-                                                               GeoGridCodelistBaseType
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       CodelistBaseType (extension)  
+                                             GenericCodelistType (restriction)  
+                                                   GeoCodelistBaseType (extension)  
+                                                         GeoCodelistType (restriction)  
+                                                               GeoGridCodelistBaseType
 ```
 
 Attributes:
@@ -2574,8 +2844,7 @@ isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?, isPartial?
 Content:
 
 ```text
-Annotations?, Link*, Name+, Description*, GeoGridCode*,
-CodelistExtension*
+Annotations?, Link*, Name+, Description*, GeoGridCode*
 ```
 
 Attribute Documentation:
@@ -2583,7 +2852,7 @@ Attribute Documentation:
 | **Name**                             | **Type**            | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |--------------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                   | NCNameIDType        | The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).                                                                                                                                                                                                                                                                                                                                                                                     |
-| urn                                  | CodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| urn                                  | GeoGridCodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | uri                                  | xs:anyURI           | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | version                              | VersionType         | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | validFrom                            | xs:dateTime         | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2605,7 +2874,6 @@ Element Documentation:
 | Name              | TextType               | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                 |
 | Description       | TextType               | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                             |
 | GeoGridCode       | GeoGridCodeType        | GeoGridCode is a code the represents a geographic grid cell that belongs to a specific grid definition.                                                                                                                                                                                                                                                                                                                                                                       |
-| CodelistExtension | CodelistExtensionTyp e | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
 
 **GeoGridCodelistType:** GeoGridCodelistType defines the structure of a
 geographic grid code list. These define a geographical grid composed of
@@ -2615,22 +2883,18 @@ Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (extension)  
-               VersionableType (restriction)  
-                     MaintainableBaseType (extension)  
-                           MaintainableType (extension)  
-                                 ItemSchemeType (restriction)  
-                                       CodelistBaseType (extension)  
-                                             CodelistType
-(restriction)  
-                                                   GeoCodelistBaseType
-(extension)  
-                                                         GeoCodelistType
-(restriction)  
-                                                               GeoGridCodelistBaseType
-(extension)  
-                                                                     GeoGridCodelistType
+   IdentifiableType (extension)  
+         NameableType (extension)  
+               VersionableType (restriction)  
+                     MaintainableBaseType (extension)  
+                           MaintainableType (extension)  
+                                 ItemSchemeType (restriction)  
+                                       CodelistBaseType (extension)  
+                                             GenericCodelistType (restriction)  
+                                                   GeoCodelistBaseType (extension)  
+                                                         GeoCodelistType (restriction)  
+                                                               GeoGridCodelistBaseType (extension)  
+                                                                     GeoGridCodelistType
 ```
 
 Attributes:
@@ -2643,8 +2907,7 @@ isPartialLanguage?, isExternalReference?, serviceURL?, structureURL?, isPartial?
 Content:
 
 ```text
-Annotations?, Link*, Name+, Description*, GeoGridCode*,
-CodelistExtension*, GridDefinition
+Annotations?, Link*, Name+, Description*, GeoGridCode*, GridDefinition
 ```
 
 Attribute Documentation:
@@ -2652,7 +2915,7 @@ Attribute Documentation:
 | **Name**                             | **Type**            | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |--------------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                   | NCNameIDType        | The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).                                                                                                                                                                                                                                                                                                                                                                                     |
-| urn                                  | CodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| urn                                  | GeoGridCodelistUrnType     | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | uri                                  | xs:anyURI           | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | version                              | VersionType         | This version attribute holds a version number (see common:VersionType definition for details). If not supplied, artefact is considered to be un-versioned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | validFrom                            | xs:dateTime         | The validFrom attribute provides the inclusive start date for providing supplemental validity information about the version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -2674,8 +2937,56 @@ Element Documentation:
 | Name              | TextType               | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                                                 |
 | Description       | TextType               | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                                                                                                                                                                                                                                             |
 | GeoGridCode       | GeoGridCodeType        | GeoGridCode is a code the represents a geographic grid cell that belongs to a specific grid definition.                                                                                                                                                                                                                                                                                                                                                                       |
-| CodelistExtension | CodelistExtensionTyp e | CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included. |
 | GridDefinition    | xs:string              | Contains a regular expression string corresponding to the grid definition for the GeoGrid Codelist.                                                                                                                                                                                                                                                                                                                                                                           |
+
+**GeoGridCodeBaseType:** GeoGridCodeBaseType is an abstract base type that restricts the urn of
+a geo grid code to its own class.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoGridCodeBaseType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, validFrom?, validTo?
+```
+
+Content:
+
+```text
+Annotations?, Link*, Name+, Description*, Parent?
+```
+
+Attribute Documentation:
+
+| **Name** | **Type**    | **Documentation**                                                                                                                                                  |
+|----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType      | The id is the identifier for the object.                                                                                                                           |
+| urn      | GeoGridCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
+
+Element Documentation:
+
+| **Name**    | **Type**           | **Documentation**                                                                                                                                                                                                                 |
+|-------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType    | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType           | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType           | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms. It may be used in place of a short description.                                                     |
+| Description | TextType           | Description provides a plain text, human-readable description of the code. This may be provided in multiple, parallel language-equivalent forms.                                                                                  |
+| Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
 
 **GeoGridCodeType:** GeoGridCodeType defines the structure of a
 geographic grid cell.
@@ -2684,19 +2995,21 @@ Derivation:
 
 ```text
 AnnotableType (extension)  
-   IdentifiableType (extension)  
-         NameableType (restriction)  
-               ItemBaseType (extension)  
-                     ItemType (restriction)  
-                           CodeType (extension)  
-                                 GeoRefCodeType (extension)  
-                                       GeoGridCodeType
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoGridCodeBaseType (extension)  
+                                                   GeoGridCodeType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2710,8 +3023,10 @@ Attribute Documentation:
 | **Name** | **Type**    | **Documentation**                                                                                                                                                  |
 |----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
-| urn      | CodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| urn      | GeoGridCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -5381,7 +5696,7 @@ Element Documentation:
 | **Name**          | **Type**                       | **Documentation**                                                                                                |
 |-------------------|--------------------------------|------------------------------------------------------------------------------------------------------------------|
 | TextFormat        | SimpleComponentTextF ormatType | TextFormat describes an uncoded textual format.                                                                  |
-| Enumeration       | CodelistReferenceTyp e         | Enumeration references an item scheme that enumerates the allowable values for this representation.              |
+| Enumeration       | GenericCodelistReferenceType         | Enumeration references an item scheme that enumerates the allowable values for this representation.              |
 | EnumerationFormat | CodedTextFormatType            | EnumerationFormat describes the facets of the item scheme enumeration. This is for the most part, informational. |
 
 **TimeDimensionRepresentationType:** TimeDimensionRepresentationType
@@ -5655,8 +5970,8 @@ Attribute Documentation:
 | id        | IDType                   | The id attribute allows for an id to be assigned to the use of the particular code at that specific point in the hierarchy. This value is unique within the hierarchy being created, and is used to map the hierarchy against external structures. |
 | urn       | HierarchicalCodeUrnT ype | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                   |
 | uri       | xs:anyURI                | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                 |
-| validFrom | xs:dateTime              | The validFrom attriubte indicates the point in time in which the hiearchical code became effective. This can be used to track the historicity of codes changing over time.                                                                         |
-| validTo   | xs:dateTime              | The validTo attriubte indicates the point in time in which the hiearchical code became no longer effective. This can be used to track the historicity of codes changing over time.                                                                 |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this hierarchical code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this hierarchical code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -6290,7 +6605,7 @@ Element Documentation:
 | **Name**          | **Type**                      | **Documentation**                                                                                                |
 |-------------------|-------------------------------|------------------------------------------------------------------------------------------------------------------|
 | TextFormat        | BasicComponentTextFo rmatType | TextFormat describes an uncoded textual format.                                                                  |
-| Enumeration       | CodelistReferenceTyp e        | Enumeration references an item scheme that enumerates the allowable values for this representation.              |
+| Enumeration       | GenericCodelistReferenceType        | Enumeration references an item scheme that enumerates the allowable values for this representation.              |
 | EnumerationFormat | CodedTextFormatType           | EnumerationFormat describes the facets of the item scheme enumeration. This is for the most part, informational. |
 
 **OrganisationSchemeBaseType:** OrganisationSchemeBaseType is an
@@ -8849,8 +9164,8 @@ Attribute Documentation:
 
 | **Name**  | **Type** | **Documentation** |
 |-----------|----------|-------------------|
-| validFrom | xs:date  |                   |
-| validTo   | xs:date  |                   |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: the mapping is only applicable to values whose time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). |
+| validTo | StandardTimePeriodType | The validTo attribute is optionally used for business validity: the mapping is only applicable to values whose time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -9331,7 +9646,7 @@ Element Documentation:
 | GenericDataflow | EmptyType              | Indicates that the ToVtlMapping and FromVtlMapping are the default mapping methods to be applied, overriding the Basic methods if necessary. The mapping methods in this case would be applied to any dataflows that are not explicitly defined in other VtlMappings. |
 | ToVtlMapping    | ToVtlMappingType       | Describes the mapping from a SDMX dataflow to a VTL data structure.                                                                                                                                                                                                   |
 | FromVtlMapping  | FromVtlMappingType     | Describes the mapping to a SDMX dataflow from a VTL data structure.                                                                                                                                                                                                   |
-| Codelist        | CodelistReferenceTyp e | A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.                                                                                                                                                        |
+| Codelist        | GenericCodelistReferenceType | A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.                                                                                                                                                        |
 | Concept         | ConceptReferenceType   | A reference to the SDMX Concept that the mapping is defined for. This is used to create a VtlConceptMapping.                                                                                                                                                          |
 
 **ToVtlMappingType:** ToVtlMappingType defines the mapping method and

@@ -43,6 +43,10 @@
 			<xs:pattern value=".+\.categoryscheme\.ReportingTaxonomy=.+"/>
 			<xs:pattern value=".+\.codelist\.Code=.+"/>
 			<xs:pattern value=".+\.codelist\.Codelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoFeatureSetCode=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoGridCode=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoGridCodelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeographicCodelist=.+"/>
 			<xs:pattern value=".+\.codelist\.HierarchicalCode=.+"/>
 			<xs:pattern value=".+\.codelist\.Hierarchy=.+"/>
 			<xs:pattern value=".+\.codelist\.HierarchyAssociation=.+"/>
@@ -373,12 +377,52 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="AnyCodeUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for any type of code (code, geo feature set code or geo grid code).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnType">
+			<xs:pattern value=".+\.codelist\.Code=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoFeatureSetCode=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoGridCode=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="CodeUrnType">
 		<xs:annotation>
 			<xs:documentation>Urn type for a code.</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="ComponentUrnType">
+		<xs:restriction base="AnyCodeUrnType">
 			<xs:pattern value=".+\.codelist\.Code=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GeoFeatureSetCodeUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a geo feature set code.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyCodeUrnType">
+			<xs:pattern value=".+\.codelist\.GeoFeatureSetCode=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GeoGridCodeUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a geo grid code.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyCodeUrnType">
+			<xs:pattern value=".+\.codelist\.GeoGridCode=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="AnyCodelistUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for any type of codelist (codelist, geographic codelist or geo grid codelist).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnType">
+			<xs:pattern value=".+\.codelist\.Codelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeographicCodelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoGridCodelist=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -386,8 +430,26 @@
 		<xs:annotation>
 			<xs:documentation>Urn type for a codelist.</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="MaintainableUrnType">
+		<xs:restriction base="AnyCodelistUrnType">
 			<xs:pattern value=".+\.codelist\.Codelist=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GeographicCodelistUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a geographic codelist.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyCodelistUrnType">
+			<xs:pattern value=".+\.codelist\.GeographicCodelist=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GeoGridCodelistUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a geo grid codelist.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyCodelistUrnType">
+			<xs:pattern value=".+\.codelist\.GeoGridCodelist=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -869,10 +931,12 @@
 
 	<xs:simpleType name="AnyCodelistReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a codelist or value list.</xs:documentation>
+			<xs:documentation>A reference type for a codelist (of any type) or value list.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnReferenceType">
 			<xs:pattern value=".+\.codelist\.Codelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeographicCodelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoGridCodelist=.+"/>
 			<xs:pattern value=".+\.codelist\.ValueList=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -1050,10 +1114,23 @@
 
 	<xs:simpleType name="CodeReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a code.</xs:documentation>
+			<xs:documentation>A reference type for a code (of any type).</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.codelist\.Code=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoFeatureSetCode=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoGridCode=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GenericCodelistReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for any type of codelist (codelist, geographic codelist or geo grid codelist), excluding value lists.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyCodelistReferenceType">
+			<xs:pattern value=".+\.codelist\.Codelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeographicCodelist=.+"/>
+			<xs:pattern value=".+\.codelist\.GeoGridCodelist=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1061,8 +1138,26 @@
 		<xs:annotation>
 			<xs:documentation>A reference type for a codelist.</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="AnyCodelistReferenceType">
+		<xs:restriction base="GenericCodelistReferenceType">
 			<xs:pattern value=".+\.codelist\.Codelist=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GeographicCodelistReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a geographic codelist.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GenericCodelistReferenceType">
+			<xs:pattern value=".+\.codelist\.GeographicCodelist=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GeoGridCodelistReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a geo grid codelist.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GenericCodelistReferenceType">
+			<xs:pattern value=".+\.codelist\.GeoGridCodelist=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 

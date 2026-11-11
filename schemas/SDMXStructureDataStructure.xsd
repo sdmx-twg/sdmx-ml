@@ -615,7 +615,7 @@
 				<xs:choice>
 					<xs:element name="TextFormat" type="SimpleComponentTextFormatType"/>
 					<xs:sequence>
-						<xs:element name="Enumeration" type="common:CodelistReferenceType"/>
+						<xs:element name="Enumeration" type="common:GenericCodelistReferenceType"/>
 						<xs:element name="EnumerationFormat" type="CodedTextFormatType" minOccurs="0"/>
 					</xs:sequence>
 				</xs:choice>

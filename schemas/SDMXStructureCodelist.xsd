@@ -26,10 +26,10 @@
 					<xs:element ref="common:Name" maxOccurs="unbounded"/>
 					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
-						<xs:element ref="Code"/>
+						<xs:element ref="Item"/>
 					</xs:sequence>
 				</xs:sequence>
-				<xs:attribute name="urn" type="common:CodelistUrnType" use="optional"/>
+				<xs:attribute name="urn" type="common:AnyCodelistUrnType" use="optional"/>
 				<xs:attribute name="id" type="common:NCNameIDType" use="required">
 					<xs:annotation>
 						<xs:documentation>The id attribute holds the identification of the code list. The type of this id is restricted to the common:NCNNameIDType. This is necessary, since the code list may be used to create simple types in data and metadata structure specific schemas and therefore must be compliant with the NCName type in XML Schema (see common:NCNameIDType for further details).</xs:documentation>
@@ -39,17 +39,38 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="CodelistType">
+	<xs:complexType name="GenericCodelistType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>GenericCodelistType is an abstract base type for all types of codelists (codelists, geographic codelists and geo grid codelists). Each type of codelist restricts its codes, its urn and its codelist extensions, so that a codelist can only extend codelists of the same type.</xs:documentation>
+		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="CodelistBaseType">
 				<xs:sequence>
+					<xs:element name="CodelistExtension" type="CodelistExtensionBaseType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="CodelistType">
+		<xs:complexContent>
+			<xs:restriction base="GenericCodelistType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="Code"/>
+					</xs:sequence>
 					<xs:element name="CodelistExtension" type="CodelistExtensionType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>CodelistExtension allows for the extension of codelists by referencing the codelists to be extended and providing inclusion/exclusion rules for selecting the codes to extend. The order of these is important as it is indicates the order of precedence of the extended codelists for conflict resolution of codes. However, the prefix property can be used to ensure uniqueness of inherited codes in the extending codelist, in case conflicting codes must be included.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-			</xs:extension>
+				<xs:attribute name="urn" type="common:CodelistUrnType" use="optional"/>
+			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 
@@ -59,12 +80,52 @@
 		</xs:annotation>
 	</xs:element>
 
+	<xs:complexType name="CodeBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>CodeBaseType is an abstract base type for all types of codes (codes, geo feature set codes and geo grid codes). Each type of code restricts its urn to its own class.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="ItemType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:choice minOccurs="0">
+						<xs:element name="Parent" type="common:IDType"/>
+					</xs:choice>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:AnyCodeUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GenericCodeType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>GenericCodeType is an abstract base type for all types of codes (codes, geo feature set codes and geo grid codes). It adds the business validity of the code, which all types of codes inherit.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="CodeBaseType">
+				<xs:attribute name="validFrom" type="common:StandardTimePeriodType" use="optional">
+					<xs:annotation>
+						<xs:documentation>The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="validTo" type="common:StandardTimePeriodType" use="optional">
+					<xs:annotation>
+						<xs:documentation>The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59).</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="CodeType">
 		<xs:annotation>
 			<xs:documentation>CodeType describes the structure of a code. A code is defined as a language independent set of letters, numbers or symbols that represent a concept whose meaning is described in a natural language. Presentational information not present may be added through the use of annotations.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:restriction base="ItemType">
+			<xs:restriction base="GenericCodeType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
 					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
@@ -91,12 +152,12 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="CodelistExtensionType">
+	<xs:complexType name="CodelistExtensionBaseType" abstract="true">
 		<xs:annotation>
-			<xs:documentation>CodelistExtensionType defines the structure of a codelist to be extended by the codelist defining the extension. It provides a reference to the extended codelist and selection criteria to indicate the codes to be included in the extending codelist.</xs:documentation>
+			<xs:documentation>CodelistExtensionBaseType is an abstract base type defining the structure of a codelist to be extended by the codelist defining the extension. It provides a reference to the extended codelist and selection criteria to indicate the codes to be included in the extending codelist. It is restricted for each type of codelist, so that a codelist can only extend codelists of the same type.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Codelist" type="common:CodelistReferenceType"/>
+			<xs:element name="Codelist" type="common:GenericCodelistReferenceType"/>
 			<xs:choice minOccurs="0">
 				<xs:element name="InclusiveCodeSelection" type="CodeSelectionType">
 					<xs:annotation>
@@ -115,6 +176,40 @@
 				<xs:documentation>A reference to a codelist may contain a prefix. If a prefix is provided, this prefix will be applied to all the codes in the codelist before they are imported into the extended codelist.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CodelistExtensionType">
+		<xs:annotation>
+			<xs:documentation>CodelistExtensionType defines the structure of a codelist to be extended by the codelist defining the extension. It provides a reference to the extended codelist and selection criteria to indicate the codes to be included in the extending codelist.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="CodelistExtensionBaseType">
+				<xs:sequence>
+					<xs:element name="Codelist" type="common:CodelistReferenceType"/>
+					<xs:choice minOccurs="0">
+						<xs:element name="InclusiveCodeSelection" type="CodeSelectionType"/>
+						<xs:element name="ExclusiveCodeSelection" type="CodeSelectionType"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeographicCodelistExtensionType">
+		<xs:annotation>
+			<xs:documentation>GeographicCodelistExtensionType restricts the codelist extension so that a geographic codelist can only extend other geographic codelists.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="CodelistExtensionBaseType">
+				<xs:sequence>
+					<xs:element name="Codelist" type="common:GeographicCodelistReferenceType"/>
+					<xs:choice minOccurs="0">
+						<xs:element name="InclusiveCodeSelection" type="CodeSelectionType"/>
+						<xs:element name="ExclusiveCodeSelection" type="CodeSelectionType"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
 	</xs:complexType>
 
 	<xs:complexType name="CodeSelectionType">
@@ -160,7 +255,7 @@
 			<xs:documentation>GeoCodelistBaseType is an abstract base refinement of a codelist that restricts the cods to be derived from the abstract GeoRefCode.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:restriction base="CodelistType">
+			<xs:restriction base="GenericCodelistType">
 				<xs:sequence>
 					<xs:element ref="common:Annotations" minOccurs="0"/>
 					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
@@ -169,7 +264,7 @@
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="GeoRefCode"/>
 					</xs:sequence>
-					<xs:element name="CodelistExtension" type="CodelistExtensionType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="CodelistExtension" type="CodelistExtensionBaseType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -190,7 +285,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:element name="GeoRefCode" type="GeoRefCodeType" substitutionGroup="Code" abstract="true">
+	<xs:element name="GeoRefCode" type="GeoRefCodeType" substitutionGroup="Item" abstract="true">
 		<xs:annotation>
 			<xs:documentation>GeoRefCode is the abstract base from which specific types of geographic codes will be derived.</xs:documentation>
 		</xs:annotation>
@@ -201,7 +296,7 @@
 			<xs:documentation>GeoRefCodeType is the abstract base type defining the structure of geographic codes.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="CodeType"/>
+			<xs:extension base="GenericCodeType"/>
 		</xs:complexContent>
 	</xs:complexType>
 
@@ -219,8 +314,9 @@
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="GeoFeatureSetCode"/>
 					</xs:sequence>
-					<xs:element name="CodelistExtension" type="CodelistExtensionType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="CodelistExtension" type="GeographicCodelistExtensionType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:GeographicCodelistUrnType" use="optional"/>
 				<xs:attribute name="geoType" type="GeoCodelistTypeType" use="required" fixed="GeographicCodelist"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -232,12 +328,32 @@
 		</xs:annotation>
 	</xs:element>
 	
+	<xs:complexType name="GeoFeatureSetCodeBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>GeoFeatureSetCodeBaseType is an abstract base type that restricts the urn of a geo feature set code to its own class.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeoRefCodeType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:choice minOccurs="0">
+						<xs:element name="Parent" type="common:IDType"/>
+					</xs:choice>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:GeoFeatureSetCodeUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="GeoFeatureSetCodeType">
 		<xs:annotation>
 			<xs:documentation>GeoFeatureSetCodeType defines the structure of a geographic code.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="GeoRefCodeType">
+			<xs:extension base="GeoFeatureSetCodeBaseType">
 				<xs:attribute name="value" type="xs:string" use="required">
 					<xs:annotation>
 						<xs:documentation>The geo feature set of the Code, which represents a set of points defining a feature in a format defined a predefined pattern (see section 6).</xs:documentation>
@@ -249,7 +365,7 @@
 
 	<xs:complexType name="GeoGridCodelistBaseType" abstract="true">
 		<xs:annotation>
-			<xs:documentation>GeoGridCodelistBaseType is the abstract base refinement for a geographic grid codelist.</xs:documentation>
+			<xs:documentation>GeoGridCodelistBaseType is the abstract base refinement for a geographic grid codelist. A geo grid codelist cannot extend other codelists.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="GeoCodelistType">
@@ -261,8 +377,8 @@
 					<xs:sequence minOccurs="0" maxOccurs="unbounded">
 						<xs:element ref="GeoGridCode"/>
 					</xs:sequence>
-					<xs:element name="CodelistExtension" type="CodelistExtensionType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
+				<xs:attribute name="urn" type="common:GeoGridCodelistUrnType" use="optional"/>
 				<xs:attribute name="geoType" type="GeoCodelistTypeType" use="required" fixed="GeoGridCodelist"/>
 			</xs:restriction>
 		</xs:complexContent>
@@ -291,12 +407,32 @@
 		</xs:annotation>
 	</xs:element>
 
+	<xs:complexType name="GeoGridCodeBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>GeoGridCodeBaseType is an abstract base type that restricts the urn of a geo grid code to its own class.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeoRefCodeType">
+				<xs:sequence>
+					<xs:element ref="common:Annotations" minOccurs="0"/>
+					<xs:element ref="common:Link" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="common:Name" maxOccurs="unbounded"/>
+					<xs:element ref="common:Description" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:choice minOccurs="0">
+						<xs:element name="Parent" type="common:IDType"/>
+					</xs:choice>
+				</xs:sequence>
+				<xs:attribute name="urn" type="common:GeoGridCodeUrnType" use="optional"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="GeoGridCodeType">
 		<xs:annotation>
 			<xs:documentation>GeoGridCodeType defines the structure of a geographic grid cell.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="GeoRefCodeType">
+			<xs:extension base="GeoGridCodeBaseType">
 				<xs:sequence>
 					<xs:element name="GeoCell" type="xs:string">
 						<xs:annotation>
