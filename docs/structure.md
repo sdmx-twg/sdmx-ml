@@ -2241,6 +2241,51 @@ Element Documentation:
 | Description | TextType           | Description provides a plain text, human-readable description of the code. This may be provided in multiple, parallel language-equivalent forms.                                                                                  |
 | Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
 
+**GenericCodeType:** GenericCodeType is an abstract base type for all types
+of codes (codes, geo feature set codes and geo grid codes). It adds the
+business validity of the code, which all types of codes inherit.
+
+Derivation:
+
+```text
+AnnotableType (extension)  
+   IdentifiableType (extension)  
+         NameableType (restriction)  
+               ItemBaseType (extension)  
+                     ItemType (restriction)  
+                           CodeBaseType (extension)  
+                                 GenericCodeType
+```
+
+Attributes:
+
+```text
+id, urn?, uri?, validFrom?, validTo?
+```
+
+Content:
+
+Annotations?, Link*, Name+, Description*, Parent?
+
+Attribute Documentation:
+
+| **Name** | **Type**    | **Documentation**                                                                                                                                                  |
+|----------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id       | IDType      | The id is the identifier for the object.                                                                                                                           |
+| urn      | AnyCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
+| uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
+
+Element Documentation:
+
+| **Name**    | **Type**           | **Documentation**                                                                                                                                                                                                                 |
+|-------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Annotations | AnnotationsType    | Annotations is a reusable element the provides for a collection of annotations. It has been made global so that restrictions of types that extend AnnotatableType may reference it.                                               |
+| Link        | LinkType           | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
+| Name        | TextType           | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms. It may be used in place of a short description.                                                     |
+| Description | TextType           | Description provides a plain text, human-readable description of the code. This may be provided in multiple, parallel language-equivalent forms.                                                                                  |
+| Parent      | SingleNCNameIDType | Parent provides the ability to describe simple hierarchies within a single codelist, by referencing the id value of another code in the same codelist.                                                                            |
 **CodeType:** CodeType describes the structure of a code. A code is
 defined as a language independent set of letters, numbers or symbols
 that represent a concept whose meaning is described in a natural
@@ -2255,14 +2300,15 @@ AnnotableType (extension)
          NameableType (restriction)  
                ItemBaseType (extension)  
                      ItemType (restriction)  
-                           CodeBaseType (restriction)  
-                                 CodeType
+                           CodeBaseType (extension)  
+                                 GenericCodeType (restriction)  
+                                       CodeType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2276,6 +2322,8 @@ Attribute Documentation:
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
 | urn      | CodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -2564,13 +2612,14 @@ AnnotableType (extension)
                ItemBaseType (extension)  
                      ItemType (restriction)  
                            CodeBaseType (extension)  
-                                 GeoRefCodeType
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2586,6 +2635,8 @@ Attribute Documentation:
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
 | urn      | AnyCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -2674,14 +2725,15 @@ AnnotableType (extension)
                ItemBaseType (extension)  
                      ItemType (restriction)  
                            CodeBaseType (extension)  
-                                 GeoRefCodeType (restriction)  
-                                       GeoFeatureSetCodeBaseType
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoFeatureSetCodeBaseType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2697,6 +2749,8 @@ Attribute Documentation:
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
 | urn      | GeoFeatureSetCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -2720,15 +2774,16 @@ AnnotableType (extension)
                ItemBaseType (extension)  
                      ItemType (restriction)  
                            CodeBaseType (extension)  
-                                 GeoRefCodeType (restriction)  
-                                       GeoFeatureSetCodeBaseType (extension)  
-                                             GeoFeatureSetCodeType
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoFeatureSetCodeBaseType (extension)  
+                                                   GeoFeatureSetCodeType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?, value
+id, urn?, uri?, validFrom?, validTo?, value
 ```
 
 Content:
@@ -2744,6 +2799,8 @@ Attribute Documentation:
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
 | urn      | GeoFeatureSetCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 | value    | xs:string   | The geo feature set of the Code, which represents a set of points defining a feature in a format defined a predefined pattern (see section 6).                     |
 
 Element Documentation:
@@ -2894,14 +2951,15 @@ AnnotableType (extension)
                ItemBaseType (extension)  
                      ItemType (restriction)  
                            CodeBaseType (extension)  
-                                 GeoRefCodeType (restriction)  
-                                       GeoGridCodeBaseType
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoGridCodeBaseType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2917,6 +2975,8 @@ Attribute Documentation:
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
 | urn      | GeoGridCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -2940,15 +3000,16 @@ AnnotableType (extension)
                ItemBaseType (extension)  
                      ItemType (restriction)  
                            CodeBaseType (extension)  
-                                 GeoRefCodeType (restriction)  
-                                       GeoGridCodeBaseType (extension)  
-                                             GeoGridCodeType
+                                 GenericCodeType (extension)  
+                                       GeoRefCodeType (restriction)  
+                                             GeoGridCodeBaseType (extension)  
+                                                   GeoGridCodeType
 ```
 
 Attributes:
 
 ```text
-id, urn?, uri?
+id, urn?, uri?, validFrom?, validTo?
 ```
 
 Content:
@@ -2964,6 +3025,8 @@ Attribute Documentation:
 | id       | IDType      | The id is the identifier for the object.                                                                                                                           |
 | urn      | GeoGridCodeUrnType | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                   |
 | uri      | xs:anyURI   | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message. |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo  | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -5907,8 +5970,8 @@ Attribute Documentation:
 | id        | IDType                   | The id attribute allows for an id to be assigned to the use of the particular code at that specific point in the hierarchy. This value is unique within the hierarchy being created, and is used to map the hierarchy against external structures. |
 | urn       | HierarchicalCodeUrnT ype | The urn attribute holds a valid SDMX Registry URN (see SDMX Registry Specification for details).                                                                                                                                                   |
 | uri       | xs:anyURI                | The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.                                                                                 |
-| validFrom | xs:dateTime              | The validFrom attriubte indicates the point in time in which the hiearchical code became effective. This can be used to track the historicity of codes changing over time.                                                                         |
-| validTo   | xs:dateTime              | The validTo attriubte indicates the point in time in which the hiearchical code became no longer effective. This can be used to track the historicity of codes changing over time.                                                                 |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: values are only valid for this hierarchical code if their time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). The validity is checked against the reported time periods, not against the time at which the data are processed. |
+| validTo | StandardTimePeriodType | The validTo attribute is optionally used for business validity: values are only valid for this hierarchical code if their time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
@@ -9101,8 +9164,8 @@ Attribute Documentation:
 
 | **Name**  | **Type** | **Documentation** |
 |-----------|----------|-------------------|
-| validFrom | xs:date  |                   |
-| validTo   | xs:date  |                   |
+| validFrom | StandardTimePeriodType | The validFrom attribute is optionally used for business validity: the mapping is only applicable to values whose time periods start at the earliest at the start of the time period defined in this attribute (e.g. 2008 means from 2008-01-01T00:00:00). |
+| validTo | StandardTimePeriodType | The validTo attribute is optionally used for business validity: the mapping is only applicable to values whose time periods end at the latest at the end of the time period defined in this attribute (e.g. 2008 means until 2008-12-31T23:59:59). |
 
 Element Documentation:
 
