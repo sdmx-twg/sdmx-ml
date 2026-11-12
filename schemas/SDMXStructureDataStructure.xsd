@@ -45,7 +45,7 @@
 				<xs:sequence>	
 					<xs:element name="Metadata" type="common:MetadataStructureReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>A data structure definition may be related to one or more metadata structure definitions in order to use their metadata attributes as part of the data. Note that the referenced metadata structure definitions cannot contain nested metadata attributes, as these are not supported in the data. In case of a conflict (duplicated identifier or concept) between the metadata attributes of the referenced metadata structure definitions, only the first occurrence of the metadata attribute is taken into account, following the order of the Metadata elements. By default all metadata attributes can be associated at any level of the data. However, a metadata attribute usage can be used to provide a specific attribute relationship for a given metadata attribute.</xs:documentation>
+							<xs:documentation>A data structure definition may be related to one or more metadata structure definitions in order to use their metadata attributes as part of the data. In case of a conflict (duplicated identifier or concept) between the metadata attributes of the referenced metadata structure definitions, only the first occurrence of the metadata attribute is taken into account, following the order of the Metadata elements. By default all metadata attributes can be associated at any level of the data. However, a metadata attribute usage can be used to provide a specific attribute relationship for a given metadata attribute.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
