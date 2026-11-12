@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- An instance of the OECD DASHBOARD(1.0.0) custom structure definition, maintained by ECB, whose panels reference instances of two other custom structure definitions: the PivotTable instance OECD:POP_SEX_AGE(1.0.0) (see pivot_table_instance.xml) and the Glossary instance ECB:STAT_GLOSSARY(1.0.0) (see glossary_instance.xml). Validate against csd_validation.xsd for full validation; validation against SDMXMessage.xsd alone checks the custom content for well-formedness only (lax wildcard). -->
+<mes:Structure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:xml="http://www.w3.org/XML/1998/namespace"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message"
+				xmlns:str="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common"
+				xmlns:db="urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0)"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_2/message ../../schemas/SDMXMessage.xsd urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0) dashboard_1.0.0.xsd">
+	<mes:Header>
+		<mes:ID>IREF500006</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2026-06-11T10:00:00Z</mes:Prepared>
+		<mes:Sender id="ECB"/>
+		<mes:Receiver id="not_supplied"/>
+	</mes:Header>
+	<mes:Structures>
+		<str:CustomStructures>
+			<db:Dashboard urn="urn:sdmx:org.sdmx.infomodel.custom.oecd.Dashboard=ECB:POP_DASHBOARD(1.0.0)"
+					agencyID="ECB" id="POP_DASHBOARD" version="1.0.0">
+				<com:Name xml:lang="en">Population Dashboard</com:Name>
+				<com:Description xml:lang="en">Two panels over the OECD population pivot table, each pinning a row of that table and naming the glossary term it illustrates.</com:Description>
+				<db:CustomStructureDefinition>urn:sdmx:org.sdmx.infomodel.csd.CustomStructureDefinition=OECD:DASHBOARD(1.0.0)</db:CustomStructureDefinition>
+				<db:glossary>urn:sdmx:org.sdmx.infomodel.customscheme.imf.Glossary=ECB:STAT_GLOSSARY(1.0.0)</db:glossary>
+				<db:panels id="SEX_PANEL" urn="urn:sdmx:org.sdmx.infomodel.custom.oecd.DashboardPanel=ECB:POP_DASHBOARD(1.0.0).SEX_PANEL">
+					<com:Name xml:lang="en">Population by sex</com:Name>
+					<db:table>urn:sdmx:org.sdmx.infomodel.custom.imf.PivotTable=OECD:POP_SEX_AGE(1.0.0)</db:table>
+					<db:pinnedRow>SEX_ROW</db:pinnedRow>
+					<db:term>GDP</db:term>
+					<db:position>0</db:position>
+				</db:panels>
+				<db:panels id="AGE_PANEL" urn="urn:sdmx:org.sdmx.infomodel.custom.oecd.DashboardPanel=ECB:POP_DASHBOARD(1.0.0).AGE_PANEL">
+					<com:Name xml:lang="en">Population by age</com:Name>
+					<db:table>urn:sdmx:org.sdmx.infomodel.custom.imf.PivotTable=OECD:POP_SEX_AGE(1.0.0)</db:table>
+					<db:pinnedRow>AGE_COL</db:pinnedRow>
+					<db:term>CPI</db:term>
+					<db:position>1</db:position>
+				</db:panels>
+			</db:Dashboard>
+		</str:CustomStructures>
+	</mes:Structures>
+</mes:Structure>
