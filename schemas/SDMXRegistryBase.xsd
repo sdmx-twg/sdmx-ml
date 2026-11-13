@@ -39,39 +39,9 @@
 				<xs:documentation>The id attribute holds a registry assigned identification for the registration. This must be provided in a response message (unless an error occurred while submitting a new registration), and should be included when updating or deleting a registration.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="validFrom" type="xs:dateTime" use="optional">
-			<xs:annotation>
-				<xs:documentation>The validFrom attribute provides an inclusive start date for providing supplemental validity information about the registration, so that data visibility from the registry can be controlled by the registrant.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="validTo" type="xs:dateTime" use="optional">
-			<xs:annotation>
-				<xs:documentation>The validFrom attribute provides an inclusive end date for providing supplemental validity information about the registration, so that data visibility from the registry can be controlled by the registrant.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attribute name="lastUpdated" type="xs:dateTime" use="optional">
 			<xs:annotation>
 				<xs:documentation>The lastUpdated attribute provides a timestamp for the last time the data source was updated.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexTimeSeries" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexTimeSeries, if true, indicates that the registry must index all time series for the registered data. The default value is false, and the attribute will always be assumed false when the provision agreement references a metadata flow.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexDataSet" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexDataSet, if true, indicates that the registry must index the range of actual (present) values for each dimension of the data set or identifier component of the metadata set (as indicated in the set's structure definition). The default value is false.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexAttributes" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexAttributes, if true, indicates that the registry must index the range of actual (present) values for each attribute of the data set or the presence of the metadata attributes of the metadata set (as indicated in the set's structure definition). The default value is false.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexReportingPeriod" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexReportingPeriod, if true, indicates that the registry must index the time period ranges for which data is present for the data source. The default value is false, and the attribute will always be assumed false when the provision agreement references a metadata flow.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
