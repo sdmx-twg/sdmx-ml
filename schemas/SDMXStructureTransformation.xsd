@@ -212,7 +212,7 @@
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>
-						<xs:element name="Codelist" type="common:CodelistReferenceType">
+						<xs:element name="Codelist" type="common:GenericCodelistReferenceType">
 							<xs:annotation>
 								<xs:documentation>A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.</xs:documentation>
 							</xs:annotation>
