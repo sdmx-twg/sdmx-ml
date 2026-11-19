@@ -2,6 +2,7 @@
 <!-- Copyright SDMX 2025 - http://www.sdmx.org -->
 <xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry" 
 			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry" 
+			xmlns:registry="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry" 
 			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" 
 			xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure"
@@ -13,6 +14,63 @@
 		<xs:appinfo>SDMX Base Registry Module</xs:appinfo>
 		<xs:documentation>The base registry module defines the common constructs that a reused across multiple registry functions.</xs:documentation>
 	</xs:annotation>
+
+	<xs:element name="Registrations" type="RegistrationsType">
+		<xs:annotation>
+			<xs:documentation>Registrations is a container for data and reference metadata registrations.</xs:documentation>
+		</xs:annotation>
+		<xs:unique name="UniqueRegistrationID">
+			<xs:annotation>
+				<xs:documentation>Registry assigned registration identifiers must be unique across all data and reference metadata registrations.</xs:documentation>
+			</xs:annotation>
+			<xs:selector xpath="registry:DataRegistrations/registry:DataRegistration|registry:MetadataRegistrations/registry:MetadataRegistration"/>
+			<xs:field xpath="@id"/>
+		</xs:unique>
+	</xs:element>
+
+	<xs:complexType name="RegistrationsType">
+		<xs:annotation>
+			<xs:documentation>RegistrationsType describes the structure of the container for data and reference metadata registrations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DataRegistrations" type="DataRegistrationsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>DataRegistrations contains a collection of data registrations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MetadataRegistrations" type="MetadataRegistrationsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>MetadataRegistrations contains a collection of reference metadata registrations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="DataRegistrationsType">
+		<xs:annotation>
+			<xs:documentation>DataRegistrationsType describes a collection of data registrations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DataRegistration" type="DataRegistrationType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>DataRegistration provides the details of a data registration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataRegistrationsType">
+		<xs:annotation>
+			<xs:documentation>MetadataRegistrationsType describes a collection of reference metadata registrations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MetadataRegistration" type="MetadataRegistrationType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>MetadataRegistration provides the details of a reference metadata registration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 
 	<xs:complexType name="RegistrationBaseType" abstract="true">
 		<xs:annotation>

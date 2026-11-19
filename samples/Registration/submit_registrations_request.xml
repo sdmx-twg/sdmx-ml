@@ -3,7 +3,7 @@
 				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message"
 				xmlns:reg="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry"
 				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
-				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message https://xml.sdmx.org/3.1/SDMXMessage.xsd">
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message ../../schemas/SDMXMessage.xsd">
 	<mes:Header>
 		<mes:ID>REG_REQ_001</mes:ID>
 		<mes:Test>false</mes:Test>

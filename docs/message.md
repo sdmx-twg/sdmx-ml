@@ -48,8 +48,8 @@ Referenced Namespaces:
 
 Contents:
 
-- 7 Global Elements  
-- 16 Complex Types  
+- 8 Global Elements  
+- 17 Complex Types  
 - 1 Simple Type
 
 #### Global Elements
@@ -60,6 +60,9 @@ categorisations, category schemes, code lists, concepts (concept
 schemes), data and metadata constraints, data flows, hierarchical
 code lists, metadata flows, metadata structure definitions, organisation
 schemes, processes, reporting taxonomies, structure maps, representation maps.
+
+**Registration (RegistrationType):** Registration is a message that
+contains data and reference metadata registrations.
 
 **StructureSpecificData (StructureSpecificDataType):**
 StructureSpecificData is used to convey data structure specific
@@ -139,6 +142,31 @@ Element Documentation:
 | Header     | StructureHeaderType |                                                                                                      |
 | Structures | StructuresType      |                                                                                                      |
 | Footer     | FooterType          | Footer is used to communicate information such as error and warnings after the payload of a message. |
+
+**RegistrationType:** RegistrationType defines the contents of a
+registration message. The payload is optional since this message may be
+returned from a web service with only information in the footer.
+
+Derivation:
+
+``` xml
+MessageType (restriction)  
+   RegistrationType
+```
+
+Content:
+
+```text
+Header, Registrations?, Footer?
+```
+
+Element Documentation:
+
+| **Name**      | **Type**          | **Documentation**                                                                                               |
+|---------------|-------------------|-----------------------------------------------------------------------------------------------------------------|
+| Header        | BasicHeaderType   |                                                                                                                 |
+| Registrations | RegistrationsType | Registry assigned registration identifiers must be unique across all data and reference metadata registrations. |
+| Footer        | FooterType        | Footer is used to communicate information such as error and warnings after the payload of a message.            |
 
 **StructureSpecificDataType:** StructureSpecificDataType defines the
 structure of the structure specific data message. Note that the data set

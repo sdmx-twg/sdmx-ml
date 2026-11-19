@@ -331,9 +331,18 @@ array.
 
 ## Registry Samples
 
-The Registry Samples provide examples of SDMX-ML RegistryInterface
-messages within the *registry* namespace, used to register data and
-reference metadata sources.
+The Registry Samples illustrate the registration of data and reference
+metadata sources:
+
+- New registrations, and changes to existing registrations, are
+  submitted to a registry using the RegistryInterface
+  SubmitRegistrationsRequest message, where each registration request
+  carries the action to be taken (e.g. Append, Replace or Delete). The
+  registry replies with a SubmitRegistrationsResponse.
+- Registrations are returned in response to an SDMX-REST registration
+  query using the Registration message. Its payload is a Registrations
+  container, equivalent to Structures in the Structure message, with
+  separate DataRegistrations and MetadataRegistrations collections.
 
 A registration is either a DataRegistration or a MetadataRegistration:
 
@@ -354,6 +363,11 @@ In both cases the source is exactly one of:
   SDMX-REST specification supported, expressed as major or major.minor,
   e.g. 2 or 2.1.
 
+Registrations are identified by a registry assigned id. The id is
+omitted when submitting a new registration, and must be provided when
+replacing or deleting one. In a Registration message, ids must be unique
+across all data and reference metadata registrations.
+
 ### Registration
 
 #### submit_registrations_request.xml
@@ -370,11 +384,11 @@ illustrating each kind of reference and each kind of source:
   agreement, with an SDMX-JSON file source.
 - A reference metadata registration against a metadataflow, with an
   SDMX-REST API source.
-- A replacement of an existing reference metadata registration (identified
-  by its registry assigned id) against a metadata structure definition,
-  with an SDMX-ML file source.
-- A data registration against a provision agreement, with a file
-  source that omits the optional format, as would be the case for a
+- A replacement of an existing reference metadata registration
+  (identified by its registry assigned id) against a metadata structure
+  definition, with an SDMX-ML file source.
+- A data registration against a provision agreement, with a file source
+  that omits the optional format, as would be the case for a
   registration migrated from SDMX 3.0.
 
 #### submit_registrations_response.xml
@@ -383,9 +397,9 @@ A SubmitRegistrationsResponse echoing submitted registrations. The
 successful registrations have been assigned an id by the registry,
 while the failed registration carries an error message.
 
-#### query_registration_response.xml
+#### registrations.xml
 
-A QueryRegistrationResponse returning one DataResult, including a
-reference to the data constraint for the data source, and one
-MetadataResult.
-
+A Registration message, as returned in response to an SDMX-REST
+registration query, containing data and reference metadata registrations
+as held by the registry. Each registration carries its registry assigned
+id and lastUpdated timestamp.

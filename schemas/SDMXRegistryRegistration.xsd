@@ -151,16 +151,11 @@
 				</xs:element>
 			</xs:choice>
 		</xs:sequence>
-		<xs:attribute name="returnConstraints" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The returnConstraints attribute determines whether information about the constraints on the data or metadata sets returned should also be sent the results.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 	</xs:complexType>
 
 	<xs:complexType name="QueryRegistrationResponseType">
 		<xs:annotation>
-			<xs:documentation>QueryRegistrationResponseType describes the structure of a registration query response. It provides a status for the request, and if successful, the resulting data and/or metadata results.</xs:documentation>
+			<xs:documentation>QueryRegistrationResponseType describes the structure of a registration query response. It provides a status for the request, and if successful, the matching data and/or reference metadata registrations.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="StatusMessage" type="StatusMessageType">
@@ -168,70 +163,9 @@
 					<xs:documentation>StatusMessage provides that status for the registration query request, and if necessary, any error or warning information.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="QueryResult" type="QueryResultType" minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="Registrations" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>QueryResult contains a result for a successful registration query. It can occur multiple times, for each registration the meets the conditions specified in the query.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="QueryResultType">
-		<xs:annotation>
-			<xs:documentation>QueryResultType describes the structure of a query result for a single data source. Either a data result or metadata result is detailed, depending on the data source.</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:choice>
-				<xs:element name="DataResult" type="DataResultType">
-					<xs:annotation>
-						<xs:documentation>DataResult contains the details of a matching data registration.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="MetadataResult" type="MetadataResultType">
-					<xs:annotation>
-						<xs:documentation>MetadataResult contains the details of a matching reference metadata registration.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:choice>
-		</xs:sequence>
-		<xs:attribute name="timeSeriesMatch" type="xs:boolean" use="required">
-			<xs:annotation>
-				<xs:documentation>The timeSeriesMatch attribute is true when the result is an exact match with the key found in the registry - that is, when the registered data source provides a matching key. It is set to false when the data source is registered with cube-region constraints, or in any other circumstance when it cannot be established that the sought-for keys have been exactly matched. This is always true when the resulting data source is the source of a metadata set.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-	</xs:complexType>
-
-	<xs:complexType name="DataResultType">
-		<xs:annotation>
-			<xs:documentation>DataResultType contains the details about a data source, through the complete registration information. In addition, a reference to the constraints for the data source may be provided, if the query requested this information.</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="DataRegistration" type="DataRegistrationType">
-				<xs:annotation>
-					<xs:documentation>DataRegistration provides the details of a matching data registration. In addition to the data source and provision agreement, structure usage, or structure information, the id of the registration must also be provided.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="Constraint" type="common:ConstraintReferenceType" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Constraint provides a reference to a data constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="MetadataResultType">
-		<xs:annotation>
-			<xs:documentation>MetadataResultType contains the details about a reference metadata source, through the complete registration information. In addition, a reference to the constraints for the metadata source may be provided, if the query requested this information.</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="MetadataRegistration" type="MetadataRegistrationType">
-				<xs:annotation>
-					<xs:documentation>MetadataRegistration provides the details of a matching reference metadata registration. In addition to the metadata source and metadata provision agreement, structure usage, or structure information, the id of the registration must also be provided.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="Constraint" type="common:ConstraintReferenceType" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Constraint provides a reference to a metadata constraint in the registry for the resulting metadata source (or possibly constraints base on the registration metadata provision agreement, metadata provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields.</xs:documentation>
+					<xs:documentation>Registrations contains the data and reference metadata registrations that meet the conditions specified in the query.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

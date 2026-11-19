@@ -29,10 +29,87 @@ Referenced Namespaces:
 
 Contents:
 
+1 Global Element  
 41 Complex Types  
 5 Simple Types
 
+#### Global Elements
+
+**Registrations (RegistrationsType):** Registrations is a container for
+data and reference metadata registrations. Registry assigned
+registration identifiers must be unique across all data and reference
+metadata registrations in the container.
+
 #### Complex Types
+
+**RegistrationsType:** RegistrationsType describes the structure of the
+container for data and reference metadata registrations.
+
+Content:
+
+```text
+DataRegistrations?, MetadataRegistrations?
+```
+
+Element Documentation:
+
+| **Name**              | **Type**                  | **Documentation**                                                                |
+|-----------------------|---------------------------|----------------------------------------------------------------------------------|
+| DataRegistrations     | DataRegistrationsType     | DataRegistrations contains a collection of data registrations.                   |
+| MetadataRegistrations | MetadataRegistrationsType | MetadataRegistrations contains a collection of reference metadata registrations. |
+
+Example:
+
+```xml
+<Registrations>
+  <DataRegistrations>
+    <DataRegistration id="REG_00101">
+      <ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ACME:PA_1(1.0)</ProvisionAgreement>
+      <Datasource>
+        <File location="https://example.org/data.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+      </Datasource>
+    </DataRegistration>
+  </DataRegistrations>
+  <MetadataRegistrations>
+    <MetadataRegistration id="REG_00102">
+      <Metadataflow>urn:sdmx:org.sdmx.infomodel.metadatastructure.Metadataflow=ACME:MF_1(1.0)</Metadataflow>
+      <MetadataSource>
+        <SdmxApi entryPoint="https://example.org/rest" sdmxApiVersion="2.1"/>
+      </MetadataSource>
+    </MetadataRegistration>
+  </MetadataRegistrations>
+</Registrations>
+```
+
+**DataRegistrationsType:** DataRegistrationsType describes a collection
+of data registrations.
+
+Content:
+
+```text
+DataRegistration+
+```
+
+Element Documentation:
+
+| **Name**         | **Type**             | **Documentation**                                             |
+|------------------|----------------------|---------------------------------------------------------------|
+| DataRegistration | DataRegistrationType | DataRegistration provides the details of a data registration. |
+
+**MetadataRegistrationsType:** MetadataRegistrationsType describes a
+collection of reference metadata registrations.
+
+Content:
+
+```text
+MetadataRegistration+
+```
+
+Element Documentation:
+
+| **Name**             | **Type**                 | **Documentation**                                                               |
+|----------------------|--------------------------|---------------------------------------------------------------------------------|
+| MetadataRegistration | MetadataRegistrationType | MetadataRegistration provides the details of a reference metadata registration. |
 
 **RegistrationBaseType:** RegistrationBaseType is an abstract base type
 which defines the properties common to data and reference metadata
@@ -385,12 +462,6 @@ processed by first matching all data for the included keys and regions
 (all available data if there are none) and then removing any data
 matching the excluded keys or regions.
 
-Attributes:
-
-```text
-returnConstraints?
-```
-
 Content:
 
 ```text
@@ -398,12 +469,6 @@ QueryType, (All | ProvisionAgreement | DataProvider | Dataflow |
 Metadataflow), ReferencePeriod?, (DataKeySet | CubeRegion |
 MetadataTargetRegion)*
 ```
-
-Attribute Documentation:
-
-| **Name**                           | **Type**   | **Documentation**                                                                                                                                           |
-|------------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| returnConstraints (default: false) | xs:boolean | The returnConstraints attribute determines whether information about the constraints on the data or metadata sets returned should also be sent the results. |
 
 Element Documentation:
 
@@ -422,87 +487,21 @@ Element Documentation:
 
 **QueryRegistrationResponseType:** QueryRegistrationResponseType
 describes the structure of a registration query response. It provides a
-status for the request, and if successful, the resulting data and/or
-metadata results.
+status for the request, and if successful, the matching data and/or
+reference metadata registrations.
 
 Content:
 
 ```text
-StatusMessage, QueryResult*
+StatusMessage, Registrations?
 ```
 
 Element Documentation:
 
-| **Name**      | **Type**          | **Documentation**                                                                                                                                                      |
-|---------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| StatusMessage | StatusMessageType | StatusMessage provides that status for the registration query request, and if necessary, any error or warning information.                                             |
-| QueryResult   | QueryResultType   | QueryResult contains a result for a successful registration query. It can occur multiple times, for each registration the meets the conditions specified in the query. |
-
-**QueryResultType:** QueryResultType describes the structure of a query
-result for a single data source. Either a data result or metadata result
-is detailed, depending on the data source.
-
-Attributes:
-
-```text
-timeSeriesMatch
-```
-
-Content:
-
-```text
-(DataResult | MetadataResult)
-```
-
-Attribute Documentation:
-
-| **Name**        | **Type**   | **Documentation**                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-|-----------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| timeSeriesMatch | xs:boolean | The timeSeriesMatch attribute is true when the result is an exact match with the key found in the registry - that is, when the registered data source provides a matching key. It is set to false when the data source is registered with cube-region constraints, or in any other circumstance when it cannot be established that the sought-for keys have been exactly matched. This is always true when the resulting data source is the source of a metadata set. |
-
-Element Documentation:
-
-| **Name**       | **Type**           | **Documentation**                                                                  |
-|----------------|--------------------|------------------------------------------------------------------------------------|
-| DataResult     | DataResultType     | DataResult contains the details of a matching data registration.                   |
-| MetadataResult | MetadataResultType | MetadataResult contains the details of a matching reference metadata registration. |
-
-**DataResultType:** DataResultType contains the details about a data
-source, through the complete registration information. In addition, a
-reference to the constraints for the data source may be provided, if the
-query requested this information.
-
-Content:
-
-```text
-DataRegistration, Constraint*
-```
-
-Element Documentation:
-
-| **Name**         | **Type**                | **Documentation**                                                                                                                                                                                                                                                                                          |
-|------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| DataRegistration | DataRegistrationType    | DataRegistration provides the details of a matching data registration. In addition to the data source and provision agreement, structure usage, or structure information, the id of the registration must also be provided.                                                                                |
-| Constraint       | ConstraintReferenceType | Constraint provides a reference to a data constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields. |
-
-**MetadataResultType:** MetadataResultType contains the details about a
-reference metadata source, through the complete registration
-information. In addition, a reference to the constraints for the
-metadata source may be provided, if the query requested this
-information.
-
-Content:
-
-```text
-MetadataRegistration, Constraint*
-```
-
-Element Documentation:
-
-| **Name**             | **Type**                 | **Documentation**                                                                                                                                                                                                                                                                                                               |
-|----------------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MetadataRegistration | MetadataRegistrationType | MetadataRegistration provides the details of a matching reference metadata registration. In addition to the metadata source and metadata provision agreement, structure usage, or structure information, the id of the registration must also be provided.                                                                      |
-| Constraint           | ConstraintReferenceType  | Constraint provides a reference to a metadata constraint in the registry for the resulting metadata source (or possibly constraints base on the registration metadata provision agreement, metadata provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields. |
+| **Name**      | **Type**          | **Documentation**                                                                                                          |
+|---------------|-------------------|----------------------------------------------------------------------------------------------------------------------------|
+| StatusMessage | StatusMessageType | StatusMessage provides that status for the registration query request, and if necessary, any error or warning information. |
+| Registrations | RegistrationsType | Registrations contains the data and reference metadata registrations that meet the conditions specified in the query.      |
 
 **SubmitStructureRequestType:** SubmitStructureRequestType describes the
 structure of a structure submission. Structural components are provided
