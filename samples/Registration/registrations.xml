@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mes:Registration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message"
+				xmlns:reg="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message ../../schemas/SDMXMessage.xsd">
+	<mes:Header>
+		<mes:ID>REG_001</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2026-11-19T10:00:00Z</mes:Prepared>
+		<mes:Sender id="REGISTRY"/>
+		<mes:Receiver id="CONSUMER"/>
+	</mes:Header>
+	<!-- Registrations as held by a registry, as returned in response to an SDMX-REST registration query. Each registration has a registry assigned id. -->
+	<mes:Registrations>
+		<reg:DataRegistrations>
+			<reg:DataRegistration id="REG_00101" lastUpdated="2026-11-19T09:00:05Z">
+				<reg:ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ECB:EXR_ECB(1.0)</reg:ProvisionAgreement>
+				<reg:Datasource>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2026.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2026.json" format="application/vnd.sdmx.data+json;version=2.0.0"/>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2026.xml" format="application/vnd.sdmx.data+xml;version=3.1.0"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+			<reg:DataRegistration id="REG_00102" lastUpdated="2026-11-19T09:00:05Z">
+				<reg:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0)</reg:Dataflow>
+				<reg:Datasource>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v1" sdmxApiVersion="1"/>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v2" sdmxApiVersion="2.1" specificationURL="https://data.example.org/sdmx/v2/openapi.json"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+			<reg:DataRegistration id="REG_00104" lastUpdated="2026-11-18T16:30:00Z">
+				<reg:DataStructure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ECB:ECB_EXR1(1.0)</reg:DataStructure>
+				<reg:Datasource>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2025.xml"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+		</reg:DataRegistrations>
+		<reg:MetadataRegistrations>
+			<reg:MetadataRegistration id="REG_00103" lastUpdated="2026-11-19T09:00:05Z">
+				<reg:MetadataProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.MetadataProvisionAgreement=ECB:QUALITY_ECB(1.0)</reg:MetadataProvisionAgreement>
+				<reg:MetadataSource>
+					<reg:File url="https://data.example.org/files/ECB_QUALITY_2026.json" format="application/vnd.sdmx.metadata+json;version=2.0.0"/>
+					<reg:File url="https://data.example.org/files/ECB_QUALITY_2026.csv" format="application/vnd.sdmx.metadata+csv;version=2.0.0"/>
+				</reg:MetadataSource>
+			</reg:MetadataRegistration>
+			<reg:MetadataRegistration id="REG_00042" lastUpdated="2026-11-19T09:00:05Z">
+				<reg:MetadataStructure>urn:sdmx:org.sdmx.infomodel.metadatastructure.MetadataStructure=ECB:QUALITY_MSD(1.0)</reg:MetadataStructure>
+				<reg:MetadataSource>
+					<reg:File url="https://data.example.org/files/ECB_QUALITY_2026.xml" format="application/vnd.sdmx.metadata+xml;version=3.1.0"/>
+				</reg:MetadataSource>
+			</reg:MetadataRegistration>
+		</reg:MetadataRegistrations>
+	</mes:Registrations>
+</mes:Registration>

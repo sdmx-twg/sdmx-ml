@@ -515,7 +515,7 @@
 
 	<xs:complexType name="MetadataRegistrationEventsType">
 		<xs:annotation>
-			<xs:documentation>MetadataRegistrationEventsType details the metadata registration events for the subscription. It is possible to subscribe to all metadata registration events in the repository, or specific events for; single registrations, provision agreements, data providers, metadata flows, metadata structure definitions, and categories that categorize metadata flows or metadata structure definitions.</xs:documentation>
+			<xs:documentation>MetadataRegistrationEventsType details the metadata registration events for the subscription. It is possible to subscribe to all metadata registration events in the repository, or specific events for; single registrations, metadata provision agreements, metadata providers, metadata flows, metadata structure definitions, and categories that categorize metadata flows or metadata structure definitions.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
 			<xs:element name="AllEvents" type="common:EmptyType">
@@ -529,14 +529,14 @@
 						<xs:documentation>RegistrationID subscribes to all the metadata registration events for the unique registration referenced.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="ProvisionAgreement" type="common:ProvisionAgreementReferenceType">
+				<xs:element name="MetadataProvisionAgreement" type="common:MetadataProvisionAgreementReferenceType">
 					<xs:annotation>
-						<xs:documentation>ProvisionAgreementReference subscribes to all metadata registration events for the explicitly referenced provision agreement.</xs:documentation>
+						<xs:documentation>MetadataProvisionAgreement subscribes to all metadata registration events for the explicitly referenced metadata provision agreement.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="DataProvider" type="common:DataProviderReferenceType">
+				<xs:element name="MetadataProvider" type="common:MetadataProviderReferenceType">
 					<xs:annotation>
-						<xs:documentation>DataProvider subscribes to all metadata registration events for the explicitly referenced data provider.</xs:documentation>
+						<xs:documentation>MetadataProvider subscribes to all metadata registration events for the explicitly referenced metadata provider.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="MetadataflowReference" type="MaintainableEventType">
@@ -598,13 +598,18 @@
 		<xs:annotation>
 			<xs:documentation>This provides the details of a data or metadata registration event for the purposes of notification.</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Registration" type="RegistrationType">
+		<xs:choice>
+			<xs:element name="DataRegistration" type="DataRegistrationType">
 				<xs:annotation>
-					<xs:documentation>Registration provides the changed details of the data or metadata registration.</xs:documentation>
+					<xs:documentation>DataRegistration provides the changed details of the data registration.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+			<xs:element name="MetadataRegistration" type="MetadataRegistrationType">
+				<xs:annotation>
+					<xs:documentation>MetadataRegistration provides the changed details of the reference metadata registration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
 	</xs:complexType>	
 	
 </xs:schema>

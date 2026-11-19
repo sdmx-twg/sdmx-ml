@@ -63,6 +63,37 @@
 		</xs:complexContent>
 	</xs:complexType>
 	
+	<!-- Registration Message -->
+
+	<xs:element name="Registration" type="RegistrationType">
+		<xs:annotation>
+			<xs:documentation>Registration is a message that contains data and reference metadata registrations.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="RegistrationType">
+		<xs:annotation>
+			<xs:documentation>RegistrationType defines the contents of a registration message. The payload is optional since this message may be returned from a web service with only information in the footer.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="MessageType">
+				<xs:sequence>
+					<xs:element name="Header" type="BasicHeaderType"/>
+					<xs:element name="Registrations" type="registry:RegistrationsType" minOccurs="0">
+						<xs:unique name="UniqueMessageRegistrationID">
+							<xs:annotation>
+								<xs:documentation>Registry assigned registration identifiers must be unique across all data and reference metadata registrations.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:DataRegistrations/registry:DataRegistration|registry:MetadataRegistrations/registry:MetadataRegistration"/>
+							<xs:field xpath="@id"/>
+						</xs:unique>
+					</xs:element>
+					<xs:element ref="footer:Footer" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<!-- Data Messages -->
 
    <xs:element name="StructureSpecificData" type="StructureSpecificDataType">
@@ -138,7 +169,7 @@
 						</xs:element>
 						<xs:element name="QueryRegistrationRequest" type="registry:QueryRegistrationRequestType">
 							<xs:annotation>
-								<xs:documentation>QueryRegistrationRequest is used to query the contents of a registry for data sets and metadata sets. It specifies whether the result set should include metadata sets, data sets, or both. The search can be characterized by providing constraints including reference periods, data regions, and data keys.</xs:documentation>
+								<xs:documentation>QueryRegistrationRequest is used to query the contents of a registry for data sets and metadata sets. It specifies whether the result set should include metadata sets, data sets, or both.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="QueryRegistrationResponse" type="registry:QueryRegistrationResponseType">

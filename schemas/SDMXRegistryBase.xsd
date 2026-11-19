@@ -2,6 +2,7 @@
 <!-- Copyright SDMX 2025 - http://www.sdmx.org -->
 <xs:schema targetNamespace="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry" 
 			xmlns="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry" 
+			xmlns:registry="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry" 
 			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 			xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common" 
 			xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure"
@@ -14,114 +15,225 @@
 		<xs:documentation>The base registry module defines the common constructs that a reused across multiple registry functions.</xs:documentation>
 	</xs:annotation>
 
-	<xs:complexType name="RegistrationType">
+	<xs:element name="Registrations" type="RegistrationsType">
 		<xs:annotation>
-			<xs:documentation>Registration provides the information needed for data and reference metadata set registration. A data source must be supplied here if not already provided in the provision agreement. The data set or metadata set must be associated with a provision agreement, a metadata flow, or a dataflow definition. If possible, the provision agreement should be specified. Only in cases where this is not possible should the dataflow or metadata flow be used.</xs:documentation>
+			<xs:documentation>Registrations is a container for data and reference metadata registrations.</xs:documentation>
+		</xs:annotation>
+		<xs:unique name="UniqueRegistrationID">
+			<xs:annotation>
+				<xs:documentation>Registry assigned registration identifiers must be unique across all data and reference metadata registrations.</xs:documentation>
+			</xs:annotation>
+			<xs:selector xpath="registry:DataRegistrations/registry:DataRegistration|registry:MetadataRegistrations/registry:MetadataRegistration"/>
+			<xs:field xpath="@id"/>
+		</xs:unique>
+	</xs:element>
+
+	<xs:complexType name="RegistrationsType">
+		<xs:annotation>
+			<xs:documentation>RegistrationsType describes the structure of the container for data and reference metadata registrations.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="ProvisionAgreement" type="common:ProvisionAgreementReferenceType">
+			<xs:element name="DataRegistrations" type="DataRegistrationsType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>ProvisionAgreement provides a reference to the provision agreement that the data is being registered against.</xs:documentation>
+					<xs:documentation>DataRegistrations contains a collection of data registrations.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Datasource" type="DataSourceType">
+			<xs:element name="MetadataRegistrations" type="MetadataRegistrationsType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Datasource identifies the data source(s) where the registered data can be retrieved.</xs:documentation>
+					<xs:documentation>MetadataRegistrations contains a collection of reference metadata registrations.</xs:documentation>
 				</xs:annotation>
-				<xs:unique name="RegistrationType_DistinctSourceType">
-					<xs:selector xpath="*"/>
-					<xs:field xpath="@TYPE"/>
-				</xs:unique>
 			</xs:element>
 		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="DataRegistrationsType">
+		<xs:annotation>
+			<xs:documentation>DataRegistrationsType describes a collection of data registrations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DataRegistration" type="DataRegistrationType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>DataRegistration provides the details of a data registration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataRegistrationsType">
+		<xs:annotation>
+			<xs:documentation>MetadataRegistrationsType describes a collection of reference metadata registrations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MetadataRegistration" type="MetadataRegistrationType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>MetadataRegistration provides the details of a reference metadata registration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="RegistrationBaseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>RegistrationBaseType is an abstract base type which defines the properties common to data and reference metadata registrations.</xs:documentation>
+		</xs:annotation>
 		<xs:attribute name="id" type="common:IDType" use="optional">
 			<xs:annotation>
 				<xs:documentation>The id attribute holds a registry assigned identification for the registration. This must be provided in a response message (unless an error occurred while submitting a new registration), and should be included when updating or deleting a registration.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="validFrom" type="xs:dateTime" use="optional">
-			<xs:annotation>
-				<xs:documentation>The validFrom attribute provides an inclusive start date for providing supplemental validity information about the registration, so that data visibility from the registry can be controlled by the registrant.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="validTo" type="xs:dateTime" use="optional">
-			<xs:annotation>
-				<xs:documentation>The validFrom attribute provides an inclusive end date for providing supplemental validity information about the registration, so that data visibility from the registry can be controlled by the registrant.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attribute name="lastUpdated" type="xs:dateTime" use="optional">
 			<xs:annotation>
-				<xs:documentation>The lastUpdated attribute provides a timestamp for the last time the data source was updated.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexTimeSeries" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexTimeSeries, if true, indicates that the registry must index all time series for the registered data. The default value is false, and the attribute will always be assumed false when the provision agreement references a metadata flow.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexDataSet" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexDataSet, if true, indicates that the registry must index the range of actual (present) values for each dimension of the data set or identifier component of the metadata set (as indicated in the set's structure definition). The default value is false.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexAttributes" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexAttributes, if true, indicates that the registry must index the range of actual (present) values for each attribute of the data set or the presence of the metadata attributes of the metadata set (as indicated in the set's structure definition). The default value is false.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="indexReportingPeriod" type="xs:boolean" default="false">
-			<xs:annotation>
-				<xs:documentation>The indexReportingPeriod, if true, indicates that the registry must index the time period ranges for which data is present for the data source. The default value is false, and the attribute will always be assumed false when the provision agreement references a metadata flow.</xs:documentation>
+				<xs:documentation>The lastUpdated attribute provides a timestamp for the last time the registered content was updated. For a registration of files, this is the time the content of the files was last updated. For a registration of SDMX-REST APIs, where the content may change behind the API, this is the time the registration itself was last changed.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 
+	<xs:complexType name="DataRegistrationType">
+		<xs:annotation>
+			<xs:documentation>DataRegistrationType provides the information needed for a data registration. The registered data must be associated with a provision agreement, a dataflow, or a data structure definition. If possible, the provision agreement should be specified. Only in cases where this is not possible should the dataflow or data structure definition be used.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RegistrationBaseType">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="ProvisionAgreement" type="common:ProvisionAgreementReferenceType">
+							<xs:annotation>
+								<xs:documentation>ProvisionAgreement provides a reference to the provision agreement that the data is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Dataflow" type="common:DataflowReferenceType">
+							<xs:annotation>
+								<xs:documentation>Dataflow provides a reference to the dataflow that the data is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DataStructure" type="common:DataStructureReferenceType">
+							<xs:annotation>
+								<xs:documentation>DataStructure provides a reference to the data structure definition that the data is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="Datasource" type="DataSourceType">
+						<xs:annotation>
+							<xs:documentation>Datasource identifies where the registered data can be retrieved, either as one or more files or from one or more SDMX-REST APIs.</xs:documentation>
+						</xs:annotation>
+						<xs:unique name="Datasource_UniqueFileURL">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct url.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@url"/>
+						</xs:unique>
+						<xs:unique name="Datasource_UniqueFileFormat">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct format.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@format"/>
+						</xs:unique>
+						<xs:unique name="Datasource_UniqueSdmxApi">
+							<xs:annotation>
+								<xs:documentation>Each SDMX-REST API in a registration must have a distinct combination of entry point and SDMX-REST API version.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:SdmxApi"/>
+							<xs:field xpath="@entryPoint"/>
+							<xs:field xpath="@sdmxApiVersion"/>
+						</xs:unique>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataRegistrationType">
+		<xs:annotation>
+			<xs:documentation>MetadataRegistrationType provides the information needed for a reference metadata registration. The registered metadata must be associated with a metadata provision agreement, a metadataflow, or a metadata structure definition. If possible, the metadata provision agreement should be specified. Only in cases where this is not possible should the metadataflow or metadata structure definition be used.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RegistrationBaseType">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="MetadataProvisionAgreement" type="common:MetadataProvisionAgreementReferenceType">
+							<xs:annotation>
+								<xs:documentation>MetadataProvisionAgreement provides a reference to the metadata provision agreement that the metadata is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Metadataflow" type="common:MetadataflowReferenceType">
+							<xs:annotation>
+								<xs:documentation>Metadataflow provides a reference to the metadataflow that the metadata is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="MetadataStructure" type="common:MetadataStructureReferenceType">
+							<xs:annotation>
+								<xs:documentation>MetadataStructure provides a reference to the metadata structure definition that the metadata is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="MetadataSource" type="MetadataSourceType">
+						<xs:annotation>
+							<xs:documentation>MetadataSource identifies where the registered reference metadata can be retrieved, either as one or more files or from one or more SDMX-REST APIs.</xs:documentation>
+						</xs:annotation>
+						<xs:unique name="MetadataSource_UniqueFileURL">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct url.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@url"/>
+						</xs:unique>
+						<xs:unique name="MetadataSource_UniqueFileFormat">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct format.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@format"/>
+						</xs:unique>
+						<xs:unique name="MetadataSource_UniqueSdmxApi">
+							<xs:annotation>
+								<xs:documentation>Each SDMX-REST API in a registration must have a distinct combination of entry point and SDMX-REST API version.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:SdmxApi"/>
+							<xs:field xpath="@entryPoint"/>
+							<xs:field xpath="@sdmxApiVersion"/>
+						</xs:unique>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="DataSourceType">
 		<xs:annotation>
-			<xs:documentation>DataSourceType specifies the properties of a data or metadata source. Either a simple data source, a queryable data source, or both must be specified.</xs:documentation>
+			<xs:documentation>DataSourceType specifies where data can be retrieved. Either one or more files, or one or more SDMX-REST APIs, must be specified; files and APIs cannot be mixed in the same registration. Multiple files provide the same content in different formats. Multiple APIs provide access to the same content using different versions of the SDMX-REST specification, typically at different entry points.</xs:documentation>
 		</xs:annotation>
-		<xs:choice maxOccurs="2">
-			<xs:element name="SimpleDataSource" type="xs:anyURI">
+		<xs:choice>
+			<xs:element name="File" type="common:FileDataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>SimpleDatasource describes a data source that is an SDMX-ML data or metadata message. It requires only the URL of the data.</xs:documentation>
+					<xs:documentation>File describes a static SDMX data file, providing its URL and format. Where more than one file is provided, each file contains the same data in a different format, and the format should be provided for each file.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="QueryableDataSource" type="QueryableDataSourceType">
+			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>QueryableDatasource describes a data source that can be queried using the SDMX REST interfaces.</xs:documentation>
+					<xs:documentation>SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
-	
-	<xs:complexType name="SimpleDataSourceType">
+
+	<xs:complexType name="MetadataSourceType">
 		<xs:annotation>
-			<xs:documentation>SimpleDataSourceType describes a simple data source. The URL of the data is contained in the content.</xs:documentation>
+			<xs:documentation>MetadataSourceType specifies where reference metadata can be retrieved. Either one or more files, or one or more SDMX-REST APIs, must be specified; files and APIs cannot be mixed in the same registration. Multiple files provide the same content in different formats. Multiple APIs provide access to the same content using different versions of the SDMX-REST specification, typically at different entry points.</xs:documentation>
 		</xs:annotation>
-		<xs:simpleContent>
-			<xs:extension base="xs:anyURI">
-				<xs:attribute name="TYPE" type="xs:string" fixed="SIMPLE">
-					<xs:annotation>
-						<xs:documentation>TYPE is a fixed attribute that is used to ensure only one simple data source may be provided, when it is referenced in a uniqueness constraint.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-	
-	<xs:complexType name="QueryableDataSourceType">
-		<xs:annotation>
-			<xs:documentation>QueryableDataSourceType describes a queryable data source, and add a fixed attribute for ensuring only one queryable source can be provided.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="common:QueryableDataSourceType">
-				<xs:attribute name="TYPE" type="xs:string" fixed="QUERY">
-					<xs:annotation>
-						<xs:documentation>TYPE is a fixed attribute that is used to ensure only one queryable data source may be provided, when it is referenced in a uniqueness constraint.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:complexContent>
+		<xs:choice>
+			<xs:element name="File" type="common:FileMetadataSourceType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>File describes a static SDMX reference metadata file, providing its URL and format. Where more than one file is provided, each file contains the same reference metadata in a different format, and the format should be provided for each file.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
 	</xs:complexType>
 
 	<xs:simpleType name="IDQueryType">

@@ -25,212 +25,212 @@ artefacts.
 
 ### Codelist
 
-??? example "codelist.xml"
+#### codelist.xml
 
-    A simple enumerated code list directly equivalent to those in version 2.1 and earlier.
+A simple enumerated code list directly equivalent to those in version 2.1 and earlier.
 
-    This example shows the SDMX:CL_AGE ‘Age’ cross domain code list.
+This example shows the SDMX:CL_AGE ‘Age’ cross domain code list.
 
-??? example "codelist – extended.xml"
+#### codelist – extended.xml
 
-    Extended code list.
+Extended code list.
 
-    Illustration of the feature introduced in SDMX 3.0 allowing code lists
-    to be defined as an extension of others. One use case envisaged is
-    adding additional codes to standard cross domain code lists without
-    needing to take and maintain an explicit copy.
-    The sample message has two codelists:
+Illustration of the feature introduced in SDMX 3.0 allowing code lists
+to be defined as an extension of others. One use case envisaged is
+adding additional codes to standard cross domain code lists without
+needing to take and maintain an explicit copy.
+The sample message has two codelists:
 
-    - SDMX:CL_AGE, a simple enumerated codelist; and
-    - EXAMPLE:CL_EXTENDED_AGE, an extension of SDMX:CL_AGE.
+- SDMX:CL_AGE, a simple enumerated codelist; and
+- EXAMPLE:CL_EXTENDED_AGE, an extension of SDMX:CL_AGE.
 
-    CL_EXTENDED_AGE defines two additional codes “I” and “S”.
-    In addition, the ExclusiveCodeSelection option to exclude the “Y” code
-    from the CL_AGE code list. The result is CL_AGE, minus “Y”, plus “I”
-    and “S”. The InclusiveCodeSelection option could have been used if a
-    specific set of codes were needed from CL_AGE.
+CL_EXTENDED_AGE defines two additional codes “I” and “S”.
+In addition, the ExclusiveCodeSelection option to exclude the “Y” code
+from the CL_AGE code list. The result is CL_AGE, minus “Y”, plus “I”
+and “S”. The InclusiveCodeSelection option could have been used if a
+specific set of codes were needed from CL_AGE.
 
-??? example "codelist – discriminated union.xml"
+#### codelist – discriminated union.xml
 
-    Discriminated union of code lists.
+Discriminated union of code lists.
 
-    This sample illustrates the discriminated union of code lists use case
-    where a classification or breakdown has multiple “variants” which are
-    all valid or mutually exclusive.
-    Economic activity has been used with ISIC4 and NACE2 examples of two
-    mutually exclusive variants.
-    In the sample:
+This sample illustrates the discriminated union of code lists use case
+where a classification or breakdown has multiple “variants” which are
+all valid or mutually exclusive.
+Economic activity has been used with ISIC4 and NACE2 examples of two
+mutually exclusive variants.
+In the sample:
 
-    - Code list extension is used to create a new EXAMPLE:CL_ACTIVITY code
-      list consisting of both the SDMX:CL_ACTIVITY_NACE2 and
-      SDMX:CL_ACTIVITY_ISIC4 codelists.
+- Code list extension is used to create a new EXAMPLE:CL_ACTIVITY code
+  list consisting of both the SDMX:CL_ACTIVITY_NACE2 and
+  SDMX:CL_ACTIVITY_ISIC4 codelists.
 
-    - The code list extension prefix feature has been used to prefix the
-      NACE codes with “NACE2\_”, and similarly the ISIC codes with
-      “ISIC4\_”. This ensures there is no ambiguity where the same code
-      appear in both NACE and ISIC code lists.
+- The code list extension prefix feature has been used to prefix the
+  NACE codes with “NACE2\_”, and similarly the ISIC codes with
+  “ISIC4\_”. This ensures there is no ambiguity where the same code
+  appear in both NACE and ISIC code lists.
 
-    - A data structure definition has been created with an enumerated
-      ACTIVITY dimension using the EXAMPLE:CL_ACTIVITY code list.
+- A data structure definition has been created with an enumerated
+  ACTIVITY dimension using the EXAMPLE:CL_ACTIVITY code list.
 
-    - Two data flows are created referencing the data structure definition.
-      One data flow has a data constraint attached with a CubeRegion for
-      ACTIVITY and Value = “NACE2\_%”. The other has a similar data
-      constraint with Value = “ISIC4\_%”. The “%” is the wildcard character
-      for constraints introduced in version 3.0.
+- Two data flows are created referencing the data structure definition.
+  One data flow has a data constraint attached with a CubeRegion for
+  ACTIVITY and Value = “NACE2\_%”. The other has a similar data
+  constraint with Value = “ISIC4\_%”. The “%” is the wildcard character
+  for constraints introduced in version 3.0.
 
-    The discriminated unions are achieved by requesting either of the data
-    flows with references=”all” and detail=”referencepartial”. The result
-    being CL_ACTIVITY with the extensions resolved and the relevant data
-    constraint applied. Thus CL_ACTIVITY will only contain codes prefixed
-    according to the data flow: either beginning “NACE2\_” or “ISIC4\_”
+The discriminated unions are achieved by requesting either of the data
+flows with references=”all” and detail=”referencepartial”. The result
+being CL_ACTIVITY with the extensions resolved and the relevant data
+constraint applied. Thus CL_ACTIVITY will only contain codes prefixed
+according to the data flow: either beginning “NACE2\_” or “ISIC4\_”
 
-??? example "valuelist.xml"
+#### valuelist.xml
 
-    A simple enumerated value list.
+A simple enumerated value list.
 
-    Value lists were introduced in version 3.0 to allow the definition of
-    enumerations where the codes do not need to comply with the strict
-    SDMX rules for identifiers. Thus a “value” can be any string of
-    characters.
-    In SDMX-ML valuelists are treated as a class of enumeration so appear
-    in the structure message under Codelists alongside simple and extended
-    codelists, and specialised geospatial codelist variants.
-    Currency is used as the example with the values being currency symbols
-    including “\$”, “£”, “¥” and “﷼”.
+Value lists were introduced in version 3.0 to allow the definition of
+enumerations where the codes do not need to comply with the strict
+SDMX rules for identifiers. Thus a “value” can be any string of
+characters.
+In SDMX-ML valuelists are treated as a class of enumeration so appear
+in the structure message under Codelists alongside simple and extended
+codelists, and specialised geospatial codelist variants.
+Currency is used as the example with the values being currency symbols
+including “\$”, “£”, “¥” and “﷼”.
 
 ### Concept Scheme
 
-??? example "conceptscheme.xml"
+#### conceptscheme.xml
 
-    The example illustrates a single concept scheme
-    ECB:ECB_CONCEPTS containing multiple individual concepts.
+The example illustrates a single concept scheme
+ECB:ECB_CONCEPTS containing multiple individual concepts.
 
 ### Data Structure Definition
 
-??? example "ECB EXR.xml"
+#### ECB EXR.xml
 
-    The example illustrates a data structure definition (DSD)
-    for ECB:EXR exchange rates. The concept of primary measure has been
-    deprecated in SDMX 3.0 and the DSD’s MeasureList can contain multiple
-    measures. In this case, a single measure OBS_VALUE is defined.
+The example illustrates a data structure definition (DSD)
+for ECB:EXR exchange rates. The concept of primary measure has been
+deprecated in SDMX 3.0 and the DSD’s MeasureList can contain multiple
+measures. In this case, a single measure OBS_VALUE is defined.
 
 ### Dataflow
 
-??? example "dataflow.xml"
+#### dataflow.xml
 
-    A simple data flow for the ECB:EXR data set.
+A simple data flow for the ECB:EXR data set.
 
 ### Geospatial
 
-??? example "geospatial geocomponents.xml"
+#### geospatial geocomponents.xml
 
-    An example of the use of the
-    “GeospatialInformation” representation type. The GeospatialInformation
-    type can be assigned to a Dimension, DataAttribute, MetadataAttribute or
-    a Measure in conjunction with the "GEO" role. Values of are included
-    directly in data messages or metadata reports and must conform to the
-    Geo Feature Set syntax defined in Section 6 of the Technical
-    Specifications.
+An example of the use of the
+“GeospatialInformation” representation type. The GeospatialInformation
+type can be assigned to a Dimension, DataAttribute, MetadataAttribute or
+a Measure in conjunction with the "GEO" role. Values of are included
+directly in data messages or metadata reports and must conform to the
+Geo Feature Set syntax defined in Section 6 of the Technical
+Specifications.
 
-    In the sample:
+In the sample:
 
-    - A simple illustrative data structure definition has been defined with
-      IDENTIFIER and TIME_PERIOD dimensions, plus a series attribute AREA.
+- A simple illustrative data structure definition has been defined with
+  IDENTIFIER and TIME_PERIOD dimensions, plus a series attribute AREA.
 
-    - The AREA attribute has the SDMX Concept Role “GEO” defined identifying
-      it generally as a geospatial component following guidelines.
+- The AREA attribute has the SDMX Concept Role “GEO” defined identifying
+  it generally as a geospatial component following guidelines.
 
-    - The AREA attribute also carries a LocalRepresentation with
-      textType=”GeospatialInformation”.
+- The AREA attribute also carries a LocalRepresentation with
+  textType=”GeospatialInformation”.
 
-??? example "geospatial geographiccodelist.xml"
+#### geospatial geographiccodelist.xml
 
-    An example of the definition of
-    GeographicCodelists, a specialised form of code list introduced in SDMX
-    3.0. GeographicCodelists are used in the same was as simple code lists
-    to assign a closed enumerated list of values to a component. The
-    difference being that the definition of each GeoFeatureSetCode
-    explicitly specifies the geospatial features to which it relates as a
-    string expression using the Geo Feature Set syntax set out in Section 6
-    of the Technical Specifications. As with any other coded component, data
-    sets only contain the codes and not the Feature Set information itself.
-    Thus, GeoFeatureSetCodes act as pointers to the Geo Feature Set
-    information held in the GeographicCodelist.
+An example of the definition of
+GeographicCodelists, a specialised form of code list introduced in SDMX
+3.0. GeographicCodelists are used in the same was as simple code lists
+to assign a closed enumerated list of values to a component. The
+difference being that the definition of each GeoFeatureSetCode
+explicitly specifies the geospatial features to which it relates as a
+string expression using the Geo Feature Set syntax set out in Section 6
+of the Technical Specifications. As with any other coded component, data
+sets only contain the codes and not the Feature Set information itself.
+Thus, GeoFeatureSetCodes act as pointers to the Geo Feature Set
+information held in the GeographicCodelist.
 
-    In the sample:
+In the sample:
 
-    - A single illustrative GeographicCodelist has been defined which must
-      be under Codelists in the structure message.
+- A single illustrative GeographicCodelist has been defined which must
+  be under Codelists in the structure message.
 
-    - The GeographicCodelist geoType attribute must be given the value of
-      “GeographicCodelist”.
+- The GeographicCodelist geoType attribute must be given the value of
+  “GeographicCodelist”.
 
-    - Three illustrative GeoFeatureSetCodes have been defined with IDs “A1”,
-      “A2” and “A3”.
+- Three illustrative GeoFeatureSetCodes have been defined with IDs “A1”,
+  “A2” and “A3”.
 
-    - The GeoFeatureSetCode Value attribute specifies the geospatial
-      features to which the code relates as a string expression. Note that
-      the values shown are conceptual examples and are not syntactically
-      valid Geo Feature Set expressions.
+- The GeoFeatureSetCode Value attribute specifies the geospatial
+  features to which the code relates as a string expression. Note that
+  the values shown are conceptual examples and are not syntactically
+  valid Geo Feature Set expressions.
 
-??? example "geospatial geogridcodelist.xml"
+#### geospatial geogridcodelist.xml
 
-    An example of the definition of
-    GeoGridCodelists, the second specialised form of codelist for modelling
-    gridded geographies.  
-    Like GeographicCodelists, GeoGridCodelists act in the same way as simple
-    code lists to assign a closed enumerated list of values to a
-    component.  
-    GeoGridCodelists define a geographical grid by setting the X and Y
-    coordinates of a reference point, and the dimensions of each cell. In
-    addition, each GeoGridCode specifies to which cell in the grid it
-    relates using row and column numbers.
+An example of the definition of
+GeoGridCodelists, the second specialised form of codelist for modelling
+gridded geographies.  
+Like GeographicCodelists, GeoGridCodelists act in the same way as simple
+code lists to assign a closed enumerated list of values to a
+component.  
+GeoGridCodelists define a geographical grid by setting the X and Y
+coordinates of a reference point, and the dimensions of each cell. In
+addition, each GeoGridCode specifies to which cell in the grid it
+relates using row and column numbers.
 
-    In the sample:
+In the sample:
 
-    - A single illustrative GeoGridCodelist has been defined which must be
-      under Codelists in the structure message.
+- A single illustrative GeoGridCodelist has been defined which must be
+  under Codelists in the structure message.
 
-    - The GridDefinition element defines the grid for the code list using a
-      string expression conforming to the Geo Grid syntax set out in Section
-      6 of the Technical Specifications.
+- The GridDefinition element defines the grid for the code list using a
+  string expression conforming to the Geo Grid syntax set out in Section
+  6 of the Technical Specifications.
 
-    - Each GeoGridCode has an ID and a Name in common with the codes of
-      simple code lists, but also has a GeoCell element containing the row
-      and column of the grid cell as a string expression using the Grid Cell
-      syntax set out in Section 6 of the Technical Specifications.
+- Each GeoGridCode has an ID and a Name in common with the codes of
+  simple code lists, but also has a GeoCell element containing the row
+  and column of the grid cell as a string expression using the Grid Cell
+  syntax set out in Section 6 of the Technical Specifications.
 
 ### VTL Transformations
 
-??? example "VTL Sample 1.xml"
+#### VTL Sample 1.xml
 
-    Illustrates the use of VTL Rulesets to validate an SDMX
-    dataflow. The validation process adds additional identifiers and
-    measures to the resulting VTL dataset indicating, on a row by row basis
-    the validation rule applied and the outcome in terms of a valid /
-    invalid. If invalid, details of the error found and its severity are
-    added.
+Illustrates the use of VTL Rulesets to validate an SDMX
+dataflow. The validation process adds additional identifiers and
+measures to the resulting VTL dataset indicating, on a row by row basis
+the validation rule applied and the outcome in terms of a valid /
+invalid. If invalid, details of the error found and its severity are
+added.
 
-    A second transformation takes the resulting dataset filtering out
-    high-severity validation errors and persists the result back to a SDMX
-    dataflow using VTL mappings.
+A second transformation takes the resulting dataset filtering out
+high-severity validation errors and persists the result back to a SDMX
+dataflow using VTL mappings.
 
-??? example "VTL Sample 2.xml"
+#### VTL Sample 2.xml
 
-    Illustrates aggregation of an SDMX dataflow using VTL
-    hierarchical rulesets, filtering and user defined operators.
+Illustrates aggregation of an SDMX dataflow using VTL
+hierarchical rulesets, filtering and user defined operators.
 
-    After the initial aggregation, unaggregated observations removed are
-    removed from the result dataset. A user defined operator is
-    subsequently applied to calculate a percentage measure with the final
-    persistent result mapped from VTL to a SDMX dataflow.
+After the initial aggregation, unaggregated observations removed are
+removed from the result dataset. A user defined operator is
+subsequently applied to calculate a percentage measure with the final
+persistent result mapped from VTL to a SDMX dataflow.
 
-??? example "VTL Sample 3.xml"
+#### VTL Sample 3.xml
 
-    Illustrates the calculation of a GDP per capita dataset
-    from an input mapped SDMX dataflow containing GDP and population
-    indicators on a country by country basis.
+Illustrates the calculation of a GDP per capita dataset
+from an input mapped SDMX dataflow containing GDP and population
+indicators on a country by country basis.
 
 ## Data Samples
 
@@ -257,74 +257,163 @@ metadata.
 
 ### Aggregated Time Series with Simple Data Attributes
 
-??? example "ECB EXR.xml"
+#### ECB EXR.xml
 
-    Structure specific data message.  
-      
-    Excerpt from the ECB’s Exchange Rates dataset.
+Structure specific data message.  
+  
+Excerpt from the ECB’s Exchange Rates dataset.
 
-    In this example which is representative of aggregated time-series
-    datasets with a single measure, observations are grouped together
-    under series, which in turn are grouped under the dataset element.
-    The dimension values and those of series-level attributes are
-    expressed as XML attributes on each series element. Similarly, the
-    TIME_PERIOD, OBS_VALUE and any observation-level attributes are
-    expressed as XML attributes on each obs element.
-    Note that a structure specific namespace ns1 is defined using
-    xsi:schemalocation to reference the validation schema location, in
-    this case ECB_EXR_Dataflow.xsd.
+In this example which is representative of aggregated time-series
+datasets with a single measure, observations are grouped together
+under series, which in turn are grouped under the dataset element.
+The dimension values and those of series-level attributes are
+expressed as XML attributes on each series element. Similarly, the
+TIME_PERIOD, OBS_VALUE and any observation-level attributes are
+expressed as XML attributes on each obs element.
+Note that a structure specific namespace ns1 is defined using
+xsi:schemalocation to reference the validation schema location, in
+this case ECB_EXR_Dataflow.xsd.
 
-??? example "ECB EXR Dataflow.xsd"
+#### ECB EXR Dataflow.xsd
 
-    Structure specific schema for validating the dataset.
+Structure specific schema for validating the dataset.
 
-    The schema defines a complex type called DataSetType derived from the
-    data set’s data structure definition and constraints, in this case
-    those attached to the dataflow.
+The schema defines a complex type called DataSetType derived from the
+data set’s data structure definition and constraints, in this case
+those attached to the dataflow.
 
 ### Aggregated Time Series with Complex Data Attributes
 
 Complex attributes include those with multilingual text and arrays of
 values.
 
-??? example "EXB EXR CA.xml"
+#### EXB EXR CA.xml
 
-    Structure specific data message.  
-  
-    A modification of the ECB’s Exchange Rates dataset illustrating the
-    following complex attribute use cases:
+Structure specific data message.  
 
-    - TITLE – multi-lingual series-level array attribute
-    - SOURCE_AGENCY – coded series-level array attribute specifying a minimum of three values
-    - SOURCE_PUB – uncoded string series-level array attribute with maximum
-      length of 350 characters
-    - OBS_STATUS – coded observation-level array attribute
+A modification of the ECB’s Exchange Rates dataset illustrating the
+following complex attribute use cases:
 
-    Note that a structure specific namespace ns1 is defined using
-    xsi:schemalocation to reference the validation schema location, in
-    this case ECB_EXR_Dataflow.xsd.
+- TITLE – multi-lingual series-level array attribute
+- SOURCE_AGENCY – coded series-level array attribute specifying a minimum of three values
+- SOURCE_PUB – uncoded string series-level array attribute with maximum
+  length of 350 characters
+- OBS_STATUS – coded observation-level array attribute
 
-??? example "ECB EXR CA Dataflow.xsd"
+Note that a structure specific namespace ns1 is defined using
+xsi:schemalocation to reference the validation schema location, in
+this case ECB_EXR_Dataflow.xsd.
 
-    Structure specific schema for validating the
-    dataset.
+#### ECB EXR CA Dataflow.xsd
 
-    The schema defines a complex type called DataSetType derived from the
-    data set’s data structure definition and constraints, in this case those
-    attached to the dataflow.
+Structure specific schema for validating the
+dataset.
 
-    Complex types based on the abstract dsd:CompType are defined for each
-    complex attribute.
+The schema defines a complex type called DataSetType derived from the
+data set’s data structure definition and constraints, in this case those
+attached to the dataflow.
 
-??? example "ECB EXR CA DSD.xml"
+Complex types based on the abstract dsd:CompType are defined for each
+complex attribute.
 
-    Structure message describing the Data Structure
-    Definition for the above dataflow illustrating, in particular, the
-    definition of complex attributes:
+#### ECB EXR CA DSD.xml
 
-    The XML attribute isMultiLingual=”true” on the `<str:TextFormat…>`
-    element specifies a multi-lingual string representation.
+Structure message describing the Data Structure
+Definition for the above dataflow illustrating, in particular, the
+definition of complex attributes:
 
-    Setting the maxOccurs XML attribute to a number greater than 1 (or
-    unbounded) on the `<str:LocalRepresentation…>` element specifies an
-    array.
+The XML attribute isMultiLingual=”true” on the `<str:TextFormat…>`
+element specifies a multi-lingual string representation.
+
+Setting the maxOccurs XML attribute to a number greater than 1 (or
+unbounded) on the `<str:LocalRepresentation…>` element specifies an
+array.
+
+## Registry Samples
+
+The Registry Samples illustrate the registration of data and reference
+metadata sources:
+
+- New registrations, and changes to existing registrations, are
+  submitted to a registry using the RegistryInterface
+  SubmitRegistrationsRequest message, where each registration request
+  carries the action to be taken (e.g. Append, Replace or Delete). The
+  registry replies with a SubmitRegistrationsResponse.
+- Registrations are returned in response to an SDMX-REST registration
+  query using the Registration message. Its payload is a Registrations
+  container, equivalent to Structures in the Structure message, with
+  separate DataRegistrations and MetadataRegistrations collections.
+
+A registration is either a DataRegistration or a MetadataRegistration:
+
+- A DataRegistration references exactly one of a ProvisionAgreement,
+  Dataflow or DataStructure, and provides a Datasource.
+- A MetadataRegistration references exactly one of a
+  MetadataProvisionAgreement, Metadataflow or MetadataStructure, and
+  provides a MetadataSource.
+
+In both cases the source is either one or more files, or one or more
+SDMX-REST APIs; files and APIs cannot be mixed in the same registration:
+
+- File, with a url and an optional format expressed as an SDMX media
+  type using the same syntax as the SDMX-REST HTTP Accept header,
+  e.g. application/vnd.sdmx.data+csv;version=2.1.0. The format is
+  optional for compatibility with SDMX 3.0. Data files may be json,
+  xml, csv or parquet; reference metadata files may be json, xml or csv.
+  Multiple files contain the same content in different formats, so each
+  must have a distinct url and format.
+- SdmxApi, with an entryPoint URL, the sdmxApiVersion of the SDMX-REST
+  specification supported, expressed as major or major.minor (e.g. 2 or
+  2.1), and an optional specificationURL, e.g. a link to an OpenAPI
+  description. Multiple APIs provide the same content using different
+  versions of the SDMX-REST specification, typically at different entry
+  points, so each must have a distinct combination of entryPoint and
+  sdmxApiVersion.
+
+The lastUpdated timestamp of a registration of files records when the
+content of the files was last updated. For a registration of APIs, where
+the content can change behind the API, it records when the registration
+itself was last changed.
+
+Registrations are identified by a registry assigned id. The id is
+omitted when submitting a new registration, and must be provided when
+replacing or deleting one. In a Registration message, ids must be unique
+across all data and reference metadata registrations.
+
+### Registration
+
+#### submit_registrations_request.xml
+
+A SubmitRegistrationsRequest containing seven registration requests,
+illustrating each kind of reference and each kind of source:
+
+- A data registration against a provision agreement, with the same data
+  published as SDMX-CSV, SDMX-JSON and SDMX-ML files.
+- A data registration against a dataflow, with SDMX-REST API v1 and v2
+  entry points, the latter including a specificationURL.
+- A data registration against a data structure definition, with an
+  SDMX-Parquet file source.
+- A reference metadata registration against a metadata provision
+  agreement, with the same metadata published as SDMX-JSON and SDMX-CSV
+  files.
+- A reference metadata registration against a metadataflow, with an
+  SDMX-REST API source.
+- A replacement of an existing reference metadata registration
+  (identified by its registry assigned id) against a metadata structure
+  definition, with an SDMX-ML file source.
+- A data registration against a provision agreement, with a file source
+  that omits the optional format, as would be the case for a
+  registration migrated from SDMX 3.0.
+
+#### submit_registrations_response.xml
+
+A SubmitRegistrationsResponse echoing submitted registrations. The
+successful registrations have been assigned an id by the registry,
+while the failed registration carries an error message.
+
+#### registrations.xml
+
+A Registration message, as returned in response to an SDMX-REST
+registration query, containing data and reference metadata registrations
+as held by the registry. Each registration carries its registry assigned
+id and lastUpdated timestamp.
