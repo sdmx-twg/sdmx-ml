@@ -83,7 +83,7 @@
 		</xs:attribute>
 		<xs:attribute name="lastUpdated" type="xs:dateTime" use="optional">
 			<xs:annotation>
-				<xs:documentation>The lastUpdated attribute provides a timestamp for the last time the data or metadata source was updated.</xs:documentation>
+				<xs:documentation>The lastUpdated attribute provides a timestamp for the last time the registered content was updated. For a registration of files, this is the time the content of the files was last updated. For a registration of SDMX-REST APIs, where the content may change behind the API, this is the time the registration itself was last changed.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -114,8 +114,30 @@
 					</xs:choice>
 					<xs:element name="Datasource" type="DataSourceType">
 						<xs:annotation>
-							<xs:documentation>Datasource identifies the data source where the registered data can be retrieved.</xs:documentation>
+							<xs:documentation>Datasource identifies where the registered data can be retrieved, either as one or more files or from one or more SDMX-REST APIs.</xs:documentation>
 						</xs:annotation>
+						<xs:unique name="Datasource_UniqueFileURL">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct url.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@url"/>
+						</xs:unique>
+						<xs:unique name="Datasource_UniqueFileFormat">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct format.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@format"/>
+						</xs:unique>
+						<xs:unique name="Datasource_UniqueSdmxApi">
+							<xs:annotation>
+								<xs:documentation>Each SDMX-REST API in a registration must have a distinct combination of entry point and SDMX-REST API version.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:SdmxApi"/>
+							<xs:field xpath="@entryPoint"/>
+							<xs:field xpath="@sdmxApiVersion"/>
+						</xs:unique>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>
@@ -148,8 +170,30 @@
 					</xs:choice>
 					<xs:element name="MetadataSource" type="MetadataSourceType">
 						<xs:annotation>
-							<xs:documentation>MetadataSource identifies the metadata source where the registered reference metadata can be retrieved.</xs:documentation>
+							<xs:documentation>MetadataSource identifies where the registered reference metadata can be retrieved, either as one or more files or from one or more SDMX-REST APIs.</xs:documentation>
 						</xs:annotation>
+						<xs:unique name="MetadataSource_UniqueFileURL">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct url.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@url"/>
+						</xs:unique>
+						<xs:unique name="MetadataSource_UniqueFileFormat">
+							<xs:annotation>
+								<xs:documentation>Each file in a registration must have a distinct format.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:File"/>
+							<xs:field xpath="@format"/>
+						</xs:unique>
+						<xs:unique name="MetadataSource_UniqueSdmxApi">
+							<xs:annotation>
+								<xs:documentation>Each SDMX-REST API in a registration must have a distinct combination of entry point and SDMX-REST API version.</xs:documentation>
+							</xs:annotation>
+							<xs:selector xpath="registry:SdmxApi"/>
+							<xs:field xpath="@entryPoint"/>
+							<xs:field xpath="@sdmxApiVersion"/>
+						</xs:unique>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>
@@ -158,17 +202,17 @@
 
 	<xs:complexType name="DataSourceType">
 		<xs:annotation>
-			<xs:documentation>DataSourceType specifies the location of a data source. Exactly one of a file or an SDMX-REST API must be specified.</xs:documentation>
+			<xs:documentation>DataSourceType specifies where data can be retrieved. Either one or more files, or one or more SDMX-REST APIs, must be specified; files and APIs cannot be mixed in the same registration. Multiple files provide the same content in different formats. Multiple APIs provide access to the same content using different versions of the SDMX-REST specification, typically at different entry points.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
-			<xs:element name="File" type="common:FileDataSourceType">
+			<xs:element name="File" type="common:FileDataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>File describes a data source that is a static SDMX data file, providing its location and format.</xs:documentation>
+					<xs:documentation>File describes a static SDMX data file, providing its URL and format. Where more than one file is provided, each file contains the same data in a different format, and the format should be provided for each file.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType">
+			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with.</xs:documentation>
+					<xs:documentation>SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
@@ -176,17 +220,17 @@
 
 	<xs:complexType name="MetadataSourceType">
 		<xs:annotation>
-			<xs:documentation>MetadataSourceType specifies the location of a reference metadata source. Exactly one of a file or an SDMX-REST API must be specified.</xs:documentation>
+			<xs:documentation>MetadataSourceType specifies where reference metadata can be retrieved. Either one or more files, or one or more SDMX-REST APIs, must be specified; files and APIs cannot be mixed in the same registration. Multiple files provide the same content in different formats. Multiple APIs provide access to the same content using different versions of the SDMX-REST specification, typically at different entry points.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
-			<xs:element name="File" type="common:FileMetadataSourceType">
+			<xs:element name="File" type="common:FileMetadataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>File describes a metadata source that is a static SDMX reference metadata file, providing its location and format.</xs:documentation>
+					<xs:documentation>File describes a static SDMX reference metadata file, providing its URL and format. Where more than one file is provided, each file contains the same reference metadata in a different format, and the format should be provided for each file.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType">
+			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with.</xs:documentation>
+					<xs:documentation>SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>

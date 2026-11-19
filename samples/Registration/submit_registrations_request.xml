@@ -12,21 +12,24 @@
 		<mes:Receiver id="REGISTRY"/>
 	</mes:Header>
 	<mes:SubmitRegistrationsRequest>
-		<!-- Data registration against a provision agreement, where the data is a static SDMX-CSV file -->
+		<!-- Data registration against a provision agreement, where the same data is published as static files in SDMX-CSV, SDMX-JSON and SDMX-ML -->
 		<reg:RegistrationRequest action="Append">
 			<reg:DataRegistration>
 				<reg:ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ECB:EXR_ECB(1.0)</reg:ProvisionAgreement>
 				<reg:Datasource>
 					<reg:File url="https://data.example.org/files/ECB_EXR_2026.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2026.json" format="application/vnd.sdmx.data+json;version=2.0.0"/>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2026.xml" format="application/vnd.sdmx.data+xml;version=3.1.0"/>
 				</reg:Datasource>
 			</reg:DataRegistration>
 		</reg:RegistrationRequest>
-		<!-- Data registration against a dataflow, where the data can be queried from an SDMX-REST API -->
+		<!-- Data registration against a dataflow, where the data can be queried from SDMX-REST API v1 and v2 entry points -->
 		<reg:RegistrationRequest action="Append">
 			<reg:DataRegistration>
 				<reg:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0)</reg:Dataflow>
 				<reg:Datasource>
-					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/rest" sdmxApiVersion="2.1"/>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v1" sdmxApiVersion="1"/>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v2" sdmxApiVersion="2.1" specificationURL="https://data.example.org/sdmx/v2/openapi.json"/>
 				</reg:Datasource>
 			</reg:DataRegistration>
 		</reg:RegistrationRequest>
@@ -39,12 +42,13 @@
 				</reg:Datasource>
 			</reg:DataRegistration>
 		</reg:RegistrationRequest>
-		<!-- Reference metadata registration against a metadata provision agreement, where the metadata is a static SDMX-JSON file -->
+		<!-- Reference metadata registration against a metadata provision agreement, where the same metadata is published as static files in SDMX-JSON and SDMX-CSV -->
 		<reg:RegistrationRequest action="Append">
 			<reg:MetadataRegistration>
 				<reg:MetadataProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.MetadataProvisionAgreement=ECB:QUALITY_ECB(1.0)</reg:MetadataProvisionAgreement>
 				<reg:MetadataSource>
 					<reg:File url="https://data.example.org/files/ECB_QUALITY_2026.json" format="application/vnd.sdmx.metadata+json;version=2.0.0"/>
+					<reg:File url="https://data.example.org/files/ECB_QUALITY_2026.csv" format="application/vnd.sdmx.metadata+csv;version=2.0.0"/>
 				</reg:MetadataSource>
 			</reg:MetadataRegistration>
 		</reg:RegistrationRequest>
@@ -53,7 +57,7 @@
 			<reg:MetadataRegistration>
 				<reg:Metadataflow>urn:sdmx:org.sdmx.infomodel.metadatastructure.Metadataflow=ECB:QUALITY(1.0)</reg:Metadataflow>
 				<reg:MetadataSource>
-					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/rest" sdmxApiVersion="2"/>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v2" sdmxApiVersion="2"/>
 				</reg:MetadataSource>
 			</reg:MetadataRegistration>
 		</reg:RegistrationRequest>

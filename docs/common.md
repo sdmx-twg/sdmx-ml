@@ -639,7 +639,7 @@ Attribute Documentation:
 | **Name** | **Type**          | **Documentation**                                                                                                                                                |
 |----------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | url      | xs:anyURI         | The url attribute contains the URL of the file.                                                                                                                  |
-| format   | SdmxDataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. |
+| format   | SdmxDataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. The format should be provided when more than one file is registered, in which case at most one file may omit it. |
 
 **FileMetadataSourceType:** FileMetadataSourceType describes a metadata
 source that is a static reference metadata file, in terms of its
@@ -658,7 +658,7 @@ Attribute Documentation:
 | **Name** | **Type**              | **Documentation**                                                                                                                                                        |
 |----------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | url      | xs:anyURI             | The url attribute contains the URL of the file.                                                                                                                          |
-| format   | SdmxMetadataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. |
+| format   | SdmxMetadataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. The format should be provided when more than one file is registered, in which case at most one file may omit it. |
 
 **SdmxApiDataSourceType:** SdmxApiDataSourceType describes an SDMX-REST
 API, in terms of its entry point and the version of the SDMX-REST
@@ -666,7 +666,7 @@ specification that the API complies with.
 
 Attributes:
 
-`entryPoint, sdmxApiVersion`
+`entryPoint, sdmxApiVersion, specificationURL?`
 
 Content:
 
@@ -678,6 +678,7 @@ Attribute Documentation:
 |----------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | entryPoint     | xs:anyURI          | The entryPoint attribute contains the URL of the SDMX-REST API entry point.                                                                               |
 | sdmxApiVersion | SdmxApiVersionType | The sdmxApiVersion attribute is the version of the SDMX-REST specification supported at this entry point, which determines how queries are formulated.    |
+| specificationURL | xs:anyURI | The specificationURL attribute optionally provides the URL of a machine-readable description of the service, such as an OpenAPI specification. |
 
 **XHTMLType:** XHTMLType allows for mixed content of text and XHTML
 tags. When using this type, one will have to provide a reference to the

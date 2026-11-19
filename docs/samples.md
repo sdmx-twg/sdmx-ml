@@ -352,16 +352,28 @@ A registration is either a DataRegistration or a MetadataRegistration:
   MetadataProvisionAgreement, Metadataflow or MetadataStructure, and
   provides a MetadataSource.
 
-In both cases the source is exactly one of:
+In both cases the source is either one or more files, or one or more
+SDMX-REST APIs; files and APIs cannot be mixed in the same registration:
 
 - File, with a url and an optional format expressed as an SDMX media
   type using the same syntax as the SDMX-REST HTTP Accept header,
   e.g. application/vnd.sdmx.data+csv;version=2.1.0. The format is
   optional for compatibility with SDMX 3.0. Data files may be json,
   xml, csv or parquet; reference metadata files may be json, xml or csv.
-- SdmxApi, with an entryPoint URL and the sdmxApiVersion of the
-  SDMX-REST specification supported, expressed as major or major.minor,
-  e.g. 2 or 2.1.
+  Multiple files contain the same content in different formats, so each
+  must have a distinct url and format.
+- SdmxApi, with an entryPoint URL, the sdmxApiVersion of the SDMX-REST
+  specification supported, expressed as major or major.minor (e.g. 2 or
+  2.1), and an optional specificationURL, e.g. a link to an OpenAPI
+  description. Multiple APIs provide the same content using different
+  versions of the SDMX-REST specification, typically at different entry
+  points, so each must have a distinct combination of entryPoint and
+  sdmxApiVersion.
+
+The lastUpdated timestamp of a registration of files records when the
+content of the files was last updated. For a registration of APIs, where
+the content can change behind the API, it records when the registration
+itself was last changed.
 
 Registrations are identified by a registry assigned id. The id is
 omitted when submitting a new registration, and must be provided when
@@ -375,13 +387,15 @@ across all data and reference metadata registrations.
 A SubmitRegistrationsRequest containing seven registration requests,
 illustrating each kind of reference and each kind of source:
 
-- A data registration against a provision agreement, with an SDMX-CSV
-  file source.
-- A data registration against a dataflow, with an SDMX-REST API source.
+- A data registration against a provision agreement, with the same data
+  published as SDMX-CSV, SDMX-JSON and SDMX-ML files.
+- A data registration against a dataflow, with SDMX-REST API v1 and v2
+  entry points, the latter including a specificationURL.
 - A data registration against a data structure definition, with an
   SDMX-Parquet file source.
 - A reference metadata registration against a metadata provision
-  agreement, with an SDMX-JSON file source.
+  agreement, with the same metadata published as SDMX-JSON and SDMX-CSV
+  files.
 - A reference metadata registration against a metadataflow, with an
   SDMX-REST API source.
 - A replacement of an existing reference metadata registration

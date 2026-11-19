@@ -1020,7 +1020,7 @@
 		</xs:attribute>
 		<xs:attribute name="format" type="SdmxDataMediaType" use="optional">
 			<xs:annotation>
-				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided.</xs:documentation>
+				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. The format should be provided when more than one file is registered, in which case at most one file may omit it.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -1036,7 +1036,7 @@
 		</xs:attribute>
 		<xs:attribute name="format" type="SdmxMetadataMediaType" use="optional">
 			<xs:annotation>
-				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided.</xs:documentation>
+				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. The format should be provided when more than one file is registered, in which case at most one file may omit it.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -1053,6 +1053,11 @@
 		<xs:attribute name="sdmxApiVersion" type="SdmxApiVersionType" use="required">
 			<xs:annotation>
 				<xs:documentation>The sdmxApiVersion attribute is the version of the SDMX-REST specification supported at this entry point, which determines how queries are formulated.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="specificationURL" type="xs:anyURI" use="optional">
+			<xs:annotation>
+				<xs:documentation>The specificationURL attribute optionally provides the URL of a machine-readable description of the service, such as an OpenAPI specification.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>

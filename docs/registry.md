@@ -132,7 +132,7 @@ Attribute Documentation:
 | **Name**    | **Type**    | **Documentation**                                                                                                                                                                                                                                            |
 |-------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id          | IDType      | The id attribute holds a registry assigned identification for the registration. This must be provided in a response message (unless an error occurred while submitting a new registration), and should be included when updating or deleting a registration. |
-| lastUpdated | xs:dateTime | The lastUpdated attribute provides a timestamp for the last time the data or metadata source was updated.                                                                                                                                                    |
+| lastUpdated | xs:dateTime | The lastUpdated attribute provides a timestamp for the last time the registered content was updated. For a registration of files, this is the time the content of the files was last updated. For a registration of SDMX-REST APIs, where the content may change behind the API, this is the time the registration itself was last changed. |
 
 **DataRegistrationType:** DataRegistrationType provides the information
 needed for a data registration. The registered data must be associated
@@ -167,7 +167,7 @@ Element Documentation:
 | ProvisionAgreement | ProvisionAgreementReferenceType | ProvisionAgreement provides a reference to the provision agreement that the data is being registered against.  |
 | Dataflow           | DataflowReferenceType           | Dataflow provides a reference to the dataflow that the data is being registered against.                       |
 | DataStructure      | DataStructureReferenceType      | DataStructure provides a reference to the data structure definition that the data is being registered against. |
-| Datasource         | DataSourceType                  | Datasource identifies the data source where the registered data can be retrieved.                              |
+| Datasource         | DataSourceType                  | Datasource identifies where the registered data can be retrieved, either as one or more files or from one or more SDMX-REST APIs. |
 
 Example:
 
@@ -214,7 +214,7 @@ Element Documentation:
 | MetadataProvisionAgreement | MetadataProvisionAgreementReferenceType | MetadataProvisionAgreement provides a reference to the metadata provision agreement that the metadata is being registered against. |
 | Metadataflow               | MetadataflowReferenceType               | Metadataflow provides a reference to the metadataflow that the metadata is being registered against.                               |
 | MetadataStructure          | MetadataStructureReferenceType          | MetadataStructure provides a reference to the metadata structure definition that the metadata is being registered against.         |
-| MetadataSource             | MetadataSourceType                      | MetadataSource identifies the metadata source where the registered reference metadata can be retrieved.                            |
+| MetadataSource             | MetadataSourceType                      | MetadataSource identifies where the registered reference metadata can be retrieved, either as one or more files or from one or more SDMX-REST APIs. |
 
 Example:
 
@@ -227,38 +227,83 @@ Example:
 </MetadataRegistration>
 ```
 
-**DataSourceType:** DataSourceType specifies the location of a data
-source. Exactly one of a file or an SDMX-REST API must be specified.
+**DataSourceType:** DataSourceType specifies where data can be retrieved. Either one
+or more files, or one or more SDMX-REST APIs, must be specified; files
+and APIs cannot be mixed in the same registration. Multiple files provide
+the same content in different formats. Multiple APIs provide access to
+the same content using different versions of the SDMX-REST specification,
+typically at different entry points.
 
 Content:
 
 ```text
-(File | SdmxApi)
+(File+ | SdmxApi+)
 ```
 
 Element Documentation:
 
-| **Name** | **Type**                     | **Documentation**                                                                                                                                                       |
-|----------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| File     | common:FileDataSourceType    | File describes a data source that is a static SDMX data file, providing its URL and format.                                                                           |
-| SdmxApi  | common:SdmxApiDataSourceType | SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. |
+| **Name** | **Type**                     | **Documentation**                                                                                                                                                                                                                                      |
+|----------|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| File     | common:FileDataSourceType    | File describes a static SDMX data file, providing its URL and format. Where more than one file is provided, each file contains the same data in a different format, and the format should be provided for each file.                                   |
+| SdmxApi  | common:SdmxApiDataSourceType | SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content. |
 
-**MetadataSourceType:** MetadataSourceType specifies the location of a
-reference metadata source. Exactly one of a file or an SDMX-REST API
-must be specified.
+Identity Constraints:
+
+- Each File must have a distinct url.
+- Each File must have a distinct format.
+- Each SdmxApi must have a distinct combination of entryPoint and
+  sdmxApiVersion.
+
+Example:
+
+```xml
+<Datasource>
+  <File url="https://example.org/data.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+  <File url="https://example.org/data.json" format="application/vnd.sdmx.data+json;version=2.0.0"/>
+</Datasource>
+
+<Datasource>
+  <SdmxApi entryPoint="https://example.org/sdmx/v1" sdmxApiVersion="1"/>
+  <SdmxApi entryPoint="https://example.org/sdmx/v2" sdmxApiVersion="2.1"
+           specificationURL="https://example.org/sdmx/v2/openapi.json"/>
+</Datasource>
+```
+
+**MetadataSourceType:** MetadataSourceType specifies where reference metadata can be retrieved. Either one
+or more files, or one or more SDMX-REST APIs, must be specified; files
+and APIs cannot be mixed in the same registration. Multiple files provide
+the same content in different formats. Multiple APIs provide access to
+the same content using different versions of the SDMX-REST specification,
+typically at different entry points.
 
 Content:
 
 ```text
-(File | SdmxApi)
+(File+ | SdmxApi+)
 ```
 
 Element Documentation:
 
-| **Name** | **Type**                      | **Documentation**                                                                                                                                                           |
-|----------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| File     | common:FileMetadataSourceType | File describes a metadata source that is a static SDMX reference metadata file, providing its URL and format.                                                             |
-| SdmxApi  | common:SdmxApiDataSourceType  | SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. |
+| **Name** | **Type**                      | **Documentation**                                                                                                                                                                                                                                          |
+|----------|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| File     | common:FileMetadataSourceType | File describes a static SDMX reference metadata file, providing its URL and format. Where more than one file is provided, each file contains the same reference metadata in a different format, and the format should be provided for each file.           |
+| SdmxApi  | common:SdmxApiDataSourceType  | SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content. |
+
+Identity Constraints:
+
+- Each File must have a distinct url.
+- Each File must have a distinct format.
+- Each SdmxApi must have a distinct combination of entryPoint and
+  sdmxApiVersion.
+
+Example:
+
+```xml
+<MetadataSource>
+  <File url="https://example.org/metadata.json" format="application/vnd.sdmx.metadata+json;version=2.0.0"/>
+  <File url="https://example.org/metadata.csv" format="application/vnd.sdmx.metadata+csv;version=2.0.0"/>
+</MetadataSource>
+```
 
 **IdentifiableQueryType:** IdentifiableQueryType describes the structure
 of a query for an identifiable object.
