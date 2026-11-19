@@ -1011,32 +1011,32 @@
 
 	<xs:complexType name="FileDataSourceType">
 		<xs:annotation>
-			<xs:documentation>FileDataSourceType describes a data source that is a static data file, in terms of its location and its format.</xs:documentation>
+			<xs:documentation>FileDataSourceType describes a data source that is a static data file, in terms of its URL and its format.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="location" type="xs:anyURI" use="required">
+		<xs:attribute name="url" type="xs:anyURI" use="required">
 			<xs:annotation>
-				<xs:documentation>The location attribute contains the URL of the file.</xs:documentation>
+				<xs:documentation>The url attribute contains the URL of the file.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="format" type="SdmxDataMediaType" use="optional">
 			<xs:annotation>
-				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the location of a file data source was provided.</xs:documentation>
+				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 
 	<xs:complexType name="FileMetadataSourceType">
 		<xs:annotation>
-			<xs:documentation>FileMetadataSourceType describes a metadata source that is a static reference metadata file, in terms of its location and its format.</xs:documentation>
+			<xs:documentation>FileMetadataSourceType describes a metadata source that is a static reference metadata file, in terms of its URL and its format.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="location" type="xs:anyURI" use="required">
+		<xs:attribute name="url" type="xs:anyURI" use="required">
 			<xs:annotation>
-				<xs:documentation>The location attribute contains the URL of the file.</xs:documentation>
+				<xs:documentation>The url attribute contains the URL of the file.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="format" type="SdmxMetadataMediaType" use="optional">
 			<xs:annotation>
-				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the location of a file metadata source was provided.</xs:documentation>
+				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>

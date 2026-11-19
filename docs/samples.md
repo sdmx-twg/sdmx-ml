@@ -354,8 +354,8 @@ A registration is either a DataRegistration or a MetadataRegistration:
 
 In both cases the source is exactly one of:
 
-- File, with a location URL and an optional format expressed as an SDMX
-  media type using the same syntax as the SDMX-REST HTTP Accept header,
+- File, with a url and an optional format expressed as an SDMX media
+  type using the same syntax as the SDMX-REST HTTP Accept header,
   e.g. application/vnd.sdmx.data+csv;version=2.1.0. The format is
   optional for compatibility with SDMX 3.0. Data files may be json,
   xml, csv or parquet; reference metadata files may be json, xml or csv.

@@ -624,11 +624,11 @@ Attribute Documentation:
 | endTime   | xs:dateTime | The endTime attributes contains the inclusive end date for the reference period.     |
 
 **FileDataSourceType:** FileDataSourceType describes a data source that
-is a static data file, in terms of its location and its format.
+is a static data file, in terms of its URL and its format.
 
 Attributes:
 
-`location, format?`
+`url, format?`
 
 Content:
 
@@ -638,16 +638,16 @@ Attribute Documentation:
 
 | **Name** | **Type**          | **Documentation**                                                                                                                                                |
 |----------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| location | xs:anyURI         | The location attribute contains the URL of the file.                                                                                                             |
-| format   | SdmxDataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the location of a file data source was provided. |
+| url      | xs:anyURI         | The url attribute contains the URL of the file.                                                                                                                  |
+| format   | SdmxDataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. |
 
 **FileMetadataSourceType:** FileMetadataSourceType describes a metadata
 source that is a static reference metadata file, in terms of its
-location and its format.
+URL and its format.
 
 Attributes:
 
-`location, format?`
+`url, format?`
 
 Content:
 
@@ -657,8 +657,8 @@ Attribute Documentation:
 
 | **Name** | **Type**              | **Documentation**                                                                                                                                                        |
 |----------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| location | xs:anyURI             | The location attribute contains the URL of the file.                                                                                                                     |
-| format   | SdmxMetadataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the location of a file metadata source was provided. |
+| url      | xs:anyURI             | The url attribute contains the URL of the file.                                                                                                                          |
+| format   | SdmxMetadataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. |
 
 **SdmxApiDataSourceType:** SdmxApiDataSourceType describes an SDMX-REST
 API, in terms of its entry point and the version of the SDMX-REST

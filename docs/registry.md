@@ -66,7 +66,7 @@ Example:
     <DataRegistration id="REG_00101">
       <ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ACME:PA_1(1.0)</ProvisionAgreement>
       <Datasource>
-        <File location="https://example.org/data.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+        <File url="https://example.org/data.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
       </Datasource>
     </DataRegistration>
   </DataRegistrations>
@@ -175,7 +175,7 @@ Example:
 <DataRegistration>
   <ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ACME:PA_1(1.0)</ProvisionAgreement>
   <Datasource>
-    <File location="https://example.org/data.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+    <File url="https://example.org/data.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
   </Datasource>
 </DataRegistration>
 ```
@@ -240,7 +240,7 @@ Element Documentation:
 
 | **Name** | **Type**                     | **Documentation**                                                                                                                                                       |
 |----------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| File     | common:FileDataSourceType    | File describes a data source that is a static SDMX data file, providing its location and format.                                                                        |
+| File     | common:FileDataSourceType    | File describes a data source that is a static SDMX data file, providing its URL and format.                                                                           |
 | SdmxApi  | common:SdmxApiDataSourceType | SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. |
 
 **MetadataSourceType:** MetadataSourceType specifies the location of a
@@ -257,7 +257,7 @@ Element Documentation:
 
 | **Name** | **Type**                      | **Documentation**                                                                                                                                                           |
 |----------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| File     | common:FileMetadataSourceType | File describes a metadata source that is a static SDMX reference metadata file, providing its location and format.                                                          |
+| File     | common:FileMetadataSourceType | File describes a metadata source that is a static SDMX reference metadata file, providing its URL and format.                                                             |
 | SdmxApi  | common:SdmxApiDataSourceType  | SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. |
 
 **IdentifiableQueryType:** IdentifiableQueryType describes the structure

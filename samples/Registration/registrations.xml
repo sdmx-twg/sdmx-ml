@@ -16,7 +16,7 @@
 			<reg:DataRegistration id="REG_00101" lastUpdated="2026-11-19T09:00:05Z">
 				<reg:ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ECB:EXR_ECB(1.0)</reg:ProvisionAgreement>
 				<reg:Datasource>
-					<reg:File location="https://data.example.org/files/ECB_EXR_2026.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2026.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
 				</reg:Datasource>
 			</reg:DataRegistration>
 			<reg:DataRegistration id="REG_00102" lastUpdated="2026-11-19T09:00:05Z">
@@ -28,7 +28,7 @@
 			<reg:DataRegistration id="REG_00104" lastUpdated="2026-11-18T16:30:00Z">
 				<reg:DataStructure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ECB:ECB_EXR1(1.0)</reg:DataStructure>
 				<reg:Datasource>
-					<reg:File location="https://data.example.org/files/ECB_EXR_2025.xml"/>
+					<reg:File url="https://data.example.org/files/ECB_EXR_2025.xml"/>
 				</reg:Datasource>
 			</reg:DataRegistration>
 		</reg:DataRegistrations>
@@ -36,13 +36,13 @@
 			<reg:MetadataRegistration id="REG_00103" lastUpdated="2026-11-19T09:00:05Z">
 				<reg:MetadataProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.MetadataProvisionAgreement=ECB:QUALITY_ECB(1.0)</reg:MetadataProvisionAgreement>
 				<reg:MetadataSource>
-					<reg:File location="https://data.example.org/files/ECB_QUALITY_2026.json" format="application/vnd.sdmx.metadata+json;version=2.0.0"/>
+					<reg:File url="https://data.example.org/files/ECB_QUALITY_2026.json" format="application/vnd.sdmx.metadata+json;version=2.0.0"/>
 				</reg:MetadataSource>
 			</reg:MetadataRegistration>
 			<reg:MetadataRegistration id="REG_00042" lastUpdated="2026-11-19T09:00:05Z">
 				<reg:MetadataStructure>urn:sdmx:org.sdmx.infomodel.metadatastructure.MetadataStructure=ECB:QUALITY_MSD(1.0)</reg:MetadataStructure>
 				<reg:MetadataSource>
-					<reg:File location="https://data.example.org/files/ECB_QUALITY_2026.xml" format="application/vnd.sdmx.metadata+xml;version=3.1.0"/>
+					<reg:File url="https://data.example.org/files/ECB_QUALITY_2026.xml" format="application/vnd.sdmx.metadata+xml;version=3.1.0"/>
 				</reg:MetadataSource>
 			</reg:MetadataRegistration>
 		</reg:MetadataRegistrations>
