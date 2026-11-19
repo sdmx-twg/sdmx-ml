@@ -455,19 +455,12 @@ the structure of a registration query request. The type of query (data,
 reference metadata, or both) must be specified. It is possible to query
 for registrations for a particular provision agreement, data provider,
 or structure usage, or to query for all registrations in the registry.
-In addition the search can be refined by providing constraints in the
-form of explicit time periods, constraint regions, and key sets. When
-constraint regions and key sets are provided they will be effectively
-processed by first matching all data for the included keys and regions
-(all available data if there are none) and then removing any data
-matching the excluded keys or regions.
 
 Content:
 
 ```text
 QueryType, (All | ProvisionAgreement | DataProvider | Dataflow |
-Metadataflow), ReferencePeriod?, (DataKeySet | CubeRegion |
-MetadataTargetRegion)*
+Metadataflow)
 ```
 
 Element Documentation:
@@ -480,10 +473,6 @@ Element Documentation:
 | DataProvider         | DataProviderReferenceType       | DataProvider provides a reference to a data provider in the registry, for which all registered sets meeting the other criteria of this query should be returned. The reference is provided as a URN and/or a complete set of reference fields.             |
 | Dataflow             | DataflowReferenceTyp e           | Dataflow provides a reference to a data flow in the registry, for which all registered sets meeting the other criteria of this query should be returned. The reference is provided as a URN and/or a complete set of reference fields.                     |
 | Metadataflow         | MetadataflowReferenceType       | Metadataflow provides a reference to a metadata flow in the registry, for which all registered sets meeting the other criteria of this query should be returned. The reference is provided as a URN and/or a complete set of reference fields              |
-| ReferencePeriod      | ReferencePeriodType              | ReferencePeriod provides an inclusive start and end date for the data or metadata being sought.                                                                                                                                                            |
-| DataKeySet           | DataKeySetType                   | DataKeySet is used to provide a set of included or excluded keys which serves to refine the data being sought.                                                                                                                                             |
-| CubeRegion           | CubeRegionType                   | CubeRegion is used to provide sets of include or excluded values for dimensions when querying for data.                                                                                                                                                    |
-| MetadataTargetRegion | MetadataTargetRegion Type        | MetadataTargetRegion is used to provide sets of included or excluded values for identifier components when querying for metadata.                                                                                                                          |
 
 **QueryRegistrationResponseType:** QueryRegistrationResponseType
 describes the structure of a registration query response. It provides a

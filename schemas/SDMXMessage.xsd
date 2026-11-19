@@ -169,7 +169,7 @@
 						</xs:element>
 						<xs:element name="QueryRegistrationRequest" type="registry:QueryRegistrationRequestType">
 							<xs:annotation>
-								<xs:documentation>QueryRegistrationRequest is used to query the contents of a registry for data sets and metadata sets. It specifies whether the result set should include metadata sets, data sets, or both. The search can be characterized by providing constraints including reference periods, data regions, and data keys.</xs:documentation>
+								<xs:documentation>QueryRegistrationRequest is used to query the contents of a registry for data sets and metadata sets. It specifies whether the result set should include metadata sets, data sets, or both.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="QueryRegistrationResponse" type="registry:QueryRegistrationResponseType">
