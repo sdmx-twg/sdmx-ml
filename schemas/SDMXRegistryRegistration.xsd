@@ -24,7 +24,7 @@
 		<xs:sequence>
 			<xs:element name="RegistrationRequest" type="RegistrationRequestType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>RegistrationRequest provides the details of a requested registration and the action to take on it. A reference to a provision agreement that exists in the registry must be provide along with a simple and/or queryable data source. The id should only be provided when updating or deleting a registration.</xs:documentation>
+					<xs:documentation>RegistrationRequest provides the details of a requested registration and the action to take on it. A reference to a provision agreement, structure usage, or structure that exists in the registry must be provided along with a data or metadata source. The id should only be provided when updating or deleting a registration.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -34,13 +34,18 @@
 		<xs:annotation>
 			<xs:documentation>RegistrationRequestType describes the structure of a single registration request. It contains the details of a registation and an action field to indicate the action to be taken on the contained registration.</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Registration" type="RegistrationType">
+		<xs:choice>
+			<xs:element name="DataRegistration" type="DataRegistrationType">
 				<xs:annotation>
-					<xs:documentation>Registration contains the details of the data/metadata set registration to be added, updated, or deleted.</xs:documentation>
+					<xs:documentation>DataRegistration contains the details of the data registration to be added, updated, or deleted.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+			<xs:element name="MetadataRegistration" type="MetadataRegistrationType">
+				<xs:annotation>
+					<xs:documentation>MetadataRegistration contains the details of the reference metadata registration to be added, updated, or deleted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
 		<xs:attribute name="action" type="common:ActionType" use="required">
 			<xs:annotation>
 				<xs:documentation>The action attribute indicates whether this is an addition, a modification, or a deletion of a registration.</xs:documentation>
@@ -66,11 +71,18 @@
 			<xs:documentation>RegistrationStatusType describes the structure of a registration status.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Registration" type="RegistrationType">
-				<xs:annotation>
-					<xs:documentation>Registration, at the very least echoes the submitted registration. It the request was to create a new registration and it was successful, an id must be supplied.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:choice>
+				<xs:element name="DataRegistration" type="DataRegistrationType">
+					<xs:annotation>
+						<xs:documentation>DataRegistration, at the very least, echoes the submitted data registration. If the request was to create a new registration and it was successful, an id must be supplied.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MetadataRegistration" type="MetadataRegistrationType">
+					<xs:annotation>
+						<xs:documentation>MetadataRegistration, at the very least, echoes the submitted reference metadata registration. If the request was to create a new registration and it was successful, an id must be supplied.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
 			<xs:element name="StatusMessage" type="StatusMessageType">
 				<xs:annotation>
 					<xs:documentation>StatusMessage provides that status for the registration request, and if necessary, any error or warning information.</xs:documentation>
@@ -170,8 +182,16 @@
 		</xs:annotation>
 		<xs:sequence>
 			<xs:choice>
-				<xs:element name="DataResult" type="ResultType"/>
-				<xs:element name="MetadataResult" type="ResultType"/>
+				<xs:element name="DataResult" type="DataResultType">
+					<xs:annotation>
+						<xs:documentation>DataResult contains the details of a matching data registration.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MetadataResult" type="MetadataResultType">
+					<xs:annotation>
+						<xs:documentation>MetadataResult contains the details of a matching reference metadata registration.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:choice>
 		</xs:sequence>
 		<xs:attribute name="timeSeriesMatch" type="xs:boolean" use="required">
@@ -181,19 +201,37 @@
 		</xs:attribute>
 	</xs:complexType>
 
-	<xs:complexType name="ResultType">
+	<xs:complexType name="DataResultType">
 		<xs:annotation>
-			<xs:documentation>ResultType contains the details about a data or metadata source, through the complete registration information. In addition, a reference to the content constraints for the data source may be provided, if the query requested this information.</xs:documentation>
+			<xs:documentation>DataResultType contains the details about a data source, through the complete registration information. In addition, a reference to the constraints for the data source may be provided, if the query requested this information.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Registration" type="RegistrationType">
+			<xs:element name="DataRegistration" type="DataRegistrationType">
 				<xs:annotation>
-					<xs:documentation>Registration provides the details of a matching registration. In addition to the data source and provision agreement information, the id of the registration must also be provided.</xs:documentation>
+					<xs:documentation>DataRegistration provides the details of a matching data registration. In addition to the data source and provision agreement, structure usage, or structure information, the id of the registration must also be provided.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Constraint" type="common:ConstraintReferenceType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Constraint provides a reference to a data or metadata constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields.</xs:documentation>
+					<xs:documentation>Constraint provides a reference to a data constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataResultType">
+		<xs:annotation>
+			<xs:documentation>MetadataResultType contains the details about a reference metadata source, through the complete registration information. In addition, a reference to the constraints for the metadata source may be provided, if the query requested this information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MetadataRegistration" type="MetadataRegistrationType">
+				<xs:annotation>
+					<xs:documentation>MetadataRegistration provides the details of a matching reference metadata registration. In addition to the metadata source and metadata provision agreement, structure usage, or structure information, the id of the registration must also be provided.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Constraint" type="common:ConstraintReferenceType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Constraint provides a reference to a metadata constraint in the registry for the resulting metadata source (or possibly constraints base on the registration metadata provision agreement, metadata provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

@@ -29,132 +29,159 @@ Referenced Namespaces:
 
 Contents:
 
-39 Complex Types  
+41 Complex Types  
 5 Simple Types
 
 #### Complex Types
 
-**RegistrationType:** Registration provides the information needed for
-data and reference metadata set registration. A data source must be
-supplied here if not already provided in the provision agreement. The
-data set or metadata set must be associated with a provision agreement,
-a metadata flow, or a dataflow definition. If possible, the provision
-agreement should be specified. Only in cases where this is not possible
-should the dataflow or metadata flow be used.
+**RegistrationBaseType:** RegistrationBaseType is an abstract base type
+which defines the properties common to data and reference metadata
+registrations.
 
 Attributes:
 
 ```text
-id?, validFrom?, validTo?, lastUpdated?, indexTimeSeries?,
-indexDataSet?, indexAttributes?, indexReportingPeriod?
+id?, lastUpdated?
 ```
 
 Content:
 
 ```text
-ProvisionAgreement, Datasource
+{Empty}
 ```
 
 Attribute Documentation:
 
-| **Name**                              | **Type**    | **Documentation**                                                                                                                                                                                                                                                                         |
-|---------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                                    | IDType      | The id attribute holds a registry assigned identification for the registration. This must be provided in a response message (unless an error occurred while submitting a new registration), and should be included when updating or deleting a registration.                              |
-| validFrom                             | xs:dateTime | The validFrom attribute provides an inclusive start date for providing supplemental validity information about the registration, so that data visibility from the registry can be controlled by the registrant.                                                                           |
-| validTo                               | xs:dateTime | The validFrom attribute provides an inclusive end date for providing supplemental validity information about the registration, so that data visibility from the registry can be controlled by the registrant.                                                                             |
-| lastUpdated                           | xs:dateTime | The lastUpdated attribute provides a timestamp for the last time the data source was updated.                                                                                                                                                                                             |
-| indexTimeSeries (default: false)      | xs:boolean  | The indexTimeSeries, if true, indicates that the registry must index all time series for the registered data. The default value is false, and the attribute will always be assumed false when the provision agreement references a metadata flow.                                         |
-| indexDataSet (default: false)         | xs:boolean  | The indexDataSet, if true, indicates that the registry must index the range of actual (present) values for each dimension of the data set or identifier component of the metadata set (as indicated in the set's structure definition). The default value is false.                       |
-| indexAttributes (default: false)      | xs:boolean  | The indexAttributes, if true, indicates that the registry must index the range of actual (present) values for each attribute of the data set or the presence of the metadata attributes of the metadata set (as indicated in the set's structure definition). The default value is false. |
-| indexReportingPeriod (default: false) | xs:boolean  | The indexReportingPeriod, if true, indicates that the registry must index the time period ranges for which data is present for the data source. The default value is false, and the attribute will always be assumed false when the provision agreement references a metadata flow.       |
+| **Name**    | **Type**    | **Documentation**                                                                                                                                                                                                                                            |
+|-------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id          | IDType      | The id attribute holds a registry assigned identification for the registration. This must be provided in a response message (unless an error occurred while submitting a new registration), and should be included when updating or deleting a registration. |
+| lastUpdated | xs:dateTime | The lastUpdated attribute provides a timestamp for the last time the data or metadata source was updated.                                                                                                                                                    |
 
-Element Documentation:
-
-| **Name**           | **Type**                         | **Documentation**                                                                                             |
-|--------------------|----------------------------------|---------------------------------------------------------------------------------------------------------------|
-| ProvisionAgreement | ProvisionAgreementRe ferenceType | ProvisionAgreement provides a reference to the provision agreement that the data is being registered against. |
-| Datasource         | DataSourceType                   | Datasource identifies the data source(s) where the registered data can be retrieved.                          |
-
-**DataSourceType:** DataSourceType specifies the properties of a data or
-metadata source. Either a simple data source, a queryable data source,
-or both must be specified.
-
-Content:
-
-```text
-(SimpleDataSource | QueryableDataSource)[1..2]
-```
-
-Element Documentation:
-
-| **Name**            | **Type**                 | **Documentation**                                                                                                           |
-|---------------------|--------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| SimpleDataSource    | xs:anyURI                | SimpleDatasource describes a data source that is an SDMX-ML data or metadata message. It requires only the URL of the data. |
-| QueryableDataSource | QueryableDataSourceT ype | QueryableDatasource describes a data source that can be queried using the SDMX REST interfaces.                             |
-
-**SimpleDataSourceType:** SimpleDataSourceType describes a simple data
-source. The URL of the data is contained in the content.
+**DataRegistrationType:** DataRegistrationType provides the information
+needed for a data registration. The registered data must be associated
+with a provision agreement, a dataflow, or a data structure definition.
+If possible, the provision agreement should be specified. Only in cases
+where this is not possible should the dataflow or data structure
+definition be used.
 
 Derivation:
 
 ```text
-xs:anySimpleType (restriction)  
-   xs:anyURI (extension)  
-         SimpleDataSourceType
+RegistrationBaseType (extension)
+   DataRegistrationType
 ```
 
 Attributes:
 
 ```text
-TYPE?
+id?, lastUpdated?
 ```
 
 Content:
 
-Attribute Documentation:
+```text
+(ProvisionAgreement | Dataflow | DataStructure), Datasource
+```
 
-| **Name**             | **Type**  | **Documentation**                                                                                                                               |
-|----------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| TYPE (fixed: SIMPLE) | xs:string | TYPE is a fixed attribute that is used to ensure only one simple data source may be provided, when it is referenced in a uniqueness constraint. |
+Element Documentation:
 
-**QueryableDataSourceType:** QueryableDataSourceType describes a
-queryable data source, and add a fixed attribute for ensuring only one
-queryable source can be provided.
+| **Name**           | **Type**                        | **Documentation**                                                                                              |
+|--------------------|---------------------------------|----------------------------------------------------------------------------------------------------------------|
+| ProvisionAgreement | ProvisionAgreementReferenceType | ProvisionAgreement provides a reference to the provision agreement that the data is being registered against.  |
+| Dataflow           | DataflowReferenceType           | Dataflow provides a reference to the dataflow that the data is being registered against.                       |
+| DataStructure      | DataStructureReferenceType      | DataStructure provides a reference to the data structure definition that the data is being registered against. |
+| Datasource         | DataSourceType                  | Datasource identifies the data source where the registered data can be retrieved.                              |
+
+Example:
+
+```xml
+<DataRegistration>
+  <ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ACME:PA_1(1.0)</ProvisionAgreement>
+  <Datasource>
+    <File location="https://example.org/data.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+  </Datasource>
+</DataRegistration>
+```
+
+**MetadataRegistrationType:** MetadataRegistrationType provides the
+information needed for a reference metadata registration. The registered
+metadata must be associated with a metadata provision agreement, a
+metadataflow, or a metadata structure definition. If possible, the
+metadata provision agreement should be specified. Only in cases where
+this is not possible should the metadataflow or metadata structure
+definition be used.
 
 Derivation:
 
 ```text
-QueryableDataSourceType (extension)  
-   QueryableDataSourceType
+RegistrationBaseType (extension)
+   MetadataRegistrationType
 ```
 
 Attributes:
 
 ```text
-isRESTDatasource, isWebServiceDatasource, TYPE?
+id?, lastUpdated?
 ```
 
 Content:
 
 ```text
-DataURL, WSDLURL?, WADLURL?
+(MetadataProvisionAgreement | Metadataflow | MetadataStructure), MetadataSource
 ```
-
-Attribute Documentation:
-
-| **Name**               | **Type**   | **Documentation**                                                                                                                                  |
-|------------------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| isRESTDatasource       | xs:boolean | The isRESTDatasource attribute indicates, if true, that the queryable data source is accessible via the REST protocol.                             |
-| isWebServiceDatasource | xs:boolean | The isWebServiceDatasource attribute indicates, if true, that the queryable data source is accessible via Web Services protocols.                  |
-| TYPE (fixed: QUERY)    | xs:string  | TYPE is a fixed attribute that is used to ensure only one queryable data source may be provided, when it is referenced in a uniqueness constraint. |
 
 Element Documentation:
 
-| **Name** | **Type**  | **Documentation**                                                                                                                |
-|----------|-----------|----------------------------------------------------------------------------------------------------------------------------------|
-| DataURL  | xs:anyURI | DataURL contains the URL of the data source.                                                                                     |
-| WSDLURL  | xs:anyURI | WSDLURL provides the location of a WSDL instance on the internet which describes the queryable data source.                      |
-| WADLURL  | xs:anyURI | WADLURL provides the location of a WADL instance on the internet which describes the REST protocol of the queryable data source. |
+| **Name**                   | **Type**                                | **Documentation**                                                                                                                  |
+|----------------------------|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| MetadataProvisionAgreement | MetadataProvisionAgreementReferenceType | MetadataProvisionAgreement provides a reference to the metadata provision agreement that the metadata is being registered against. |
+| Metadataflow               | MetadataflowReferenceType               | Metadataflow provides a reference to the metadataflow that the metadata is being registered against.                               |
+| MetadataStructure          | MetadataStructureReferenceType          | MetadataStructure provides a reference to the metadata structure definition that the metadata is being registered against.         |
+| MetadataSource             | MetadataSourceType                      | MetadataSource identifies the metadata source where the registered reference metadata can be retrieved.                            |
+
+Example:
+
+```xml
+<MetadataRegistration>
+  <Metadataflow>urn:sdmx:org.sdmx.infomodel.metadatastructure.Metadataflow=ACME:MF_1(1.0)</Metadataflow>
+  <MetadataSource>
+    <SdmxApi entryPoint="https://example.org/rest" sdmxApiVersion="2.1"/>
+  </MetadataSource>
+</MetadataRegistration>
+```
+
+**DataSourceType:** DataSourceType specifies the location of a data
+source. Exactly one of a file or an SDMX-REST API must be specified.
+
+Content:
+
+```text
+(File | SdmxApi)
+```
+
+Element Documentation:
+
+| **Name** | **Type**                     | **Documentation**                                                                                                                                                       |
+|----------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| File     | common:FileDataSourceType    | File describes a data source that is a static SDMX data file, providing its location and format.                                                                        |
+| SdmxApi  | common:SdmxApiDataSourceType | SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. |
+
+**MetadataSourceType:** MetadataSourceType specifies the location of a
+reference metadata source. Exactly one of a file or an SDMX-REST API
+must be specified.
+
+Content:
+
+```text
+(File | SdmxApi)
+```
+
+Element Documentation:
+
+| **Name** | **Type**                      | **Documentation**                                                                                                                                                           |
+|----------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| File     | common:FileMetadataSourceType | File describes a metadata source that is a static SDMX reference metadata file, providing its location and format.                                                          |
+| SdmxApi  | common:SdmxApiDataSourceType  | SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. |
 
 **IdentifiableQueryType:** IdentifiableQueryType describes the structure
 of a query for an identifiable object.
@@ -278,7 +305,7 @@ Element Documentation:
 
 | **Name**            | **Type**                 | **Documentation**                                                                                                                                                                                                                                                                                              |
 |---------------------|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| RegistrationRequest | RegistrationRequestT ype | RegistrationRequest provides the details of a requested registration and the action to take on it. A reference to a provision agreement that exists in the registry must be provide along with a simple and/or queryable data source. The id should only be provided when updating or deleting a registration. |
+| RegistrationRequest | RegistrationRequestT ype | RegistrationRequest provides the details of a requested registration and the action to take on it. A reference to a provision agreement, structure usage, or structure that exists in the registry must be provided along with a data or metadata source. The id should only be provided when updating or deleting a registration. |
 
 **RegistrationRequestType:** RegistrationRequestType describes the
 structure of a single registration request. It contains the details of a
@@ -294,7 +321,7 @@ action
 Content:
 
 ```text
-Registration
+(DataRegistration | MetadataRegistration)
 ```
 
 Attribute Documentation:
@@ -305,9 +332,10 @@ Attribute Documentation:
 
 Element Documentation:
 
-| **Name**     | **Type**         | **Documentation**                                                                                         |
-|--------------|------------------|-----------------------------------------------------------------------------------------------------------|
-| Registration | RegistrationType | Registration contains the details of the data/metadata set registration to be added, updated, or deleted. |
+| **Name**             | **Type**                 | **Documentation**                                                                                                  |
+|----------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------|
+| DataRegistration     | DataRegistrationType     | DataRegistration contains the details of the data registration to be added, updated, or deleted.                   |
+| MetadataRegistration | MetadataRegistrationType | MetadataRegistration contains the details of the reference metadata registration to be added, updated, or deleted. |
 
 **SubmitRegistrationsResponseType:** SubmitRegistrationsResponseType
 describes the structure of a registration response. For each submitted
@@ -334,15 +362,16 @@ structure of a registration status.
 Content:
 
 ```text
-Registration, StatusMessage
+(DataRegistration | MetadataRegistration), StatusMessage
 ```
 
 Element Documentation:
 
-| **Name**      | **Type**          | **Documentation**                                                                                                                                                 |
-|---------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Registration  | RegistrationType  | Registration, at the very least echoes the submitted registration. It the request was to create a new registration and it was successful, an id must be supplied. |
-| StatusMessage | StatusMessageType | StatusMessage provides that status for the registration request, and if necessary, any error or warning information.                                              |
+| **Name**             | **Type**                 | **Documentation**                                                                                                                                                                             |
+|----------------------|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DataRegistration     | DataRegistrationType     | DataRegistration, at the very least, echoes the submitted data registration. If the request was to create a new registration and it was successful, an id must be supplied.                   |
+| MetadataRegistration | MetadataRegistrationType | MetadataRegistration, at the very least, echoes the submitted reference metadata registration. If the request was to create a new registration and it was successful, an id must be supplied. |
+| StatusMessage        | StatusMessageType        | StatusMessage provides that status for the registration request, and if necessary, any error or warning information.                                                                          |
 
 **QueryRegistrationRequestType:** QueryRegistrationRequestType describes
 the structure of a registration query request. The type of query (data,
@@ -433,28 +462,47 @@ Attribute Documentation:
 
 Element Documentation:
 
-| **Name**       | **Type**   | **Documentation** |
-|----------------|------------|-------------------|
-| DataResult     | ResultType |                   |
-| MetadataResult | ResultType |                   |
+| **Name**       | **Type**           | **Documentation**                                                                  |
+|----------------|--------------------|------------------------------------------------------------------------------------|
+| DataResult     | DataResultType     | DataResult contains the details of a matching data registration.                   |
+| MetadataResult | MetadataResultType | MetadataResult contains the details of a matching reference metadata registration. |
 
-**ResultType:** ResultType contains the details about a data or metadata
+**DataResultType:** DataResultType contains the details about a data
 source, through the complete registration information. In addition, a
-reference to the content constraints for the data source may be
-provided, if the query requested this information.
+reference to the constraints for the data source may be provided, if the
+query requested this information.
 
 Content:
 
 ```text
-Registration, Constraint*
+DataRegistration, Constraint*
 ```
 
 Element Documentation:
 
-| **Name**     | **Type**                 | **Documentation**                                                                                                                                                                                                                                                                                                      |
-|--------------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Registration | RegistrationType         | Registration provides the details of a matching registration. In addition to the data source and provision agreement information, the id of the registration must also be provided.                                                                                                                                    |
-| Constraint   | ConstraintReferenceT ype | Constraint provides a reference to a data or metadata constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields. |
+| **Name**         | **Type**                | **Documentation**                                                                                                                                                                                                                                                                                          |
+|------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DataRegistration | DataRegistrationType    | DataRegistration provides the details of a matching data registration. In addition to the data source and provision agreement, structure usage, or structure information, the id of the registration must also be provided.                                                                                |
+| Constraint       | ConstraintReferenceType | Constraint provides a reference to a data constraint in the registry for the resulting data source (or possibly constraints base on the registration provision agreement, data provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields. |
+
+**MetadataResultType:** MetadataResultType contains the details about a
+reference metadata source, through the complete registration
+information. In addition, a reference to the constraints for the
+metadata source may be provided, if the query requested this
+information.
+
+Content:
+
+```text
+MetadataRegistration, Constraint*
+```
+
+Element Documentation:
+
+| **Name**             | **Type**                 | **Documentation**                                                                                                                                                                                                                                                                                                               |
+|----------------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| MetadataRegistration | MetadataRegistrationType | MetadataRegistration provides the details of a matching reference metadata registration. In addition to the metadata source and metadata provision agreement, structure usage, or structure information, the id of the registration must also be provided.                                                                      |
+| Constraint           | ConstraintReferenceType  | Constraint provides a reference to a metadata constraint in the registry for the resulting metadata source (or possibly constraints base on the registration metadata provision agreement, metadata provider, structure usage, or structure). The reference is provided for by a URN and/or a complete set of reference fields. |
 
 **SubmitStructureRequestType:** SubmitStructureRequestType describes the
 structure of a structure submission. Structural components are provided
@@ -941,8 +989,8 @@ Element Documentation:
 **MetadataRegistrationEventsType:** MetadataRegistrationEventsType
 details the metadata registration events for the subscription. It is
 possible to subscribe to all metadata registration events in the
-repository, or specific events for; single registrations, provision
-agreements, data providers, metadata flows, metadata structure
+repository, or specific events for; single registrations, metadata
+provision agreements, metadata providers, metadata flows, metadata structure
 definitions, and categories that categorize metadata flows or metadata
 structure definitions.
 
@@ -955,7 +1003,7 @@ TYPE?
 Content:
 
 ```text
-(AllEvents | (RegistrationID | ProvisionAgreement | DataProvider |
+(AllEvents | (RegistrationID | MetadataProvisionAgreement | MetadataProvider |
 MetadataflowReference | MetadataStructureDefinitionReference |
 Category)+)
 ```
@@ -972,8 +1020,8 @@ Element Documentation:
 |---------------------------------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | AllEvents                             | EmptyType                        | AllEvents subscribes to all metadata registration events in the repository.                                                                                                                                                                                                           |
 | RegistrationID                        | IDType                           | RegistrationID subscribes to all the metadata registration events for the unique registration referenced.                                                                                                                                                                             |
-| ProvisionAgreement                    | ProvisionAgreementReferenceType | ProvisionAgreementReference subscribes to all metadata registration events for the explicitly referenced provision agreement.                                                                                                                                                         |
-| DataProvider                          | DataProviderReferenceType       | DataProvider subscribes to all metadata registration events for the explicitly referenced data provider.                                                                                                                                                                              |
+| MetadataProvisionAgreement            | MetadataProvisionAgreementReferenceType | MetadataProvisionAgreement subscribes to all metadata registration events for the explicitly referenced metadata provision agreement. |
+| MetadataProvider                      | MetadataProviderReferenceType   | MetadataProvider subscribes to all metadata registration events for the explicitly referenced metadata provider. |
 | MetadataflowReference                | MaintainableEventTyp e           | MetadataflowReference subscribes to all metadata registration events for the metadata flows referenced by this object. This may reference one or more metadata flows, as the specific references fields allow for a wild-carded value.                                                |
 | MetadataStructureDefinitionReference | MaintainableEventTyp e           | MetadataStructureDefinitionReference subscribes to all metadata registration events for the metadata structure definitions referenced by this object. This may reference one or more metadata structure definitions, as the specific references fields allow for a wild-carded value. |
 | Category                              | CategoryReferenceTyp e           | Category subscribes to all metadata registration events for any metadata flows or metadata structure definitions that are categorized by the referenced category.                                                                                                                     |
@@ -1016,14 +1064,15 @@ metadata registration event for the purposes of notification.
 Content:
 
 ```text
-Registration
+(DataRegistration | MetadataRegistration)
 ```
 
 Element Documentation:
 
-| **Name**     | **Type**         | **Documentation**                                                               |
-|--------------|------------------|---------------------------------------------------------------------------------|
-| Registration | RegistrationType | Registration provides the changed details of the data or metadata registration. |
+| **Name**             | **Type**                 | **Documentation**                                                                         |
+|----------------------|--------------------------|-------------------------------------------------------------------------------------------|
+| DataRegistration     | DataRegistrationType     | DataRegistration provides the changed details of the data registration.                   |
+| MetadataRegistration | MetadataRegistrationType | MetadataRegistration provides the changed details of the reference metadata registration. |
 
 #### Simple Types
 

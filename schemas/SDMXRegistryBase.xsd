@@ -14,26 +14,10 @@
 		<xs:documentation>The base registry module defines the common constructs that a reused across multiple registry functions.</xs:documentation>
 	</xs:annotation>
 
-	<xs:complexType name="RegistrationType">
+	<xs:complexType name="RegistrationBaseType" abstract="true">
 		<xs:annotation>
-			<xs:documentation>Registration provides the information needed for data and reference metadata set registration. A data source must be supplied here if not already provided in the provision agreement. The data set or metadata set must be associated with a provision agreement, a metadata flow, or a dataflow definition. If possible, the provision agreement should be specified. Only in cases where this is not possible should the dataflow or metadata flow be used.</xs:documentation>
+			<xs:documentation>RegistrationBaseType is an abstract base type which defines the properties common to data and reference metadata registrations.</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="ProvisionAgreement" type="common:ProvisionAgreementReferenceType">
-				<xs:annotation>
-					<xs:documentation>ProvisionAgreement provides a reference to the provision agreement that the data is being registered against.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="Datasource" type="DataSourceType">
-				<xs:annotation>
-					<xs:documentation>Datasource identifies the data source(s) where the registered data can be retrieved.</xs:documentation>
-				</xs:annotation>
-				<xs:unique name="RegistrationType_DistinctSourceType">
-					<xs:selector xpath="*"/>
-					<xs:field xpath="@TYPE"/>
-				</xs:unique>
-			</xs:element>
-		</xs:sequence>
 		<xs:attribute name="id" type="common:IDType" use="optional">
 			<xs:annotation>
 				<xs:documentation>The id attribute holds a registry assigned identification for the registration. This must be provided in a response message (unless an error occurred while submitting a new registration), and should be included when updating or deleting a registration.</xs:documentation>
@@ -41,57 +25,113 @@
 		</xs:attribute>
 		<xs:attribute name="lastUpdated" type="xs:dateTime" use="optional">
 			<xs:annotation>
-				<xs:documentation>The lastUpdated attribute provides a timestamp for the last time the data source was updated.</xs:documentation>
+				<xs:documentation>The lastUpdated attribute provides a timestamp for the last time the data or metadata source was updated.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 
+	<xs:complexType name="DataRegistrationType">
+		<xs:annotation>
+			<xs:documentation>DataRegistrationType provides the information needed for a data registration. The registered data must be associated with a provision agreement, a dataflow, or a data structure definition. If possible, the provision agreement should be specified. Only in cases where this is not possible should the dataflow or data structure definition be used.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RegistrationBaseType">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="ProvisionAgreement" type="common:ProvisionAgreementReferenceType">
+							<xs:annotation>
+								<xs:documentation>ProvisionAgreement provides a reference to the provision agreement that the data is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Dataflow" type="common:DataflowReferenceType">
+							<xs:annotation>
+								<xs:documentation>Dataflow provides a reference to the dataflow that the data is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DataStructure" type="common:DataStructureReferenceType">
+							<xs:annotation>
+								<xs:documentation>DataStructure provides a reference to the data structure definition that the data is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="Datasource" type="DataSourceType">
+						<xs:annotation>
+							<xs:documentation>Datasource identifies the data source where the registered data can be retrieved.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MetadataRegistrationType">
+		<xs:annotation>
+			<xs:documentation>MetadataRegistrationType provides the information needed for a reference metadata registration. The registered metadata must be associated with a metadata provision agreement, a metadataflow, or a metadata structure definition. If possible, the metadata provision agreement should be specified. Only in cases where this is not possible should the metadataflow or metadata structure definition be used.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RegistrationBaseType">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="MetadataProvisionAgreement" type="common:MetadataProvisionAgreementReferenceType">
+							<xs:annotation>
+								<xs:documentation>MetadataProvisionAgreement provides a reference to the metadata provision agreement that the metadata is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Metadataflow" type="common:MetadataflowReferenceType">
+							<xs:annotation>
+								<xs:documentation>Metadataflow provides a reference to the metadataflow that the metadata is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="MetadataStructure" type="common:MetadataStructureReferenceType">
+							<xs:annotation>
+								<xs:documentation>MetadataStructure provides a reference to the metadata structure definition that the metadata is being registered against.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="MetadataSource" type="MetadataSourceType">
+						<xs:annotation>
+							<xs:documentation>MetadataSource identifies the metadata source where the registered reference metadata can be retrieved.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<xs:complexType name="DataSourceType">
 		<xs:annotation>
-			<xs:documentation>DataSourceType specifies the properties of a data or metadata source. Either a simple data source, a queryable data source, or both must be specified.</xs:documentation>
+			<xs:documentation>DataSourceType specifies the location of a data source. Exactly one of a file or an SDMX-REST API must be specified.</xs:documentation>
 		</xs:annotation>
-		<xs:choice maxOccurs="2">
-			<xs:element name="SimpleDataSource" type="xs:anyURI">
+		<xs:choice>
+			<xs:element name="File" type="common:FileDataSourceType">
 				<xs:annotation>
-					<xs:documentation>SimpleDatasource describes a data source that is an SDMX-ML data or metadata message. It requires only the URL of the data.</xs:documentation>
+					<xs:documentation>File describes a data source that is a static SDMX data file, providing its location and format.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="QueryableDataSource" type="QueryableDataSourceType">
+			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType">
 				<xs:annotation>
-					<xs:documentation>QueryableDatasource describes a data source that can be queried using the SDMX REST interfaces.</xs:documentation>
+					<xs:documentation>SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
-	
-	<xs:complexType name="SimpleDataSourceType">
+
+	<xs:complexType name="MetadataSourceType">
 		<xs:annotation>
-			<xs:documentation>SimpleDataSourceType describes a simple data source. The URL of the data is contained in the content.</xs:documentation>
+			<xs:documentation>MetadataSourceType specifies the location of a reference metadata source. Exactly one of a file or an SDMX-REST API must be specified.</xs:documentation>
 		</xs:annotation>
-		<xs:simpleContent>
-			<xs:extension base="xs:anyURI">
-				<xs:attribute name="TYPE" type="xs:string" fixed="SIMPLE">
-					<xs:annotation>
-						<xs:documentation>TYPE is a fixed attribute that is used to ensure only one simple data source may be provided, when it is referenced in a uniqueness constraint.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-	
-	<xs:complexType name="QueryableDataSourceType">
-		<xs:annotation>
-			<xs:documentation>QueryableDataSourceType describes a queryable data source, and add a fixed attribute for ensuring only one queryable source can be provided.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="common:QueryableDataSourceType">
-				<xs:attribute name="TYPE" type="xs:string" fixed="QUERY">
-					<xs:annotation>
-						<xs:documentation>TYPE is a fixed attribute that is used to ensure only one queryable data source may be provided, when it is referenced in a uniqueness constraint.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:complexContent>
+		<xs:choice>
+			<xs:element name="File" type="common:FileMetadataSourceType">
+				<xs:annotation>
+					<xs:documentation>File describes a metadata source that is a static SDMX reference metadata file, providing its location and format.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType">
+				<xs:annotation>
+					<xs:documentation>SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
 	</xs:complexType>
 
 	<xs:simpleType name="IDQueryType">

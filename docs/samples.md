@@ -328,3 +328,75 @@ values.
     Setting the maxOccurs XML attribute to a number greater than 1 (or
     unbounded) on the `<str:LocalRepresentation…>` element specifies an
     array.
+
+## Registry Samples
+
+The Registry Samples provide examples of SDMX-ML RegistryInterface
+messages within the *registry* namespace, used to register data and
+reference metadata sources and to subscribe to registration events.
+
+A registration is either a DataRegistration or a MetadataRegistration:
+
+- A DataRegistration references exactly one of a ProvisionAgreement,
+  Dataflow or DataStructure, and provides a Datasource.
+- A MetadataRegistration references exactly one of a
+  MetadataProvisionAgreement, Metadataflow or MetadataStructure, and
+  provides a MetadataSource.
+
+In both cases the source is exactly one of:
+
+- File, with a location URL and an optional format expressed as an SDMX
+  media type using the same syntax as the SDMX-REST HTTP Accept header,
+  e.g. application/vnd.sdmx.data+csv;version=2.1.0. The format is
+  optional for compatibility with SDMX 3.0. Data files may be json,
+  xml, csv or parquet; reference metadata files may be json, xml or csv.
+- SdmxApi, with an entryPoint URL and the sdmxApiVersion of the
+  SDMX-REST specification supported, expressed as major or major.minor,
+  e.g. 2 or 2.1.
+
+### Registration
+
+??? example "submit_registrations_request.xml"
+
+    A SubmitRegistrationsRequest containing seven registration requests,
+    illustrating each kind of reference and each kind of source:
+
+    - A data registration against a provision agreement, with an SDMX-CSV
+      file source.
+    - A data registration against a dataflow, with an SDMX-REST API source.
+    - A data registration against a data structure definition, with an
+      SDMX-Parquet file source.
+    - A reference metadata registration against a metadata provision
+      agreement, with an SDMX-JSON file source.
+    - A reference metadata registration against a metadataflow, with an
+      SDMX-REST API source.
+    - A replacement of an existing reference metadata registration (identified
+      by its registry assigned id) against a metadata structure definition,
+      with an SDMX-ML file source.
+    - A data registration against a provision agreement, with a file
+      source that omits the optional format, as would be the case for a
+      registration migrated from SDMX 3.0.
+
+??? example "submit_registrations_response.xml"
+
+    A SubmitRegistrationsResponse echoing submitted registrations. The
+    successful registrations have been assigned an id by the registry,
+    while the failed registration carries an error message.
+
+??? example "query_registration_response.xml"
+
+    A QueryRegistrationResponse returning one DataResult, including a
+    reference to the data constraint for the data source, and one
+    MetadataResult.
+
+??? example "submit_subscriptions_request.xml"
+
+    A SubmitSubscriptionsRequest subscribing to data registration events
+    for a provision agreement, and to reference metadata registration
+    events for a metadata provision agreement and a metadata provider.
+
+??? example "notify_registry_event.xml"
+
+    A NotifyRegistryEvent sent to a subscriber when a reference metadata
+    registration has been added, including the details of the
+    MetadataRegistration.
