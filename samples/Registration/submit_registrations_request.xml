@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mes:RegistryInterface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message"
+				xmlns:reg="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message https://xml.sdmx.org/3.1/SDMXMessage.xsd">
+	<mes:Header>
+		<mes:ID>REG_REQ_001</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2026-11-19T09:00:00Z</mes:Prepared>
+		<mes:Sender id="ECB"/>
+		<mes:Receiver id="REGISTRY"/>
+	</mes:Header>
+	<mes:SubmitRegistrationsRequest>
+		<!-- Data registration against a provision agreement, where the data is a static SDMX-CSV file -->
+		<reg:RegistrationRequest action="Append">
+			<reg:DataRegistration>
+				<reg:ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ECB:EXR_ECB(1.0)</reg:ProvisionAgreement>
+				<reg:Datasource>
+					<reg:File location="https://data.example.org/files/ECB_EXR_2026.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+		</reg:RegistrationRequest>
+		<!-- Data registration against a dataflow, where the data can be queried from an SDMX-REST API -->
+		<reg:RegistrationRequest action="Append">
+			<reg:DataRegistration>
+				<reg:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0)</reg:Dataflow>
+				<reg:Datasource>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/rest" sdmxApiVersion="2.1"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+		</reg:RegistrationRequest>
+		<!-- Data registration against a data structure definition, where the data is a static SDMX-Parquet file -->
+		<reg:RegistrationRequest action="Append">
+			<reg:DataRegistration>
+				<reg:DataStructure>urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ECB:ECB_EXR1(1.0)</reg:DataStructure>
+				<reg:Datasource>
+					<reg:File location="https://data.example.org/files/ECB_EXR_2026.parquet" format="application/vnd.sdmx.data+parquet;version=1.0.0"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+		</reg:RegistrationRequest>
+		<!-- Reference metadata registration against a metadata provision agreement, where the metadata is a static SDMX-JSON file -->
+		<reg:RegistrationRequest action="Append">
+			<reg:MetadataRegistration>
+				<reg:MetadataProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.MetadataProvisionAgreement=ECB:QUALITY_ECB(1.0)</reg:MetadataProvisionAgreement>
+				<reg:MetadataSource>
+					<reg:File location="https://data.example.org/files/ECB_QUALITY_2026.json" format="application/vnd.sdmx.metadata+json;version=2.0.0"/>
+				</reg:MetadataSource>
+			</reg:MetadataRegistration>
+		</reg:RegistrationRequest>
+		<!-- Reference metadata registration against a metadataflow, where the metadata can be queried from an SDMX-REST API -->
+		<reg:RegistrationRequest action="Append">
+			<reg:MetadataRegistration>
+				<reg:Metadataflow>urn:sdmx:org.sdmx.infomodel.metadatastructure.Metadataflow=ECB:QUALITY(1.0)</reg:Metadataflow>
+				<reg:MetadataSource>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/rest" sdmxApiVersion="2"/>
+				</reg:MetadataSource>
+			</reg:MetadataRegistration>
+		</reg:RegistrationRequest>
+		<!-- Update of an existing reference metadata registration against a metadata structure definition -->
+		<reg:RegistrationRequest action="Replace">
+			<reg:MetadataRegistration id="REG_00042">
+				<reg:MetadataStructure>urn:sdmx:org.sdmx.infomodel.metadatastructure.MetadataStructure=ECB:QUALITY_MSD(1.0)</reg:MetadataStructure>
+				<reg:MetadataSource>
+					<reg:File location="https://data.example.org/files/ECB_QUALITY_2026.xml" format="application/vnd.sdmx.metadata+xml;version=3.1.0"/>
+				</reg:MetadataSource>
+			</reg:MetadataRegistration>
+		</reg:RegistrationRequest>
+		<!-- Data registration with a file source where the optional format is omitted (as in SDMX 3.0) -->
+		<reg:RegistrationRequest action="Append">
+			<reg:DataRegistration>
+				<reg:ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ECB:EXR_ECB(1.0)</reg:ProvisionAgreement>
+				<reg:Datasource>
+					<reg:File location="https://data.example.org/files/ECB_EXR_2025.xml"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+		</reg:RegistrationRequest>
+	</mes:SubmitRegistrationsRequest>
+</mes:RegistryInterface>

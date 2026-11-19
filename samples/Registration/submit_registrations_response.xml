@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mes:RegistryInterface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:mes="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message"
+				xmlns:reg="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/registry"
+				xmlns:com="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common"
+				xsi:schemaLocation="http://www.sdmx.org/resources/sdmxml/schemas/v3_1/message https://xml.sdmx.org/3.1/SDMXMessage.xsd">
+	<mes:Header>
+		<mes:ID>REG_RESP_001</mes:ID>
+		<mes:Test>false</mes:Test>
+		<mes:Prepared>2026-11-19T09:00:00Z</mes:Prepared>
+		<mes:Sender id="REGISTRY"/>
+		<mes:Receiver id="ECB"/>
+	</mes:Header>
+	<mes:SubmitRegistrationsResponse>
+		<reg:RegistrationStatus>
+			<reg:DataRegistration id="REG_00101" lastUpdated="2026-11-19T09:00:05Z">
+				<reg:ProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.ProvisionAgreement=ECB:EXR_ECB(1.0)</reg:ProvisionAgreement>
+				<reg:Datasource>
+					<reg:File location="https://data.example.org/files/ECB_EXR_2026.csv" format="application/vnd.sdmx.data+csv;version=2.1.0"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+			<reg:StatusMessage status="Success"/>
+		</reg:RegistrationStatus>
+		<reg:RegistrationStatus>
+			<reg:MetadataRegistration id="REG_00102" lastUpdated="2026-11-19T09:00:05Z">
+				<reg:MetadataProvisionAgreement>urn:sdmx:org.sdmx.infomodel.registry.MetadataProvisionAgreement=ECB:QUALITY_ECB(1.0)</reg:MetadataProvisionAgreement>
+				<reg:MetadataSource>
+					<reg:File location="https://data.example.org/files/ECB_QUALITY_2026.json" format="application/vnd.sdmx.metadata+json;version=2.0.0"/>
+				</reg:MetadataSource>
+			</reg:MetadataRegistration>
+			<reg:StatusMessage status="Success"/>
+		</reg:RegistrationStatus>
+		<reg:RegistrationStatus>
+			<reg:DataRegistration>
+				<reg:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0)</reg:Dataflow>
+				<reg:Datasource>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/rest" sdmxApiVersion="2.1"/>
+				</reg:Datasource>
+			</reg:DataRegistration>
+			<reg:StatusMessage status="Failure">
+				<reg:MessageText code="404">
+					<com:Text xml:lang="en">The SDMX-REST API entry point could not be reached.</com:Text>
+				</reg:MessageText>
+			</reg:StatusMessage>
+		</reg:RegistrationStatus>
+	</mes:SubmitRegistrationsResponse>
+</mes:RegistryInterface>
