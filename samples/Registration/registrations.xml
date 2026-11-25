@@ -25,7 +25,7 @@
 				<reg:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ECB:EXR(1.0)</reg:Dataflow>
 				<reg:Datasource>
 					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v1" sdmxApiVersion="1"/>
-					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v2" sdmxApiVersion="2.1" specificationURL="https://data.example.org/sdmx/v2/openapi.json"/>
+					<reg:SdmxApi entryPoint="https://data.example.org/sdmx/v2" sdmxApiVersion="2.1"/>
 				</reg:Datasource>
 			</reg:DataRegistration>
 			<reg:DataRegistration id="REG_00104" lastUpdated="2026-11-18T16:30:00Z">

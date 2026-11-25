@@ -1055,11 +1055,6 @@
 				<xs:documentation>The sdmxApiVersion attribute is the version of the SDMX-REST specification supported at this entry point, which determines how queries are formulated.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="specificationURL" type="xs:anyURI" use="optional">
-			<xs:annotation>
-				<xs:documentation>The specificationURL attribute optionally provides the URL of a machine-readable description of the service, such as an OpenAPI specification.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 	</xs:complexType>
 
 	<xs:simpleType name="SdmxApiVersionType">

@@ -364,8 +364,7 @@ SDMX-REST APIs; files and APIs cannot be mixed in the same registration:
   must have a distinct url and format.
 - SdmxApi, with an entryPoint URL, the sdmxApiVersion of the SDMX-REST
   specification supported, expressed as major or major.minor (e.g. 2 or
-  2.1), and an optional specificationURL, e.g. a link to an OpenAPI
-  description. Multiple APIs provide the same content using different
+  2.1). Multiple APIs provide the same content using different
   versions of the SDMX-REST specification, typically at different entry
   points, so each must have a distinct combination of entryPoint and
   sdmxApiVersion.
@@ -390,7 +389,7 @@ across all data and reference metadata registrations.
     - A data registration against a provision agreement, with the same data
       published as SDMX-CSV, SDMX-JSON and SDMX-ML files.
     - A data registration against a dataflow, with SDMX-REST API v1 and v2
-      entry points, the latter including a specificationURL.
+      entry points.
     - A data registration against a data structure definition, with an
       SDMX-Parquet file source.
     - A reference metadata registration against a metadata provision

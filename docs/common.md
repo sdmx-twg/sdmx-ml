@@ -666,7 +666,7 @@ specification that the API complies with.
 
 Attributes:
 
-`entryPoint, sdmxApiVersion, specificationURL?`
+`entryPoint, sdmxApiVersion`
 
 Content:
 
@@ -678,7 +678,6 @@ Attribute Documentation:
 |----------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | entryPoint     | xs:anyURI          | The entryPoint attribute contains the URL of the SDMX-REST API entry point.                                                                               |
 | sdmxApiVersion | SdmxApiVersionType | The sdmxApiVersion attribute is the version of the SDMX-REST specification supported at this entry point, which determines how queries are formulated.    |
-| specificationURL | xs:anyURI | The specificationURL attribute optionally provides the URL of a machine-readable description of the service, such as an OpenAPI specification. |
 
 **XHTMLType:** XHTMLType allows for mixed content of text and XHTML
 tags. When using this type, one will have to provide a reference to the
