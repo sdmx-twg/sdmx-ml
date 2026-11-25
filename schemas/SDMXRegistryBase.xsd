@@ -125,7 +125,7 @@
 						</xs:unique>
 						<xs:unique name="Datasource_UniqueFileFormat">
 							<xs:annotation>
-								<xs:documentation>Each file in a registration must have a distinct format.</xs:documentation>
+								<xs:documentation>Each file in a registration must have a distinct format. Where more than one file is provided, each must have a format; this cannot be enforced by the schema.</xs:documentation>
 							</xs:annotation>
 							<xs:selector xpath="registry:File"/>
 							<xs:field xpath="@format"/>
@@ -181,7 +181,7 @@
 						</xs:unique>
 						<xs:unique name="MetadataSource_UniqueFileFormat">
 							<xs:annotation>
-								<xs:documentation>Each file in a registration must have a distinct format.</xs:documentation>
+								<xs:documentation>Each file in a registration must have a distinct format. Where more than one file is provided, each must have a format; this cannot be enforced by the schema.</xs:documentation>
 							</xs:annotation>
 							<xs:selector xpath="registry:File"/>
 							<xs:field xpath="@format"/>
@@ -207,7 +207,7 @@
 		<xs:choice>
 			<xs:element name="File" type="common:FileDataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>File describes a static SDMX data file, providing its URL and format. Where more than one file is provided, each file contains the same data in a different format, and the format should be provided for each file.</xs:documentation>
+					<xs:documentation>File describes a static SDMX data file, providing its URL and format. Where more than one file is provided, each file contains the same data in a different format, and the format must be provided for each file.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType" maxOccurs="unbounded">
@@ -225,7 +225,7 @@
 		<xs:choice>
 			<xs:element name="File" type="common:FileMetadataSourceType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>File describes a static SDMX reference metadata file, providing its URL and format. Where more than one file is provided, each file contains the same reference metadata in a different format, and the format should be provided for each file.</xs:documentation>
+					<xs:documentation>File describes a static SDMX reference metadata file, providing its URL and format. Where more than one file is provided, each file contains the same reference metadata in a different format, and the format must be provided for each file.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="SdmxApi" type="common:SdmxApiDataSourceType" maxOccurs="unbounded">
