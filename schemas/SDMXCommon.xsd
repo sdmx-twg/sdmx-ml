@@ -218,7 +218,7 @@
 	
 	<xs:complexType name="AnnotationType">
 		<xs:annotation>
-			<xs:documentation>AnnotationType provides for non-documentation notes and annotations to be embedded in data and structure messages. It provides optional fields for providing a title, a type description, a URI, and the text of the annotation.</xs:documentation>
+			<xs:documentation>AnnotationType provides for non-documentation notes and annotations to be embedded in data and structure messages. It provides optional fields for providing a title, a type description, a URI, the text of the annotation, and links to related resources.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="AnnotationTitle" type="xs:string" minOccurs="0">
@@ -233,7 +233,7 @@
 			</xs:element>
 			<xs:element name="AnnotationURL" type="AnnotationURLType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>AnnotationURL is a URI - typically a URL - which points to an external resource which may contain or supplement the annotation. These can be localised by indicating a language for the resource. If a language is not specified, the resource is assumed to not be localised. If a specific behaviour is desired, an annotation type should be defined which specifies the use of this field more exactly.</xs:documentation>
+					<xs:documentation>Deprecated. Use Link instead. AnnotationURL is a URI - typically a URL - which points to an external resource which may contain or supplement the annotation. These can be localised by indicating a language for the resource. If a language is not specified, the resource is assumed to not be localised. If a specific behaviour is desired, an annotation type should be defined which specifies the use of this field more exactly.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="AnnotationText" type="TextType" minOccurs="0" maxOccurs="unbounded"> 
@@ -244,6 +244,11 @@
 			<xs:element name="AnnotationValue" type="xs:string" minOccurs="0"> 
 				<xs:annotation>
 					<xs:documentation>AnnotationValue holds a non-localised value for the annotation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="Link" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Link allows for the linking of related resources, including external resources, to the annotation.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -276,24 +281,41 @@
 	</xs:element>
 
 	<xs:complexType name="LinkType">
+		<xs:sequence>
+			<xs:element name="Title" type="TextType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Title provides a human-friendly, multilingual title for the linked resource. The title must be unique for a given language.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
 		<xs:attribute name="rel" type="xs:string" use="required">
 			<xs:annotation>
-				<xs:documentation>The type of object that is being linked to.</xs:documentation>
+				<xs:documentation>The relationship of the object to the linked resource. The value is prefixed with the source of its semantics: sdmx for SDMX artefact types (e.g. sdmx:dataStructure, sdmx:metadataStructure), rfc for the link relation types of RFC 8288 (e.g. rfc:alternate, rfc:copyright, rfc:help), misc for miscellaneous types (misc:calendar for a release calendar, misc:source for information about the source of data), skos for SKOS relationships (e.g. skos:definition, skos:exactMatch), xkos for XKOS relationships (e.g. xkos:generalizes, xkos:precedes), and x for custom extensions (e.g. x:catalog). The relationship rfc:self should not be used for SDMX artefacts, as this is already expressed in their urn.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="url" type="xs:anyURI" use="required">
+		<xs:attribute name="href" type="xs:anyURI" use="optional">
 			<xs:annotation>
-				<xs:documentation>The url of the object being linked.</xs:documentation>
+				<xs:documentation>The href holds a URL with the actual web address of the linked resource. Either href or urn must be provided.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="url" type="xs:anyURI" use="optional">
+			<xs:annotation>
+				<xs:documentation>Deprecated. Use href instead. The url of the object being linked.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="urn" type="xs:anyURI" use="optional">
 			<xs:annotation>
-				<xs:documentation>A SDMX registry urn of the object being linked (if applicable).</xs:documentation>
+				<xs:documentation>The urn holds any valid SDMX Registry URN (see SDMX Registry Specification for details) or any other URN of the linked resource. Either href or urn must be provided.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="type" type="xs:string" use="optional">
 			<xs:annotation>
-				<xs:documentation>The type of link (e.g. PDF, text, HTML, reference metadata).</xs:documentation>
+				<xs:documentation>A hint about the media type of the representation returned by the link (e.g. application/pdf, text/html). See the list of media types assigned by the IANA.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="xml:lang" use="optional">
+			<xs:annotation>
+				<xs:documentation>Indicates the locale of the linked resource, based on the IETF BCP 47 language tag. If this does not exist, the resource is not localised.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -319,7 +341,7 @@
 				</xs:attribute>
 				<xs:attribute name="uri" type="xs:anyURI" use="optional">
 					<xs:annotation>
-						<xs:documentation>The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.</xs:documentation>
+						<xs:documentation>Deprecated. Use Link instead. The uri attribute holds a URI that contains a link to a resource with additional information about the object, such as a web page. This uri is not a SDMX message.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -451,7 +473,7 @@
 	<xs:attributeGroup name="ExternalReferenceAttributeGroup">
 		<xs:attribute name="serviceURL" type="xs:anyURI" use="optional">
 			<xs:annotation>
-				<xs:documentation>The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.</xs:documentation>
+				<xs:documentation>Deprecated. The serviceURL attribute indicates the URL of an SDMX SOAP web service from which the details of the object can be retrieved. Note that this can be a registry or and SDMX structural metadata repository, as they both implement that same web service interface.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="structureURL" type="xs:anyURI" use="optional">

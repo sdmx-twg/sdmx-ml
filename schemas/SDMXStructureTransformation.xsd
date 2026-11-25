@@ -339,7 +339,7 @@
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>
-						<xs:element name="Codelist" type="common:CodelistReferenceType">
+						<xs:element name="Codelist" type="common:GenericCodelistReferenceType">
 							<xs:annotation>
 								<xs:documentation>Deprecated. A VTL Value Domain is mapped to a Codelist through the VtlCodelistMapping element. A reference to the SDMX Codelist that the mapping is defined for. This is used to create a VtlCodelistMapping.</xs:documentation>
 							</xs:annotation>
