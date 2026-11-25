@@ -244,13 +244,14 @@ Element Documentation:
 
 | **Name** | **Type**                     | **Documentation**                                                                                                                                                                                                                                      |
 |----------|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| File     | common:FileDataSourceType    | File describes a static SDMX data file, providing its URL and format. Where more than one file is provided, each file contains the same data in a different format, and the format should be provided for each file.                                   |
+| File     | common:FileDataSourceType    | File describes a static SDMX data file, providing its URL and format. Where more than one file is provided, each file contains the same data in a different format, and the format must be provided for each file.                                   |
 | SdmxApi  | common:SdmxApiDataSourceType | SdmxApi describes a data source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content. |
 
 Identity Constraints:
 
 - Each File must have a distinct url.
-- Each File must have a distinct format.
+- Each File must have a distinct format. Where more than one File is
+  provided, each must have a format (not enforced by the schema).
 - Each SdmxApi must have a distinct combination of entryPoint and
   sdmxApiVersion.
 
@@ -285,13 +286,14 @@ Element Documentation:
 
 | **Name** | **Type**                      | **Documentation**                                                                                                                                                                                                                                          |
 |----------|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| File     | common:FileMetadataSourceType | File describes a static SDMX reference metadata file, providing its URL and format. Where more than one file is provided, each file contains the same reference metadata in a different format, and the format should be provided for each file.           |
+| File     | common:FileMetadataSourceType | File describes a static SDMX reference metadata file, providing its URL and format. Where more than one file is provided, each file contains the same reference metadata in a different format, and the format must be provided for each file.           |
 | SdmxApi  | common:SdmxApiDataSourceType  | SdmxApi describes a metadata source that can be queried using the SDMX-REST API, providing its entry point and the version of the SDMX-REST specification it complies with. Where more than one API is provided, each provides access to the same content. |
 
 Identity Constraints:
 
 - Each File must have a distinct url.
-- Each File must have a distinct format.
+- Each File must have a distinct format. Where more than one File is
+  provided, each must have a format (not enforced by the schema).
 - Each SdmxApi must have a distinct combination of entryPoint and
   sdmxApiVersion.
 
