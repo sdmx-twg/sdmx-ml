@@ -9841,7 +9841,7 @@ Element Documentation:
 | Link        | LinkType              | Allows for the linking of other resources to identifiable objects. For example, if there is reference metadata associated with a structure, a link to the meatadata report can be dynamically inserted in the structure metadata. |
 | Name        | TextType              | Name provides for a human-readable name for the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                                     |
 | Description | TextType              | Description provides for a longer human-readable description of the object. This may be provided in multiple, parallel language-equivalent forms.                                                                                 |
-| Codelist    | CodelistReferenceType | A reference to the SDMX Codelist whose codes are the values of the VTL Value Domain.                                                                                                                                              |
+| Codelist    | GenericCodelistReferenceType | A reference to the SDMX Codelist whose codes are the values of the VTL Value Domain.                                                                                                                                              |
 
 **VtlMappingBaseType:** Deprecated. Replaced by
 VtlDatasetMappingBaseType and VtlCodelistMappingBaseType.

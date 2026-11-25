@@ -259,7 +259,7 @@
 		<xs:complexContent>
 			<xs:extension base="VtlCodelistMappingBaseType">
 				<xs:sequence>
-					<xs:element name="Codelist" type="common:CodelistReferenceType">
+					<xs:element name="Codelist" type="common:GenericCodelistReferenceType">
 						<xs:annotation>
 							<xs:documentation>A reference to the SDMX Codelist whose codes are the values of the VTL Value Domain.</xs:documentation>
 						</xs:annotation>
