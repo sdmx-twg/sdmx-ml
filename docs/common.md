@@ -638,8 +638,8 @@ Attribute Documentation:
 
 | **Name** | **Type**          | **Documentation**                                                                                                                                                |
 |----------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| url      | xs:anyURI         | The url attribute contains the URL of the file.                                                                                                                  |
-| format   | SdmxDataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. The format should be provided when more than one file is registered, in which case at most one file may omit it. |
+| url      | NonEmptyURIType   | The url attribute contains the URL of the file.                                                                                                                  |
+| format   | SdmxDataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. The format must be provided for each file when more than one file is registered. |
 
 **FileMetadataSourceType:** FileMetadataSourceType describes a metadata
 source that is a static reference metadata file, in terms of its
@@ -657,8 +657,8 @@ Attribute Documentation:
 
 | **Name** | **Type**              | **Documentation**                                                                                                                                                        |
 |----------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| url      | xs:anyURI             | The url attribute contains the URL of the file.                                                                                                                          |
-| format   | SdmxMetadataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. The format should be provided when more than one file is registered, in which case at most one file may omit it. |
+| url      | NonEmptyURIType       | The url attribute contains the URL of the file.                                                                                                                          |
+| format   | SdmxMetadataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. The format must be provided for each file when more than one file is registered. |
 
 **SdmxApiDataSourceType:** SdmxApiDataSourceType describes an SDMX-REST
 API, in terms of its entry point and the version of the SDMX-REST
@@ -676,7 +676,7 @@ Attribute Documentation:
 
 | **Name**       | **Type**           | **Documentation**                                                                                                                                         |
 |----------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| entryPoint     | xs:anyURI          | The entryPoint attribute contains the URL of the SDMX-REST API entry point.                                                                               |
+| entryPoint     | NonEmptyURIType    | The entryPoint attribute contains the URL of the SDMX-REST API entry point.                                                                               |
 | sdmxApiVersion | SdmxApiVersionType | The sdmxApiVersion attribute is the version of the SDMX-REST specification supported at this entry point, which determines how queries are formulated.    |
 
 **XHTMLType:** XHTMLType allows for mixed content of text and XHTML
@@ -1306,13 +1306,18 @@ Enumerations:
 |-----------|------------------------------|
 | %         | Indicates a wild card value. |
 
+**NonEmptyURIType:** NonEmptyURIType is a URI that cannot be empty.
+
+Derived by restriction of `xs:anyURI`.  
+Minimum Length: `1`
+
 **SdmxApiVersionType:** SdmxApiVersionType is a version of the
 SDMX-REST specification, expressed as major.minor (e.g. 1.5, 2.0,
 2.1).
 
 Derived by restriction of `xs:string`.  
 Regular Expression Pattern:
-`[1-9][0-9]*\.(0|[1-9][0-9]*)`
+`(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)`
 
 **SdmxDataMediaType:** SdmxDataMediaType is an SDMX data media type, as
 used in the SDMX-REST HTTP Accept header, in the form
