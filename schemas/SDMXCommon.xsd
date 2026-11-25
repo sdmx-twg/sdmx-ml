@@ -1059,10 +1059,10 @@
 
 	<xs:simpleType name="SdmxApiVersionType">
 		<xs:annotation>
-			<xs:documentation>SdmxApiVersionType is a version of the SDMX-REST specification, expressed as either major or major.minor (e.g. 1, 2, 2.1, 2.3).</xs:documentation>
+			<xs:documentation>SdmxApiVersionType is a version of the SDMX-REST specification, expressed as major.minor (e.g. 1.5, 2.0, 2.1).</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:pattern value="[1-9][0-9]*(\.(0|[1-9][0-9]*))?"/>
+			<xs:pattern value="[1-9][0-9]*\.(0|[1-9][0-9]*)"/>
 		</xs:restriction>
 	</xs:simpleType>
 

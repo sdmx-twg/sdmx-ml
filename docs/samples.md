@@ -363,7 +363,7 @@ SDMX-REST APIs; files and APIs cannot be mixed in the same registration:
   Multiple files contain the same content in different formats, so each
   must have a distinct url and format.
 - SdmxApi, with an entryPoint URL, the sdmxApiVersion of the SDMX-REST
-  specification supported, expressed as major or major.minor (e.g. 2 or
+  specification supported, expressed as major.minor (e.g. 1.5 or
   2.1). Multiple APIs provide the same content using different
   versions of the SDMX-REST specification, typically at different entry
   points, so each must have a distinct combination of entryPoint and

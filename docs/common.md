@@ -1307,12 +1307,12 @@ Enumerations:
 | %         | Indicates a wild card value. |
 
 **SdmxApiVersionType:** SdmxApiVersionType is a version of the
-SDMX-REST specification, expressed as either major or major.minor (e.g.
-1, 2, 2.1, 2.3).
+SDMX-REST specification, expressed as major.minor (e.g. 1.5, 2.0,
+2.1).
 
 Derived by restriction of `xs:string`.  
 Regular Expression Pattern:
-`[1-9][0-9]*(\.(0|[1-9][0-9]*))?`
+`[1-9][0-9]*\.(0|[1-9][0-9]*)`
 
 **SdmxDataMediaType:** SdmxDataMediaType is an SDMX data media type, as
 used in the SDMX-REST HTTP Accept header, in the form

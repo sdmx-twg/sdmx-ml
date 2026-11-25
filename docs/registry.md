@@ -263,7 +263,7 @@ Example:
 </Datasource>
 
 <Datasource>
-  <SdmxApi entryPoint="https://example.org/sdmx/v1" sdmxApiVersion="1"/>
+  <SdmxApi entryPoint="https://example.org/sdmx/v1" sdmxApiVersion="1.5"/>
   <SdmxApi entryPoint="https://example.org/sdmx/v2" sdmxApiVersion="2.1"/>
 </Datasource>
 ```
