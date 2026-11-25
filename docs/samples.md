@@ -358,10 +358,11 @@ SDMX-REST APIs; files and APIs cannot be mixed in the same registration:
 - File, with a url and an optional format expressed as an SDMX media
   type using the same syntax as the SDMX-REST HTTP Accept header,
   e.g. application/vnd.sdmx.data+csv;version=2.1.0. The format is
-  optional for compatibility with SDMX 3.0. Data files may be json,
-  xml, csv or parquet; reference metadata files may be json, xml or csv.
-  Multiple files contain the same content in different formats, so each
-  must have a distinct url and format.
+  optional for compatibility with SDMX 3.0, but must be provided for
+  each file when more than one file is registered. Data files may be
+  json, xml, csv or parquet; reference metadata files may be json, xml
+  or csv. Multiple files contain the same content in different formats,
+  so each must have a distinct url and format.
 - SdmxApi, with an entryPoint URL, the sdmxApiVersion of the SDMX-REST
   specification supported, expressed as major.minor (e.g. 1.5 or
   2.1). Multiple APIs provide the same content using different
