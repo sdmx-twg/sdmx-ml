@@ -21,7 +21,7 @@ relation of the schemas to the information model.
 
 ### Structure Namespace
 
-**<http://www.sdmx.org/resources/sdmxml/schemas/v3_1/structure>**
+**<http://www.sdmx.org/resources/sdmxml/schemas/v3_2/structure>**
 
 #### Summary
 
@@ -29,7 +29,7 @@ Referenced Namespaces:
 
 | **Namespace**                                            | **Prefix** |
 |----------------------------------------------------------|------------|
-| <http://www.sdmx.org/resources/sdmxml/schemas/v3_1/common> | common     |
+| <http://www.sdmx.org/resources/sdmxml/schemas/v3_2/common> | common     |
 | <http://www.w3.org/2001/XMLSchema>                         | xs         |
 
 Contents:
