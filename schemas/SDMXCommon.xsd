@@ -1031,38 +1031,89 @@
 		</xs:restriction>
 	</xs:simpleType>
 
-	<xs:complexType name="QueryableDataSourceType">
+	<xs:complexType name="FileDataSourceType">
 		<xs:annotation>
-			<xs:documentation>QueryableDataSourceType describes a data source which is accepts a standard SDMX Query message and responds appropriately.</xs:documentation>
+			<xs:documentation>FileDataSourceType describes a data source that is a static data file, in terms of its URL and its format.</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="DataURL" type="xs:anyURI">
-				<xs:annotation>
-					<xs:documentation>DataURL contains the URL of the data source.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="WSDLURL" type="xs:anyURI" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>WSDLURL provides the location of a WSDL instance on the internet which describes the queryable data source.</xs:documentation>
-				</xs:annotation>
-			</xs:element>	
-			<xs:element name="WADLURL" type="xs:anyURI" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>WADLURL provides the location of a WADL instance on the internet which describes the REST protocol of the queryable data source.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-		<xs:attribute name="isRESTDatasource" type="xs:boolean" use="required">
+		<xs:attribute name="url" type="NonEmptyURIType" use="required">
 			<xs:annotation>
-				<xs:documentation>The isRESTDatasource attribute indicates, if true, that the queryable data source is accessible via the REST protocol.</xs:documentation>
+				<xs:documentation>The url attribute contains the URL of the file.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="isWebServiceDatasource" type="xs:boolean" use="required">
+		<xs:attribute name="format" type="SdmxDataMediaType" use="optional">
 			<xs:annotation>
-				<xs:documentation>The isWebServiceDatasource attribute indicates, if true, that the queryable data source is accessible via Web Services protocols.</xs:documentation>
+				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. The format must be provided for each file when more than one file is registered.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
+
+	<xs:complexType name="FileMetadataSourceType">
+		<xs:annotation>
+			<xs:documentation>FileMetadataSourceType describes a metadata source that is a static reference metadata file, in terms of its URL and its format.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="url" type="NonEmptyURIType" use="required">
+			<xs:annotation>
+				<xs:documentation>The url attribute contains the URL of the file.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="format" type="SdmxMetadataMediaType" use="optional">
+			<xs:annotation>
+				<xs:documentation>The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. The format must be provided for each file when more than one file is registered.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="SdmxApiDataSourceType">
+		<xs:annotation>
+			<xs:documentation>SdmxApiDataSourceType describes an SDMX-REST API, in terms of its entry point and the version of the SDMX-REST specification that the API complies with.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="entryPoint" type="NonEmptyURIType" use="required">
+			<xs:annotation>
+				<xs:documentation>The entryPoint attribute contains the URL of the SDMX-REST API entry point.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="sdmxApiVersion" type="SdmxApiVersionType" use="required">
+			<xs:annotation>
+				<xs:documentation>The sdmxApiVersion attribute is the version of the SDMX-REST specification supported at this entry point, which determines how queries are formulated.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:simpleType name="NonEmptyURIType">
+		<xs:annotation>
+			<xs:documentation>NonEmptyURIType is a URI that cannot be empty.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:anyURI">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SdmxApiVersionType">
+		<xs:annotation>
+			<xs:documentation>SdmxApiVersionType is a version of the SDMX-REST specification, expressed as major.minor (e.g. 1.5, 2.0, 2.1).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SdmxDataMediaType">
+		<xs:annotation>
+			<xs:documentation>SdmxDataMediaType is an SDMX data media type, as used in the SDMX-REST HTTP Accept header, in the form application/vnd.sdmx.data+{format};version={major.minor.patch}, where format is one of json, xml, csv, or parquet (e.g. application/vnd.sdmx.data+json;version=2.1.0).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="application/vnd\.sdmx\.data\+(json|xml|csv|parquet);version=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SdmxMetadataMediaType">
+		<xs:annotation>
+			<xs:documentation>SdmxMetadataMediaType is an SDMX reference metadata media type, as used in the SDMX-REST HTTP Accept header, in the form application/vnd.sdmx.metadata+{format};version={major.minor.patch}, where format is one of json, xml, or csv (e.g. application/vnd.sdmx.metadata+json;version=2.1.0).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="application/vnd\.sdmx\.metadata\+(json|xml|csv);version=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"/>
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:complexType name="XHTMLType" mixed="true">
 		<xs:annotation>

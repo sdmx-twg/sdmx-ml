@@ -632,32 +632,61 @@ Attribute Documentation:
 | startTime | xs:dateTime | The startTime attributes contains the inclusive start date for the reference period. |
 | endTime   | xs:dateTime | The endTime attributes contains the inclusive end date for the reference period.     |
 
-**QueryableDataSourceType:** QueryableDataSourceType describes a data
-source which is accepts an standard SDMX Query message and responds
-appropriately.
+**FileDataSourceType:** FileDataSourceType describes a data source that
+is a static data file, in terms of its URL and its format.
 
 Attributes:
 
-`isRESTDatasource, isWebServiceDatasource`
+`url, format?`
 
 Content:
 
-`DataURL, WSDLURL?, WADLURL?`
+`{Empty}`
 
 Attribute Documentation:
 
-| **Name**               | **Type**   | **Documentation**                                                                                                                 |
-|------------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| isRESTDatasource       | xs:boolean | The isRESTDatasource attribute indicates, if true, that the queryable data source is accessible via the REST protocol.            |
-| isWebServiceDatasource | xs:boolean | The isWebServiceDatasource attribute indicates, if true, that the queryable data source is accessible via Web Services protocols. |
+| **Name** | **Type**          | **Documentation**                                                                                                                                                |
+|----------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| url      | NonEmptyURIType   | The url attribute contains the URL of the file.                                                                                                                  |
+| format   | SdmxDataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.data+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file data source was provided. The format must be provided for each file when more than one file is registered. |
 
-Element Documentation:
+**FileMetadataSourceType:** FileMetadataSourceType describes a metadata
+source that is a static reference metadata file, in terms of its
+URL and its format.
 
-| **Name** | **Type**  | **Documentation**                                                                                                                |
-|----------|-----------|----------------------------------------------------------------------------------------------------------------------------------|
-| DataURL  | xs:anyURI | DataURL contains the URL of the data source.                                                                                     |
-| WSDLURL  | xs:anyURI | WSDLURL provides the location of a WSDL instance on the internet which describes the queryable data source.                      |
-| WADLURL  | xs:anyURI | WADLURL provides the location of a WADL instance on the internet which describes the REST protocol of the queryable data source. |
+Attributes:
+
+`url, format?`
+
+Content:
+
+`{Empty}`
+
+Attribute Documentation:
+
+| **Name** | **Type**              | **Documentation**                                                                                                                                                        |
+|----------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| url      | NonEmptyURIType       | The url attribute contains the URL of the file.                                                                                                                          |
+| format   | SdmxMetadataMediaType | The format attribute is the SDMX media type of the file, using the same syntax as the SDMX-REST HTTP Accept header (e.g. application/vnd.sdmx.metadata+json;version=2.1.0). The format is optional for compatibility with SDMX 3.0, where only the URL of a file metadata source was provided. The format must be provided for each file when more than one file is registered. |
+
+**SdmxApiDataSourceType:** SdmxApiDataSourceType describes an SDMX-REST
+API, in terms of its entry point and the version of the SDMX-REST
+specification that the API complies with.
+
+Attributes:
+
+`entryPoint, sdmxApiVersion`
+
+Content:
+
+`{Empty}`
+
+Attribute Documentation:
+
+| **Name**       | **Type**           | **Documentation**                                                                                                                                         |
+|----------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| entryPoint     | NonEmptyURIType    | The entryPoint attribute contains the URL of the SDMX-REST API entry point.                                                                               |
+| sdmxApiVersion | SdmxApiVersionType | The sdmxApiVersion attribute is the version of the SDMX-REST specification supported at this entry point, which determines how queries are formulated.    |
 
 **XHTMLType:** XHTMLType allows for mixed content of text and XHTML
 tags. When using this type, one will have to provide a reference to the
@@ -1285,6 +1314,39 @@ Enumerations:
 | **Value** | **Documentation**            |
 |-----------|------------------------------|
 | %         | Indicates a wild card value. |
+
+**NonEmptyURIType:** NonEmptyURIType is a URI that cannot be empty.
+
+Derived by restriction of `xs:anyURI`.  
+Minimum Length: `1`
+
+**SdmxApiVersionType:** SdmxApiVersionType is a version of the
+SDMX-REST specification, expressed as major.minor (e.g. 1.5, 2.0,
+2.1).
+
+Derived by restriction of `xs:string`.  
+Regular Expression Pattern:
+`(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)`
+
+**SdmxDataMediaType:** SdmxDataMediaType is an SDMX data media type, as
+used in the SDMX-REST HTTP Accept header, in the form
+application/vnd.sdmx.data+{format};version={major.minor.patch}, where
+format is one of json, xml, csv, or parquet (e.g.
+application/vnd.sdmx.data+json;version=2.1.0).
+
+Derived by restriction of `xs:string`.  
+Regular Expression Pattern:
+`application/vnd\.sdmx\.data\+(json|xml|csv|parquet);version=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)`
+
+**SdmxMetadataMediaType:** SdmxMetadataMediaType is an SDMX reference
+metadata media type, as used in the SDMX-REST HTTP Accept header, in the
+form application/vnd.sdmx.metadata+{format};version={major.minor.patch},
+where format is one of json, xml, or csv (e.g.
+application/vnd.sdmx.metadata+json;version=2.1.0).
+
+Derived by restriction of `xs:string`.  
+Regular Expression Pattern:
+`application/vnd\.sdmx\.metadata\+(json|xml|csv);version=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)`
 
 **CascadeSelectionType:**
 

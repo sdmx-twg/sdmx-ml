@@ -328,3 +328,92 @@ values.
     Setting the maxOccurs XML attribute to a number greater than 1 (or
     unbounded) on the `<str:LocalRepresentation…>` element specifies an
     array.
+
+## Registry Samples
+
+The Registry Samples illustrate the registration of data and reference
+metadata sources:
+
+- New registrations, and changes to existing registrations, are
+  submitted to a registry using the RegistryInterface
+  SubmitRegistrationsRequest message, where each registration request
+  carries the action to be taken (e.g. Append, Replace or Delete). The
+  registry replies with a SubmitRegistrationsResponse.
+- Registrations are returned in response to an SDMX-REST registration
+  query using the Registration message. Its payload is a Registrations
+  container, equivalent to Structures in the Structure message, with
+  separate DataRegistrations and MetadataRegistrations collections.
+
+A registration is either a DataRegistration or a MetadataRegistration:
+
+- A DataRegistration references exactly one of a ProvisionAgreement,
+  Dataflow or DataStructure, and provides a Datasource.
+- A MetadataRegistration references exactly one of a
+  MetadataProvisionAgreement, Metadataflow or MetadataStructure, and
+  provides a MetadataSource.
+
+In both cases the source is either one or more files, or one or more
+SDMX-REST APIs; files and APIs cannot be mixed in the same registration:
+
+- File, with a url and an optional format expressed as an SDMX media
+  type using the same syntax as the SDMX-REST HTTP Accept header,
+  e.g. application/vnd.sdmx.data+csv;version=2.1.0. The format is
+  optional for compatibility with SDMX 3.0, but must be provided for
+  each file when more than one file is registered. Data files may be
+  json, xml, csv or parquet; reference metadata files may be json, xml
+  or csv. Multiple files contain the same content in different formats,
+  so each must have a distinct url and format.
+- SdmxApi, with an entryPoint URL, the sdmxApiVersion of the SDMX-REST
+  specification supported, expressed as major.minor (e.g. 1.5 or
+  2.1). Multiple APIs provide the same content using different
+  versions of the SDMX-REST specification, typically at different entry
+  points, so each must have a distinct combination of entryPoint and
+  sdmxApiVersion.
+
+The lastUpdated timestamp of a registration of files records when the
+content of the files was last updated. For a registration of APIs, where
+the content can change behind the API, it records when the registration
+itself was last changed.
+
+Registrations are identified by a registry assigned id. The id is
+omitted when submitting a new registration, and must be provided when
+replacing or deleting one. In a Registration message, ids must be unique
+across all data and reference metadata registrations.
+
+### Registration
+
+??? example "submit_registrations_request.xml"
+
+    A SubmitRegistrationsRequest containing seven registration requests,
+    illustrating each kind of reference and each kind of source:
+
+    - A data registration against a provision agreement, with the same data
+      published as SDMX-CSV, SDMX-JSON and SDMX-ML files.
+    - A data registration against a dataflow, with SDMX-REST API v1 and v2
+      entry points.
+    - A data registration against a data structure definition, with an
+      SDMX-Parquet file source.
+    - A reference metadata registration against a metadata provision
+      agreement, with the same metadata published as SDMX-JSON and SDMX-CSV
+      files.
+    - A reference metadata registration against a metadataflow, with an
+      SDMX-REST API source.
+    - A replacement of an existing reference metadata registration
+      (identified by its registry assigned id) against a metadata structure
+      definition, with an SDMX-ML file source.
+    - A data registration against a provision agreement, with a file source
+      that omits the optional format, as would be the case for a
+      registration migrated from SDMX 3.0.
+
+??? example "submit_registrations_response.xml"
+
+    A SubmitRegistrationsResponse echoing submitted registrations. The
+    successful registrations have been assigned an id by the registry,
+    while the failed registration carries an error message.
+
+??? example "registrations.xml"
+
+    A Registration message, as returned in response to an SDMX-REST
+    registration query, containing data and reference metadata registrations
+    as held by the registry. Each registration carries its registry assigned
+    id and lastUpdated timestamp.

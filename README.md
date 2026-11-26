@@ -7,6 +7,7 @@ This includes:
 * Samples for core structures including Data Structure Definition, Code List and Concept Scheme
 * Samples illustrating VTL and geospatial structures
 * Data message samples
+* Registry interface samples for data and reference metadata registration
 
 To test the samples, copy the ‘samples’ and ‘schemas’ folders into the same local directory.
 
