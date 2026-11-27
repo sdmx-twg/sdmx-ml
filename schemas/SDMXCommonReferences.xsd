@@ -97,6 +97,8 @@
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
+			<xs:pattern value=".+\.transformation\.VtlExecution=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlMappingScheme=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -788,7 +790,7 @@
 
 	<xs:simpleType name="CustomTypeUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a custom type.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a custom type.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.CustomType=.+"/>
@@ -797,7 +799,7 @@
 
 	<xs:simpleType name="CustomTypeSchemeUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a custom type scheme.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a custom type scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnType">
 			<xs:pattern value=".+\.transformation\.CustomTypeScheme=.+"/>
@@ -806,7 +808,7 @@
 
 	<xs:simpleType name="NamePersonalisationUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a name personalisation.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a name personalisation.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisation=.+"/>
@@ -815,7 +817,7 @@
 
 	<xs:simpleType name="NamePersonalisationSchemeUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a name personalisation scheme.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type for a name personalisation scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisationScheme=.+"/>
@@ -876,9 +878,36 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="VtlCodelistMappingUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a VTL codelist mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnType">
+			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="VtlDatasetMappingUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a VTL dataset mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnType">
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="VtlExecutionUrnType">
+		<xs:annotation>
+			<xs:documentation>Urn type for a VTL execution.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnType">
+			<xs:pattern value=".+\.transformation\.VtlExecution=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="VtlMappingUrnType">
 		<xs:annotation>
-			<xs:documentation>Urn type for a VTL mapping.</xs:documentation>
+			<xs:documentation>Deprecated. Urn type of the deprecated VtlMapping element, for a VtlCodelistMapping or one of the deprecated VtlConceptMapping and VtlDataflowMapping classes; the VtlDatasetMapping and VtlCodelistMapping elements use the VtlDatasetMappingUrnType and the VtlCodelistMappingUrnType.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnType">
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
@@ -974,6 +1003,16 @@
 		<xs:restriction base="MaintainableUrnReferenceType">
 			<xs:pattern value=".+\.registry\.DataConstraint=.+"/>
 			<xs:pattern value=".+\.registry\.MetadataConstraint=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="DataflowOrProvisionAgreementReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a dataflow or a provision agreement.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnReferenceType">
+			<xs:pattern value=".+\.datastructure\.Dataflow=.+"/>
+			<xs:pattern value=".+\.registry\.ProvisionAgreement=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1497,7 +1536,7 @@
 
 	<xs:simpleType name="CustomTypeReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a custom type.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a custom type.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.CustomType=.+"/>
@@ -1506,7 +1545,7 @@
 
 	<xs:simpleType name="CustomTypeSchemeReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a custom type scheme.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a custom type scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.CustomTypeScheme=.+"/>
@@ -1515,7 +1554,7 @@
 
 	<xs:simpleType name="NamePersonalisationReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a name personalisation.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a name personalisation.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisation=.+"/>
@@ -1524,7 +1563,7 @@
 
 	<xs:simpleType name="NamePersonalisationSchemeReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a name personalisation scheme.</xs:documentation>
+			<xs:documentation>Deprecated. A reference type for a name personalisation scheme.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="MaintainableUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.NamePersonalisationScheme=.+"/>
@@ -1585,14 +1624,42 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="VtlCodelistMappingReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a VTL codelist mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnReferenceType">
+			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="VtlDatasetMappingReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a VTL dataset mapping.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ComponentUrnReferenceType">
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="VtlExecutionReferenceType">
+		<xs:annotation>
+			<xs:documentation>A reference type for a VTL execution.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="MaintainableUrnReferenceType">
+			<xs:pattern value=".+\.transformation\.VtlExecution=.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="VtlMappingReferenceType">
 		<xs:annotation>
-			<xs:documentation>A reference type for a VTL mapping.</xs:documentation>
+			<xs:documentation>A reference type for a VTL mapping. The VtlConceptMapping and VtlDataflowMapping classes are deprecated.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ComponentUrnReferenceType">
 			<xs:pattern value=".+\.transformation\.VtlCodelistMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlConceptMapping=.+"/>
 			<xs:pattern value=".+\.transformation\.VtlDataflowMapping=.+"/>
+			<xs:pattern value=".+\.transformation\.VtlDatasetMapping=.+"/>
 		</xs:restriction>
 	</xs:simpleType>
 

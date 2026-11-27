@@ -385,7 +385,7 @@
 					</xs:element>
 					<xs:element name="NamePersonalisationScheme" type="VersionableObjectEventType">
 						<xs:annotation>
-							<xs:documentation>NamePersonalisationScheme is used to subscribe to changes of a name peronsalisation scheme. The maintenance agencies of the object are those identified in the AgencyID collection, effectively making separate version of this query for each agency specified. The agency is ignored if the content of this is a URN, which references an explicit object. Otherwise, either all objects of this type or specific object according to the id and version fields can be selected.</xs:documentation>
+							<xs:documentation>Deprecated. The name personalisation schemes are deprecated in SDMX 3.2. NamePersonalisationScheme is used to subscribe to changes of a name peronsalisation scheme. The maintenance agencies of the object are those identified in the AgencyID collection, effectively making separate version of this query for each agency specified. The agency is ignored if the content of this is a URN, which references an explicit object. Otherwise, either all objects of this type or specific object according to the id and version fields can be selected.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="RulesetScheme" type="VersionableObjectEventType">

@@ -154,7 +154,7 @@
         </str:VtlMapping>
         <str:VtlMapping alias="DF31" id="VTLM2">
           <com:Name xml:lang="en">VTL Mapping #2</com:Name>
-          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:D31(1.0)</str:Dataflow>
+          <str:Dataflow>urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=SDMX:DF31(1.0)</str:Dataflow>
           <str:ToVtlMapping>
             <str:ToVtlSubSpace>
               <str:Key>INDICATOR</str:Key>

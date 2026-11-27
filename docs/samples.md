@@ -203,7 +203,7 @@ artefacts.
 
 ### VTL Transformations
 
-??? example "VTL Sample 1.xml"
+??? example "deprecated-VTL Sample 1.xml"
 
     Illustrates the use of VTL Rulesets to validate an SDMX
     dataflow. The validation process adds additional identifiers and
@@ -216,7 +216,15 @@ artefacts.
     high-severity validation errors and persists the result back to a SDMX
     dataflow using VTL mappings.
 
-??? example "VTL Sample 2.xml"
+    This sample uses constructs deprecated in SDMX 3.2: the VtlMapping
+    element, with its mapping methods and concept mappings, the name
+    personalisation scheme and the reference from the ruleset scheme to
+    the VTL mapping scheme. Their representation in SDMX 3.2 is described
+    in the section "Conversion of definitions based on deprecated
+    constructs" of the chapter on the Validation and Transformation
+    Language of the SDMX Technical Notes.
+
+??? example "deprecated-VTL Sample 2.xml"
 
     Illustrates aggregation of an SDMX dataflow using VTL
     hierarchical rulesets, filtering and user defined operators.
@@ -226,11 +234,158 @@ artefacts.
     subsequently applied to calculate a percentage measure with the final
     persistent result mapped from VTL to a SDMX dataflow.
 
-??? example "VTL Sample 3.xml"
+    This sample uses constructs deprecated in SDMX 3.2: the VtlMapping
+    element, with its mapping methods and concept mappings, the custom
+    type scheme and the reference from the ruleset scheme to the VTL
+    mapping scheme. Their representation in SDMX 3.2 is described in the
+    section "Conversion of definitions based on deprecated constructs" of
+    the chapter on the Validation and Transformation Language of the SDMX
+    Technical Notes.
+
+??? example "deprecated-VTL Sample 3.xml"
 
     Illustrates the calculation of a GDP per capita dataset
     from an input mapped SDMX dataflow containing GDP and population
     indicators on a country by country basis.
+
+    This sample uses constructs deprecated in SDMX 3.2: the VtlMapping
+    element with the subspace and superspace of the mapped dataflows, and
+    the references to their parts in the VTL statements (ordered
+    concatenation notation). Their representation in SDMX 3.2 is
+    described in the section "Conversion of definitions based on
+    deprecated constructs" of the chapter on the Validation and
+    Transformation Language of the SDMX Technical Notes.
+
+??? example "VTL Sample 4.xml"
+
+    Illustrates the mapping of VTL Data Sets to SDMX artefacts and the
+    retrieval of their data, introduced in SDMX 3.2.
+
+    The transformation scheme EXAMPLE:TS_DIFF calculates the difference between
+    two dataflows (`ds_diff <- ds_a - ds_b`). Its VTL mapping scheme maps
+    the inputs ds_a and ds_b and the output ds_diff to dataflows through
+    VtlDatasetMappings, whose isInput attribute gives the direction of the
+    mapping. Under the Basic mapping, the dimensions become VTL Identifiers
+    and the measure a VTL Measure.
+
+    The VtlExecution EXAMPLE:EXEC_DIFF specifies how the data of the inputs are
+    retrieved: a QueryExtraction for ds_a, which queries a web service
+    implementing version 1.5 of the SDMX REST API with a fixed key and a
+    default start period that can be overridden at run time, and a
+    UrlExtraction for ds_b, whose URL template contains tokens replaced by
+    the values of the query parameters.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
+??? example "VTL Sample 5.xml"
+
+    Illustrates two VTL Data Sets mapped to the same Data Structure
+    Definition, and two executions of the same transformation scheme.
+
+    The transformation scheme SDMX:TS_POPRATIO calculates the ratio between
+    the male and the female population (`ratio <- pop_m [ sub SEX = "M" ] /
+    pop_f [ sub SEX = "F" ]`), where pop_m and pop_f are both mapped to the
+    Data Structure Definition SDMX:POP. The VtlExecution SDMX:EXEC_POPRATIO
+    retrieves their data from a web service implementing version 2.1 of the
+    SDMX REST API, with a different fixed key for each input and a default
+    filter on the time period. The VtlExecution EXAMPLE:EXEC_POPRATIO,
+    maintained by the Example Agency, executes the same transformation
+    scheme on the data of its own dataflow EXAMPLE:DF_POP, which uses the
+    same Data Structure Definition, by setting it as the Context of its
+    query extractions.
+
+    OBS_VALUE is an Integer with minValue 0 in the population data (VTL
+    integer) and a Double with minValue 0 in the ratio (VTL number, as the
+    division of two integers is a number). TIME_PERIOD is a GregorianYear
+    (VTL date) with startTime 1950.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
+??? example "VTL Sample 6.xml"
+
+    Illustrates a VTL 2.2 program using a VTL Value Domain and a viral
+    propagation.
+
+    A VtlCodelistMapping maps the VTL Value Domain cl_area to the code list
+    SDMX:CL_AREA(2.0), which is used to select the data points whose
+    reference area is not valid. The ruleset scheme referenced by the
+    transformation scheme contains a viral propagation (rulesetType
+    "viral") for OBS_STATUS, which makes it a viral VTL Attribute: the `+`
+    operator keeps it and combines its values, so that the result has the
+    data structure of the output dataflow.
+
+    The sample has no VtlExecution, which is optional: the data of the
+    inputs are then provided to the VTL engine at run time.
+
+    REF_AREA is not coded in the data structure definition: it is an Alpha
+    string of two letters (minLength and maxLength 2), whose values the
+    program checks against the code list.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
+??? example "VTL Sample 7.xml"
+
+    Illustrates the three types of VTL rulesets.
+
+    The ruleset scheme EXAMPLE:RS_POP contains a datapoint ruleset defined
+    on the Variables OBS_VALUE and OBS_STATUS (DPR_VALUE), a hierarchical
+    ruleset defined on the VTL Value Domain cl_area, which a
+    VtlCodelistMapping maps to the code list EXAMPLE:CL_AREA (HR_BENELUX),
+    and a viral propagation for OBS_STATUS (VP_OBS_STATUS, rulesetType
+    "viral", introduced in VTL 2.2).
+
+    The transformation scheme EXAMPLE:TS_POP_CHECKS validates the
+    population data with `check_datapoint`, whose result (all_measures)
+    contains, for each data point and rule, the population (an Integer),
+    the boolean outcome of the rule (BOOL_VAR, a Boolean measure) and, when
+    the rule is not satisfied, its error code and error level, restricted
+    by the facets maxLength, minValue and maxValue. It also calculates the
+    Benelux aggregate with `hierarchy`, which combines the values of
+    OBS_STATUS through the viral propagation.
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
+??? example "VTL Sample 8.xml"
+
+    Illustrates user defined operators.
+
+    The user defined operator scheme EXAMPLE:UDO_TRADE defines
+    trade_balance, share and export_share, which invokes share. The
+    transformation scheme EXAMPLE:TS_TRADE references it and calculates the
+    trade balance and the share of the exports in the trade from the
+    dataflows of exports and imports. As export_share invokes share, the
+    scheme contains both: the user defined operator schemes of a
+    transformation scheme must contain all the operators used by its
+    transformations, also indirectly.
+
+    The amounts are Decimals with two decimals (VTL number), by
+    ReportingTimePeriod (VTL time_period).
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
+
+??? example "VTL Sample 9.xml"
+
+    Illustrates VTL Data Sets whose names are written between single quotes
+    in the VTL statements.
+
+    The aliases power and diff coincide with VTL keywords, so the
+    transformation scheme EXAMPLE:TS_ENERGY writes them between single
+    quotes (`'diff' <- 'power' - consumption`), while their vtlAlias
+    contains the name without the quotes. The regular name consumption is
+    written without quotes in one statement and with quotes in the other
+    (`'power' / 'consumption' * 100`): both forms denote the same VTL Data
+    Set, and the VTL engines identify the mapped dataflow in both cases.
+
+    The amounts are Decimals with one decimal (VTL number), by
+    GregorianYearMonth (VTL date).
+
+    The SDMX and EXAMPLE agencies used in the sample are declared in the
+    SDMX agency scheme included in the message.
 
 ## Data Samples
 
