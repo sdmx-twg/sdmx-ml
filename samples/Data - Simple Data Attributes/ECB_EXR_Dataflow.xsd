@@ -4474,12 +4474,16 @@
                 <xs:sequence>
                     <xs:element ref="common:Annotations" minOccurs="0"/>
                 </xs:sequence>
-                <xs:attribute name="FREQ" type="CL_FREQ" use="required"/>
-                <xs:attribute name="CURRENCY" type="CL_CURRENCY" use="required"/>
-                <xs:attribute name="CURRENCY_DENOM" type="CL_CURRENCY_DENOM" use="required"/>
-                <xs:attribute name="EXR_TYPE" type="CL_EXR_TYPE" use="required"/>
-                <xs:attribute name="EXR_SUFFIX" type="CL_EXR_SUFFIX" use="required"/>
+                <xs:attribute name="FREQ" type="CL_FREQ" use="optional"/>
+                <xs:attribute name="CURRENCY" type="CL_CURRENCY" use="optional"/>
+                <xs:attribute name="CURRENCY_DENOM" type="CL_CURRENCY_DENOM" use="optional"/>
+                <xs:attribute name="EXR_TYPE" type="CL_EXR_TYPE" use="optional"/>
+                <xs:attribute name="EXR_SUFFIX" type="CL_EXR_SUFFIX" use="optional"/>
                 <xs:attribute name="TIME_FORMAT" type="TIME_FORMAT" use="optional"/>
+                <xs:attribute name="OBS_STATUS" type="CL_OBS_STATUS" use="optional"/>
+                <xs:attribute name="OBS_CONF" type="CL_OBS_CONF" use="optional"/>
+                <xs:attribute name="OBS_PRE_BREAK" type="OBS_PRE_BREAK" use="optional"/>
+                <xs:attribute name="OBS_COM" type="OBS_COM" use="optional"/>
                 <xs:attribute name="BREAKS" type="BREAKS" use="optional"/>
                 <xs:attribute name="COLLECTION" type="CL_COLLECTION" use="optional"/>
                 <xs:attribute name="COMPILING_ORG" type="CL_COMPILING_ORG" use="optional"/>
@@ -4500,7 +4504,7 @@
                 <xs:attribute name="UNIT" type="CL_UNIT" use="optional"/>
                 <xs:attribute name="UNIT_MULT" type="CL_UNIT_MULT" use="optional"/>
                 <xs:attribute name="REPORTING_YEAR_START_DAY" type="xs:gMonthDay" use="prohibited"/>
-                <xs:attribute name="TIME_PERIOD" type="TIME_PERIOD" use="required"/>
+                <xs:attribute name="TIME_PERIOD" type="TIME_PERIOD" use="optional"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>

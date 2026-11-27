@@ -252,7 +252,7 @@
 
 	<xs:complexType name="GeoCodelistBaseType" abstract="true">
 		<xs:annotation>
-			<xs:documentation>GeoCodelistBaseType is an abstract base refinement of a codelist that restricts the cods to be derived from the abstract GeoRefCode.</xs:documentation>
+			<xs:documentation>GeoCodelistBaseType is an abstract base refinement of a codelist that restricts the codes to be derived from the abstract GeoRefCode.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="GenericCodelistType">
